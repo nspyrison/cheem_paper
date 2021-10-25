@@ -1,0 +1,123 @@
+---
+title: "Methods for understanding the variable importance of local explanations of black-box models"
+# author:
+#   - name: Nicholas Spyrison
+#     address: |
+#       | Monash University
+#       | Faculty of Information Technology
+#       | ORCiD: 0000-0002-8417-0212
+#     email: \email{nicholas.spyrison@monash.edu}
+#     orcid: 0000-0002-8417-0212
+#   - name: Dianne Cook
+#     affiliation: Monash University
+#     address: |
+#       | ORCiD: 000-0002-3813-7155
+#     orcid: 000-0002-3813-7155
+#   - name: Kimbal Marriott
+#     affiliation: Monash University
+#     address: |
+#       | ORCiD: 0000-0002-9813-0377
+#     orcid: 0000-0002-9813-0377
+# keywords:
+#   formatted: [XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, DR, dimension reduction, R]
+#   plain:     [XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, DR, dimension reduction, R]
+bibliography: cheem_paper.bib
+abstract: |
+  ABSTRACT NEEDED
+# documentclass: jdssv
+# classoption: article
+output:
+  bookdown::pdf_document2:
+    keep_tex: true
+    toc: false
+    #template: template/jdssv_template.tex
+    number_sections: yes
+    fig_caption: yes
+appendix:
+  # - "appendix-1.Rmd"
+# title:
+#   formatted: "Methods for understanding the variable importance of local explanations of black-box models"
+#   plain:     "Methods for understanding the variable importance of local explanations of black-box models"
+#   short:     "Use of the manual tour to visually interrogate local explanations"
+editor_options:
+  chunk_output_type: console
+urlcolor: blue
+linkcolor: red
+header-includes:
+ - \usepackage{setspace} ### for title page spacing
+ - \usepackage{hyperref} ### for all sorts of linking
+ - \usepackage{graphicx} ### to insert Monash crest
+---
+```{r include=FALSE, cache=FALSE}
+require("knitr")
+require("kableExtra")
+require("magrittr")
+## Work packages
+require("cheem")
+require("spinifex")
+## chunk options
+knitr::opts_chunk$set(
+  fig.align = "center",
+  echo = FALSE, ## Code
+  collapse = TRUE,
+  message = FALSE,
+  warning = FALSE,
+  error = FALSE,
+  cache = TRUE,
+  cache.lazy = FALSE)
+```
+
+<!-- # cheat sheet {#sec:cheatsheet} -->
+<!-- A bib reference [@wickham_visualizing_2015]. -->
+<!-- A [Section intro](#sec:cheatsheet) reference, alternatively, section ef{sec:intro} (with no @; \\ref{sec:intro}). -->
+<!-- ```{r crest, echo=FALSE, out.height = "10%", out.width = "10%", fig.cap = "A caption for crest figure"} -->
+<!-- knitr::include_graphics("./figures/crest.jpg") -->
+<!-- ``` -->
+<!-- A figure \@ref(fig:crest) reference (with @; \\@ref(fig:crest). -->
+<!-- ref:myFig-cap) Separate caption created above the R chunk -->
+<!-- ```{r step2, echo=F, fig.cap = "(ref:myFig-cap)"} -->
+<!-- knitr::include_graphics("./figures/crest.jpg") -->
+<!-- ``` -->
+
+<!-- GENERAL STRUCTURE:: -->
+<!-- -- couple pages of general intro -->
+<!-- -- tie into XAI -->
+<!-- -- explain tour & manual tour -->
+<!-- -- example: details on SHAP values -->
+<!-- -- what you could learn about from classification and what from regression -->
+<!-- -- section on software/interface: -->
+
+# Abstract
+
+Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. The lack of transparency in such models has actualized as research toward explainable AI (XAI). While there are 
+
+# Introduction {#sec:intro}
+<!-- WHAT TOPICS, and ISSUES addressed (motivation) -->
+## MODELING
+## XAI & interpretability crisis
+## Local explanations
+## Data visualization tours
+
+# SHAP local explanation
+## Variable importance, permuting over the X's included
+## Visualizing and break down plots
+
+# Interrogate variable imporances of the local explanations: Cheem
+## RF model
+## shap matrix
+## Linked global approximations of data and local explanations
+## Applcation of the manual tour to
+
+# Design of cheem
+## 1) Penguins speicies classification
+## 2) FIFA wage regression 
+## 3)?
+## 4)?
+
+# Software Infrastructure
+
+# Discsussion
+
+# Acknoledgements
+
+# References

@@ -23,7 +23,7 @@ title: "Methods for understanding the variable importance of local explanations 
 #   plain:     [XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, DR, dimension reduction, R]
 bibliography: cheem_paper.bib
 abstract: |
-  ABSTRACT NEEDED
+  Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. In such models, increased predictive power comes at the cost of opaque factor analysis, which has led to the field of explainable AI (XAI). XAI attempts to shed light on these models, one such approach is the use of local explanations. A local explanation of a model give a point-estimate of linear variable importance in the vicinity of one observation. We extract explanations for each observation, and approximate data and this attribution space side-by-side with linked brushing. After identifying an observation of interest its local explanation is used as a 1D projection basis. We then manipulate the magnitude of the variable contributions with a technique called the tour. This tour animates many projections over small changes in the projection basis. Doing so allows a user to visually explore the data space through the lens of this local explanation and interrogate its variable importance. The implementation of our framework is available as an R package called cheem available at [github.com/nspyrison/cheem](https://github.com/nspyrison/cheem).
 # documentclass: jdssv
 # classoption: article
 output:
@@ -87,9 +87,6 @@ knitr::opts_chunk$set(
 <!-- -- what you could learn about from classification and what from regression -->
 <!-- -- section on software/interface: -->
 
-# Abstract
-
-Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. The lack of transparency in such models has actualized as research toward explainable AI (XAI). While there are 
 
 # Introduction {#sec:intro}
 <!-- WHAT TOPICS, and ISSUES addressed (motivation) -->
@@ -105,16 +102,21 @@ Artificial Intelligence (AI) has seen a revitalization in recent years from the 
 # Interrogate variable imporances of the local explanations: Cheem
 ## RF model
 ## shap matrix
-## Linked global approximations of data and local explanations
-## Applcation of the manual tour to
+## Linked global approximations of data and local attribution spaces
+## Applcation of the manual tour to intterogate local explanations
+## Classification task
+## Regression task
 
-# Design of cheem
+# Application Design
 ## 1) Penguins speicies classification
-## 2) FIFA wage regression 
+## 2) FIFA wage regression
 ## 3)?
 ## 4)?
 
 # Software Infrastructure
+## Extend spinifex, consume DALEX & treeshap
+## Preprocess
+## Runtime rendering
 
 # Discsussion
 

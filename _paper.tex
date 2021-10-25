@@ -38,7 +38,6 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Methods for understanding the variable importance of local explanations of black-box models},
-  pdfkeywords={blah, blah},
   colorlinks=true,
   linkcolor=red,
   filecolor=Maroon,
@@ -96,17 +95,14 @@
 \fi
 
 \title{Methods for understanding the variable importance of local explanations of black-box models}
-\author{true \and true}
-\date{}
+\author{}
+\date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-ABSTRACT NEEDED
+Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. In such models, increased predictive power comes at the cost of opaque factor analysis, which has led to the field of explainable AI (XAI). XAI attempts to shed light on these models, one such approach is the use of local explanations. A local explanation of a model give a point-estimate of linear variable importance in the vicinity of one observation. We extract explanations for each observation, and approximate data and this attribution space side-by-side with linked brushing. After identifying an observation of interest its local explanation is used as a 1D projection basis. We then manipulate the magnitude of the variable contributions with a technique called the tour. This tour animates many projections over small changes in the projection basis. Doing so allows a user to visually explore the data space through the lens of this local explanation and interrogate its variable importance. The implementation of our framework is available as an R package called cheem available at \href{https://github.com/nspyrison/cheem}{github.com/nspyrison/cheem}.
 \end{abstract}
-
-\hypertarget{abstract}{%
-\section{Abstract}\label{abstract}}
 
 \hypertarget{sec:intro}{%
 \section{Introduction}\label{sec:intro}}
@@ -141,14 +137,20 @@ ABSTRACT NEEDED
 \hypertarget{shap-matrix}{%
 \subsection{shap matrix}\label{shap-matrix}}
 
-\hypertarget{linked-global-approximations-of-data-and-local-explanations}{%
-\subsection{Linked global approximations of data and local explanations}\label{linked-global-approximations-of-data-and-local-explanations}}
+\hypertarget{linked-global-approximations-of-data-and-local-attribution-spaces}{%
+\subsection{Linked global approximations of data and local attribution spaces}\label{linked-global-approximations-of-data-and-local-attribution-spaces}}
 
-\hypertarget{applcation-of-the-manual-tour-to}{%
-\subsection{Applcation of the manual tour to}\label{applcation-of-the-manual-tour-to}}
+\hypertarget{applcation-of-the-manual-tour-to-intterogate-local-explanations}{%
+\subsection{Applcation of the manual tour to intterogate local explanations}\label{applcation-of-the-manual-tour-to-intterogate-local-explanations}}
 
-\hypertarget{design-of-cheem}{%
-\section{Design of cheem}\label{design-of-cheem}}
+\hypertarget{classification-task}{%
+\subsection{Classification task}\label{classification-task}}
+
+\hypertarget{regression-task}{%
+\subsection{Regression task}\label{regression-task}}
+
+\hypertarget{application-design}{%
+\section{Application Design}\label{application-design}}
 
 \hypertarget{penguins-speicies-classification}{%
 \subsection{1) Penguins speicies classification}\label{penguins-speicies-classification}}
@@ -164,6 +166,15 @@ ABSTRACT NEEDED
 
 \hypertarget{software-infrastructure}{%
 \section{Software Infrastructure}\label{software-infrastructure}}
+
+\hypertarget{extend-spinifex-consume-dalex-treeshap}{%
+\subsection{Extend spinifex, consume DALEX \& treeshap}\label{extend-spinifex-consume-dalex-treeshap}}
+
+\hypertarget{preprocess}{%
+\subsection{Preprocess}\label{preprocess}}
+
+\hypertarget{runtime-rendering}{%
+\subsection{Runtime rendering}\label{runtime-rendering}}
 
 \hypertarget{discsussion}{%
 \section{Discsussion}\label{discsussion}}

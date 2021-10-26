@@ -93,6 +93,26 @@
 \ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Methods for understanding the variable importance of local explanations of black-box models}
 \author{}
@@ -107,20 +127,24 @@ Artificial Intelligence (AI) has seen a revitalization in recent years from the 
 \hypertarget{sec:intro}{%
 \section{Introduction}\label{sec:intro}}
 
-\hypertarget{modeling}{%
-\subsection{MODELING}\label{modeling}}
+Mathematically rigorous approaches to predictive modeling are attributed to the method of least squares, over two centuries ago by Legendre and Gauss in 1805 and 1809 respectively. In 1886 Francis Galton coined the term \emph{regression} to refer to continuous, quantitative predictions. While \emph{classification} refers discretion predictions as introduced by Fisher in 1936.
 
-\hypertarget{xai-interpretability-crisis}{%
-\subsection{XAI \& interpretability crisis}\label{xai-interpretability-crisis}}
+Breiman and Shmueli (\textbf{shmueli\_explain\_2010?}) introduce the idea of distinguishing modeling based on its purpose; \emph{explanatory} modeling is done for some inferential purpose such as hypothesis testing, while \emph{predictive} modeling is performed for to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
 
-\hypertarget{local-explanations}{%
-\subsection{Local explanations}\label{local-explanations}}
+Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues (\textbf{kodiyan\_overview\_2019?}). Applications have been known to reflect common biases against sex (\textbf{duffy\_apple\_2019?}), race (\textbf{larson\_how\_2016?}), and age (\textbf{diaz\_addressing\_2018?}). This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions (\textbf{salzberg\_why\_2014?}). Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI Arrieta et al. (2020).
 
-\hypertarget{data-visualization-tours}{%
-\subsection{Data visualization tours}\label{data-visualization-tours}}
+One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate a linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
 
-\hypertarget{shap-local-explanation}{%
-\section{SHAP local explanation}\label{shap-local-explanation}}
+However, to illustrate our work we apply the model-agnostic explanation SHAP (\textbf{strumbelj\_explaining\_2014?}). The exact details of SHAP are tangent to the ideas of this work, but suffice it to say that SHAP approximates variable importance by taking the median importance over permutations of the explanatory variables. To be exact we apply a variant that enjoys a lower computational complexity, known as tree SHAP (\textbf{lundberg\_consistent\_2018?}).
+
+In multivariate data visualization a \emph{tour} Lee et al. (2021) is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a \emph{manual} tour Spyrison and Dianne Cook (2020) this path is defined by changing the contribution of a selected variable. Applying tours in conjunction with models has been previously done, \emph{ie} for exploring various statistical model fits (\textbf{wickham\_removing\_2015?}), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path (\textbf{da\_silva\_projection\_2021?}).
+
+The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package \texttt{cheem} with an interactive application to facilitate analysis. By viewing approximations of data- and attribution- space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
+
+The rest of paper is organized as follows. The next section \protect\hyperlink{sec:SHAP}{SHAP} covers the background of the local explanation SHAP and the traditional visuals produced from it. The section \protect\hyperlink{sec:applicationdesign}{Application Design} discusses the layout of the application, how it facilitates analysis. Following that, \protect\hyperlink{sec:softwareinfrastructure}{Software Instructure} discusses the backend details of the package and preprocessing. The section \protect\hyperlink{sec:casestudies}{Case Studies} illustrates several applications of this method. We conlude with \protect\hyperlink{sec:discussion}{Discussion} of the insights we draw from classification and regression tasks.
+
+\hypertarget{sec:SHAP}{%
+\section{SHAP local explanation}\label{sec:SHAP}}
 
 \hypertarget{variable-importance-permuting-over-the-xs-included}{%
 \subsection{Variable importance, permuting over the X's included}\label{variable-importance-permuting-over-the-xs-included}}
@@ -128,29 +152,38 @@ Artificial Intelligence (AI) has seen a revitalization in recent years from the 
 \hypertarget{visualizing-and-break-down-plots}{%
 \subsection{Visualizing and break down plots}\label{visualizing-and-break-down-plots}}
 
-\hypertarget{interrogate-variable-imporances-of-the-local-explanations-cheem}{%
-\section{Interrogate variable imporances of the local explanations: Cheem}\label{interrogate-variable-imporances-of-the-local-explanations-cheem}}
+\hypertarget{sec:applicationdesign}{%
+\section{Application Design}\label{sec:applicationdesign}}
 
-\hypertarget{rf-model}{%
-\subsection{RF model}\label{rf-model}}
+\hypertarget{preprocessing}{%
+\subsection{Preprocessing}\label{preprocessing}}
 
-\hypertarget{shap-matrix}{%
-\subsection{shap matrix}\label{shap-matrix}}
+\hypertarget{global-view}{%
+\subsection{Global view}\label{global-view}}
 
-\hypertarget{linked-global-approximations-of-data-and-local-attribution-spaces}{%
-\subsection{Linked global approximations of data and local attribution spaces}\label{linked-global-approximations-of-data-and-local-attribution-spaces}}
+\hypertarget{cheem-tour}{%
+\subsection{Cheem tour}\label{cheem-tour}}
 
-\hypertarget{applcation-of-the-manual-tour-to-intterogate-local-explanations}{%
-\subsection{Applcation of the manual tour to intterogate local explanations}\label{applcation-of-the-manual-tour-to-intterogate-local-explanations}}
-
-\hypertarget{classification-task}{%
-\subsection{Classification task}\label{classification-task}}
+\hypertarget{classifcation-task}{%
+\subsection{Classifcation task}\label{classifcation-task}}
 
 \hypertarget{regression-task}{%
 \subsection{Regression task}\label{regression-task}}
 
-\hypertarget{application-design}{%
-\section{Application Design}\label{application-design}}
+\hypertarget{sec:softwareinfrastructure}{%
+\section{Software Infrastructure}\label{sec:softwareinfrastructure}}
+
+\hypertarget{extend-spinifex-consume-dalex-treeshap}{%
+\subsection{Extend spinifex, consume DALEX \& treeshap}\label{extend-spinifex-consume-dalex-treeshap}}
+
+\hypertarget{preprocess}{%
+\subsection{Preprocess}\label{preprocess}}
+
+\hypertarget{runtime-rendering}{%
+\subsection{Runtime rendering}\label{runtime-rendering}}
+
+\hypertarget{sec:casestudies}{%
+\section{Case Studies}\label{sec:casestudies}}
 
 \hypertarget{penguins-speicies-classification}{%
 \subsection{1) Penguins speicies classification}\label{penguins-speicies-classification}}
@@ -164,18 +197,6 @@ Artificial Intelligence (AI) has seen a revitalization in recent years from the 
 \hypertarget{section-1}{%
 \subsection{4)?}\label{section-1}}
 
-\hypertarget{software-infrastructure}{%
-\section{Software Infrastructure}\label{software-infrastructure}}
-
-\hypertarget{extend-spinifex-consume-dalex-treeshap}{%
-\subsection{Extend spinifex, consume DALEX \& treeshap}\label{extend-spinifex-consume-dalex-treeshap}}
-
-\hypertarget{preprocess}{%
-\subsection{Preprocess}\label{preprocess}}
-
-\hypertarget{runtime-rendering}{%
-\subsection{Runtime rendering}\label{runtime-rendering}}
-
 \hypertarget{discsussion}{%
 \section{Discsussion}\label{discsussion}}
 
@@ -183,6 +204,26 @@ Artificial Intelligence (AI) has seen a revitalization in recent years from the 
 \section{Acknoledgements}\label{acknoledgements}}
 
 \hypertarget{references}{%
-\section{References}\label{references}}
+\section*{References}\label{references}}
+\addcontentsline{toc}{section}{References}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-arrieta_explainable_2020}{}%
+Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser, Adrien Bennetot, Siham Tabik, Alberto Barbado, Salvador García, Sergio Gil-López, Daniel Molina, and Richard Benjamins. 2020. {``Explainable {Artificial} {Intelligence} ({XAI}): {Concepts}, Taxonomies, Opportunities and Challenges Toward Responsible {AI}.''} \emph{Information Fusion} 58: 82--115.
+
+\leavevmode\hypertarget{ref-asimov_grand_1994}{}%
+Asimov, Daniel A., and Andreas Buja. 1994. {``Grand Tour via Geodesic Interpolation of 2-Frames.''} In \emph{Visual Data Exploration and Analysis}, 2178:145--53. International Society for Optics; Photonics. \url{https://doi.org/10.1117/12.172065}.
+
+\leavevmode\hypertarget{ref-cook_manual_1997}{}%
+Cook, Dianne, and Andreas Buja. 1997. {``Manual Controls for High-Dimensional Data Projections.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
+
+\leavevmode\hypertarget{ref-lee_review_2021}{}%
+Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Earo Wang, Nick Spyrison, and H. Sherry Zhang. 2021. {``A {Review} of the {State}-of-the-{Art} on {Tours} for {Dynamic} {Visualization} of {High}-{Dimensional} {Data}.''} \emph{arXiv:2104.08016 {[}Cs, Stat{]}}, April. \url{http://arxiv.org/abs/2104.08016}.
+
+\leavevmode\hypertarget{ref-spyrison_spinifex_2020}{}%
+Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An r Package for Creating a Manual Tour of Low-Dimensional Projections of Multivariate Data.''} \emph{The R Journal} 12 (1): (accepted).
+
+\end{CSLReferences}
 
 \end{document}

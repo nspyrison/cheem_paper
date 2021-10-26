@@ -69,7 +69,7 @@ knitr::opts_chunk$set(
 
 <!-- # cheat sheet {#sec:cheatsheet} -->
 <!-- A bib reference [@wickham_visualizing_2015]. -->
-<!-- A [Section intro](#sec:cheatsheet) reference, alternatively, section ef{sec:intro} (with no @; \\ref{sec:intro}). -->
+<!-- A [Section intro](#sec:cheatsheet) reference, alternatively, section {sec:intro} (with no @; \\ref{sec:intro}). -->
 <!-- ```{r crest, echo=FALSE, out.height = "10%", out.width = "10%", fig.cap = "A caption for crest figure"} -->
 <!-- knitr::include_graphics("./figures/crest.jpg") -->
 <!-- ``` -->
@@ -79,44 +79,64 @@ knitr::opts_chunk$set(
 <!-- knitr::include_graphics("./figures/crest.jpg") -->
 <!-- ``` -->
 
-<!-- GENERAL STRUCTURE:: -->
-<!-- -- couple pages of general intro -->
-<!-- -- tie into XAI -->
-<!-- -- explain tour & manual tour -->
-<!-- -- example: details on SHAP values -->
-<!-- -- what you could learn about from classification and what from regression -->
-<!-- -- section on software/interface: -->
-
 
 # Introduction {#sec:intro}
 <!-- WHAT TOPICS, and ISSUES addressed (motivation) -->
-## MODELING
-## XAI & interpretability crisis
-## Local explanations
-## Data visualization tours
 
-# SHAP local explanation
+<!-- ## Predictive models -->
+<!-- history of regression and classification -->
+Mathematically rigorous approaches to predictive modeling are attributed to the method of least squares, over two centuries ago by Legendre and Gauss in 1805 and 1809 respectively. In 1886 Francis Galton coined the term _regression_ to refer to continuous, quantitative predictions. While _classification_ refers discretion predictions as introduced by Fisher in 1936.
+
+<!-- introduce explanatory vs predictive modeling -->
+Breiman and Shmueli [@breiman_statistical_2001, @shmueli_explain_2010] introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose such as hypothesis testing, while _predictive_ modeling is performed for to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
+
+<!-- ## XAI & interpretability crisis -->
+Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues [@oneil_weapons_2016, @kodiyan_overview_2019]. Applications have been known to reflect common biases against sex [@dastin_amazon_2018, @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions [@lazer_parable_2014, @salzberg_why_2014]. Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI [@Adadi_peeking_2018, @arrieta_explainable_2020].
+
+<!-- ## Local explanations -->
+One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate a linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
+
+<!-- SHAP -->
+However, to illustrate our work we apply the model-agnostic explanation SHAP [@strumbelj_efficient_2010, @strumbelj_explaining_2014]. The exact details of SHAP are tangent to the ideas of this work, but suffice it to say that SHAP approximates variable importance by taking the median importance over permutations of the explanatory variables. To be exact we apply a variant that enjoys a lower computational complexity, known as tree SHAP [@lundberg_consistent_2018].
+<!-- 2nd half is more application details; move lower lower? -->
+
+<!-- ## Data visualization tours -->
+In multivariate data visualization a _tour_ [@asimov_grand_1994, @buja_grand_1996, @lee_review_2021] is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. <!-- ## manual tours --> There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a _manual_ tour [@cook_manual_1997, @spyrison_spinifex_2020] this path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours in conjunction with models has been previously done,  _ie_ for exploring various statistical model fits [@wickham_removing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path [@lee_pptree_2013, @da_silva_projection_2021].
+
+The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package `cheem` with an interactive application to facilitate analysis. By viewing approximations of data- and attribution- space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
+
+The rest of paper is organized as follows. The next section [SHAP](#sec:SHAP) covers the background of the local explanation SHAP and the traditional visuals produced from it. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis. Following that, [Software Instructure](#sec:softwareinfrastructure) discusses the backend details of the package and preprocessing. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with [Discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
+
+
+# SHAP local explanation {#sec:SHAP}
 ## Variable importance, permuting over the X's included
 ## Visualizing and break down plots
 
-# Interrogate variable imporances of the local explanations: Cheem
-## RF model
-## shap matrix
-## Linked global approximations of data and local attribution spaces
-## Applcation of the manual tour to intterogate local explanations
-## Classification task
+<!-- # Interrogate variable importance of the local explanations: Cheem {#sec:cheem} -->
+<!-- ## RF model -->
+<!-- ## shap matrix -->
+<!-- ## Linked global approximations of data and local attribution spaces -->
+<!-- ## Application of the manual tour to interrogate local explanations -->
+<!-- ## Classification task -->
+<!-- ## Regression task -->
+
+# Application Design {#sec:applicationdesign}
+## Preprocessing
+## Global view
+## Cheem tour
+## Classifcation task
 ## Regression task
 
-# Application Design
+# Software Infrastructure {#sec:softwareinfrastructure}
+## Extend spinifex, consume DALEX & treeshap
+## Preprocess
+## Runtime rendering
+
+# Case Studies {#sec:casestudies}
 ## 1) Penguins speicies classification
 ## 2) FIFA wage regression
 ## 3)?
 ## 4)?
-
-# Software Infrastructure
-## Extend spinifex, consume DALEX & treeshap
-## Preprocess
-## Runtime rendering
 
 # Discsussion
 

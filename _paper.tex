@@ -141,10 +141,25 @@ In multivariate data visualization a \emph{tour} Lee et al. (2021) is a sequence
 
 The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package \texttt{cheem} with an interactive application to facilitate analysis. By viewing approximations of data- and attribution- space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
 
-The rest of paper is organized as follows. The next section \protect\hyperlink{sec:SHAP}{SHAP} covers the background of the local explanation SHAP and the traditional visuals produced from it. The section \protect\hyperlink{sec:applicationdesign}{Application Design} discusses the layout of the application, how it facilitates analysis. Following that, \protect\hyperlink{sec:softwareinfrastructure}{Software Instructure} discusses the backend details of the package and preprocessing. The section \protect\hyperlink{sec:casestudies}{Case Studies} illustrates several applications of this method. We conlude with \protect\hyperlink{sec:discussion}{Discussion} of the insights we draw from classification and regression tasks.
+The rest of paper is organized as follows. The next section \protect\hyperlink{sec:SHAP}{SHAP} covers the background of the local explanation SHAP and the traditional visuals produced from it. The section \protect\hyperlink{sec:applicationdesign}{Application Design} discusses the layout of the application, how it facilitates analysis. Following that, \protect\hyperlink{sec:softwareinfrastructure}{Software Instructure} discusses the backend details of the package and preprocessing. The section \protect\hyperlink{sec:casestudies}{Case Studies} illustrates several applications of this method. We conclude with \protect\hyperlink{sec:discussion}{Discussion} of the insights we draw from classification and regression tasks.
 
 \hypertarget{sec:SHAP}{%
 \section{SHAP local explanation}\label{sec:SHAP}}
+
+SHaply Additive exPlanations, or SHAP (Lundberg and Lee 2017) approximates the variable importance in the vicinity of one observation by taking the median importance of a subset of permutations in the explanatory variables. This idea stems from the field of game theory where Shapley devised a method to evaluate individual's contribution to cooperative games by permuting the players contributing to the score (\textbf{shapley\_value\_1953?}).
+
+An observation's SHAP values were originally used to additvely explain the difference from the intercept to the prediction. This sort of explanation is predicated on the contribution of the previous variables, making it asymmetric across variable ordering. However, viewing several of these can highlight the non-linear weightings within a single model. We will use soccer data from FIFA 2020 season (Leone 2020) to illustrate this. We have 5000 observations of 9 aggregated skill measures and use a use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in attribution of the variable importance across the two positions of the players. Figure \ref{fig:shapdistrbd} highlight that while the players have quite different wages, when we normalize the attribution we see that skill aggregate importance is different and in a way that we would expect; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the the prediction of the defensive player.
+
+
+
+\begin{figure}
+
+{\centering \includegraphics{./figures/shap_distr_bd} 
+
+}
+
+\caption{TODO:XXX Figure reference}\label{fig:shapdistrbd}
+\end{figure}
 
 \hypertarget{variable-importance-permuting-over-the-xs-included}{%
 \subsection{Variable importance, permuting over the X's included}\label{variable-importance-permuting-over-the-xs-included}}
@@ -220,6 +235,12 @@ Cook, Dianne, and Andreas Buja. 1997. {``Manual Controls for High-Dimensional Da
 
 \leavevmode\hypertarget{ref-lee_review_2021}{}%
 Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Earo Wang, Nick Spyrison, and H. Sherry Zhang. 2021. {``A {Review} of the {State}-of-the-{Art} on {Tours} for {Dynamic} {Visualization} of {High}-{Dimensional} {Data}.''} \emph{arXiv:2104.08016 {[}Cs, Stat{]}}, April. \url{http://arxiv.org/abs/2104.08016}.
+
+\leavevmode\hypertarget{ref-leone_fifa_2020}{}%
+Leone, Stefano. 2020. {``{FIFA} 20 Complete Player Dataset.''} \url{https://kaggle.com/stefanoleone992/fifa-20-complete-player-dataset}.
+
+\leavevmode\hypertarget{ref-lundberg_unified_2017}{}%
+Lundberg, Scott, and Su-In Lee. 2017. {``A Unified Approach to Interpreting Model Predictions.''} \emph{arXiv Preprint arXiv:1705.07874}.
 
 \leavevmode\hypertarget{ref-spyrison_spinifex_2020}{}%
 Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An r Package for Creating a Manual Tour of Low-Dimensional Projections of Multivariate Data.''} \emph{The R Journal} 12 (1): (accepted).

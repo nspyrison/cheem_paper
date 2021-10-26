@@ -30,7 +30,7 @@ my_parts_distribution <- function(pred_parts, player_tag = "<tag unused>"){
   rownames(df) <- paste(pred_parts$label, pred_parts$variable, pred_parts$B, sep = ": ")
   return(df)
 }
-.lvl_ord <- c("react", "off", "mvm", "def", "pwr", "acc", "bmi", "age", "gk")
+.lvl_ord <- c("reaction", "offense", "movement", "defense", "power", "accuracy", "BMI", "age", "goalkeeping")
 my_bd_df <- function(break_down, player_tag = "<tag unused>"){
   df <- data.frame(
     player = player_tag,
@@ -73,20 +73,20 @@ if(F) ## View corrplot?
 dat <- .dat_less_ys %>%
   dplyr::mutate(
     .keep = "none",
-    bmi = (weight_kg+(height_cm/100L)^2L),
+    BMI = (weight_kg+(height_cm/100L)^2L),
     age = age,
-    react = movement_reactions,
-    off = (attacking_finishing+skill_long_passing+attacking_volleys+
+    reaction = movement_reactions,
+    offense = (attacking_finishing+skill_long_passing+attacking_volleys+
              power_long_shots+skill_curve+mentality_positioning+attacking_crossing+
              attacking_short_passing+skill_dribbling+skill_ball_control)/10L,
-    def = (defending_sliding_tackle+mentality_interceptions+
+    defense = (defending_sliding_tackle+mentality_interceptions+
              defending_standing_tackle+defending_marking+mentality_aggression)/5L,
-    acc = (attacking_heading_accuracy+power_shot_power)/2L,
-    mvm = (movement_sprint_speed+movement_balance+movement_acceleration+
+    accuracy = (attacking_heading_accuracy+power_shot_power)/2L,
+    movement = (movement_sprint_speed+movement_balance+movement_acceleration+
              mentality_vision+mentality_composure+movement_agility+
              mentality_penalties+skill_fk_accuracy+power_stamina+movement_reactions)/10L,
-    pwr = (power_strength+power_jumping)/2L,
-    gk = (goalkeeping_diving+goalkeeping_positioning+goalkeeping_reflexes+
+    power = (power_strength+power_jumping)/2L,
+    goalkeeping = (goalkeeping_diving+goalkeeping_positioning+goalkeeping_reflexes+
             goalkeeping_handling+goalkeeping_kicking)/5L
   )
 ## Class for the position of the player, eiter "fielder" or "goalkeeper"
@@ -126,7 +126,7 @@ shap_messi <- predict_parts(explainer       = rf_expl,
                             B               = 25L)
 shap_messi$contribution <- shap_messi$contribution %>%
   spinifex::scale_01()
-box_df_messi <- my_parts_boxplot_df(shap_messi, "Messi (offensive)")
+box_df_messi <- my_parts_boxplot_df(shap_messi, "Messi (offense)")
 
 ## Virgil van Dijk SHAP
 dijk <- X[8, ]
@@ -137,39 +137,36 @@ shap_dijk <- predict_parts(explainer       = rf_expl,
                            order = .lvl_ord)
 shap_dijk$contribution <- shap_dijk$contribution %>%
   spinifex::scale_01()
-box_df_dijk <- my_parts_boxplot_df(shap_dijk, "van Dijk (defensive)")
+box_df_dijk <- my_parts_boxplot_df(shap_dijk, "van Dijk (defense)")
 
 ## Bind shap aggs:
 boxplot_df <- rbind(box_df_messi, box_df_dijk)
 boxplot_df$variable <- factor(boxplot_df$variable, levels = rev(.lvl_ord))
 
 ## B Distributions of the SHAPS
-dist_shap_messi <- my_parts_distribution(shap_messi, "Messi")
-dist_shap_dijk <- my_parts_distribution(shap_dijk, "van Dijk")
+dist_shap_messi <- my_parts_distribution(shap_messi, "Messi (offense)")
+dist_shap_dijk <- my_parts_distribution(shap_dijk, "van Dijk (defense)")
 dist_df <- rbind(dist_shap_messi, dist_shap_dijk)
 dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
 
 (g_shap <- ggplot(boxplot_df) +
-    ## Connecting grey line
-    geom_segment(aes(x=Messi, xend=`van Dijk`, y=variable, yend=variable),
+    # Connecting grey line
+    geom_segment(aes(x=`Messi (offense)`, xend=`van Dijk (defense)`, y=variable, yend=variable),
                  alpha =.7, size = 2L, color = "grey", fill = NA,
                  data = boxplot_df %>% select(player, variable, median) %>%
                    tidyr::pivot_wider(names_from = "player", values_from = "median") %>%
-                   mutate(sum = Messi + `van Dijk`)) +
+                   mutate(sum = `Messi (offense)` + `van Dijk (defense)`)) +
     geom_point(aes(x=median, y=variable, color=player, fill=player),
                alpha =.7, size = 5L) +
     ## Shap distributions
     geom_point(aes(x=contribution, y=variable, color=player, fill=player),
                dist_df, alpha =.8, size = 3, shape = 124,
                position = position_dodge(-.5)) +
-    # geom_boxplot(
-    #   aes(ymin=min, lower=q1, middle=median, upper=q3, ymax=max),
-    #   stat = "identity", alpha =.3) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
-    labs(title="SHAP values",
-         y = "variable", x = "SHAP values, normalized\n The median of the contributions while permuting X's") +
+    labs(title="SHAP distribution",
+         y = "variable", x = "normalize SHAP\n the median of the contributions while permuting X's") +
     theme(legend.position = "off")
 )
 
@@ -179,13 +176,13 @@ bd_messi <- predict_parts(explainer       = rf_expl,
                           new_observation = messi,
                           type            = "break_down",
                           order= .lvl_ord)
-bd_df_messi <- my_bd_df(bd_messi, "Messi")
+bd_df_messi <- my_bd_df(bd_messi, "Messi (offense)")
 ## Dijk Breakdown
 bd_dijk <- predict_parts(explainer       = rf_expl,
                          new_observation = dijk,
                          type            = "break_down",
                          order = .lvl_ord)
-bd_df_dijk <- my_bd_df(bd_dijk, "van Dijk")
+bd_df_dijk <- my_bd_df(bd_dijk, "van Dijk (defense)")
 ## Bind, by row
 bd_df <- rbind(bd_df_messi, bd_df_dijk)
 bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
@@ -203,7 +200,7 @@ bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
 
 ## Relative wages and patchwork
 wages_df <- tibble::tibble(
-  player = factor(c("Messi", "van Dijk")),
+  player = factor(c("Messi (offense)", "van Dijk (defense)")),
   wages = .raw$wage_eur[c(1L, 8L)])
 (g_wage <- ggplot(wages_df, aes(wages, player, xend=0, yend=player, color = player)) +
     geom_segment(size=3L) +
@@ -215,11 +212,15 @@ wages_df <- tibble::tibble(
 require("patchwork")
 (pw <- g_wage / g_shap / g_bd +
     plot_layout(heights = c(1, 3, 3)))
+require("cowplot")
+(cp <- cowplot::plot_grid(
+  g_wage, g_shap, g_bd, ncol = 1, 
+  rel_heights = c(1, 2, 2), labels=c("a)", "b)", "c)")))
 
 ## SAVE -----
 ggplot2::ggsave(
-  "./figures_from_script/ch5_fig1_shap_distr_bd.pdf",
-  pw, device = "pdf", width = 6, height = 7, units = "in")
+  "./figures/shap_distr_bd.pdf",
+  cp, device = "pdf", width = 7, height = 8, units = "in")
 
 
 # ch5_fig2_global_space -----

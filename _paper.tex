@@ -148,9 +148,9 @@ The rest of paper is organized as follows. The next section \protect\hyperlink{s
 
 SHaply Additive exPlanations, or SHAP (Lundberg and Lee 2017) approximates the variable importance in the vicinity of one observation by taking the median importance of a subset of permutations in the explanatory variables. This idea stems from the field of game theory where Shapley devised a method to evaluate individual's contribution to cooperative games by permuting the players contributing to the score (\textbf{shapley\_value\_1953?}).
 
-An observation's SHAP values were originally used to additvely explain the difference from the intercept to the prediction. This sort of explanation is predicated on the contribution of the previous variables, making it asymmetric across variable ordering. However, viewing several of these can highlight the non-linear weightings within a single model. We will use soccer data from FIFA 2020 season (Leone 2020) to illustrate this. We have 5000 observations of 9 aggregated skill measures and use a use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in attribution of the variable importance across the two positions of the players. Figure \ref{fig:shapdistrbd} highlight that while the players have quite different wages, when we normalize the attribution we see that skill aggregate importance is different and in a way that we would expect; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the the prediction of the defensive player.
+An observation's SHAP values were originally used to additvely explain the difference from the intercept to the prediction. This sort of explanation is predicated on the contribution of the previous variables, making it asymmetric across variable ordering. However, viewing several of these can highlight the non-linear weightings within a single model. We will use soccer data from FIFA 2020 season (Leone 2020) to illustrate this. We have 5000 observations of 9 aggregated skill measures and use a use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in attribution of the variable importance across the two positions of the players.
 
-
+Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions as well, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot (\textbf{gosiewska\_ibreakdown\_2019?}), where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry with respect to the variable ordering, so we opt to fix the order to
 
 \begin{figure}
 
@@ -158,14 +158,8 @@ An observation's SHAP values were originally used to additvely explain the diffe
 
 }
 
-\caption{TODO:XXX Figure reference}\label{fig:shapdistrbd}
+\caption{Illustration of the distribution of SHAP attributions, the SHAP values, and a breakdown plot, the typical visual of SHAP local explanations. For FIFA 2020 data, of a random forest model regressing wages from 9 skill attributes for a star offensive and defensive player. a) The players have very different wages. b) Shows the distributions of the attributions permuting over 25 permutations in the explanatory variables. The median of these distributions are the final SHAP values, notice that that the variable importance differs across the exogenous information of player position. These explanations make sense; the variable importances make sense in light of the position of the player. c) Breakdown }\label{fig:shapdistrbd}
 \end{figure}
-
-\hypertarget{variable-importance-permuting-over-the-xs-included}{%
-\subsection{Variable importance, permuting over the X's included}\label{variable-importance-permuting-over-the-xs-included}}
-
-\hypertarget{visualizing-and-break-down-plots}{%
-\subsection{Visualizing and break down plots}\label{visualizing-and-break-down-plots}}
 
 \hypertarget{sec:applicationdesign}{%
 \section{Application Design}\label{sec:applicationdesign}}

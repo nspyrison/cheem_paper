@@ -47,6 +47,8 @@ my_bd_df <- function(break_down, player_tag = "<tag unused>"){
   df$cumulative <- (df$cumulative - min(df$cumulative)) /
     (max(df$cumulative) - min(df$cumulative))
   df$last_cumulative <- c(NA, df$cumulative[-.n])
+  df$variable_num <- 1:.n
+  df$next_variable_num <- c(2:.n, NA)
   rownames(df) <- paste(break_down$label, break_down$variable, break_down$B, sep = ": ")
   return(df)
 }
@@ -166,7 +168,7 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
     labs(title="SHAP distribution",
-         y = "variable", x = "normalize SHAP\n the median of the contributions while permuting X's") +
+         y = "variable", x = "normalized SHAP values\n the median of the contributions while permuting X's") +
     theme(legend.position = "off")
 )
 
@@ -186,17 +188,23 @@ bd_df_dijk <- my_bd_df(bd_dijk, "van Dijk (defense)")
 ## Bind, by row
 bd_df <- rbind(bd_df_messi, bd_df_dijk)
 bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
-(g_bd <- ggplot(bd_df) +
+(g_bd <- ggplot() + #scale_y_continuous(limits = c(0, 1)) +
+    # ## vertical "lines"
+    # geom_segment(aes(x=variable_num, xend=variable_num, y=variable, yend=last_cumulative),
+    #              data = bd_df, color = "black", size = .5) +
+    ## horizontal "bars"
     geom_segment(aes(x=cumulative, xend=last_cumulative, y=variable, yend=variable, color=player),
-                 size=1.5, alpha=.8) + facet_grid(col=vars(player))+
+                 data = bd_df, size=1.5, alpha=.8) + 
+    facet_grid(col=vars(player)) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
-    labs(title="Breakdown profile of predictions",
-         y = "variable", x = "contribution to prediction | variable order") +
+    labs(title="Breakdown plot",
+         y = "variable", x = "normalized contribution to prediction | variable order") +
     theme(legend.margin = margin(0,0,0,0),
           legend.position = "bottom",
           axis.text.x = element_blank(),
-          axis.ticks.x = element_blank()))
+          axis.ticks.x = element_blank())
+)
 
 ## Relative wages and patchwork
 wages_df <- tibble::tibble(

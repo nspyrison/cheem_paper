@@ -129,28 +129,28 @@ Artificial Intelligence (AI) has seen a revitalization in recent years from the 
 
 Mathematically rigorous approaches to predictive modeling are attributed to the method of least squares, over two centuries ago by Legendre and Gauss in 1805 and 1809 respectively. In 1886 Francis Galton coined the term \emph{regression} to refer to continuous, quantitative predictions. While \emph{classification} refers discretion predictions as introduced by Fisher in 1936.
 
-Breiman and Shmueli (\textbf{shmueli\_explain\_2010?}) introduce the idea of distinguishing modeling based on its purpose; \emph{explanatory} modeling is done for some inferential purpose such as hypothesis testing, while \emph{predictive} modeling is performed for to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
+Breiman and Shmueli Shmueli (2010) introduce the idea of distinguishing modeling based on its purpose; \emph{explanatory} modeling is done for some inferential purpose such as hypothesis testing, while \emph{predictive} modeling is performed for to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
 
-Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues (\textbf{kodiyan\_overview\_2019?}). Applications have been known to reflect common biases against sex (\textbf{duffy\_apple\_2019?}), race (\textbf{larson\_how\_2016?}), and age (\textbf{diaz\_addressing\_2018?}). This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions (\textbf{salzberg\_why\_2014?}). Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI Arrieta et al. (2020).
+Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues Kodiyan (2019). Applications have been known to reflect common biases against sex Duffy (2019), race (Larson et al. 2016), and age (Díaz et al. 2018). This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions Salzberg (2014). Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI Arrieta et al. (2020).
 
 One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate a linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
 
-However, to illustrate our work we apply the model-agnostic explanation SHAP (\textbf{strumbelj\_explaining\_2014?}). The exact details of SHAP are tangent to the ideas of this work, but suffice it to say that SHAP approximates variable importance by taking the median importance over permutations of the explanatory variables. To be exact we apply a variant that enjoys a lower computational complexity, known as tree SHAP (\textbf{lundberg\_consistent\_2018?}).
+However, to illustrate our work we apply the model-agnostic explanation SHAP Štrumbelj and Kononenko (2014). The exact details of SHAP are tangent to the ideas of this work, but suffice it to say that SHAP approximates variable importance by taking the median importance over permutations of the explanatory variables. To be exact we apply a variant that enjoys a lower computational complexity, known as tree SHAP (S. M. Lundberg, Erion, and Lee 2018).
 
-In multivariate data visualization a \emph{tour} Lee et al. (2021) is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a \emph{manual} tour Spyrison and Dianne Cook (2020) this path is defined by changing the contribution of a selected variable. Applying tours in conjunction with models has been previously done, \emph{ie} for exploring various statistical model fits (\textbf{wickham\_removing\_2015?}), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path (\textbf{da\_silva\_projection\_2021?}).
+In multivariate data visualization a \emph{tour} S. Lee et al. (2021) is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a \emph{manual} tour Spyrison and Cook (2020) this path is defined by changing the contribution of a selected variable. Applying tours in conjunction with models has been previously done, \emph{ie} for exploring various statistical model fits (Wickham, Cook, and Hofmann 2015), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path Silva, Cook, and Lee (2021).
 
-The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package \texttt{cheem} with an interactive application to facilitate analysis. By viewing approximations of data- and attribution- space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
+The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package \texttt{cheem} with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
 
 The rest of paper is organized as follows. The next section \protect\hyperlink{sec:SHAP}{SHAP} covers the background of the local explanation SHAP and the traditional visuals produced from it. The section \protect\hyperlink{sec:applicationdesign}{Application Design} discusses the layout of the application, how it facilitates analysis. Following that, \protect\hyperlink{sec:softwareinfrastructure}{Software Instructure} discusses the backend details of the package and preprocessing. The section \protect\hyperlink{sec:casestudies}{Case Studies} illustrates several applications of this method. We conclude with \protect\hyperlink{sec:discussion}{Discussion} of the insights we draw from classification and regression tasks.
 
 \hypertarget{sec:SHAP}{%
 \section{SHAP local explanation}\label{sec:SHAP}}
 
-SHaply Additive exPlanations, or SHAP (Lundberg and Lee 2017) approximates the variable importance in the vicinity of one observation by taking the median importance of a subset of permutations in the explanatory variables. This idea stems from the field of game theory where Shapley devised a method to evaluate individual's contribution to cooperative games by permuting the players contributing to the score (\textbf{shapley\_value\_1953?}).
+SHaply Additive exPlanations, or SHAP (S. Lundberg and Lee 2017) approximates the variable importance in the vicinity of one observation by taking the median importance of a subset of permutations in the explanatory variables. This idea stems from the field of game theory where Shapley devised a method to evaluate individual's contribution to cooperative games by permuting the players contributing to the score (Shapley 1953).
 
-An observation's SHAP values were originally used to additvely explain the difference from the intercept to the prediction. This sort of explanation is predicated on the contribution of the previous variables, making it asymmetric across variable ordering. However, viewing several of these can highlight the non-linear weightings within a single model. We will use soccer data from FIFA 2020 season (Leone 2020) to illustrate this. We have 5000 observations of 9 aggregated skill measures and use a use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in attribution of the variable importance across the two positions of the players.
+TO illustrate SHAP and its original use we use soccer data from FIFA 2020 season (Leone 2020). We have 5000 observations of 9 aggregated skill measures and use a use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in attribution of the variable importance across the two positions of the players.
 
-Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions as well, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot (\textbf{gosiewska\_ibreakdown\_2019?}), where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry with respect to the variable ordering, so we opt to fix the order to
+Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions as well, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot (Gosiewska and Biecek 2019), where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry with respect to the variable ordering, so we opt to fix the order to that of panel b), namely, by decreasing sum of the SHAP values.
 
 \begin{figure}
 
@@ -158,14 +158,15 @@ Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel
 
 }
 
-\caption{Illustration of the distribution of SHAP attributions, the SHAP values, and a breakdown plot, the typical visual of SHAP local explanations. For FIFA 2020 data, of a random forest model regressing wages from 9 skill attributes for a star offensive and defensive player. a) The players have very different wages. b) Shows the distributions of the attributions permuting over 25 permutations in the explanatory variables. The median of these distributions are the final SHAP values, notice that that the variable importance differs across the exogenous information of player position. These explanations make sense; the variable importances make sense in light of the position of the player. c) Breakdown }\label{fig:shapdistrbd}
+\caption{Illustration of the distribution of SHAP attributions, the SHAP values, and a breakdown plot, the typical visual of SHAP local explanations. For FIFA 2020 data, of a random forest model regressing wages from 9 skill attributes for a star offensive and defensive player. a) The players have very different wages. b) Shows the distributions of the attributions permuting over 25 permutations in the explanatory variables. The median of these distributions are the final SHAP values, notice that that the variable importance differs across the exogenous information of player position. These explanations make sense; the variable importances make sense in light of the position of the player. c) Breakdown plots of the observations the explanation used to additively explain the difference beween the intercept and prediction}\label{fig:shapdistrbd}
 \end{figure}
+
+In summary, this highlights how local explanations bring transparency to a model at least in the vicinity of their observations. In this instance we showed how two very different soccer players receive different profiles of variable importance to explain the the prediction of their wages. In the following section we will be using normalized explanations as the starting projection basis to interrogate the explanation further.
 
 \hypertarget{sec:applicationdesign}{%
 \section{Application Design}\label{sec:applicationdesign}}
 
-\hypertarget{preprocessing}{%
-\subsection{Preprocessing}\label{preprocessing}}
+Below we illustrate the two primary displays of the application: the global view and the tour view. Then we'll cover what we takeaway from the classification and regression tasks. Lastly, we discuss the preprocessing that needs to be done before display.
 
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
@@ -178,6 +179,25 @@ Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel
 
 \hypertarget{regression-task}{%
 \subsection{Regression task}\label{regression-task}}
+
+\hypertarget{preprocessing}{%
+\subsection{Preprocessing}\label{preprocessing}}
+
+The benefit of having dynamic interaction with data is predicated on a reasonably small render time. The it is important to preprocess as much work as possible so that application resources can be used efficiently. Below we discuss the steps and details of the reprocessing.
+
+
+
+
+\begin{itemize}
+    \item \textbf{Data:} a complete numerical matrix; explanatory and response variable, an optional aesthetic (color/shape) variable can be mapped typically a categorical variable exogenous to the model.
+    \item \textbf{Model:} any model can be used with this method. Currently we apply random forest models via the package \textbf{randomForest} (Liaw and Wiener 2002) to mitigate the runtime of our local explanation which requires tree-based models.
+    \item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP applicable to tree-based models. This is done with the package \textbf{treeshap} (Kominsarczyk et al. 2021), hosted on GitHub only]. The global view shows all observations in attribution space requiring that we must extract the variable weightings from \emph{all} observations rather than just one.
+    \item \textbf{Global view:} The data- and attribution-spaces are approximated as their the first two principal components. The within class separability of points can also optionally be displayed as QQ plots of the Mahalanobis distances within those spaces.
+\end{itemize}
+
+The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference the FIFA data, 5000 observation of 9 explanatory variable, took 1.5 seconds to create PCA and Mahalanobis distances for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.6 seconds, while extracting the tree SHAP values of each observation took 278 seconds combined. These time were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
+
+The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with \textbf{shiny} (Chang et al. 2021). The global view is created first with \textbf{ggplot2} (Wickham 2016) which is then rendered to an interactive html widget with \textbf{plotly} (\textbf{sievet\_interactive\_2020?}). The tour view is created in \textbf{spinifex} (Spyrison and Cook 2020), which creates the manual tour basis array, and facilitates similar rendering to html widget.
 
 \hypertarget{sec:softwareinfrastructure}{%
 \section{Software Infrastructure}\label{sec:softwareinfrastructure}}
@@ -218,26 +238,101 @@ Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-adadi_peeking_2018}{}%
+Adadi, Amina, and Mohammed Berrada. 2018. {``Peeking Inside the Black-Box: A Survey on Explainable Artificial Intelligence ({XAI}).''} \emph{IEEE Access} 6: 52138--60.
+
 \leavevmode\hypertarget{ref-arrieta_explainable_2020}{}%
 Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser, Adrien Bennetot, Siham Tabik, Alberto Barbado, Salvador García, Sergio Gil-López, Daniel Molina, and Richard Benjamins. 2020. {``Explainable {Artificial} {Intelligence} ({XAI}): {Concepts}, Taxonomies, Opportunities and Challenges Toward Responsible {AI}.''} \emph{Information Fusion} 58: 82--115.
 
-\leavevmode\hypertarget{ref-asimov_grand_1994}{}%
-Asimov, Daniel A., and Andreas Buja. 1994. {``Grand Tour via Geodesic Interpolation of 2-Frames.''} In \emph{Visual Data Exploration and Analysis}, 2178:145--53. International Society for Optics; Photonics. \url{https://doi.org/10.1117/12.172065}.
+\leavevmode\hypertarget{ref-asimov_grand_1985}{}%
+Asimov, Daniel. 1985. {``The {Grand} {Tour}: A {Tool} for {Viewing} {Multidimensional} {Data}.''} \emph{SIAM Journal on Scientific and Statistical Computing} 6 (1): 128--43. https://doi.org/\url{https://doi.org/10.1137/0906011}.
+
+\leavevmode\hypertarget{ref-breiman_statistical_2001}{}%
+Breiman, Leo. 2001. {``Statistical Modeling: {The} Two Cultures (with Comments and a Rejoinder by the Author).''} \emph{Statistical Science} 16 (3): 199--231.
+
+\leavevmode\hypertarget{ref-buja_grand_1986}{}%
+Buja, Andreas, and Daniel Asimov. 1986. {``Grand {Tour} {Methods}: {An} {Outline}.''} In \emph{Proceedings of the {Seventeenth} {Symposium} on the {Interface} of {Computer} {Sciences} and {Statistics} on {Computer} {Science} and {Statistics}}, 63--67. New York, NY, USA: Elsevier North-Holland, Inc. \url{http://dl.acm.org/citation.cfm?id=26036.26046}.
+
+\leavevmode\hypertarget{ref-chang_shiny_2021}{}%
+Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. \emph{Shiny: Web Application Framework for r}. \url{https://CRAN.R-project.org/package=shiny}.
 
 \leavevmode\hypertarget{ref-cook_manual_1997}{}%
-Cook, Dianne, and Andreas Buja. 1997. {``Manual Controls for High-Dimensional Data Projections.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
+Cook, Dianne, and Andreas Buja. 1997. {``Manual {Controls} for {High}-{Dimensional} {Data} {Projections}.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
+
+\leavevmode\hypertarget{ref-dastin_amazon_2018}{}%
+Dastin, Jeffrey. 2018. {``Amazon Scraps Secret {AI} Recruiting Tool That Showed Bias Against Women.''} \emph{Reuters}, October. \url{https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G}.
+
+\leavevmode\hypertarget{ref-diaz_addressing_2018}{}%
+Díaz, Mark, Isaac Johnson, Amanda Lazar, Anne Marie Piper, and Darren Gergle. 2018. {``Addressing Age-Related Bias in Sentiment Analysis.''} In \emph{Proceedings of the 2018 Chi Conference on Human Factors in Computing Systems}, 1--14.
+
+\leavevmode\hypertarget{ref-duffy_apple_2019}{}%
+Duffy, Claire. 2019. {``Apple Co-Founder {Steve} {Wozniak} Says {Apple} {Card} Discriminated Against His Wife.''} \emph{CNN}, November. \url{https://www.cnn.com/2019/11/10/business/goldman-sachs-apple-card-discrimination/index.html}.
+
+\leavevmode\hypertarget{ref-gosiewska_ibreakdown_2019}{}%
+Gosiewska, Alicja, and Przemyslaw Biecek. 2019. {``{IBreakDown}: {Uncertainty} of Model Explanations for Non-Additive Predictive Models.''} \emph{arXiv Preprint arXiv:1903.11420}.
+
+\leavevmode\hypertarget{ref-greenwell_fastshap_2020}{}%
+Greenwell, Brandon. 2020. \emph{Fastshap: {Fast} {Approximate} {Shapley} {Values}}. \url{https://CRAN.R-project.org/package=fastshap}.
+
+\leavevmode\hypertarget{ref-kodiyan_overview_2019}{}%
+Kodiyan, Akhil Alfons. 2019. {``An Overview of Ethical Issues in Using {AI} Systems in Hiring with a Case Study of {Amazon}'s {AI} Based Hiring Tool.''} \emph{Researchgate Preprint}.
+
+\leavevmode\hypertarget{ref-kominsarczyk_treeshap_2021}{}%
+Kominsarczyk, Konrad, Pawel Kozminski, Szymon Maksymiuk, and Przemyslaw Biecek. 2021. {``Treeshap.''} Model Oriented. \url{https://github.com/ModelOriented/treeshap}.
+
+\leavevmode\hypertarget{ref-larson_how_2016}{}%
+Larson, Jeff, Surya Mattu, Lauren Kirchner, and Julia Angwin. 2016. {``How {We} {Analyzed} the {COMPAS} {Recidivism} {Algorithm}.''} \emph{ProPublica}, May. \url{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm?token=RPR1E2qtzJltfJ0tS-gB_41kmfoWZAu4}.
+
+\leavevmode\hypertarget{ref-lazer_parable_2014}{}%
+Lazer, David, Ryan Kennedy, Gary King, and Alessandro Vespignani. 2014. {``The Parable of {Google} {Flu}: Traps in Big Data Analysis.''} \emph{Science} 343 (6176): 1203--5.
 
 \leavevmode\hypertarget{ref-lee_review_2021}{}%
-Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Earo Wang, Nick Spyrison, and H. Sherry Zhang. 2021. {``A {Review} of the {State}-of-the-{Art} on {Tours} for {Dynamic} {Visualization} of {High}-{Dimensional} {Data}.''} \emph{arXiv:2104.08016 {[}Cs, Stat{]}}, April. \url{http://arxiv.org/abs/2104.08016}.
+Lee, Stuart, Dianne Cook, Natalia Da Silva, Ursula Laa, Earo Wang, Nick Spyrison, and H. Sherry Zhang. 2021. {``A {Review} of the {State}-of-the-{Art} on {Tours} for {Dynamic} {Visualization} of {High}-Dimensional {Data}.''} \emph{arXiv Preprint arXiv:2104.08016}.
+
+\leavevmode\hypertarget{ref-lee_pptree_2013}{}%
+Lee, Yoon Dong, Dianne Cook, Ji-won Park, and Eun-Kyung Lee. 2013. {``{PPtree}: {Projection} Pursuit Classification Tree.''} \emph{Electronic Journal of Statistics} 7: 1369--86.
 
 \leavevmode\hypertarget{ref-leone_fifa_2020}{}%
 Leone, Stefano. 2020. {``{FIFA} 20 Complete Player Dataset.''} \url{https://kaggle.com/stefanoleone992/fifa-20-complete-player-dataset}.
 
+\leavevmode\hypertarget{ref-liaw_classification_2002}{}%
+Liaw, Andy, and Matthew Wiener. 2002. {``Classification and Regression by {randomForest}.''} \emph{R News} 2 (3): 18--22.
+
+\leavevmode\hypertarget{ref-lundberg_consistent_2018}{}%
+Lundberg, Scott M., Gabriel G. Erion, and Su-In Lee. 2018. {``Consistent Individualized Feature Attribution for Tree Ensembles.''} \emph{arXiv Preprint arXiv:1802.03888}.
+
 \leavevmode\hypertarget{ref-lundberg_unified_2017}{}%
 Lundberg, Scott, and Su-In Lee. 2017. {``A Unified Approach to Interpreting Model Predictions.''} \emph{arXiv Preprint arXiv:1705.07874}.
 
+\leavevmode\hypertarget{ref-oneil_weapons_2016}{}%
+O'neil, Cathy. 2016. \emph{Weapons of Math Destruction: {How} Big Data Increases Inequality and Threatens Democracy}. Crown.
+
+\leavevmode\hypertarget{ref-salzberg_why_2014}{}%
+Salzberg, Steven. 2014. {``Why {Google} {Flu} {Is} {A} {Failure}.''} \emph{Forbes}, March. \url{https://www.forbes.com/sites/stevensalzberg/2014/03/23/why-google-flu-is-a-failure/}.
+
+\leavevmode\hypertarget{ref-shapley_value_1953}{}%
+Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton University Press.
+
+\leavevmode\hypertarget{ref-shmueli_explain_2010}{}%
+Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical Science} 25 (3): 289--310.
+
+\leavevmode\hypertarget{ref-da_silva_projection_2021}{}%
+Silva, Natalia da, Dianne Cook, and Eun-Kyung Lee. 2021. {``A {Projection} {Pursuit} {Forest} {Algorithm} for {Supervised} {Classification}.''} \emph{Journal of Computational and Graphical Statistics}, 1--21.
+
 \leavevmode\hypertarget{ref-spyrison_spinifex_2020}{}%
-Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An r Package for Creating a Manual Tour of Low-Dimensional Projections of Multivariate Data.''} \emph{The R Journal} 12 (1): (accepted).
+Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package} for {Creating} a {Manual} {Tour} of {Low}-Dimensional {Projections} of {Multivariate} {Data}.''} \emph{The R Journal} 12 (1): 243. \url{https://doi.org/10.32614/RJ-2020-027}.
+
+\leavevmode\hypertarget{ref-strumbelj_efficient_2010}{}%
+Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation of Individual Classifications Using Game Theory.''} \emph{The Journal of Machine Learning Research} 11: 1--18.
+
+\leavevmode\hypertarget{ref-strumbelj_explaining_2014}{}%
+Štrumbelj, Erik, and Igor Kononenko. 2014. {``Explaining Prediction Models and Individual Predictions with Feature Contributions.''} \emph{Knowledge and Information Systems} 41 (3): 647--65.
+
+\leavevmode\hypertarget{ref-wickham_ggplot2_2016}{}%
+Wickham, Hadley. 2016. \emph{Ggplot2: {Elegant} {Graphics} for {Data} {Analysis}}. Springer-Verlag New York. \url{https://ggplot2.tidyverse.org}.
+
+\leavevmode\hypertarget{ref-wickham_visualizing_2015}{}%
+Wickham, Hadley, Dianne Cook, and Heike Hofmann. 2015. {``Visualizing Statistical Models: {Removing} the Blindfold.''} \emph{Statistical Analysis and Data Mining: The ASA Data Science Journal} 8 (4): 203--25. \url{https://doi.org/10.1002/sam.11271}.
 
 \end{CSLReferences}
 

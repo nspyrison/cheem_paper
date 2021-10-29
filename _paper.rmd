@@ -91,7 +91,7 @@ Mathematically rigorous approaches to predictive modeling are attributed to the 
 Breiman and Shmueli [@breiman_statistical_2001, @shmueli_explain_2010] introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose such as hypothesis testing, while _predictive_ modeling is performed for to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
 
 <!-- ## XAI & interpretability crisis -->
-Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues [@oneil_weapons_2016, @kodiyan_overview_2019]. Applications have been known to reflect common biases against sex [@dastin_amazon_2018, @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions [@lazer_parable_2014, @salzberg_why_2014]. Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI [@Adadi_peeking_2018, @arrieta_explainable_2020].
+Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues [@oneil_weapons_2016, @kodiyan_overview_2019]. Applications have been known to reflect common biases against sex [@dastin_amazon_2018, @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions [@lazer_parable_2014, @salzberg_why_2014]. Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI [@adadi_peeking_2018, @arrieta_explainable_2020].
 
 <!-- ## Local explanations -->
 One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate a linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
@@ -101,9 +101,9 @@ However, to illustrate our work we apply the model-agnostic explanation SHAP [@s
 <!-- 2nd half is more application details; move lower? -->
 
 <!-- ## Data visualization tours -->
-In multivariate data visualization a _tour_ [@asimov_grand_1994, @buja_grand_1996, @lee_review_2021] is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. <!-- ## manual tours --> There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a _manual_ tour [@cook_manual_1997, @spyrison_spinifex_2020] this path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours in conjunction with models has been previously done,  _ie_ for exploring various statistical model fits [@wickham_removing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path [@lee_pptree_2013, @da_silva_projection_2021].
+In multivariate data visualization a _tour_ [@asimov_grand_1985, @buja_grand_1986, @lee_review_2021] is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. <!-- ## manual tours --> There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a _manual_ tour [@cook_manual_1997, @spyrison_spinifex_2020] this path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours in conjunction with models has been previously done,  _ie_ for exploring various statistical model fits [@wickham_visualizing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path [@lee_pptree_2013, @da_silva_projection_2021].
 
-The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package `cheem` with an interactive application to facilitate analysis. By viewing approximations of data- and attribution- space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
+The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package `cheem` with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
 
 The rest of paper is organized as follows. The next section [SHAP](#sec:SHAP) covers the background of the local explanation SHAP and the traditional visuals produced from it. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis. Following that, [Software Instructure](#sec:softwareinfrastructure) discusses the backend details of the package and preprocessing. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with [Discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
 
@@ -129,11 +129,38 @@ In summary, this highlights how local explanations bring transparency to a model
 
 
 # Application Design {#sec:applicationdesign}
-## Preprocessing
+
+Below we illustrate the two primary displays of the application: the global view and the tour view. Then we'll cover what we takeaway from the classification and regression tasks. Lastly, we discuss the preprocessing that needs to be done before display.
+
+<!-- TODO:XXX: -->
 ## Global view
 ## Cheem tour
 ## Classifcation task
 ## Regression task
+
+
+## Preprocessing
+
+The benefit of having dynamic interaction with data is predicated on a reasonably small render time. The it is important to preprocess as much work as possible so that application resources can be used efficiently. Below we discuss the steps and details of the reprocessing.
+<!-- Fitting models regularly has non-negligible runtime and the exaction of a single observations local explanations is a similarly computationally expensive operation. -->
+
+(ref:citeRf) [@liaw_classification_2002]
+(ref:citeTs) [@kominsarczyk_treeshap_2021]
+\begin{itemize}
+	\item \textbf{Data:} a complete numerical matrix; explanatory and response variable, an optional aesthetic (color/shape) variable can be mapped typically a categorical variable exogenous to the model.
+	\item \textbf{Model:} any model can be used with this method. Currently we apply random forest models via the package \textbf{randomForest} (ref:citeRf) to mitigate the runtime of our local explanation which requires tree-based models.
+	\item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP applicable to tree-based models. This is done with the package \textbf{treeshap} (ref:citeTs), hosted on GitHub only]. The global view shows all observations in attribution space requiring that we must extract the variable weightings from \emph{all} observations rather than just one.
+	\item \textbf{Global view:} The data- and attribution-spaces are approximated as their the first two principal components. The within class separability of points can also optionally be displayed as QQ plots of the Mahalanobis distances within those spaces.
+\end{itemize}
+
+
+
+<!-- note on time of execution -->
+The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference the FIFA data, 5000 observation of 9 explanatory variable, took 1.5 seconds to create PCA and Mahalanobis distances for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.6 seconds, while extracting the tree SHAP values of each observation took 278 seconds combined. These time were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
+
+<!-- render time -->
+The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with __shiny__ [@chang_shiny_2021]. The global view is created first with __ggplot2__ [@wickham_ggplot2_2016] which is then rendered to an interactive html widget with __plotly__ [@sievet_interactive_2020]. The tour view is created in __spinifex__ [@spyrison_spinifex_2020], which creates the manual tour basis array, and facilitates similar rendering to html widget.
+
 
 # Software Infrastructure {#sec:softwareinfrastructure}
 ## Extend spinifex, consume DALEX & treeshap

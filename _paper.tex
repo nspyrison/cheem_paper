@@ -171,6 +171,15 @@ Below we illustrate the two primary displays of the application: the global view
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
 
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{./figures/global_view_penguins} 
+
+}
+
+\caption{Global view; approximations of the data and SHAP-spaces. Orietation of the basis contributions are illustrated on a unit circle. Linked brushing allows pbservations brushed in one plot to be selected in others. This selection is also used to in the proceeding view and their corresponding informaion is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view prvides an orientenation to select a primary and comparison observation, key targets in the following tour.}\label{fig:globalview}
+\end{figure}
+
 \hypertarget{cheem-tour}{%
 \subsection{Cheem tour}\label{cheem-tour}}
 
@@ -192,10 +201,10 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
     \item \textbf{Data:} a complete numerical matrix; explanatory and response variable, an optional aesthetic (color/shape) variable can be mapped typically a categorical variable exogenous to the model.
     \item \textbf{Model:} any model can be used with this method. Currently we apply random forest models via the package \textbf{randomForest} (Liaw and Wiener 2002) to mitigate the runtime of our local explanation which requires tree-based models.
     \item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP applicable to tree-based models. This is done with the package \textbf{treeshap} (Kominsarczyk et al. 2021), hosted on GitHub only]. The global view shows all observations in attribution space requiring that we must extract the variable weightings from \emph{all} observations rather than just one.
-    \item \textbf{Global view:} The data- and attribution-spaces are approximated as their the first two principal components. The within class separability of points can also optionally be displayed as QQ plots of the Mahalanobis distances within those spaces.
+    \item \textbf{Global view:} The data- and attribution-spaces are approximated as their the first two principal components.
 \end{itemize}
 
-The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference the FIFA data, 5000 observation of 9 explanatory variable, took 1.5 seconds to create PCA and Mahalanobis distances for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.6 seconds, while extracting the tree SHAP values of each observation took 278 seconds combined. These time were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
+The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference the FIFA data, 5000 observation of 9 explanatory variable, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These time were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
 The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with \textbf{shiny} (Chang et al. 2021). The global view is created first with \textbf{ggplot2} (Wickham 2016) which is then rendered to an interactive html widget with \textbf{plotly} (\textbf{sievet\_interactive\_2020?}). The tour view is created in \textbf{spinifex} (Spyrison and Cook 2020), which creates the manual tour basis array, and facilitates similar rendering to html widget.
 

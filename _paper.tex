@@ -121,36 +121,36 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. In such models, increased predictive power comes at the cost of opaque factor analysis, which has led to the field of explainable AI (XAI). XAI attempts to shed light on these models, one such approach is the use of local explanations. A local explanation of a model give a point-estimate of linear variable importance in the vicinity of one observation. We extract explanations for each observation, and approximate data and this attribution space side-by-side with linked brushing. After identifying an observation of interest its local explanation is used as a 1D projection basis. We then manipulate the magnitude of the variable contributions with a technique called the tour. This tour animates many projections over small changes in the projection basis. Doing so allows a user to visually explore the data space through the lens of this local explanation and interrogate its variable importance. The implementation of our framework is available as an R package called cheem available at \href{https://github.com/nspyrison/cheem}{github.com/nspyrison/cheem}.
+Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. In such models, increased predictive power comes at the cost of opaque factor analysis, which has led to the field of explainable AI (XAI). XAI attempts to shed light on these models, one such approach is the use of local explanations. A local explanation of a model gives a point-estimate of linear variable importance in the vicinity of one observation. We extract explanations for each observation, and approximate data and this attribution space side-by-side with linked brushing. After identifying an observation of interest its local explanation is used as a 1D projection basis. We then manipulate the magnitude of the variable contributions with a technique called the tour. This tour animates many projections over small changes in the projection basis. Doing so allows a user to visually explore the data space through the lens of this local explanation and interrogate its variable importance. The implementation of our framework is available as an R package \textbf{cheem} available at \href{https://github.com/nspyrison/cheem}{github.com/nspyrison/cheem}.
 \end{abstract}
 
 \hypertarget{sec:intro}{%
 \section{Introduction}\label{sec:intro}}
 
-Mathematically rigorous approaches to predictive modeling are attributed to the method of least squares, over two centuries ago by Legendre and Gauss in 1805 and 1809 respectively. In 1886 Francis Galton coined the term \emph{regression} to refer to continuous, quantitative predictions. While \emph{classification} refers discretion predictions as introduced by Fisher in 1936.
+Mathematically rigorous approaches to predictive modeling are attributed to the method of least squares, over two centuries ago by Legendre and Gauss in 1805 and 1809 respectively. In 1886 Francis Galton coined the term \emph{regression} to refer to continuous, quantitative predictions. While \emph{classification} refers to discrete predictions as introduced by Fisher in 1936.
 
-Breiman and Shmueli Shmueli (2010) introduce the idea of distinguishing modeling based on its purpose; \emph{explanatory} modeling is done for some inferential purpose such as hypothesis testing, while \emph{predictive} modeling is performed for to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
+Breiman and Shmueli Shmueli (2010) introduce the idea of distinguishing modeling based on its purpose; \emph{explanatory} modeling is done for some inferential purpose such as hypothesis testing, while \emph{predictive} modeling is performed to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling, the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
 
-Predictive model and black box modeling is becoming increasingly common, but not without controversy and issues Kodiyan (2019). Applications have been known to reflect common biases against sex Duffy (2019), race (Larson et al. 2016), and age (Díaz et al. 2018). This is a common issue stemming from biases the in sample data are violate ethical principals. Another issue is that of data-drift, when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions Salzberg (2014). Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI Arrieta et al. (2020).
+Predictive model and black-box modeling is becoming increasingly common, but not without controversy and issues Kodiyan (2019). Applications have been known to reflect common biases against sex Duffy (2019), race (Larson et al. 2016), and age (Díaz et al. 2018). This is a common issue stemming from biases in the in-sample, training data are violate ethical principles. Another issue is that of data-drift when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions Salzberg (2014). Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI Arrieta et al. (2020).
 
-One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate a linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
+One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
 
 However, to illustrate our work we apply the model-agnostic explanation SHAP Štrumbelj and Kononenko (2014). The exact details of SHAP are tangent to the ideas of this work, but suffice it to say that SHAP approximates variable importance by taking the median importance over permutations of the explanatory variables. To be exact we apply a variant that enjoys a lower computational complexity, known as tree SHAP (S. M. Lundberg, Erion, and Lee 2018).
 
-In multivariate data visualization a \emph{tour} S. Lee et al. (2021) is a sequence of linear projections of data onto a lower dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. There are various types of tours, which are distinguished be the generation of sequence of projection bases. In a \emph{manual} tour Spyrison and Cook (2020) this path is defined by changing the contribution of a selected variable. Applying tours in conjunction with models has been previously done, \emph{ie} for exploring various statistical model fits (Wickham, Cook, and Hofmann 2015), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path Silva, Cook, and Lee (2021).
+In multivariate data visualization a \emph{tour} S. Lee et al. (2021) is a sequence of linear projections of data onto a lower-dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. There are various types of tours, which are distinguished by the generation of the sequence of projection bases. In a \emph{manual} tour Spyrison and Cook (2020) this path is defined by changing the contribution of a selected variable. Applying tours in conjunction with models has been previously done, \emph{ie} for exploring various statistical model fits (Wickham, Cook, and Hofmann 2015), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path Silva, Cook, and Lee (2021).
 
-The approach purposed below is to use the manual tour as means to interrogate a local explanation; it see if its variable importance are good explanation for the model predictions. We make R package \texttt{cheem} with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
+The approach purposed below is to use the manual tour as means to interrogate a local explanation; a means of evaluating if its variable importance is good explanation for the model predictions. We make R package \texttt{cheem} with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
 
-The rest of paper is organized as follows. The next section \protect\hyperlink{sec:SHAP}{SHAP} covers the background of the local explanation SHAP and the traditional visuals produced from it. The section \protect\hyperlink{sec:applicationdesign}{Application Design} discusses the layout of the application, how it facilitates analysis. Following that, \protect\hyperlink{sec:softwareinfrastructure}{Software Instructure} discusses the backend details of the package and preprocessing. The section \protect\hyperlink{sec:casestudies}{Case Studies} illustrates several applications of this method. We conclude with \protect\hyperlink{sec:discussion}{Discussion} of the insights we draw from classification and regression tasks.
+The rest of this paper is organized as follows. The next section \protect\hyperlink{sec:SHAP}{SHAP} covers the background of the local explanation SHAP and the traditional visuals produced from it. The section \protect\hyperlink{sec:applicationdesign}{Application Design} discusses the layout of the application, how it facilitates analysis. Following that, \protect\hyperlink{sec:softwareinfrastructure}{Software Instructure} discusses the backend details of the package and preprocessing. The section \protect\hyperlink{sec:casestudies}{Case Studies} illustrates several applications of this method. We conclude with a \protect\hyperlink{sec:discussion}{Discussion} of the insights we draw from classification and regression tasks.
 
 \hypertarget{sec:SHAP}{%
 \section{SHAP local explanation}\label{sec:SHAP}}
 
-SHaply Additive exPlanations, or SHAP (S. Lundberg and Lee 2017) approximates the variable importance in the vicinity of one observation by taking the median importance of a subset of permutations in the explanatory variables. This idea stems from the field of game theory where Shapley devised a method to evaluate individual's contribution to cooperative games by permuting the players contributing to the score (Shapley 1953).
+SHaply Additive exPlanations, or SHAP (S. Lundberg and Lee 2017) approximates the variable importance in the vicinity of one observation by taking the median importance of a subset of permutations in the explanatory variables. This idea stems from the field of game theory where Shapley devised a method to evaluate individual's contribution to cooperative games by permuting the players that contribute to the score (Shapley 1953).
 
-TO illustrate SHAP and its original use we use soccer data from FIFA 2020 season (Leone 2020). We have 5000 observations of 9 aggregated skill measures and use a use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in attribution of the variable importance across the two positions of the players.
+TO illustrate SHAP and its original use we use soccer data from FIFA 2020 season (Leone 2020). We have 5000 observations of 9 aggregated skill measures and use a random forest model to regress the wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (Messi) and defensive player (van Dijk). We expect to see a difference in the attribution of the variable importance across the two positions of the players.
 
-Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions as well, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot (Gosiewska and Biecek 2019), where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry with respect to the variable ordering, so we opt to fix the order to that of panel b), namely, by decreasing sum of the SHAP values.
+Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions as well, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot (Gosiewska and Biecek 2019), where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry with respect to the variable ordering, so we opt to fix the order to that of panel b), namely, by decreasing the sum of the SHAP values.
 
 \begin{figure}
 
@@ -158,18 +158,22 @@ Figure \ref{fig:shapdistrbd} illustrates the SHAP values of these players. Panel
 
 }
 
-\caption{Illustration of the distribution of SHAP attributions, the SHAP values, and a breakdown plot, the typical visual of SHAP local explanations. For FIFA 2020 data, of a random forest model regressing wages from 9 skill attributes for a star offensive and defensive player. a) The players have very different wages. b) Shows the distributions of the attributions permuting over 25 permutations in the explanatory variables. The median of these distributions are the final SHAP values, notice that that the variable importance differs across the exogenous information of player position. These explanations make sense; the variable importances make sense in light of the position of the player. c) Breakdown plots of the observations the explanation used to additively explain the difference beween the intercept and prediction}\label{fig:shapdistrbd}
+\caption{Illustration of the distribution of SHAP attributions, the SHAP values, and a breakdown plot, the typical visual of SHAP local explanations. For FIFA 2020 data, of a random forest model regressing wages from 9 skill attributes for a star offensive and defensive player. a) The players have very different wages. b) Shows the distributions of the attributions permuting over 25 permutations in the explanatory variables. The median of these distributions are the final SHAP values, notice that that the variable importance differs across the exogenous information of player position. These explanations make sense; the variable importances make sense in light of the position of the player. c) Breakdown plots of the observations the explanation used to additively explain the difference between the intercept and prediction}\label{fig:shapdistrbd}
 \end{figure}
 
-In summary, this highlights how local explanations bring transparency to a model at least in the vicinity of their observations. In this instance we showed how two very different soccer players receive different profiles of variable importance to explain the the prediction of their wages. In the following section we will be using normalized explanations as the starting projection basis to interrogate the explanation further.
+In summary, this highlights how local explanations bring transparency to a model at least in the vicinity of their observations. In this instance, we showed how two very different soccer players receive different profiles of variable importance to explain the prediction of their wages. In the following section, we will be using normalized explanations as the starting projection basis to interrogate the explanation further.
 
 \hypertarget{sec:applicationdesign}{%
 \section{Application Design}\label{sec:applicationdesign}}
 
-Below we illustrate the two primary displays of the application: the global view and the tour view. Then we'll cover what we takeaway from the classification and regression tasks. Lastly, we discuss the preprocessing that needs to be done before display.
+Below we illustrate the two primary displays of the application: the global view and the tour view. Then we'll cover what we take away from the classification and regression tasks. Lastly, we discuss the preprocessing that needs to be done before display.
 
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
+
+The global view is an important context for exploring the separability of the data- and the local explanation's attribution-spaces, and is crucial in the selection of explanation to further interrogate and explore the structural sensitivity of.
+
+We show an approximation of these spaces with a projection through their first two principal components. The orientation of the variables are shown inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of a higher-dimensional space, it provides a reasonable starting point for the real task at hand, the selection of observation and nearby comparison.
 
 \begin{figure}
 
@@ -177,11 +181,28 @@ Below we illustrate the two primary displays of the application: the global view
 
 }
 
-\caption{Global view; approximations of the data and SHAP-spaces. Orietation of the basis contributions are illustrated on a unit circle. Linked brushing allows pbservations brushed in one plot to be selected in others. This selection is also used to in the proceeding view and their corresponding informaion is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view prvides an orientenation to select a primary and comparison observation, key targets in the following tour.}\label{fig:globalview}
+\caption{Global view screen capture; the approximations of the data and SHAP-spaces of the penguins data. Orientation of the basis contributions is illustrated on a unit circle. Linked brushing allows observations brushed in one plot to be selected in others. This selection is also used in the proceeding view and their corresponding information is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view prpvides an orientation to select a primary and comparison observation, key targets in the following tour.}\label{fig:globalview}
 \end{figure}
+
+This view offers dynamic interaction in several ways. A tooltip on hovering over a point that displays the row number/name and classification information if appropriate. Linked brushing allows for the selection of points (by click and drag) where those points will be highlighted in both plots. The information corresponding to the selected points is populated on a sortable table and the data powering the proceeding tour will also subset the data to the current selection.
 
 \hypertarget{cheem-tour}{%
 \subsection{Cheem tour}\label{cheem-tour}}
+
+The primary observation identified via the global view is foundational to the production of the cheem tour. Namely, the linear attribution of that variable is used as a 1D projection basis. This is the approximate contributions of the variables that this model uses to justify its prediction for the observation.
+
+That normalized attribution of the primary observation is depicted as stacked bars where the horizontal width is the contribution. The bottom of this display is divided by the use case. In the classification case, 1D density curves with underlying rug marks are drawn and colored according to their predicted classes. In the regression case, the horizontal position of the points comes from projection through the 1D attribution basis while the vertical position of the observations is fixed to its prediction or residual.
+
+\textbackslash begin\{figure\}
+
+\{\centering \includegraphics[width=1\linewidth]{./figures/cheem_tour_penguins}
+
+\}
+
+\textbackslash caption\{Cheem tour screen capture; the primary observation's normalized SHAP values are the initial basis. This is the explanation of the linear variable importances for the model at this observation. The point in question was misclassified, it was predicted to be from the green cluster, while it was observed to be from the orange cluster. The top shows the contributions of the variables, with the dashed line being the primary observation's SHAP, its shape is closer to the orange cluster (observed group) while the position is pulled more toward the green (predicted group). The bottom shows the 1D projection with density and rug marks below. The dashed line is plausibly in the middle of the green density, the story that the explanation trying to sell us. Yet, when we play the tour animating on the contribution of bill length (b\_l), the bottom dashed line is more regularly in the center of the observed orange cluster.\}\label{fig:cheemtour}
+\textbackslash end\{figure\}
+
+Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the next sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
 
 \hypertarget{classifcation-task}{%
 \subsection{Classifcation task}\label{classifcation-task}}
@@ -192,19 +213,19 @@ Below we illustrate the two primary displays of the application: the global view
 \hypertarget{preprocessing}{%
 \subsection{Preprocessing}\label{preprocessing}}
 
-The benefit of having dynamic interaction with data is predicated on a reasonably small render time. The it is important to preprocess as much work as possible so that application resources can be used efficiently. Below we discuss the steps and details of the reprocessing.
+The benefit of having dynamic interaction with data is predicated on a reasonably small render time. It is important to preprocess as much work as possible so that application resources can be used efficiently. Below we discuss the steps and details of the reprocessing.
 
 
 
 
 \begin{itemize}
     \item \textbf{Data:} a complete numerical matrix; explanatory and response variable, an optional aesthetic (color/shape) variable can be mapped typically a categorical variable exogenous to the model.
-    \item \textbf{Model:} any model can be used with this method. Currently we apply random forest models via the package \textbf{randomForest} (Liaw and Wiener 2002) to mitigate the runtime of our local explanation which requires tree-based models.
+    \item \textbf{Model:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} (Liaw and Wiener 2002) to mitigate the runtime of our local explanation which requires tree-based models.
     \item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP applicable to tree-based models. This is done with the package \textbf{treeshap} (Kominsarczyk et al. 2021), hosted on GitHub only]. The global view shows all observations in attribution space requiring that we must extract the variable weightings from \emph{all} observations rather than just one.
     \item \textbf{Global view:} The data- and attribution-spaces are approximated as their the first two principal components.
 \end{itemize}
 
-The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference the FIFA data, 5000 observation of 9 explanatory variable, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These time were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
+The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
 The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with \textbf{shiny} (Chang et al. 2021). The global view is created first with \textbf{ggplot2} (Wickham 2016) which is then rendered to an interactive html widget with \textbf{plotly} (\textbf{sievet\_interactive\_2020?}). The tour view is created in \textbf{spinifex} (Spyrison and Cook 2020), which creates the manual tour basis array, and facilitates similar rendering to html widget.
 
@@ -223,8 +244,8 @@ The work remaining at runtime consists mostly in rendering the frames of the tou
 \hypertarget{sec:casestudies}{%
 \section{Case Studies}\label{sec:casestudies}}
 
-\hypertarget{penguins-speicies-classification}{%
-\subsection{1) Penguins speicies classification}\label{penguins-speicies-classification}}
+\hypertarget{penguins-species-classification}{%
+\subsection{1) Penguins species classification}\label{penguins-species-classification}}
 
 \hypertarget{fifa-wage-regression}{%
 \subsection{2) FIFA wage regression}\label{fifa-wage-regression}}
@@ -235,11 +256,11 @@ The work remaining at runtime consists mostly in rendering the frames of the tou
 \hypertarget{section-1}{%
 \subsection{4)?}\label{section-1}}
 
-\hypertarget{discsussion}{%
-\section{Discsussion}\label{discsussion}}
+\hypertarget{sec:discussion}{%
+\section{Discussion}\label{sec:discussion}}
 
-\hypertarget{acknoledgements}{%
-\section{Acknoledgements}\label{acknoledgements}}
+\hypertarget{acknowledgments}{%
+\section{Acknowledgments}\label{acknowledgments}}
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

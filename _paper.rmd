@@ -147,7 +147,7 @@ This view offers dynamic interaction in several ways. A tooltip on hovering over
 
 ## Cheem tour
 
-The primary observation identified via the global view is foundational to the production of the cheem tour. Namely, the linear attribution of that variable is used as a 1D projection basis. This is the approximate contributions of the variables that this model uses to justify its prediction for the observation. 
+The primary observation identified via the global view is foundational to the production of the cheem tour. Namely, the linear attribution of that variable is used as a 1D projection basis. This is the approximate contributions of the variables that this model uses to justify its prediction for the observation.
 
 That normalized attribution of the primary observation is depicted as stacked bars where the horizontal width is the contribution. The bottom of this display is divided by the use case. In the classification case, 1D density curves with underlying rug marks are drawn and colored according to their predicted classes. In the regression case, the horizontal position of the points comes from projection through the 1D attribution basis while the vertical position of the observations is fixed to its prediction or residual.
 
@@ -155,16 +155,17 @@ That normalized attribution of the primary observation is depicted as stacked ba
 knitr::include_graphics("./figures/cheem_tour_penguins.PNG")
 ```
 
-Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the next sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
+Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the following sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
 
 ## Classifcation task
 
+What information do we glean from using this method on a classifcation task?  Typically we select a misclassified observation in comparison with correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction. 
 
+Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of _ceteris paribus_ profiles [@biecek_ceterisparibus_2020]. _Ceteris paribus_ is Latin for “other things held constant” or “all else unchanged”. The profiles visualize what 'what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other other variables are all held constant. In contrast to _ceteris paribus_ profiles, touring methods visualize all observations rather than one, and variables are not treated as independent, that is the projection has an orthonormal basis; when one variable is rotated out-of-frame, other variables are effectively rotated into-the-frame.
 
 ## Regression task
 
-
-
+The regression case is not as discrete a feature. Instead the prediction or the residual becomes the comparison of accuracy. 
 
 ## Preprocessing
 
@@ -186,7 +187,7 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
 The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
 <!-- render time -->
-The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with __shiny__ [@chang_shiny_2021]. The global view is created first with __ggplot2__ [@wickham_ggplot2_2016] which is then rendered to an interactive html widget with __plotly__ [@sievet_interactive_2020]. The tour view is created in __spinifex__ [@spyrison_spinifex_2020], which creates the manual tour basis array, and facilitates similar rendering to html widget.
+The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with __shiny__ [@chang_shiny_2021]. The global view is created first with __ggplot2__ [@wickham_ggplot2_2016] which is then rendered to an interactive html widget with __plotly__ [@sievert_interactive_2020]. The tour view is created in __spinifex__ [@spyrison_spinifex_2020], which creates the manual tour basis array, and facilitates similar rendering to html widget.
 
 
 # Software Infrastructure {#sec:softwareinfrastructure}

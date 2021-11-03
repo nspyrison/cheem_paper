@@ -202,13 +202,19 @@ That normalized attribution of the primary observation is depicted as stacked ba
 \textbackslash caption\{Cheem tour screen capture; the primary observation's normalized SHAP values are the initial basis. This is the explanation of the linear variable importances for the model at this observation. The point in question was misclassified, it was predicted to be from the green cluster, while it was observed to be from the orange cluster. The top shows the contributions of the variables, with the dashed line being the primary observation's SHAP, its shape is closer to the orange cluster (observed group) while the position is pulled more toward the green (predicted group). The bottom shows the 1D projection with density and rug marks below. The dashed line is plausibly in the middle of the green density, the story that the explanation trying to sell us. Yet, when we play the tour animating on the contribution of bill length (b\_l), the bottom dashed line is more regularly in the center of the observed orange cluster.\}\label{fig:cheemtour}
 \textbackslash end\{figure\}
 
-Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the next sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
+Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the following sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
 
 \hypertarget{classifcation-task}{%
 \subsection{Classifcation task}\label{classifcation-task}}
 
+What information do we glean from using this method on a classifcation task? Typically we select a misclassified observation in comparison with correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction.
+
+Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of \emph{ceteris paribus} profiles (\textbf{biecek\_ceterisparibus\_2020?}). \emph{Ceteris paribus} is Latin for ``other things held constant'' or ``all else unchanged.'' The profiles visualize what `what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other other variables are all held constant. In contrast to \emph{ceteris paribus} profiles, touring methods visualize all observations rather than one, and variables are not treated as independent, that is the projection has an orthonormal basis; when one variable is rotated out-of-frame, other variables are effectively rotated into-the-frame.
+
 \hypertarget{regression-task}{%
 \subsection{Regression task}\label{regression-task}}
+
+The regression case is not as discrete a feature. Instead the prediction or the residual becomes the comparison of accuracy.
 
 \hypertarget{preprocessing}{%
 \subsection{Preprocessing}\label{preprocessing}}
@@ -227,7 +233,7 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
 
 The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
-The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with \textbf{shiny} (Chang et al. 2021). The global view is created first with \textbf{ggplot2} (Wickham 2016) which is then rendered to an interactive html widget with \textbf{plotly} (\textbf{sievet\_interactive\_2020?}). The tour view is created in \textbf{spinifex} (Spyrison and Cook 2020), which creates the manual tour basis array, and facilitates similar rendering to html widget.
+The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with \textbf{shiny} (Chang et al. 2021). The global view is created first with \textbf{ggplot2} (Wickham 2016) which is then rendered to an interactive html widget with \textbf{plotly} (Sievert 2020). The tour view is created in \textbf{spinifex} (Spyrison and Cook 2020), which creates the manual tour basis array, and facilitates similar rendering to html widget.
 
 \hypertarget{sec:softwareinfrastructure}{%
 \section{Software Infrastructure}\label{sec:softwareinfrastructure}}
@@ -345,6 +351,9 @@ Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton University 
 
 \leavevmode\hypertarget{ref-shmueli_explain_2010}{}%
 Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical Science} 25 (3): 289--310.
+
+\leavevmode\hypertarget{ref-sievert_interactive_2020}{}%
+Sievert, Carson. 2020. \emph{Interactive {Web}-{Based} {Data} {Visualization} with {R}, Plotly, and Shiny}. Chapman; Hall/CRC. \url{https://plotly-r.com}.
 
 \leavevmode\hypertarget{ref-da_silva_projection_2021}{}%
 Silva, Natalia da, Dianne Cook, and Eun-Kyung Lee. 2021. {``A {Projection} {Pursuit} {Forest} {Algorithm} for {Supervised} {Classification}.''} \emph{Journal of Computational and Graphical Statistics}, 1--21.

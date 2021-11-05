@@ -3,6 +3,7 @@ require("cheem")
 require("spinifex")
 require("dplyr")
 require("ggplot2")
+require("cowplot")
 
 ## Local function variants:
 
@@ -107,41 +108,46 @@ static_global_view <- function(
   Y <- as.integer(raw$species)
 }
 
-### cheem_ls -----
+### cheem_ls
 cheem_ls_peng <- cheem_ls( ## cheem_ls total: 3.51 sec elapsed
   x = X, y = Y, basis_type = "pca", class = clas)
 names(cheem_ls_peng)
 prim_obs <- 15L
 comp_obs <- 282L
 
-### Still shots of global and tours
+### Global view and cheem tour stills
+glob_view <- cheem::linked_global_view(cheem_ls_peng, prim_obs, comp_obs)
 glob_view <- static_global_view(
   cheem_ls_peng, prim_obs, comp_obs)
 
 bas <- basis_local_attribution(
   cheem_ls_peng$attr_df, rownum = prim_obs)
 ggt <- radial_cheem_ggtour(
-  cheem_ls_peng, basis=bas, mv_name=colnames(X)[1], 
-  primary_obs=prim_obs, comparison_obs=comp_obs)
+  cheem_ls_peng, basis=bas, mv_name=colnames(X)[1],
+  primary_obs=prim_obs, comparison_obs=comp_obs,
+  pcp_shape = 124, angle = 5)
+cheem_stills <- spinifex::filmstrip(ggt)
 
-### ch5_fig2_global_space -----
-
-
-### Save -----
+### Save
+cp <- cowplot::plot_grid(
+  glob_view + ggtitle("Global view"), 
+  cheem_stills + ggtitle("Cheem tour, select frames"),
+  labels = paste0(letters[1:2], ")"),
+  ncol = 1)#, rel_heights = c(1.5, 1))
 ggplot2::ggsave(
-  "./figures_from_script/ch5_fig2_global_space.pdf",
-  plot = p + theme(aspect.ratio=1), device = "pdf",
+  "./figures/case_penguins.pdf",
+  plot = cp, device = "pdf",
   width = 8, height = 4.8, units = "in")
 
-## Save interactive html widget
-ggp <- ggplotly(p, tooltip = "tooltip") %>%
-  config(displayModeBar = FALSE) %>% ## Remove html buttons
-  layout(dragmode = "select", showlegend = FALSE,
-         width = 640, height = 320) %>% ## Set drag left mouse
-  event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-  highlight(on = "plotly_selected", off = "plotly_deselect")
-htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
-                        selfcontained = TRUE)
+# ## Save interactive html widget
+# ggp <- ggplotly(p, tooltip = "tooltip") %>%
+#   config(displayModeBar = FALSE) %>% ## Remove html buttons
+#   layout(dragmode = "select", showlegend = FALSE,
+#          width = 640, height = 320) %>% ## Set drag left mouse
+#   event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
+#   highlight(on = "plotly_selected", off = "plotly_deselect")
+# htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
+#                         selfcontained = TRUE)
 
 ## FIFA 2020 wage regression ------
 
@@ -153,12 +159,65 @@ cheem_ls_fifa$runtime_df
 prim_obs <- 1L
 comp_obs <- 8L
 
-### Still shots of global and tours -----
+### global view and tours
 glob_view <- static_global_view(
   cheem_ls_fifa, prim_obs, comp_obs)
 
+bas <- basis_local_attribution(
+  cheem_ls_fifa$attr_df, rownum = prim_obs)
+ggt <- radial_cheem_ggtour(
+  cheem_ls_fifa, basis=bas, mv_name=colnames(cheem_ls_fifa$attr_df)[1],
+  primary_obs=prim_obs, comparison_obs=comp_obs,
+  pcp_shape = 124, angle = 5)
+cheem_stills <- spinifex::filmstrip(ggt)
 
-### ch5_fig2_global_space -----
+### Save
+cp <- cowplot::plot_grid(
+  glob_view + ggtitle("Global view"),
+  cheem_stills + ggtitle("Cheem tour, select frames"),
+  labels = paste0(letters[1:2], ")"),
+  ncol = 1)#, rel_heights = c(1.5, 1))
+ggplot2::ggsave(
+  "./figures/case_fifa.pdf",
+  plot = cp, device = "pdf",
+  width = 8, height = 4.8, units = "in")
+
+## Tidy Tuesday coffee -----
+if(F) ## Regress score
+  browseURL("https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md")
+coffee <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
+(skimr::skim(coffee))
+Y <- coffee$total_cup_points
+hist(Y) ## exactly 1 with score 0 will remove
+summary(Y)
+r_idx <- Y > 20
+Y <- Y[r_idx]
+clas <- coffee$species[r_idx]
+X <- coffee[r_idx, c(
+  "aroma", "flavor", "aftertaste", "acidity", "body", "balance",
+  "uniformity", "clean_cup", "sweetness", "cupper_points", "moisture")]
+
+cheem_ls_cof <- cheem_ls(## cheem_ls total: 3.51 sec elapsed
+  x = X, y = Y, basis_type = "pca", class = clas)
+names(cheem_ls_cof)
+prim_obs <- 1L
+comp_obs <- 2L
+
+### Global view and cheem tour stills
+cheem::linked_global_view(cheem_ls_cof, prim_obs, comp_obs)
+glob_view <- static_global_view(
+  cheem_ls_peng, prim_obs, comp_obs)
 
 
-### Save -----
+## chocolates -----
+chocolates <- readr::read_csv('https://iml.numbat.space/data/chocolates.csv')
+clas <- factor(chocolates$Type, levels = rev(unique(chocolates$Type)))
+lvls <- levels(clas)
+X <- chocolates[, 5:14] %>% as.data.frame() ## X's not scaled.
+Y <- as.integer(clas)
+
+cheem_ls_choc <- cheem_ls(## cheem_ls total: 3.51 sec elapsed
+  x = X, y = Y, basis_type = "pca", class = clas)
+names(cheem_ls_cof)
+prim_obs <- 1L
+comp_obs <- 2L

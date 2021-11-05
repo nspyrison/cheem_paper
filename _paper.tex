@@ -209,7 +209,7 @@ Data visualization tours animate many linear projections over small changes to t
 
 What information do we glean from using this method on a classifcation task? Typically we select a misclassified observation in comparison with correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction.
 
-Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of \emph{ceteris paribus} profiles (\textbf{biecek\_ceterisparibus\_2020?}). \emph{Ceteris paribus} is Latin for ``other things held constant'' or ``all else unchanged.'' The profiles visualize what `what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other other variables are all held constant. In contrast to \emph{ceteris paribus} profiles, touring methods visualize all observations rather than one, and variables are not treated as independent, that is the projection has an orthonormal basis; when one variable is rotated out-of-frame, other variables are effectively rotated into-the-frame.
+Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of \emph{ceteris paribus} profiles (Biecek 2020). \emph{Ceteris paribus} is Latin for ``other things held constant'' or ``all else unchanged.'' The profiles visualize what `what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other other variables are all held constant. In contrast to \emph{ceteris paribus} profiles, touring methods visualize all observations rather than one, and variables are not treated as independent, that is the projection has an orthonormal basis; when one variable is rotated out-of-frame, other variables are effectively rotated into-the-frame.
 
 \hypertarget{regression-task}{%
 \subsection{Regression task}\label{regression-task}}
@@ -219,7 +219,7 @@ The regression case is not as discrete a feature. Instead the prediction or the 
 \hypertarget{preprocessing}{%
 \subsection{Preprocessing}\label{preprocessing}}
 
-The benefit of having dynamic interaction with data is predicated on a reasonably small render time. It is important to preprocess as much work as possible so that application resources can be used efficiently. Below we discuss the steps and details of the reprocessing.
+The benefit of having dynamic interaction with data is predicated on a reasonably small render time. It is important to preprocess as much work as possible so that application resources can be used efficiently. The work remaining at runtime should be solely responding to inputs and the rendering of figures and tables. Below we discuss the steps and details of the reprocessing.
 
 
 
@@ -233,40 +233,68 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
 
 The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
-The work remaining at runtime consists mostly in rendering the frames of the tour as specified by the selection of the parameters. The application is made with \textbf{shiny} (Chang et al. 2021). The global view is created first with \textbf{ggplot2} (Wickham 2016) which is then rendered to an interactive html widget with \textbf{plotly} (Sievert 2020). The tour view is created in \textbf{spinifex} (Spyrison and Cook 2020), which creates the manual tour basis array, and facilitates similar rendering to html widget.
-
 \hypertarget{sec:softwareinfrastructure}{%
 \section{Software Infrastructure}\label{sec:softwareinfrastructure}}
 
-\hypertarget{extend-spinifex-consume-dalex-treeshap}{%
-\subsection{Extend spinifex, consume DALEX \& treeshap}\label{extend-spinifex-consume-dalex-treeshap}}
+The above described method and application are implemented as an open source \textbf{R} package, \textbf{cheem} \emph{TODO:XXX site github? cran?}. Preprocessing was facilited with models created via \textbf{randomForest} {[}liaw\_classification\_2002{]}, and explanations calculated with \textbf{treeshap} (Kominsarczyk et al. 2021).
+The application is made with \textbf{shiny} (Chang et al. 2021). The tour visual is an extension of \textbf{spinifex} (Spyrison and Cook 2020). Both views are created first with first with \textbf{ggplot2} (Wickham 2016) and then rendered as interactive html widget with \textbf{plotly} (Sievert 2020). The free ebook, \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021) was a huge boon to understanding local explanations and how to apply them.
 
-\hypertarget{preprocess}{%
-\subsection{Preprocess}\label{preprocess}}
+\hypertarget{preprocessing-1}{%
+\subsection{Preprocessing}\label{preprocessing-1}}
 
-\hypertarget{runtime-rendering}{%
-\subsection{Runtime rendering}\label{runtime-rendering}}
+Provided with tidy and transformed data, the function \texttt{cheem\_ls} is a wrapper function that facilitates the creation of random forest models and calculates the tree SHAP for all observations. It returns an a list containing data frames to be consumed by the application, higher level model performance, and runtime information. The return of this function can be then be saved to an .rds file for consumption in the application.
+
+\hypertarget{linking-brushing-and-highlighting}{%
+\subsection{Linking brushing and highlighting}\label{linking-brushing-and-highlighting}}
+
+The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view \emph{and} crucially available for downstream consumption, for instance highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained html widgets can highlight directly within javascript without evaluation evaluation downstream in other reactive functions. In the latter, the use of \texttt{plotly::event\_data()} returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
 
 \hypertarget{sec:casestudies}{%
 \section{Case Studies}\label{sec:casestudies}}
 
 \hypertarget{penguins-species-classification}{%
-\subsection{1) Penguins species classification}\label{penguins-species-classification}}
+\subsection{1) penguins, species classification}\label{penguins-species-classification}}
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{./figures/case_penguins} 
+
+}
+
+\caption{Penguins classificiation TODO: XXX}\label{fig:casepenguins}
+\end{figure}
+
+\hypertarget{chocolates-milkdark-chocolate-classification}{%
+\subsection{2) Chocolates, milk/dark chocolate classification}\label{chocolates-milkdark-chocolate-classification}}
+
+TODO:XXX
 
 \hypertarget{fifa-wage-regression}{%
-\subsection{2) FIFA wage regression}\label{fifa-wage-regression}}
+\subsection{3) FIFA, wage regression}\label{fifa-wage-regression}}
 
-\hypertarget{section}{%
-\subsection{3)?}\label{section}}
+\begin{figure}
 
-\hypertarget{section-1}{%
-\subsection{4)?}\label{section-1}}
+{\centering \includegraphics[width=1\linewidth]{./figures/case_fifa} 
+
+}
+
+\caption{FIFA 2020, regressing wages [log 2020 Euros] from skill measures. TODO: XXX}\label{fig:casefifa}
+\end{figure}
+
+\hypertarget{coffee-rating-regression}{%
+\subsection{4) Coffee, rating regression}\label{coffee-rating-regression}}
+
+TODO:XXX
+
+regress score color on species?
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
+
+We would like to thank Professor Przemyslaw Biecek for his input in early in the project and to the broader MI\^{}2 lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Pyhton} packages. This research was supported in part by Australian government Research Training Program (RTP) scholarships.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -282,6 +310,12 @@ Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser, Adrien Ben
 
 \leavevmode\hypertarget{ref-asimov_grand_1985}{}%
 Asimov, Daniel. 1985. {``The {Grand} {Tour}: A {Tool} for {Viewing} {Multidimensional} {Data}.''} \emph{SIAM Journal on Scientific and Statistical Computing} 6 (1): 128--43. https://doi.org/\url{https://doi.org/10.1137/0906011}.
+
+\leavevmode\hypertarget{ref-biecek_ceterisparibus_2020}{}%
+Biecek, Przemyslaw. 2020. \emph{{ceterisParibus}: {Ceteris} {Paribus} {Profiles}}. \url{https://CRAN.R-project.org/package=ceterisParibus}.
+
+\leavevmode\hypertarget{ref-biecek_explanatory_2021}{}%
+Biecek, Przemyslaw, and Tomasz Burzykowski. 2021. \emph{Explanatory {Model} {Analysis}: {Explore}, {Explain}, and {Examine} {Predictive} {Models}}. CRC Press.
 
 \leavevmode\hypertarget{ref-breiman_statistical_2001}{}%
 Breiman, Leo. 2001. {``Statistical Modeling: {The} Two Cultures (with Comments and a Rejoinder by the Author).''} \emph{Statistical Science} 16 (3): 199--231.

@@ -198,10 +198,28 @@ Provided with tidy and transformed data, the function `cheem_ls` is a wrapper fu
 The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view _and_ crucially available for downstream consumption, for instance highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained html widgets can highlight directly within javascript without evaluation evaluation downstream in other reactive functions. In the latter, the use of `plotly::event_data()` returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
 
 # Case Studies {#sec:casestudies}
-## 1) Penguins species classification
-## 2) FIFA wage regression
-## 3)?
-## 4)?
+## 1) penguins, species classification
+
+```{r casepenguins, echo=F, out.width = "100%", fig.cap = "Penguins classificiation TODO: XXX"}
+knitr::include_graphics("./figures/case_penguins.pdf")
+```
+
+## 2) Chocolates, milk/dark chocolate classification
+
+TODO:XXX
+
+## 3) FIFA, wage regression
+```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing wages [log 2020 Euros] from skill measures. TODO: XXX"}
+knitr::include_graphics("./figures/case_fifa.pdf")
+```
+
+## 4) Coffee, rating regression
+
+TODO:XXX
+
+
+
+regress score color on species?
 
 # Discussion {#sec:discussion}
 

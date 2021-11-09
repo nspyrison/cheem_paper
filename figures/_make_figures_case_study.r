@@ -116,38 +116,35 @@ prim_obs <- 15L
 comp_obs <- 282L
 
 ### Global view and cheem tour stills
-glob_view <- cheem::linked_global_view(cheem_ls_peng, prim_obs, comp_obs)
+# glob_view <- cheem::linked_global_view(cheem_ls_peng, prim_obs, comp_obs)
 glob_view <- static_global_view(
-  cheem_ls_peng, prim_obs, comp_obs)
+  cheem_ls_peng, prim_obs, comp_obs) +
+  ggplot2::coord_fixed() + 
+  theme(legend.position = "right",
+        legend.direction = "vertical", ## Levels within aesthetic
+        legend.box = "hrizontal",         ## Between aesthetic
+        legend.margin = ggplot2::margin(1L,1L,1L,1L, "mm")) +
+  labs(color='Predicted class', shape='Predicted class')
 
 bas <- basis_local_attribution(
   cheem_ls_peng$attr_df, rownum = prim_obs)
 ggt <- radial_cheem_ggtour(
   cheem_ls_peng, basis=bas, mv_name=colnames(X)[1],
   primary_obs=prim_obs, comparison_obs=comp_obs,
-  pcp_shape = 124, angle = 5)
+  do_add_pcp_segments = TRUE,
+  pcp_shape = 124, angle = 5) + theme(legend.position = "off")
 cheem_stills <- spinifex::filmstrip(ggt)
 
 ### Save
 cp <- cowplot::plot_grid(
-  glob_view + ggtitle("Global view"), 
+  glob_view + ggtitle("Global view"),
   cheem_stills + ggtitle("Cheem tour, select frames"),
   labels = paste0(letters[1:2], ")"),
   ncol = 1)#, rel_heights = c(1.5, 1))
 ggplot2::ggsave(
   "./figures/case_penguins.pdf",
   plot = cp, device = "pdf",
-  width = 8, height = 4.8, units = "in")
-
-# ## Save interactive html widget
-# ggp <- ggplotly(p, tooltip = "tooltip") %>%
-#   config(displayModeBar = FALSE) %>% ## Remove html buttons
-#   layout(dragmode = "select", showlegend = FALSE,
-#          width = 640, height = 320) %>% ## Set drag left mouse
-#   event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-#   highlight(on = "plotly_selected", off = "plotly_deselect")
-# htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
-#                         selfcontained = TRUE)
+  width = 8, height = 5, units = "in")
 
 ## FIFA 2020 wage regression ------
 
@@ -155,20 +152,25 @@ ggplot2::ggsave(
 cheem_ls_fifa <- readRDS(
   "../cheem/inst/shiny_apps/cheem_initial/data/3preprocess_fifa.rds")
 names(cheem_ls_fifa)
-cheem_ls_fifa$runtime_df
 prim_obs <- 1L
 comp_obs <- 8L
 
 ### global view and tours
 glob_view <- static_global_view(
-  cheem_ls_fifa, prim_obs, comp_obs)
+  cheem_ls_fifa, prim_obs, comp_obs) + 
+  ggplot2::coord_fixed() + 
+  theme(legend.position = "right",
+        legend.direction = "vertical", ## Levels within aesthetic
+        legend.box = "hrizontal",         ## Between aesthetic
+        legend.margin = ggplot2::margin(1L,1L,1L,1L, "mm")) +
+  labs(color='Predicted class', shape='Predicted class')
 
 bas <- basis_local_attribution(
   cheem_ls_fifa$attr_df, rownum = prim_obs)
 ggt <- radial_cheem_ggtour(
   cheem_ls_fifa, basis=bas, mv_name=colnames(cheem_ls_fifa$attr_df)[1],
   primary_obs=prim_obs, comparison_obs=comp_obs,
-  pcp_shape = 124, angle = 5)
+  pcp_shape = 124, angle = 15) + theme(legend.position = "off")
 cheem_stills <- spinifex::filmstrip(ggt)
 
 ### Save
@@ -221,3 +223,45 @@ cheem_ls_choc <- cheem_ls(## cheem_ls total: 3.51 sec elapsed
 names(cheem_ls_cof)
 prim_obs <- 1L
 comp_obs <- 2L
+
+
+## AMES housing 2018 ----
+?amesHousing2018_thin
+require(cheem)
+
+ames2018_ls <- readRDS(
+  "../cheem/inst/shiny_apps/cheem_initial/data/7preprocess_ames2018.rds")
+names(ames2018_ls)
+linked_global_view(
+  ames2018_ls, color = factor(FALSE), shape = factor(FALSE))
+prim_obs <- 1703L
+comp_obs <- 1368L
+
+### global view and tours
+glob_view <- static_global_view(
+  ames2018_ls, prim_obs, comp_obs) + 
+  ggplot2::coord_fixed() + 
+  theme(legend.position = "right",
+        legend.direction = "vertical", ## Levels within aesthetic
+        legend.box = "hrizontal",         ## Between aesthetic
+        legend.margin = ggplot2::margin(1L,1L,1L,1L, "mm")) +
+  labs(color='Predicted class', shape='Predicted class')
+
+bas <- basis_local_attribution(ames2018_ls$attr_df, rownum = prim_obs)
+names(ames2018_ls$attr_df)
+ggt <- radial_cheem_ggtour(
+  ames2018_ls, basis = bas, manip_var = 2,
+  primary_obs = prim_obs, comparison_obs = comp_obs,
+  pcp_shape = 124, angle = 15) + theme(legend.position = "off")
+cheem_stills <- spinifex::filmstrip(ggt)
+
+### Save
+cp <- cowplot::plot_grid(
+  glob_view + ggtitle("Global view"),
+  cheem_stills + ggtitle("Cheem tour, select frames"),
+  labels = paste0(letters[1:2], ")"),
+  ncol = 1)#, rel_heights = c(1.5, 1))
+ggplot2::ggsave(
+  "./figures/case_fifa.pdf",
+  plot = cp, device = "pdf",
+  width = 8, height = 4.8, units = "in")

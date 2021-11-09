@@ -91,7 +91,7 @@ Mathematically rigorous approaches to predictive modeling are attributed to the 
 Breiman and Shmueli [@breiman_statistical_2001, @shmueli_explain_2010] introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose such as hypothesis testing, while _predictive_ modeling is performed to predict new or future out-of-sample observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling, the interpretable is a key feature for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use of a model has important implications for which methods are used and the development of those models.
 
 <!-- ## XAI & interpretability crisis -->
-Predictive model and black-box modeling is becoming increasingly common, but not without controversy and issues [@oneil_weapons_2016, @kodiyan_overview_2019]. Applications have been known to reflect common biases against sex [@dastin_amazon_2018, @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. This is a common issue stemming from biases in the in-sample, training data are violate ethical principles. Another issue is that of data-drift when new data is outside the support of latent or exogenous explanatory variables. Data-drift can lead to worse predictions [@lazer_parable_2014, @salzberg_why_2014]. Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI [@adadi_peeking_2018, @arrieta_explainable_2020].
+Black-box models are becoming increasingly common, but not without teir share of controversy and issues [@oneil_weapons_2016, @kodiyan_overview_2019]. Applications have been known to reflect common biases against sex [@dastin_amazon_2018, @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. These are all-too common issue, when endogenous or exogenous biases in the training data and identified and mimicked by models. Another issue is that of data-drift when new data is outside the support of latent or exogenous explanatory variables. Data drift can lead to worse predictions [@lazer_parable_2014, @salzberg_why_2014]. Such issues highlight the need to make models fair, accountable, ethical, and transparent which has led to the movement of XAI [@adadi_peeking_2018, @arrieta_explainable_2020].
 
 <!-- ## Local explanations -->
 One branch of XAI is local explanations, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate linear variable importance at the location of one observation. There are many such local explanations, any of which is works with our approach (assuming model-explanation compatibility).
@@ -103,9 +103,9 @@ However, to illustrate our work we apply the model-agnostic explanation SHAP [@s
 <!-- ## Data visualization tours -->
 In multivariate data visualization a _tour_ [@asimov_grand_1985, @buja_grand_1986, @lee_review_2021] is a sequence of linear projections of data onto a lower-dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to a projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of the structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. <!-- ## manual tours --> There are various types of tours, which are distinguished by the generation of the sequence of projection bases. In a _manual_ tour [@cook_manual_1997, @spyrison_spinifex_2020] this path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours in conjunction with models has been previously done,  _ie_ for exploring various statistical model fits [@wickham_visualizing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path [@lee_pptree_2013, @da_silva_projection_2021].
 
-The approach purposed below is to use the manual tour as means to interrogate a local explanation; a means of evaluating if its variable importance is good explanation for the model predictions. We make R package `cheem` with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
+The approach purposed below is to use the manual tour as means to interrogate a local explanation; a means of evaluating if its variable importance is a good explanation for the model predictions. We make R package `cheem` with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
 
-The rest of this paper is organized as follows. The next section [SHAP](#sec:SHAP) covers the background of the local explanation SHAP and the traditional visuals produced from it. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis. Following that, [Software Instructure](#sec:softwareinfrastructure) discusses the backend details of the package and preprocessing. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [Discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
+The rest of this paper is organized as follows. The next section [SHAP](#sec:SHAP) covers the background of the local explanation SHAP and the traditional visuals produced from it. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis. Following that, [Software Instructure](#sec:softwareinfrastructure) discusses the backend details of the package and preprocessing. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
 
 
 # SHAP local explanation {#sec:SHAP}
@@ -136,13 +136,13 @@ Below we illustrate the two primary displays of the application: the global view
 
 The global view is an important context for exploring the separability of the data- and the local explanation's attribution-spaces, and is crucial in the selection of explanation to further interrogate and explore the structural sensitivity of.
 
-We show an approximation of these spaces with a projection through their first two principal components. The orientation of the variables are shown inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of a higher-dimensional space, it provides a reasonable starting point for the real task at hand, the selection of observation and nearby comparison.
+We show an approximation of these spaces with a projection through their first two principal components. The orientation of the variables is shown inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of higher-dimensional spaces, it provides a reasonable starting point for the real task at hand, the selection of observation and nearby comparison.
 
-```{r globalview, echo=F, out.width = "100%", fig.cap = "Global view screen capture; the approximations of the data and SHAP-spaces of the penguins data. Orientation of the basis contributions is illustrated on a unit circle. Linked brushing allows observations brushed in one plot to be selected in others. This selection is also used in the proceeding view and their corresponding information is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view prpvides an orientation to select a primary and comparison observation, key targets in the following tour."}
+```{r globalview, echo=F, out.width = "100%", fig.cap = "Global view screen capture; the approximations of the data and SHAP-spaces of Palmer penguins data. Orientation of the basis contributions is illustrated on a unit circle. Linked brushing allows observations brushed in one plot to be selected in others. This selection is also used in the proceeding view and their corresponding information is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view provides an orientation to select a primary and comparison observation, key targets in the following tour."}
 knitr::include_graphics("./figures/global_view_penguins.PNG")
 ```
 
-This view offers dynamic interaction in several ways. A tooltip on hovering over a point that displays the row number/name and classification information if appropriate. Linked brushing allows for the selection of points (by click and drag) where those points will be highlighted in both plots. The information corresponding to the selected points is populated on a sortable table and the data powering the proceeding tour will also subset the data to the current selection.
+This view offers dynamic interaction in several ways. A tooltip displays while the cursor hovers over a point displays the row number/name and classification information if appropriate. Linked brushing allows for the selection of points (by click and drag) where those points will be highlighted in both plots. The information corresponding to the selected points is populated on a sortable table and the data powering the proceeding tour will also subset the data to the current selection.
 
 
 ## Cheem tour
@@ -157,15 +157,15 @@ knitr::include_graphics("./figures/cheem_tour_penguins.PNG")
 
 Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the following sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
 
-## Classifcation task
+## Classification task
 
-What information do we glean from using this method on a classifcation task?  Typically we select a misclassified observation in comparison with correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction. 
+What information do we glean from using this method on a classification task?  Typically we select a misclassified observation in comparison with a correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default, the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction. 
 
-Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of _ceteris paribus_ profiles [@biecek_ceterisparibus_2020]. _Ceteris paribus_ is Latin for “other things held constant” or “all else unchanged”. The profiles visualize what 'what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other other variables are all held constant. In contrast to _ceteris paribus_ profiles, touring methods visualize all observations rather than one, and variables are not treated as independent, that is the projection has an orthonormal basis; when one variable is rotated out-of-frame, other variables are effectively rotated into-the-frame.
+Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of _ceteris paribus_ profiles [@biecek_ceterisparibus_2020]. _Ceteris paribus_ is Latin for “other things held constant” or “all else unchanged”. The profiles visualize what 'what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other variables are held constant. In contrast to _ceteris paribus_ profiles, touring methods visualize all observations rather than one, While the variables are orthogonal dimensions, the 2D shadow they cast is not independent. That is, when one variable is rotated out of frame, other variables are effectively rotated into frame.
 
 ## Regression task
 
-The regression case is not as discrete a feature. Instead the prediction or the residual becomes the comparison of accuracy. 
+The regression case is not as discrete a feature. Instead, the prediction or the residual becomes the comparison of accuracy. 
 
 ## Preprocessing
 
@@ -174,33 +174,39 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
 (ref:citeRf) [@liaw_classification_2002]
 (ref:citeTs) [@kominsarczyk_treeshap_2021]
 \begin{itemize}
-	\item \textbf{Data:} a complete numerical matrix; explanatory and response variable, an optional aesthetic (color/shape) variable can be mapped typically a categorical variable exogenous to the model.
+	\item \textbf{Data:} a complete numerical matrix; explanatory and response variable, an optional aesthetic variable (color/shape)  can be mapped typically a categorical variable.
 	\item \textbf{Model:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} (ref:citeRf) to mitigate the runtime of our local explanation which requires tree-based models.
 	\item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP applicable to tree-based models. This is done with the package \textbf{treeshap} (ref:citeTs), hosted on GitHub only]. The global view shows all observations in attribution space requiring that we must extract the variable weightings from \emph{all} observations rather than just one.
 	\item \textbf{Global view:} The data- and attribution-spaces are approximated as their the first two principal components.
 \end{itemize}
 
 <!-- note on time of execution -->
-The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, a modestly hyper-parametered random forest model fit in 2.9 seconds, while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the run time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
+The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, with modest hyper parameters a random forest model fit in 2.9 seconds while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
 
 # Software Infrastructure {#sec:softwareinfrastructure}
 
-The above described method and application are implemented as an open source __R__ package, __cheem__ _TODO:XXX site github? cran?_. Preprocessing was facilited with models created via __randomForest__ [liaw_classification_2002], and explanations calculated with __treeshap__ [@kominsarczyk_treeshap_2021].
-The application is made with __shiny__ [@chang_shiny_2021]. The tour visual is an extension of __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive html widget with __plotly__ [@sievert_interactive_2020]. The free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] was a huge boon to understanding local explanations and how to apply them.
+The above-described method and application are implemented as an open-source __R__ package, __cheem__ _TODO:XXX site github? cran?_. Preprocessing was facilitated with models created via __randomForest__ [liaw_classification_2002], and explanations calculated with __treeshap__ [@kominsarczyk_treeshap_2021].
+The application is made with __shiny__ [@chang_shiny_2021]. The tour visual is an extension of __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive HTML widgets with __plotly__ [@sievert_interactive_2020]. The free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] was a huge boon to understanding local explanations and how to apply them.
 
 ## Preprocessing
 
-Provided with tidy and transformed data, the function `cheem_ls` is a wrapper function that facilitates the creation of random forest models and calculates the tree SHAP for all observations. It returns an a list containing data frames to be consumed by the application, higher level model performance, and runtime information. The return of this function can be then be saved to an .rds file for consumption in the application.
+Provided with tidy and transformed data, the function `cheem_ls` is a wrapper function that facilitates the creation of random forest models and calculates the tree SHAP for all observations. It returns a list containing data frames to be consumed by the application, higher-level model performance, and runtime information. The return of this function can be then be saved to an .rds file for consumption in the application.
 
-## Linking brushing and highlighting
+## Interactive shiny application
 
-The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view _and_ crucially available for downstream consumption, for instance highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained html widgets can highlight directly within javascript without evaluation evaluation downstream in other reactive functions. In the latter, the use of `plotly::event_data()` returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
+The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view _and_ crucially available for downstream consumption, for instance, highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained HTML widgets can highlight directly within javascript without evaluation downstream in other reactive functions. In the latter, the use of `plotly::event_data()` returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
 
 # Case Studies {#sec:casestudies}
+
+To illustrate the use of the cheem method we apply it to modern datasets, two classification examples and then two of regression. 
+
 ## 1) penguins, species classification
 
-```{r casepenguins, echo=F, out.width = "100%", fig.cap = "Penguins classificiation TODO: XXX"}
+Palm penguins data [@gorman_ecological_2014, @horst_palmerpenguins_2020] consist of four physical measurements of 3 species of penguins foraging near Plamer Station, Antarctica.
+The random forest model classifies the species of the penguin given the physical measurements.
+
+```{r casepenguins, echo=F, out.width = "100%", fig.cap = "Species classification of Palmer penguin data. a) The primary observation is misclassified as an orange point and is being compared to a nearby correctly classified orange point."}
 knitr::include_graphics("./figures/case_penguins.pdf")
 ```
 
@@ -209,23 +215,35 @@ knitr::include_graphics("./figures/case_penguins.pdf")
 TODO:XXX
 
 ## 3) FIFA, wage regression
-```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing wages [log 2020 Euros] from skill measures. TODO: XXX"}
+
+The 2020 season FIFA[@leone_fifa_2020, @biecek_dalex_2018], contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates.
+
+```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. a) The primary observation is a star offensive player (L. Messi) as compared with a top defensive player (V. van Dijk). b) Starting from a basis where offensive skills ('*' toward the right, high predicted wages) are high we observe that how contingent this variable is for explaining the high wages. As the contribution decreases the primary observation moves left into the bulk of the other observations corresponding to lower predicted wages."}
 knitr::include_graphics("./figures/case_fifa.pdf")
 ```
 
-## 4) Coffee, rating regression
+The difference in their tree shap values highlights the fact that the random forest model found multiple ways to increase wages; that prediction accuracy was improved by varying linear variable importance that makes sense in light of the player positions that we exogenous to the model.
+
+## 4) Ames Housing prices 2018
 
 TODO:XXX
 
 
-
-regress score color on species?
-
 # Discussion {#sec:discussion}
+
+The need to maintain the interpretability of black-box models is clear. One way to do this is by the use of local explanations of an observation. Local explanations approximate the linear variable importance to the model. Our idea is to visualize approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then use the linear importance from the primary observation as a projection basis and explore a single variable's importance to the structure identified with use of the manual tour.
+
+We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression task. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare observations over exogenous . An observation with particularly extreme residual can be compared with nearby points more accurately predicted.
+
+We have created an open-source __R__ package __cheem__, available on CRAN, to facilitate this workflow including a dynamic application, with the ability to upload preprocessed data.
+
+
 
 # Acknowledgments
 
 We would like to thank Professor Przemyslaw Biecek for his input in early in the project and to the broader MI\^2 lab group for the __DALEX__ ecosystem of __R__ and __Pyhton__ packages. This research was supported in part by Australian government Research Training Program (RTP) scholarships.
+
+The namesake, cheem, refers to a fictional race of humanoid trees in the Doctor Who lore. Given that __DALEX__ pulls on from that universe and we originally apply tree shap explanations (specific to tree-based models) we found it fitting.
 
 
 # References

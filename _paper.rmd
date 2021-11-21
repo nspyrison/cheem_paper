@@ -109,7 +109,10 @@ There are various types of tours, which are distinguished by the sequence of pro
 <!-- Purposed approach -->
 The approach purposed below is to use the manual tour as means to interrogate a local explanation; a means of evaluating if its variable importance is a good explanation for the model predictions. We provide a free and open-source R package `cheem` with an interactive application to facilitate analysis. By viewing approximations of data- and attribution-space side-by-side, with linked brushing an analyst can identify observations of interest whose explanations are then rendered at the initial projection basis and explored with a manual tour to further interpret the variable importance of the local explanation. We give case studies of toy and modern datasets for both classification and regression tasks.
 
-The rest of this paper is organized as follows. The next section [Local explanation statistics](#sec:explanations) covers the background of the local explanation SHAP and the traditional visuals produced from it. [Tours and the radial tour](#sec:tour) digs deeper into the animation and what it shows. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis and  discusses the backend details of the package and preprocessing. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
+<!-- What-if & counterfactual analysis -->
+The change in the projection basis might feel similar to counterfactual, what-if analysis, such as _Ceteris paribus_[@biecek_ceterisparibus_2020].  Latin for “other things held constant” or “all else unchanged”, is a counterfactual analysis showing how an observation's prediction would change from a change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation a of the factual observed case by varying the basis, the angle of the data object. Another, but related difference is that this geometric approach maintains orthogonal dimensions. That is to say when the contribution of some variables decrease the the contributions of others necessarily increases.
+
+The rest of this paper is organized as follows. The next section [Local explanation statistics](#sec:explanations) covers the background of the local explanation SHAP and the traditional visuals produced from it. [Tours and the radial tour](#sec:tour) digs deeper into the animation and what it shows. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis and discusses the backend details of the package and preprocessing. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
 
 
 # Local explanation statistics {#sec:explanations}
@@ -142,10 +145,24 @@ In summary, this highlights how local explanations bring interpretability to a m
 
 # Tours and the radial tour
 
+```{r}
+##TODO:XXX
+```
 
 # Application design {#sec:applicationdesign}
 
 Below we illustrate the two primary displays of the application: the global view and the tour view. Then we'll cover what we take away from the classification and regression tasks. Lastly, we discuss the preprocessing that needs to be done before display.
+
+## Classification task
+
+What information do we glean from using this method on a classification task? Typically we select a misclassified observation in comparison with a correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default, the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction. 
+
+
+## Regression task
+
+The regression case is not as discrete a feature. Instead, the prediction or the residual becomes the comparison of accuracy.
+
+
 
 ## Global view
 
@@ -156,7 +173,7 @@ The global view is an important context for exploring the separability of the da
 We show an approximation of these spaces with a projection through their first two principal components. The orientation of the variables is shown inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of higher-dimensional spaces, it provides a reasonable starting point for the real task at hand, the selection of observation and nearby comparison.
 
 ```{r globalview, echo=F, out.width = "100%", fig.cap = "Global view screen capture; the approximations of the data and SHAP-spaces of Palmer penguins data. Orientation of the basis contributions is illustrated on a unit circle. Linked brushing allows observations brushed in one plot to be selected in others. This selection is also used in the proceeding view and their corresponding information is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view provides an orientation to select a primary and comparison observation, key targets in the following tour."}
-knitr::include_graphics("./figures/global_view_penguins.PNG")
+knitr::include_graphics("./figures/global_view_toy_class.PNG")
 ```
 
 <!-- Interaction -->
@@ -169,27 +186,29 @@ This view offers dynamic interaction in several ways. A tooltip displays while t
 The primary observation identified via the global view is foundational to the production of the cheem tour. Namely, the linear attribution of that variable is used as a 1D projection basis. This is the approximate contributions of the variables that this model uses to justify its prediction for the observation.
 
 <!-- Dipiction of a frame -->
-The SHAP values of the full dataset are shown as horizontal parrallel coordiate plot at the top with the selected observations highlighted. In the classification case, 1D density curves with underlying rug marks are drawn and colored according to their predicted classes. In the regression case, the horizontal position of the points comes from projection through the 1D attribution basis while the vertical position of is fixed to the observations prediction and residual respectively. The current projection basis is depicted on the bottom, where the width of the bar is mapped to variables contribution to the horizontal axis. The starting frame is the normalized SHAP values of the primary observation.
+The SHAP values of the full dataset are shown as horizontal parrallel coordiate plot at the top with the selected observations highlighted. In the classification case, 1D density curves with underlying rug marks are drawn and colored according to their predicted classes. In the regression case, the horizontal position of the points comes from projection through the 1D attribution basis while the vertical position of is fixed to the observations prediction and residual respectively. The current projection basis is depicted on the bottom, where the width of the bar is mapped to variables contribution to the horizontal axis. The starting frame is the normalized SHAP values of the primary observation. In figure \@ref(fig:cheemtourclass) we illustrate the classification case with simulated data; 3 clusters separated in the first 2 dimensions with 2 dimensions of noise.
 
-<!-- cheem tour caption -->
-(ref:cheemtour) Cheem tour screen capture; on classification random forest of simulated data, a misclassified observation is be compared with a nearby correctly classified observation. The top contains a horizontal display of the SHAP value from all observation with selected primary and comparison observations highlighted. The middle shows density and rug marks of the current frame with selections similarly highlighted. The bottom shows the projection basis, that is, each variables contribution to the horizontal position. The primary, misclassifed observation (dashed line), is plausibly in the middle of the green density, the story that the explanation trying to sell us. Yet, when we play the tour animating on the contribution of bill length (b_l), the bottom dashed line is more regularly in the center the it observed cluster, orange. By varying this contribution we gain information of how sensitive this variable is to the explanation; the variable importance which led to a misclassification.
+<!-- cheem tour classification caption -->
+(ref:cheemtourclass) Cheem tour, classification case. A random forest model predicting the class of the of simulated data. A misclassified observation is be compared with a nearby correctly classified observation. The top shows density and rug marks of the current frame with the positions of the primary and comparison observations shown as dashed and dotted lines. The bottom shows two key features; the distribution of attribution space shown as parallel coordinate lines across the variables and the bars show the current contribution of the variable to the projection. The primary, misclassifed observation (dashed line), is plausibly in the middle of the its prediction,  purple density, the story that the explanation trying to sell us. Yet, when we play the tour animating on the contribution of V1, the bottom dashed line is more regularly in the center the it observed cluster, green, By varying this contribution we gain information of how sensitive this variable is to the explanation; the variable importance which led to a misclassification.
 
-```{r cheemtour, echo=F, out.width = "100%", fig.cap = "(ref:cheemtour)"}
-knitr::include_graphics("./figures/cheem_tour_penguins.PNG")
+```{r cheemtourclass, echo=F, out.width = "100%", fig.cap = "(ref:cheemtourclass)"}
+knitr::include_graphics("./figures/cheem_tour_toy_class.PNG")
 ```
 
-
+<!-- tour animation -->
 Data visualization tours animate many linear projections over small changes to the basis. The manual tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing allows an analyst to test an individual variable's sensitivity to the structure identified in the frame. The default variable selected is the one with the largest discrepancy between the primary and comparison observation's attribution. In the following sections we elaborate on the takeaways we draw from applying this approach in classification and regression tasks respectively.
 
-## Classification task
+<!-- regression case -->
+In the regression case we compare an observation with a particularly extreme residual as compared with a neighboring point that is more  accurately predicted. The global tour is primarily the same without the misclassified circles, but the tooltip now shows the observation's residual. We simulate data, 5 variable from the uniform distribution (between 0 and 5) and $y = x1 + x2 + x1*x2 + (x3 + x4 + x5) / 10 + \epsilon$. We fit a random forest and extract the all tree SHAP values. The first thing we notice from the global view is the shape difference between the data- and attribution-spaces, which are primarily circular are triangular respectively. We also see that the random forest fit the data quite well viewing the predictions across the observations. Though linked brushing we find that the attribution space is highly correlated with the $y$ value. The highest values occupy 1 corner of the triangle, the lowest values cluster on the opposite side and the middle values form a ')' shape filling out the triangle in attribution space. In the regression case the tour view is a bit different, this is illustrated in figure \@ref(cheemtourreg). The the current frames basis and distribution are shown to the left. The horizontal positions of the two scatter plots are the resulting 1D projection of the basis while the heights are fixed to the observed y and the residuals.
 
-What information do we glean from using this method on a classification task?  Typically we select a misclassified observation in comparison with a correctly classified point that is nearby in data space. We start by seeing the data projected through the linear attribution, the combination that best justifies that prediction. By default, the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation. That is, we can test the sensitivity of each variable to structure identified by the local explanation, we are exploring the support of the explanation, evaluating the support or robustness of the prediction. 
+<!-- tour regression caption -->
+(ref:cheemtourreg) Cheem tour, regression case. A random forest model predicting the continuous $y$ of the of simulated data where $y = x1 + x2 + x1*x2 + (x3 + x4 + x5) / 10 + \epsilon$. The current frames basis and the distribution of all attributions is shown on the left. The horizontal positions for the scatterplots are resulting projection through the 1D basis while the vertical heights are fixed to the observed y and residuals respectively.
 
-Another way of thinking about this would be: what would the predictions be if the explanation were different. This is similar to the idea of _ceteris paribus_ profiles [@biecek_ceterisparibus_2020]. _Ceteris paribus_ is Latin for “other things held constant” or “all else unchanged”. The profiles visualize what 'what-if' analysis, showing how an observation's prediction would change from a change in one explanatory variable given that other variables are held constant. In contrast to _ceteris paribus_ profiles, touring methods visualize all observations rather than one, While the variables are orthogonal dimensions, the 2D shadow they cast is not independent. That is, when one variable is rotated out of frame, other variables are effectively rotated into frame.
+```{r cheemtourreg, echo=F, out.width = "100%", fig.cap = "(ref:cheemtourreg)"}
+knitr::include_graphics("./figures/cheem_tour_toy_reg.PNG")
+```
 
-## Regression task
-
-The regression case is not as discrete a feature. Instead, the prediction or the residual becomes the comparison of accuracy. 
+Now that we have covered the classification and regression cases we will discuss the preprocessing, package infrastructure, and interactive features before proceeding to case studies with data from the wild.
 
 ## Preprocessing
 
@@ -208,17 +227,15 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
 The time to preprocess the data will vary significantly with the choice of model and local explanation. However, for reference, the FIFA data, 5000 observations of 9 explanatory variables, took 0.6 seconds to create PCA for both the data and attribution spaces. On the same data, with modest hyper parameters a random forest model fit in 2.9 seconds while extracting the tree SHAP values of each observation took 254 seconds combined. These runtimes were from a non-parallelized R session on a modern laptop, but suffice it to say that the bulk of the time will be spent on the local attribution. This makes tree SHAP a good candidate to start with. The package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes that are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
 
-## Backend infrastructure {#sec:infrastructure}
+## Package infrastructure {#sec:infrastructure}
 
 The above-described method and application are implemented as an open-source __R__ package, __cheem__ _TODO:XXX site github? cran?_. Preprocessing was facilitated with models created via __randomForest__ [liaw_classification_2002], and explanations calculated with __treeshap__ [@kominsarczyk_treeshap_2021].
 The application is made with __shiny__ [@chang_shiny_2021]. The tour visual is an extension of __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive HTML widgets with __plotly__ [@sievert_interactive_2020]. __DALEX__ [@biecek_dalex_2018] and 
 the free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] was a huge boon to understanding local explanations and how to apply them.
 
-## Preprocessing
+<!-- Provided with tidy and transformed data, the function `cheem_ls` is a wrapper function that facilitates the creation of random forest models and calculates the tree SHAP for all observations. It returns a list containing data frames to be consumed by the application, higher-level model performance, and runtime information. The return of this function can be then be saved to an .rds file for consumption in the application. -->
 
-Provided with tidy and transformed data, the function `cheem_ls` is a wrapper function that facilitates the creation of random forest models and calculates the tree SHAP for all observations. It returns a list containing data frames to be consumed by the application, higher-level model performance, and runtime information. The return of this function can be then be saved to an .rds file for consumption in the application.
-
-## Interactive shiny application
+## Interactive features
 
 The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view _and_ crucially available for downstream consumption, for instance, highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained HTML widgets can highlight directly within javascript without evaluation downstream in other reactive functions. In the latter, the use of `plotly::event_data()` returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
 
@@ -259,6 +276,8 @@ TODO:XXX
 The need to maintain the interpretability of black-box models is clear. One way to do this is by the use of local explanations of an observation. Local explanations approximate the linear variable importance to the model. Our idea is to visualize approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then use the linear importance from the primary observation as a projection basis and explore a single variable's importance to the structure identified with use of the manual tour.
 
 We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression task. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare observations over exogenous . An observation with particularly extreme residual can be compared with nearby points more accurately predicted.
+
+
 
 We have created an open-source __R__ package __cheem__, available on CRAN, to facilitate this workflow including a dynamic application, with the ability to upload preprocessed data.
 

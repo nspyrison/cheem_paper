@@ -1,5 +1,5 @@
 ---
-title: "Interogating the linear variable importance of local explanations of black-box models with animated linear projections"
+title: "Interrogating the linear variable importance of local explanations of black-box models with animated linear projections"
 # author:
 #   - name: Nicholas Spyrison
 #     address: |
@@ -245,8 +245,7 @@ To illustrate the use of the cheem method we apply it to modern datasets, two cl
 
 ## 1) penguins, species classification
 
-Palm penguins data [@gorman_ecological_2014, @horst_palmerpenguins_2020] consist of four physical measurements of 3 species of penguins foraging near Plamer Station, Antarctica.
-The random forest model classifies the species of the penguin given the physical measurements.
+Palm penguins data [@gorman_ecological_2014, @horst_palmerpenguins_2020] consist of four physical measurements of 3 species of penguins foraging near Plamer Station, Antarctica. A random forest model was fit, classifying the species of the penguin given the physical measurements.
 
 ```{r casepenguins, echo=F, out.width = "100%", fig.cap = "Species classification of Palmer penguin data. a) The primary observation is misclassified as an orange point and is being compared to a nearby correctly classified orange point."}
 knitr::include_graphics("./figures/case_penguins.pdf")

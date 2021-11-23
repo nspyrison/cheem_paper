@@ -245,29 +245,44 @@ To illustrate the use of the cheem method we apply it to modern datasets, two cl
 
 ## 1) penguins, species classification
 
-Palm penguins data [@gorman_ecological_2014, @horst_palmerpenguins_2020] consist of four physical measurements of 3 species of penguins foraging near Plamer Station, Antarctica. A random forest model was fit, classifying the species of the penguin given the physical measurements.
+Palmer penguins data [@gorman_ecological_2014, @horst_palmerpenguins_2020] consist of 330 observations across four physical measurements of 3 species of penguins foraging near Palmer Station, Antarctica. A random forest model was fit, classifying the species of the penguin given the physical measurements. 
 
-```{r casepenguins, echo=F, out.width = "100%", fig.cap = "Species classification of Palmer penguin data. a) The primary observation is misclassified as an orange point and is being compared to a nearby correctly classified orange point."}
+```{r casepenguins, echo=F, out.width = "100%", fig.cap = "Species classification of Palmer penguin data."}
 knitr::include_graphics("./figures/case_penguins.pdf")
 ```
 
+In figure \@ref(fig:casepenguins) a misclassified point is contrasted with a correctly classified point of its observated class that is nearby in data-space. The attribution space from the treeshap local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution while primary observation is in-between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crutial to linear explanation this observation be misclassified.
+
 ## 2) Chocolates, milk/dark chocolate classification
 
-TODO:XXX
+The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. With this data we can see if a manufacturer is giving an accurate portrayal of the chocolate. We are curious to see if there are chocolates that nutritionally look like milk chocolates that are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We'll select chocolate labeled dark, through predicted to be milk chocolate with a comparison with a chocolate labeled 85% cocoa.
+
+```{r casechocolates, echo=F, out.width = "100%", fig.cap = "Chocolates data  type classification (milk or dark). "}
+knitr::include_graphics("./figures/case_chocolates.pdf")
+```
+
+From figure \@ref(fig:casechocolates) we similarly see that attribution space that is more separable relative to data-space. Interestingly there is not the class imbalance that we suspected; there are only 6 chocolates labeled as dark and predicted as milk, while there 8 of the inverse case. Calories from fat is the measure with the largest difference in treeshap attribution between these points.
+
 
 ## 3) FIFA, wage regression
 
-The 2020 season FIFA[@leone_fifa_2020, @biecek_dalex_2018], contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates.
+The 2020 season FIFA[@leone_fifa_2020, @biecek_dalex_2018], contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates. The model was fit with 5000 observation of the 9 skill aggregates before being thinned to 500 player to gate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a leading defensive fielder (V. van Dijk).
 
-```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. a) The primary observation is a star offensive player (L. Messi) as compared with a top defensive player (V. van Dijk). b) Starting from a basis where offensive skills ('*' toward the right, high predicted wages) are high we observe that how contingent this variable is for explaining the high wages. As the contribution decreases the primary observation moves left into the bulk of the other observations corresponding to lower predicted wages."}
+```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. The primary observation is star offensive player (L. Messi) as compared with a top defensive player (V. van Dijk)."}
 knitr::include_graphics("./figures/case_fifa.pdf")
 ```
 
-The difference in their tree shap values highlights the fact that the random forest model found multiple ways to increase wages; that prediction accuracy was improved by varying linear variable importance that makes sense in light of the player positions that we exogenous to the model.
+The difference in their tree SHAP values highlights the fact that the random forest model found multiple ways to predict wages in a way that makes sense; especially in the disparity of the importance of offensive and defensive skill measures while player position was exogenous to the model. Reaction skills were highly important in both cases. After removing reaction, we vary the contribution of offensive skills. This highlighting just how foundational offensive skills are to the explanation of L. Messi's wages.
 
-## 4) Ames Housing prices 2018
+## 4) Ames housing prices 2018
 
-TODO:XXX
+Ames 2018, housing data was subset to North Ames (neighborhood with the most house sales). Remaining are 338 house sales across 9 variables. Using interaction from the global view we select a house with an extreme negative residual and an accurate observation close to it in the data.
+
+```{r casefifa, echo=F, out.width = "100%", fig.cap = "Ames housing 2018 regressing log sales price [2018 USD]."}
+knitr::include_graphics("./figures/case_ames2018.pdf")
+```
+
+TODO:XXX after refresh
 
 
 # Discussion {#sec:discussion}
@@ -276,10 +291,7 @@ The need to maintain the interpretability of black-box models is clear. One way 
 
 We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression task. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare observations over exogenous . An observation with particularly extreme residual can be compared with nearby points more accurately predicted.
 
-
-
 We have created an open-source __R__ package __cheem__, available on CRAN, to facilitate this workflow including a dynamic application, with the ability to upload preprocessed data.
-
 
 
 # Acknowledgments

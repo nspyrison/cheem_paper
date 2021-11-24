@@ -37,7 +37,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Interogating the linear variable importance of local explanations of black-box models with animated linear projections},
+  pdftitle={Interrogating the linear variable importance of local explanations of black-box models with animated linear projections},
   colorlinks=true,
   linkcolor=red,
   filecolor=Maroon,
@@ -46,6 +46,46 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -114,7 +154,7 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\title{Interogating the linear variable importance of local explanations of black-box models with animated linear projections}
+\title{Interrogating the linear variable importance of local explanations of black-box models with animated linear projections}
 \author{}
 \date{\vspace{-2.5em}}
 
@@ -179,6 +219,8 @@ In summary, this highlights how local explanations bring interpretability to a m
 \hypertarget{tours-and-the-radial-tour}{%
 \section{Tours and the radial tour}\label{tours-and-the-radial-tour}}
 
+TODO:XXX
+
 \hypertarget{sec:applicationdesign}{%
 \section{Application design}\label{sec:applicationdesign}}
 
@@ -192,7 +234,7 @@ What information do we glean from using this method on a classification task? Ty
 \hypertarget{regression-task}{%
 \subsection{Regression task}\label{regression-task}}
 
-The regression case is not as discrete a feature. Instead, the prediction or the residual becomes the comparison of accuracy.
+The regression case is not as discrete a feature. Instead, we find it more meaningful to compare the observed value or residual with the projection. In this case the horizontal positions
 
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
@@ -200,6 +242,8 @@ The regression case is not as discrete a feature. Instead, the prediction or the
 The global view is an important context for exploring the separability of the data- and the local explanation's attribution-spaces, and is crucial in the selection of explanation to further interrogate and explore the structural sensitivity of.
 
 We show an approximation of these spaces with a projection through their first two principal components. The orientation of the variables is shown inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of higher-dimensional spaces, it provides a reasonable starting point for the real task at hand, the selection of observation and nearby comparison.
+
+It is insightful to explore these two approximations against a visual of the model; prediction by observation is added. Linked brushing and preserved aesthetic features such as circling misclassifed observations helps link information from the different spaces together.
 
 \begin{figure}
 
@@ -247,6 +291,11 @@ In the regression case we compare an observation with a particularly extreme res
 
 Now that we have covered the classification and regression cases we will discuss the preprocessing, package infrastructure, and interactive features before proceeding to case studies with data from the wild.
 
+\hypertarget{interactive-features}{%
+\subsection{Interactive features}\label{interactive-features}}
+
+The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view \emph{and} crucially available for downstream consumption, for instance, highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained HTML widgets can highlight directly within javascript without evaluation downstream in other reactive functions. In the latter, the use of \texttt{plotly::event\_data()} returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
+
 \hypertarget{preprocessing}{%
 \subsection{Preprocessing}\label{preprocessing}}
 
@@ -271,10 +320,18 @@ The above-described method and application are implemented as an open-source \te
 The application is made with \textbf{shiny} (Chang et al. 2021). The tour visual is an extension of \textbf{spinifex} (Spyrison and Cook 2020). Both views are created first with first with \textbf{ggplot2} (Wickham 2016) and then rendered as interactive HTML widgets with \textbf{plotly} (Sievert 2020). \textbf{DALEX} (Biecek 2018) and
 the free ebook, \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021) was a huge boon to understanding local explanations and how to apply them.
 
-\hypertarget{interactive-features}{%
-\subsection{Interactive features}\label{interactive-features}}
+Installation and get started with the package can be acheived by running the following in \textbf{R}:
 
-The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view \emph{and} crucially available for downstream consumption, for instance, highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained HTML widgets can highlight directly within javascript without evaluation downstream in other reactive functions. In the latter, the use of \texttt{plotly::event\_data()} returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
+\begin{Shaded}
+\begin{Highlighting}[]
+\DocumentationTok{\#\# Download the package:}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
+\DocumentationTok{\#\# Try the app yourself:}
+\NormalTok{cheem}\SpecialCharTok{::}\FunctionTok{run\_app}\NormalTok{()}
+\DocumentationTok{\#\# Procss your own data for the app by following the examples in:}
+\NormalTok{?cheem}\SpecialCharTok{::}\NormalTok{cheem\_ls}
+\end{Highlighting}
+\end{Shaded}
 
 \hypertarget{sec:casestudies}{%
 \section{Case studies}\label{sec:casestudies}}
@@ -284,8 +341,7 @@ To illustrate the use of the cheem method we apply it to modern datasets, two cl
 \hypertarget{penguins-species-classification}{%
 \subsection{1) penguins, species classification}\label{penguins-species-classification}}
 
-Palm penguins data Horst, Hill, and Gorman (2020) consist of four physical measurements of 3 species of penguins foraging near Plamer Station, Antarctica.
-The random forest model classifies the species of the penguin given the physical measurements.
+Palmer penguins data Horst, Hill, and Gorman (2020) consist of 330 observations across four physical measurements of 3 species of penguins foraging near Palmer Station, Antarctica. A random forest model was fit, classifying the species of the penguin given the physical measurements.
 
 \begin{figure}
 
@@ -293,18 +349,31 @@ The random forest model classifies the species of the penguin given the physical
 
 }
 
-\caption{Species classification of Palmer penguin data. a) The primary observation is misclassified as an orange point and is being compared to a nearby correctly classified orange point.}\label{fig:casepenguins}
+\caption{Species classification of Palmer penguin data.}\label{fig:casepenguins}
 \end{figure}
+
+In figure \ref{fig:casepenguins} a misclassified point is contrasted with a correctly classified point of its observed class that is nearby in data-space. The attribution space from the treeshap local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution while primary observation is in-between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of bill length (b\_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to linear explanation this observation be misclassified.
 
 \hypertarget{chocolates-milkdark-chocolate-classification}{%
 \subsection{2) Chocolates, milk/dark chocolate classification}\label{chocolates-milkdark-chocolate-classification}}
 
-TODO:XXX
+The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. With this data, we can see if a manufacturer is giving an accurate portrayal of the chocolate. We are curious to see if there are chocolates that nutritionally look like milk chocolates that are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We'll select chocolate labeled dark, through predicted to be milk chocolate with a comparison with a chocolate labeled 85\% cocoa.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{./figures/case_chocolates} 
+
+}
+
+\caption{Chocolates data  type classification (milk or dark). }\label{fig:casechocolates}
+\end{figure}
+
+From figure \ref{fig:casechocolates} we similarly see that attribution space that is more separable relative to data-space. Interestingly there is not the class imbalance that we suspected; there are only 6 chocolates labeled as dark and predicted as milk, while there 8 of the inverse case. Calories from fat is the measure with the largest difference in treeshap attribution between these points.
 
 \hypertarget{fifa-wage-regression}{%
 \subsection{3) FIFA, wage regression}\label{fifa-wage-regression}}
 
-The 2020 season FIFABiecek (2018), contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages {[}2020 euros{]} given just the skill aggregates.
+The 2020 season FIFABiecek (2018), contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages {[}2020 euros{]} given just the skill aggregates. The model was fit with 5000 observations of the 9 skill aggregates before being thinned to 500 players to gate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a leading defensive fielder (V. van Dijk), the same observations used in figure @figure(fig:shapdistrbd).
 
 \begin{figure}
 
@@ -312,31 +381,42 @@ The 2020 season FIFABiecek (2018), contains many skill measurements of soccer/fo
 
 }
 
-\caption{FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. a) The primary observation is a star offensive player (L. Messi) as compared with a top defensive player (V. van Dijk). b) Starting from a basis where offensive skills ('*' toward the right, high predicted wages) are high we observe that how contingent this variable is for explaining the high wages. As the contribution decreases the primary observation moves left into the bulk of the other observations corresponding to lower predicted wages.}\label{fig:casefifa}
+\caption{FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. The primary observation is star offensive player (L. Messi) as compared with a top defensive player (V. van Dijk).}\label{fig:casefifa}
 \end{figure}
 
-The difference in their tree shap values highlights the fact that the random forest model found multiple ways to increase wages; that prediction accuracy was improved by varying linear variable importance that makes sense in light of the player positions that we exogenous to the model.
+With figure \ref{fig:casefifa} we are going to test the premise of the local explanation. If we remove reaction and movement skills from the basis, then offense has almost singular importance for the explanation of the offensive player. We vary the contribution of offensive skills. In the tour (3rd frame of b), offensive skills moved, and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, which does maintain some separability.
 
 \hypertarget{ames-housing-prices-2018}{%
-\subsection{4) Ames Housing prices 2018}\label{ames-housing-prices-2018}}
+\subsection{4) Ames housing prices 2018}\label{ames-housing-prices-2018}}
 
-TODO:XXX
+Ames 2018, housing data was subset to North Ames (neighborhood with the most house sales). The remaining are 338 house sales across 9 variables. Using interaction from the global view we select a house with an extreme negative residual and an accurate observation close to it in the data.
+
+\begin{figure}
+
+{\centering \includegraphics[width=1\linewidth]{./figures/case_ames2018} 
+
+}
+
+\caption{Ames housing 2018 regressing log sales price [2018 USD].}\label{fig:caseames}
+\end{figure}
+
+Figure \ref{fig:caseames} shows the global view and extrema of the tour. The horizontal distance in the tour didn't show a large disparity between our selected points. This is not particularly surprising as most of the features have a sizable contribution. Rotating any one variable out of the frame will rotate other important variables into frame preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. notice that the observations pivot about the origin, that is the basis roughly halfway between bases in frame 1 and 2 of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes a lot of the variation. Knowing these singular frames can help direct to bases that have meaningful variation in the data.
 
 \hypertarget{sec:discussion}{%
 \section{Discussion}\label{sec:discussion}}
 
-The need to maintain the interpretability of black-box models is clear. One way to do this is by the use of local explanations of an observation. Local explanations approximate the linear variable importance to the model. Our idea is to visualize approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then use the linear importance from the primary observation as a projection basis and explore a single variable's importance to the structure identified with use of the manual tour.
+The need to maintain the interpretability of black-box models is clear. One way to do this is by the use of local explanations of an observation. Local explanations approximate the linear variable importance to the model. Our idea is to visualize approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then use the linear importance from the primary observation as a projection basis and explore a single variable's importance to the structure identified with the use of the manual tour.
 
-We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression task. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare observations over exogenous . An observation with particularly extreme residual can be compared with nearby points more accurately predicted.
+We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression tasks. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare an observation with particularly extreme residual can be compared with nearby points more accurately predicted or another suitable benchmark.
 
 We have created an open-source \textbf{R} package \textbf{cheem}, available on CRAN, to facilitate this workflow including a dynamic application, with the ability to upload preprocessed data.
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-We would like to thank Professor Przemyslaw Biecek for his input in early in the project and to the broader MI\^{}2 lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Pyhton} packages. This research was supported in part by Australian government Research Training Program (RTP) scholarships.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI\^{}2 lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Pyhton} packages. This research was supported in part by Australian government Research Training Program (RTP) scholarships.
 
-The namesake, cheem, refers to a fictional race of humanoid trees in the Doctor Who lore. Given that \textbf{DALEX} pulls on from that universe and we originally apply tree shap explanations (specific to tree-based models) we found it fitting.
+The namesake, Cheem, refers to a fictional race of humanoid trees in Doctor Who lore. Given that \textbf{DALEX} pulls on from that universe and we originally apply tree SHAP explanations (specific to tree-based models) we found it fitting.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}

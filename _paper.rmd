@@ -145,6 +145,7 @@ In summary, this highlights how local explanations bring interpretability to a m
 
 # Tours and the radial tour
 
+TODO:XXX
 ```{r}
 ##TODO:XXX
 ```
@@ -160,8 +161,7 @@ What information do we glean from using this method on a classification task? Ty
 
 ## Regression task
 
-The regression case is not as discrete a feature. Instead, the prediction or the residual becomes the comparison of accuracy.
-
+The regression case is not as discrete a feature. Instead, we find it more meaningful to compare the observed value or  residual with the projection. In this case the horizontal positions  
 
 
 ## Global view
@@ -171,6 +171,9 @@ The global view is an important context for exploring the separability of the da
 
 <!-- approximations of the spaces, PC1:2 -->
 We show an approximation of these spaces with a projection through their first two principal components. The orientation of the variables is shown inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of higher-dimensional spaces, it provides a reasonable starting point for the real task at hand, the selection of observation and nearby comparison.
+
+<!-- predicted by observed -->
+It is insightful to explore these two approximations against a visual of the model; prediction by observation is added. Linked brushing and preserved aesthetic features such as circling misclassifed observations helps link information from the different spaces together.
 
 ```{r globalview, echo=F, out.width = "100%", fig.cap = "Global view screen capture; the approximations of the data and SHAP-spaces of Palmer penguins data. Orientation of the basis contributions is illustrated on a unit circle. Linked brushing allows observations brushed in one plot to be selected in others. This selection is also used in the proceeding view and their corresponding information is displayed in an interactive table. Hovering the cursor over an observation displays a tooltip with row number/name information. In the classification case, misclassified points are circled in red. This view provides an orientation to select a primary and comparison observation, key targets in the following tour."}
 knitr::include_graphics("./figures/global_view_toy_class.PNG")
@@ -210,6 +213,11 @@ knitr::include_graphics("./figures/cheem_tour_toy_reg.PNG")
 
 Now that we have covered the classification and regression cases we will discuss the preprocessing, package infrastructure, and interactive features before proceeding to case studies with data from the wild.
 
+## Interactive features
+
+The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view _and_ crucially available for downstream consumption, for instance, highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained HTML widgets can highlight directly within javascript without evaluation downstream in other reactive functions. In the latter, the use of `plotly::event_data()` returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
+
+
 ## Preprocessing
 
 The benefit of having dynamic interaction with data is predicated on a reasonably small render time. It is important to preprocess as much work as possible so that application resources can be used efficiently. The work remaining at runtime should be solely responding to inputs and the rendering of figures and tables. Below we discuss the steps and details of the reprocessing.
@@ -233,11 +241,19 @@ The above-described method and application are implemented as an open-source __R
 The application is made with __shiny__ [@chang_shiny_2021]. The tour visual is an extension of __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive HTML widgets with __plotly__ [@sievert_interactive_2020]. __DALEX__ [@biecek_dalex_2018] and 
 the free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] was a huge boon to understanding local explanations and how to apply them.
 
+Installation and get started with the package can be acheived by running the following in __R__:
+
+```{r eval=FALSE, echo=TRUE}
+## Download the package:
+install.packages("cheem", dependencies = TRUE)
+## Try the app yourself:
+cheem::run_app()
+## Procss your own data for the app by following the examples in:
+?cheem::cheem_ls
+```
+
 <!-- Provided with tidy and transformed data, the function `cheem_ls` is a wrapper function that facilitates the creation of random forest models and calculates the tree SHAP for all observations. It returns a list containing data frames to be consumed by the application, higher-level model performance, and runtime information. The return of this function can be then be saved to an .rds file for consumption in the application. -->
 
-## Interactive features
-
-The dynamic interaction with the global view is critical to the selection of the primary and comparison observations. Linked brushing also for a rectangular selection of observations. These points are highlighted within the other space of the global view _and_ crucially available for downstream consumption, for instance, highlighting in the tour. The distinction between the former and latter is subtle, but important for developers to grasp. In the former, self-contained HTML widgets can highlight directly within javascript without evaluation downstream in other reactive functions. In the latter, the use of `plotly::event_data()` returns the identity of the selected observations. This will require a reactive flush, but after that, the sky is the ceiling.
 
 # Case studies {#sec:casestudies}
 
@@ -251,11 +267,11 @@ Palmer penguins data [@gorman_ecological_2014, @horst_palmerpenguins_2020] consi
 knitr::include_graphics("./figures/case_penguins.pdf")
 ```
 
-In figure \@ref(fig:casepenguins) a misclassified point is contrasted with a correctly classified point of its observated class that is nearby in data-space. The attribution space from the treeshap local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution while primary observation is in-between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crutial to linear explanation this observation be misclassified.
+In figure \@ref(fig:casepenguins) a misclassified point is contrasted with a correctly classified point of its observed class that is nearby in data-space. The attribution space from the treeshap local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution while primary observation is in-between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to linear explanation this observation be misclassified.
 
 ## 2) Chocolates, milk/dark chocolate classification
 
-The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. With this data we can see if a manufacturer is giving an accurate portrayal of the chocolate. We are curious to see if there are chocolates that nutritionally look like milk chocolates that are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We'll select chocolate labeled dark, through predicted to be milk chocolate with a comparison with a chocolate labeled 85% cocoa.
+The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. With this data, we can see if a manufacturer is giving an accurate portrayal of the chocolate. We are curious to see if there are chocolates that nutritionally look like milk chocolates that are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We'll select chocolate labeled dark, through predicted to be milk chocolate with a comparison with a chocolate labeled 85% cocoa.
 
 ```{r casechocolates, echo=F, out.width = "100%", fig.cap = "Chocolates data  type classification (milk or dark). "}
 knitr::include_graphics("./figures/case_chocolates.pdf")
@@ -266,39 +282,39 @@ From figure \@ref(fig:casechocolates) we similarly see that attribution space th
 
 ## 3) FIFA, wage regression
 
-The 2020 season FIFA[@leone_fifa_2020, @biecek_dalex_2018], contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates. The model was fit with 5000 observation of the 9 skill aggregates before being thinned to 500 player to gate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a leading defensive fielder (V. van Dijk).
+The 2020 season FIFA[@leone_fifa_2020, @biecek_dalex_2018], contains many skill measurements of soccer/football players along with wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates. The model was fit with 5000 observations of the 9 skill aggregates before being thinned to 500 players to gate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a leading defensive fielder (V. van Dijk), the same observations used in figure \@figure(fig:shapdistrbd).
 
 ```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. The primary observation is star offensive player (L. Messi) as compared with a top defensive player (V. van Dijk)."}
 knitr::include_graphics("./figures/case_fifa.pdf")
 ```
 
-The difference in their tree SHAP values highlights the fact that the random forest model found multiple ways to predict wages in a way that makes sense; especially in the disparity of the importance of offensive and defensive skill measures while player position was exogenous to the model. Reaction skills were highly important in both cases. After removing reaction, we vary the contribution of offensive skills. This highlighting just how foundational offensive skills are to the explanation of L. Messi's wages.
+With figure \@ref(fig:casefifa) we are going to test the premise of the local explanation. If we remove reaction and movement skills from the basis, then offense has almost singular importance for the explanation of the offensive player. We vary the contribution of offensive skills. In the tour (3rd frame of b), offensive skills moved, and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, which does maintain some separability.
 
 ## 4) Ames housing prices 2018
 
-Ames 2018, housing data was subset to North Ames (neighborhood with the most house sales). Remaining are 338 house sales across 9 variables. Using interaction from the global view we select a house with an extreme negative residual and an accurate observation close to it in the data.
+Ames 2018, housing data was subset to North Ames (neighborhood with the most house sales). The remaining are 338 house sales across 9 variables. Using interaction from the global view we select a house with an extreme negative residual and an accurate observation close to it in the data.
 
-```{r casefifa, echo=F, out.width = "100%", fig.cap = "Ames housing 2018 regressing log sales price [2018 USD]."}
+```{r caseames, echo=F, out.width = "100%", fig.cap = "Ames housing 2018 regressing log sales price [2018 USD]."}
 knitr::include_graphics("./figures/case_ames2018.pdf")
 ```
 
-TODO:XXX after refresh
+Figure \@ref(fig:caseames) shows the global view and extrema of the tour. The horizontal distance in the tour didn't show a large disparity between our selected points. This is not particularly surprising as most of the features have a sizable contribution. Rotating any one variable out of the frame will rotate other important variables into frame preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. notice that the observations pivot about the origin, that is the basis roughly halfway between bases in frame 1 and 2 of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes a lot of the variation. Knowing these singular frames can help direct to bases that have meaningful variation in the data.
 
 
 # Discussion {#sec:discussion}
 
-The need to maintain the interpretability of black-box models is clear. One way to do this is by the use of local explanations of an observation. Local explanations approximate the linear variable importance to the model. Our idea is to visualize approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then use the linear importance from the primary observation as a projection basis and explore a single variable's importance to the structure identified with use of the manual tour.
+The need to maintain the interpretability of black-box models is clear. One way to do this is by the use of local explanations of an observation. Local explanations approximate the linear variable importance to the model. Our idea is to visualize approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then use the linear importance from the primary observation as a projection basis and explore a single variable's importance to the structure identified with the use of the manual tour.
 
-We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression task. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare observations over exogenous . An observation with particularly extreme residual can be compared with nearby points more accurately predicted.
+We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generalized to any compatible model-explanation pair. We apply this to both the classification and regression tasks. In the former, it can be used to see which variables cause a misclassification as benchmarked against a nearby observation and explore changing the contribution of variables. In the regression case, we compare an observation with particularly extreme residual can be compared with nearby points more accurately predicted or another suitable benchmark.
 
 We have created an open-source __R__ package __cheem__, available on CRAN, to facilitate this workflow including a dynamic application, with the ability to upload preprocessed data.
 
 
 # Acknowledgments
 
-We would like to thank Professor Przemyslaw Biecek for his input in early in the project and to the broader MI\^2 lab group for the __DALEX__ ecosystem of __R__ and __Pyhton__ packages. This research was supported in part by Australian government Research Training Program (RTP) scholarships.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI\^2 lab group for the __DALEX__ ecosystem of __R__ and __Pyhton__ packages. This research was supported in part by Australian government Research Training Program (RTP) scholarships.
 
-The namesake, cheem, refers to a fictional race of humanoid trees in the Doctor Who lore. Given that __DALEX__ pulls on from that universe and we originally apply tree shap explanations (specific to tree-based models) we found it fitting.
+The namesake, Cheem, refers to a fictional race of humanoid trees in  Doctor Who lore. Given that __DALEX__ pulls on from that universe and we originally apply tree SHAP explanations (specific to tree-based models) we found it fitting.
 
 
 # References

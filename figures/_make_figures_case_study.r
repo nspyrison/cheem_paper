@@ -18,13 +18,9 @@
   ames2018_ls   <- readRDS(paste0(fp, "preprocess_ames2018.rds"))
   chocolates_ls <- readRDS(paste0(fp, "preprocess_chocolates.rds"))
   
-  .spaces <- paste(rep(" ", 3L), collapse = "")
-  .x_axis_title <- c("             x: PC1, y: PC2", "        x: PC1, y: PC2", "x: predicted, y: observed")
-  .x_axis_title <- paste(.x_axis_title, collapse = .spaces)
-  
-  .spaces <- paste(rep(" ", 5L), collapse = "")
-  .x_axis_title_reg <- c("            x: PC1, y: PC2", "        x: PC1, y: PC2", "x: predicted, y: observed")
-  .x_axis_title_reg <- paste(.x_axis_title_reg, collapse = .spaces)
+
+  .x_axis_title     <- "          x: PC1, y: PC2        x: PC1, y: PC2  x: predicted, y: observed"
+  .x_axis_title_reg <- "          x: PC1, y: PC2             x: PC1, y: PC2     x: predicted, y: observed"
 }
 
 ## Penguins classification ------
@@ -56,10 +52,11 @@
     labels = c("a)", "b)"),
     ncol = 1)#, rel_heights = c(1.5, 1))
 }
+
 ### Save
 ggplot2::ggsave(
-  "./figures/case_penguins.pdf",
-  plot = .cp, device = "pdf",
+  "./figures/case_penguins.png",
+  plot = .cp, device = "png",
   width = 6, height = 5, units = "in")
 .m <- gc()
 
@@ -98,8 +95,8 @@ ggplot2::ggsave(
 }
 ### Save
 ggplot2::ggsave(
-  "./figures/case_chocolates.pdf",
-  plot = .cp, device = "pdf",
+  "./figures/case_chocolates.png",
+  plot = .cp, device = "png",
   width = 6, height = 5, units = "in")
 .m <- gc()
 
@@ -135,8 +132,8 @@ ggplot2::ggsave(
 }
 ### Save
 ggplot2::ggsave(
-  "./figures/case_fifa.pdf",
-  plot = .cp, device = "pdf",
+  "./figures/case_fifa.png",
+  plot = .cp, device = "png",
   width = 5.5, height = 8, units = "in")
 .m <- gc()
 
@@ -173,14 +170,14 @@ ggplot2::ggsave(
 }
 ### Save
 ggplot2::ggsave(
-  "./figures/case_ames2018.pdf",
-  plot = .cp, device = "pdf",
+  "./figures/case_ames2018.png",
+  plot = .cp, device = "png",
   width = 8, height = 8, units = "in")
 .m <- gc()
 
 
 ### rejected -- Tidy Tuesday coffee -----
-{
+if(F){
   if(F) ## Regress score
     browseURL("https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md")
   coffee <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')

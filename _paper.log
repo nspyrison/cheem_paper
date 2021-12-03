@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.11.16)  24 NOV 2021 20:41
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.2)  3 DEC 2021 16:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **_paper.tex
 (./_paper.tex
 LaTeX2e <2021-11-15>
-L3 programming layer <2021-11-12> (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf
+L3 programming layer <2021-11-22> (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf
 -dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size10.clo
@@ -420,7 +420,8 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.
 sty
-Package: fancyvrb 2021/11/18 v4.0 verbatim text (tvz,hv)
+Package: fancyvrb 2021/11/24\nobreakspace {} 4.1a\nobreakspace {}verbatim text 
+(tvz,hv)
 \FV@CodeLineNo=\count286
 \FV@InFile=\read2
 \FV@TabBox=\box53
@@ -807,7 +808,15 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 File: ./figures/shap_distr_bd.pdf Graphic file (type pdf)
 <use ./figures/shap_distr_bd.pdf>
 Package pdftex.def Info: ./figures/shap_distr_bd.pdf  used on input line 210.
-(pdftex.def)             Requested size: 469.76265pt x 536.87161pt.
+(pdftex.def)             Requested size: 505.9119pt x 578.18504pt.
+
+Overfull \hbox (36.15688pt too wide) in paragraph at lines 210--211
+ [][] 
+ []
+
+
+LaTeX Warning: Float too large for page by 35.69946pt on input line 215.
+
 [3] [4pdfTeX warning (ext4): destination with the same identifier (name{figure.
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -870,15 +879,15 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
 (Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 327.
 
-<./figures/case_penguins.pdf, id=109, 433.62pt x 361.35pt>
-File: ./figures/case_penguins.pdf Graphic file (type pdf)
-<use ./figures/case_penguins.pdf>
-Package pdftex.def Info: ./figures/case_penguins.pdf  used on input line 348.
+<./figures/case_penguins.png, id=109, 433.62pt x 361.35pt>
+File: ./figures/case_penguins.png Graphic file (type png)
+<use ./figures/case_penguins.png>
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 348.
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
-<./figures/case_chocolates.pdf, id=111, 433.62pt x 361.35pt>
-File: ./figures/case_chocolates.pdf Graphic file (type pdf)
-<use ./figures/case_chocolates.pdf>
-Package pdftex.def Info: ./figures/case_chocolates.pdf  used on input line 364.
+<./figures/case_chocolates.png, id=111, 433.62pt x 361.35pt>
+File: ./figures/case_chocolates.png Graphic file (type png)
+<use ./figures/case_chocolates.png>
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 364.
 
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure
@@ -886,45 +895,45 @@ Package pdftex.def Info: ./figures/case_chocolates.pdf  used on input line 364.
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.377 
-       <./figures/case_penguins.pdf>] [11pdfTeX warning (ext4): destination wit
+       <./figures/case_penguins.png>] [11pdfTeX warning (ext4): destination wit
 h the same identifier (name{figure.6}) has been already used, duplicate ignored
 
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.377 
-       <./figures/case_chocolates.pdf>]
-<./figures/case_fifa.pdf, id=166, 397.485pt x 578.16pt>
-File: ./figures/case_fifa.pdf Graphic file (type pdf)
-<use ./figures/case_fifa.pdf>
-Package pdftex.def Info: ./figures/case_fifa.pdf  used on input line 380.
+       <./figures/case_chocolates.png>]
+<./figures/case_fifa.png, id=137, 397.485pt x 578.16pt>
+File: ./figures/case_fifa.png Graphic file (type png)
+<use ./figures/case_fifa.png>
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 380.
 (pdftex.def)             Requested size: 397.50221pt x 578.18504pt.
-<./figures/case_ames2018.pdf, id=168, 578.16pt x 578.16pt>
-File: ./figures/case_ames2018.pdf Graphic file (type pdf)
-<use ./figures/case_ames2018.pdf>
-Package pdftex.def Info: ./figures/case_ames2018.pdf  used on input line 396.
+<./figures/case_ames2018.png, id=139, 578.16pt x 578.16pt>
+File: ./figures/case_ames2018.png Graphic file (type png)
+<use ./figures/case_ames2018.png>
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 396.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
 [12] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.422 \section*{References}\label{references}}
-                                               <./figures/case_fifa.pdf>] [14pd
+                                               <./figures/case_fifa.png>] [14pd
 fTeX warning (ext4): destination with the same identifier (name{figure.8}) has 
 been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.422 \section*{References}\label{references}}
-                                               <./figures/case_ames2018.pdf>] [
+                                               <./figures/case_ames2018.png>] [
 15] [16] [17] (./_paper.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15813 strings out of 480311
- 258738 string characters out of 5895247
- 607477 words of memory out of 5000000
- 33067 multiletter control sequences out of 15000+600000
+ 15821 strings out of 480293
+ 258902 string characters out of 5894821
+ 607619 words of memory out of 5000000
+ 33093 multiletter control sequences out of 15000+600000
  468685 words of font info for 164 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,6n,77p,1444b,412s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -948,10 +957,10 @@ yTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roamin
 g/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/R
 oaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/App
 Data/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on _paper.pdf (17 pages, 1337738 bytes).
+Output written on _paper.pdf (17 pages, 2394279 bytes).
 PDF statistics:
- 448 PDF objects out of 1000 (max. 8388607)
- 385 compressed objects within 4 object streams
+ 394 PDF objects out of 1000 (max. 8388607)
+ 331 compressed objects within 4 object streams
  111 named destinations out of 1000 (max. 500000)
  35017 words of extra memory for PDF output out of 35830 (max. 10000000)
 

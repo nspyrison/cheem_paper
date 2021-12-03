@@ -109,6 +109,9 @@ Y <- .raw$wage_eur ## unscaled wages in Euros, assumed 2020 valuation.
 .hp_node <- if(.is_y_disc == TRUE) 1L else 5L
 .hp_node <- max(.hp_node, nrow(X) / 500L)
 
+
+## NOTE: this DALEX::predict_parts("SHAP")
+## NOT theeshap::treeshap()
 rf_mod <- randomForest::randomForest(Y~., data = data.frame(Y, X),
                                      mtry = .hp_mtry,
                                      nodesize = .hp_node,
@@ -168,7 +171,7 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
     labs(title="SHAP distribution",
-         y = "variable", x = "normalized SHAP values\n the median of the contributions while permuting X's") +
+         y = "variable", x = "Normalized SHAP values\n the median of the contributions while permuting X's") +
     theme(legend.position = "off")
 )
 
@@ -199,7 +202,7 @@ bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     labs(title="Breakdown plot",
-         y = "variable", x = "normalized contribution to prediction | variable order") +
+         y = "variable", x = "Normalized contribution to prediction | variable order") +
     theme(legend.margin = margin(0,0,0,0),
           legend.position = "bottom",
           axis.text.x = element_blank(),
@@ -214,7 +217,7 @@ wages_df <- tibble::tibble(
     geom_segment(size=3L) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
-    labs(y = "player", x = "wages [2020 Euros]") +
+    labs(y = "player", x = "Wages [2020 Euros]") +
     theme(legend.position = "off"))
 ### Plot together
 require("patchwork")
@@ -227,8 +230,8 @@ require("cowplot")
 
 ## SAVE -----
 ggplot2::ggsave(
-  "./figures/shap_distr_bd.pdf",
-  cp, device = "pdf", width = 7, height = 8, units = "in")
+  "./figures/shap_distr_bd.png",
+  cp, device = "png", width = 7, height = 8, units = "in")
 
 
 # ch5_fig2_global_space -----
@@ -236,213 +239,63 @@ ggplot2::ggsave(
   require("plotly")
   require("spinifex")
   require("cheem")
-  load("./data/2preprocess_simulation.RData")
-  shap_obs <- 18L; comp_obs <- 111L;
-
-  ## Local functions from cheem app
-  THIS_linked_plotly_func <- function(
-    layer_ls,
-    shap_obs = NULL,
-    comp_obs = NULL,
-    height_px = 640L,
-    width_px = 640L,
-    do_include_maha_qq = FALSE
-  ){
-    .alpha <- ifelse(nrow(layer_ls$decode_df) > 999L, .1, .6)
-    .xlab <- ifelse(do_include_maha_qq == FALSE, "PC1",
-                    "PC1 | Quantile, chi-squared")
-    .ylab <- ifelse(do_include_maha_qq == FALSE, "PC2",
-                    "PC2 | Quantile, observed Mahalanobis distance")
-    ## Remove QQ maha rows if needed
-    plot_df <- layer_ls$plot_df ## Init
-    if(do_include_maha_qq == FALSE){
-      plot_df <- layer_ls$plot_df[
-        layer_ls$plot_df$projection_nm != "QQ Mahalanobis distance", ]
-      height_px <- height_px / 2L ## Half height display as qq maha is removed.
-    }
-    is_classification <- attr(layer_ls, "problem_type") == "classification"
-    # ifelse("is_misclassified" %in% colnames(layer_ls$decode_df), TRUE, FALSE)
-    pred_clas <- as.factor(FALSE) ## If regression; dummy pred_clas
-    if(is_classification == TRUE) pred_clas <-
-      layer_ls$decode_df$predicted_class %>%
-      rep_len(nrow(plot_df)) %>%
-      as.factor()
-
-    gg <- plot_df %>%
-      plotly::highlight_key(~rownum) %>%
-      ggplot(aes(V1, V2))
-    ## Red misclassified points, if present
-    if(is_classification == TRUE){
-      .rn_misclass <- which(layer_ls$decode_df$is_misclassified == TRUE)
-      .idx_misclas <- plot_df$rownum %in% .rn_misclass
-      if(sum(.idx_misclas) > 0L){
-        .df <- plot_df[.idx_misclas, ] %>% plotly::highlight_key(~rownum)
-        gg <- gg +
-          geom_point(aes(V1, V2), .df,
-                     color = "red", fill = NA,
-                     shape = 21L, size = 3L, alpha = .alpha)
-      }
-    }
-    ## Highlight comparison obs, if passed
-    if(is.null(comp_obs) == FALSE){
-      .idx_comp <- plot_df$rownum == comp_obs
-      if(sum(.idx_comp) > 0L){
-        .df <- plot_df[.idx_comp, ] %>% plotly::highlight_key(~rownum)
-        gg <- gg +
-          ## Highlight comparison obs
-          geom_point(aes(V1, V2, color = pred_clas[.idx_comp]),
-                     .df, size = 4L, shape = 4L)
-      }
-    }
-    ## Highlight shap obs, if passed
-    if(is.null(shap_obs) == FALSE){
-      .idx_shap <- plot_df$rownum == shap_obs
-      if(sum(.idx_shap) > 0L){
-        .df <- plot_df[.idx_shap, ] %>% plotly::highlight_key(~rownum)
-        gg <- gg +
-          geom_point(aes(V1, V2, color = pred_clas[.idx_shap]),
-                     .df, size = 5L, shape = 8L)
-      }
-    }
-    ## Maha skew text,
-    #### geom_text not working with plotly... & annotate() not working with facets...
-    if(do_include_maha_qq == TRUE){
-      gg <- gg +
-        geom_text(aes(x = -Inf, y = Inf, label = ggtext),
-                  hjust = 0L, vjust = 1L, size = 4L)
-    }
-    ## Normal points
-    gg <- gg +
-      suppressWarnings(geom_point(
-        aes(V1, V2, color = pred_clas, shape = pred_clas, tooltip = tooltip),
-        alpha = .alpha)) +
-      facet_grid(rows = vars(projection_nm), cols = vars(layer_nm), scales = "free") +
-      theme_bw() +
-      labs(x = .xlab, y = .ylab) +
-      scale_color_brewer(palette = "Dark2") +
-      theme(axis.text  = element_blank(),
-            axis.ticks = element_blank(),
-            legend.position = "off")
-    return(gg)
-  }
-
-  THIS_manual_tour1d_func <- function(tour_array,
-                                      layer_ls, shap_obs, comp_obs = NULL,
-                                      do_add_basis_distri = FALSE,
-                                      do_add_pcp_segments = FALSE,
-                                      pcp_shape = c(142, 124), ## '|' plotly and gganimate respectively
-                                      angle = .2
-  ){
-    ## Initialization
-    .y <- layer_ls$decode_df$y %>% matrix(ncol = 1L)
-    .col_idx <- which(!(
-      colnames(layer_ls$decode_df) %in%
-        c("rownum", "class", "y", "prediction", "residual",
-          "predicted_class", "is_misclassified", "tooltip")
-    ))
-    .x <- layer_ls$decode_df[, .col_idx] ## Numeric X variables
-
-    ## Problem type: classification or regression?
-    problem_type <- function(y){
-      if(length(unique(y)) < 5L) return("classification")
-      if(is.numeric(y) == TRUE) return("regression")
-      stop("y was expected as a with less than 5 unique values, or numeric indicating a classification or regression problem respectivly.")
-    }
-    .prob_type <- problem_type(.y) ## Either "classification" or "regression"
-    .pred_clas <- as.factor(FALSE) ## Initialize dummy predicted class
-    if(.prob_type == "classification")
-      .pred_clas <- layer_ls$decode_df$predicted_class
-    .alpha <- ifelse(nrow(layer_ls$decode_df) > 999L, .1, 1L)
-
-    tour_array
-    ### Classification problem -----
-    if(.prob_type == "classification"){
-      .dat <- .x %>% scale_01
-      ggt <- ggtour(tour_array, .dat, angle = angle) +
-        proto_density(aes_args = list(color = .pred_clas, fill = .pred_clas)) +
-        proto_origin1d() +
-        proto_basis1d(manip_col = "black")## leaves space
-      if(do_add_basis_distri == TRUE){
-        ggt  <- ggt + cheem::proto_basis1d_distribution(
-          layer_ls,
-          group_by = .pred_clas,
-          position = "top1d",
-          shape = pcp_shape, ## '|' for gganimate/ggplot
-          do_add_pcp_segments = as.logical(do_add_pcp_segments),
-          primary_obs = shap_obs,
-          comparison_obs = comp_obs)
-      }
-      ggt <- ggt +
-        ## Highlight comparison obs, if passed
-        proto_highlight1d(comp_obs,
-                          list(color = .pred_clas),
-                          list(linetype = 3L, alpha = 0.8)) +
-        ## Highlight shap obs
-        proto_highlight1d(shap_obs,
-                          list(color = .pred_clas),
-                          list(linetype = 2L, alpha = .6, size = .8))
-    }
-
-    ## Return the static ggtour, animate in app
-    return(ggt)
-  }
-}
-
-## Create ggplot
-p <- THIS_linked_plotly_func(layer_ls, shap_obs, comp_obs,
-                             do_include_maha_qq = FALSE)
-p <- p +
-  labs(title = "PC1:2 of data and SHAP spaces")
-
-## Save -----
-ggplot2::ggsave(
-  "./figures_from_script/ch5_fig2_global_space.pdf",
-  plot = p + theme(aspect.ratio=1), device = "pdf",
-  width = 8, height = 4.8, units = "in")
-
-## Save interactive html widget
-ggp <- ggplotly(p, tooltip = "tooltip") %>%
-  config(displayModeBar = FALSE) %>% ## Remove html buttons
-  layout(dragmode = "select", showlegend = FALSE,
-         width = 640, height = 320) %>% ## Set drag left mouse
-  event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-  highlight(on = "plotly_selected", off = "plotly_deselect")
-htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
-                        selfcontained = TRUE)
-
-# ch5_fig3_cheem_initial_bas -----
-.df <- layer_ls$shap_df
-bas <- .df[shap_obs, -ncol(.df)] %>%
-  as.matrix(nrow = 1L) %>% t() %>%
-  tourr::normalise()
-mv <- 2L #spinifex::manip_var_of(bas)
-.opts <- rownames(bas)
-mv_nm <- .opts[mv]
-
-?cheem::radial_cheem_ggtour()
-ggt142 <- radial_cheem_ggtour(
-  layer_ls, bas, mv_nm,
-  shap_obs, comp_obs,
-  #do_add_pcp_segements = TRUE,
-  pcp_shape = c(142, 124), ## '|' plotly and gganimate respectively
-  angle = .2)
-(anim <-
-    animate_plotly(ggt142) %>%
-    layout(dragmode = FALSE, showlegend = FALSE,
-           ## Animation doesn't seem to like width/height.
-           ) %>%
+  layer_ls <- readRDS(
+    "../cheem/inst/shiny_apps/cheem_initial/data/preprocess_toy_classification.rds")
+  shap_obs <- 36L; comp_obs <- 23;
+  
+  ## Create ggplot
+  gg <- global_view(layer_ls, shap_obs, comp_obs,
+                    color = "attr_proj.y_cor", as_ggplot = TRUE)
+  
+  p## Save -----
+  ggplot2::ggsave(
+    "./figures_from_script/ch5_fig2_global_space.png",
+    plot = gg + theme(aspect.ratio = 1), device = "png",
+    width = 8, height = 4.8, units = "in")
+  
+  ## Save interactive html widget
+  ggp <- ggplotly(p, tooltip = "tooltip") %>%
+    config(displayModeBar = FALSE) %>% ## Remove html buttons
+    layout(dragmode = "select", showlegend = FALSE,
+           width = 640, height = 320) %>% ## Set drag left mouse
     event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-    highlight(on = "plotly_selected", off = "plotly_deselect"))
-
-## Save .html cheem tour, and with prim/comp obs swapped -----
-htmlwidgets::saveWidget(
-  anim, "./figures_from_script/ch5_fig3_cheem_tour.html",
-  selfcontained = TRUE)
-### SWAPPING shap and comp obs
-bas_swap <- .df[comp_obs, -ncol(.df)] %>%
-  as.matrix(nrow = 1L) %>% t() %>%
-  tourr::normalise()
-ggt142_swapped <- radial_cheem_ggtour(
+    highlight(on = "plotly_selected", off = "plotly_deselect")
+  htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
+                          selfcontained = TRUE)
+  
+  # ch5_fig3_cheem_initial_bas -----
+  .df <- layer_ls$shap_df
+  bas <- .df[shap_obs, -ncol(.df)] %>%
+    as.matrix(nrow = 1L) %>% t() %>%
+    tourr::normalise()
+  mv <- 2L #spinifex::manip_var_of(bas)
+  .opts <- rownames(bas)
+  mv_nm <- .opts[mv]
+  
+  ?cheem::radial_cheem_ggtour()
+  ggt142 <- radial_cheem_ggtour(
+    layer_ls, bas, mv_nm,
+    shap_obs, comp_obs,
+    #do_add_pcp_segements = TRUE,
+    pcp_shape = c(142, 124), ## '|' plotly and gganimate respectively
+    angle = .2)
+  (anim <-
+      animate_plotly(ggt142) %>%
+      layout(dragmode = FALSE, showlegend = FALSE,
+             ## Animation doesn't seem to like width/height.
+      ) %>%
+      event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
+      highlight(on = "plotly_selected", off = "plotly_deselect"))
+  
+  ## Save .html cheem tour, and with prim/comp obs swapped -----
+  htmlwidgets::saveWidget(
+    anim, "./figures_from_script/ch5_fig3_cheem_tour.html",
+    selfcontained = TRUE)
+  ### SWAPPING shap and comp obs
+  bas_swap <- .df[comp_obs, -ncol(.df)] %>%
+    as.matrix(nrow = 1L) %>% t() %>%
+    tourr::normalise()
+  ggt142_swapped <- radial_cheem_ggtour(
   layer_ls, bas_swap, mv_nm,
   primary_obs = comp_obs, comparison_obs = shap_obs,
   #do_add_pcp_segements = TRUE,
@@ -452,10 +305,13 @@ ggt142_swapped <- radial_cheem_ggtour(
     animate_plotly(ggt142_swapped) %>% layout(dragmode = FALSE, showlegend = FALSE) %>% ## Set drag left mouse
     event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
     highlight(on = "plotly_selected", off = "plotly_deselect"))
-htmlwidgets::saveWidget(
-  anim_swapped,
-  "./figures_from_script/ch5_fig3_cheem_tour_SWAPPED.html",
-  selfcontained = TRUE)
+  
+## Save widget?
+# htmlwidgets::saveWidget(
+#   anim_swapped,
+#   "./figures_from_script/ch5_fig3_cheem_tour_SWAPPED.html",
+#   selfcontained = TRUE)
+}
 
 ## Manually make static frames -----
 {
@@ -518,11 +374,11 @@ htmlwidgets::saveWidget(
 ## Save static frames -----
 ## Frame 1 with distribution
 ggplot2::ggsave(
-  "./figures_from_script/ch5_fig3_cheem_initial_bas.pdf",
-  fr1_with, device = "pdf", width = 8, height = 4, units = "in")
+  "./figures_from_script/ch5_fig3_cheem_initial_bas.png",
+  fr1_with, device = "png", width = 8, height = 4, units = "in")
 
 # ch5_fig4_cheem_endpts technically
 ## tour end points without distribution
 ggplot2::ggsave(
-  "./figures_from_script/ch5_fig4_cheem_endpts.pdf",
-  pw, device = "pdf", width = 8, height = 4, units = "in")
+  "./figures_from_script/ch5_fig4_cheem_endpts.png",
+  pw, device = "png", width = 8, height = 4, units = "in")

@@ -171,9 +171,8 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
     labs(title="SHAP distribution",
-         y = "variable", x = "Normalized SHAP values\n the median of the contributions while permuting X's") +
-    theme(legend.position = "off")
-)
+         y = "Variable", x = "Normalized SHAP values\n the median of 25 permutations of the explanatory variables") +
+    theme(legend.position = "off"))
 
 ## Breakdowns & plot ----
 ## Messi Breakdown
@@ -202,7 +201,7 @@ bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     labs(title="Breakdown plot",
-         y = "variable", x = "Normalized contribution to prediction | variable order") +
+         y = "Variable", x = "Normalized contribution to prediction | variable order") +
     theme(legend.margin = margin(0,0,0,0),
           legend.position = "bottom",
           axis.text.x = element_blank(),
@@ -217,7 +216,7 @@ wages_df <- tibble::tibble(
     geom_segment(size=3L) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
-    labs(y = "player", x = "Wages [2020 Euros]") +
+    labs(y = "Player", x = "Wages [2020 Euros]") +
     theme(legend.position = "off"))
 ### Plot together
 require("patchwork")
@@ -247,7 +246,7 @@ ggplot2::ggsave(
   gg <- global_view(layer_ls, shap_obs, comp_obs,
                     color = "attr_proj.y_cor", as_ggplot = TRUE)
   
-  p## Save -----
+  ## Save -----
   ggplot2::ggsave(
     "./figures_from_script/ch5_fig2_global_space.png",
     plot = gg + theme(aspect.ratio = 1), device = "png",
@@ -263,7 +262,7 @@ ggplot2::ggsave(
   htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
                           selfcontained = TRUE)
   
-  # ch5_fig3_cheem_initial_bas -----
+# ch5_fig3_cheem_initial_bas -----
   .df <- layer_ls$shap_df
   bas <- .df[shap_obs, -ncol(.df)] %>%
     as.matrix(nrow = 1L) %>% t() %>%

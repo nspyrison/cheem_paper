@@ -200,7 +200,7 @@ bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
     facet_grid(col=vars(player)) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
-    labs(title="Breakdown plot",
+    labs(title = "Breakdown plot", color = "Players",
          y = "Variable", x = "Normalized contribution to prediction | variable order") +
     theme(legend.margin = margin(0,0,0,0),
           legend.position = "bottom",
@@ -219,18 +219,19 @@ wages_df <- tibble::tibble(
     labs(y = "Player", x = "Wages [2020 Euros]") +
     theme(legend.position = "off"))
 ### Plot together
-require("patchwork")
-(pw <- g_wage / g_shap / g_bd +
-    plot_layout(heights = c(1, 3, 3)))
 require("cowplot")
+if(F) ## With differing player wages
+  (cp <- cowplot::plot_grid(
+    g_wage, g_shap, g_bd, ncol = 1, 
+    rel_heights = c(1, 2, 2), labels=c("a)", "b)", "c)")))
 (cp <- cowplot::plot_grid(
-  g_wage, g_shap, g_bd, ncol = 1, 
-  rel_heights = c(1, 2, 2), labels=c("a)", "b)", "c)")))
+  g_shap, g_bd, ncol = 1, 
+  rel_heights = c(2, 2), labels=c("a)", "b)")))
 
 ## SAVE -----
 ggplot2::ggsave(
   "./figures/shap_distr_bd.png",
-  cp, device = "png", width = 7, height = 8, units = "in")
+  cp, device = "png", width = 7, height = 7, units = "in")
 
 
 # ch5_fig2_global_space -----
@@ -244,7 +245,7 @@ ggplot2::ggsave(
   
   ## Create ggplot
   gg <- global_view(layer_ls, shap_obs, comp_obs,
-                    color = "attr_proj.y_cor", as_ggplot = TRUE)
+                    color = "cor_attr_proj.y", as_ggplot = TRUE)
   
   ## Save -----
   ggplot2::ggsave(

@@ -86,7 +86,7 @@ knitr::opts_chunk$set(
 Mathematically rigorous approaches to predictive modeling are attributed to the least-squares method, over two centuries ago by Legendre and Gauss in 1805 and 1809, respectively. In 1886 Francis Galton coined the term _regression_ to refer to continuous, quantitative predictions. While _classification_ refers to discrete predictions as introduced by Fisher in 1936.
 
 <!-- Introduce explanatory vs predictive modeling -->
-Breiman and Shmueli [@breiman_statistical_2001; @shmueli_explain_2010] introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose such as hypothesis testing, while _predictive_ modeling predicts new, out-of-sample, observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling, interpretability is key for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use has important implications for model selection and development.
+Breiman and Shmueli [@breiman_statistical_2001; @shmueli_explain_2010] introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose such as hypothesis testing, while _predictive_ modeling predicts new, out-of-sample, observations. This distinction draws attention to the divide between interpretable models and black-box models. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for potentially more accurate black-box models. The intended use has important implications for model selection and development.
 
 <!-- XAI & interpretability crisis -->
 Black-box models are becoming increasingly common, but not without their share of controversy and issues [@oneil_weapons_2016; @kodiyan_overview_2019]. Black-box models have been known to reflect common biases, including sex [@dastin_amazon_2018; @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. Such issues occur when biases existent in the training data, the model picks up on this influence on the response variable, which is then built into the model. Another issue is data drift when new data is outside the support of latent or exogenous explanatory variables. Data drift can lead to worse predictions [@lazer_parable_2014; @salzberg_why_2014]. Such cases highlight the need to make models fair, accountable, ethical, and transparent, which has led to the movement of XAI [@adadi_peeking_2018; @arrieta_explainable_2020].
@@ -99,19 +99,19 @@ To illustrate our work, we apply the model-agnostic explanation SHAP [@strumbelj
 <!-- 2nd half is more application details; move lower? -->
 
 <!-- ## Data visualization tours -->
-In multivariate data visualization, a _tour_ [@asimov_grand_1985; @buja_grand_1986; @lee_review_2021] is a sequence of linear projections of data onto a lower-dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to the projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of that structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. 
+In multivariate data visualization, a _tour_ [@asimov_grand_1985; @buja_grand_1986; @lee_state_2021] is a sequence of linear projections of data onto a lower-dimensional space, typically 1-3D. Tours are viewed as an animation over small changes to the projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of that structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the structural shape of the shadow change gleans insight into the shape and features of the object. 
 
 <!-- manual tours --> 
-There are various types of tours, which are distinguished by the generation of projection bases. In a _manual_ tour [@cook_manual_1997; @spyrison_spinifex_2020] this path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries [@wickham_visualizing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path [@lee_pptree_2013; @da_silva_projection_2021].
+There are various types of tours, which are distinguished by the generation of projection bases. In a _manual_ tour [@cook_manual_1997; @spyrison_spinifex_2020], the path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries [@wickham_visualizing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path [@lee_pptree_2013; @da_silva_projection_2021].
 
 <!-- Purposed approach -->
-The approach proposed below is to use the radial, manual tour to interrogate a local explanation. After the identifying an observation of interest, its explanation can be evaluated by testing the support of the structure identified by the explanation as the contributions of the variables are varied with the radial tour. We provide a free and open-source R package __cheem__ with an interactive application to facilitate analysis. We give case studies of toy and modern datasets for both classification and regression tasks.
+The proposed approach is to use the radial, manual tour to interrogate a local explanation. After identifying an observation of interest, its explanation can be evaluated by testing the support of the structure identified by the explanation as the contributions of the variables are varied with the radial tour. We provide a free and open-source R package __cheem__ with an interactive application to facilitate analysis. We give case studies of toy and modern datasets for both classification and regression tasks.
 
 <!-- What-if & counterfactual analysis -->
 The change in the projection basis might feel similar to counterfactual, what-if analysis, such as _ceteris paribus_ [@biecek_ceterisparibus_2020]. Latin for “other things held constant” or “all else unchanged” is a counterfactual analysis showing how an observation's prediction would change from a change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual, observed case by that varies contributions of the basis, essentially the orientation of the data object. Another difference is that the basis must maintain orthonormality. That is to say, when the contribution of one variable decreases, the contributions of others necessarily increase such that there is a complete component in that direction.
 
 <!-- Paper structure -->
-The remainder of this paper is organized as follows. The next section, [Local explanation statistics](#sec:explanations), covers the background of the local explanation, SHAP, and the traditional visuals produced from it. [Tours and the radial tour](#sec:tour) digs deeper into these animations of continuous linear projections. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis, preprocessing, and package infrastructure. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [Discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
+The remainder of this paper is organized as follows. The following section, [Local explanation statistics](#sec:explanations), covers the background of the local explanation, SHAP, and the traditional visuals produced from it. [Tours and the radial tour](#sec:tour) digs deeper into these animations of continuous linear projections. The section [Application Design](#sec:applicationdesign) discusses the layout of the application, how it facilitates analysis, preprocessing, and package infrastructure. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [Discussion](#sec:discussion) of the insights we draw from classification and regression tasks.
 
 
 # Local explanation statistics {#sec:explanations}
@@ -123,7 +123,7 @@ Consider a highly non-linear model. At face value, it is hard to say which varia
 Figure 6 of @arrieta_explainable_2020 gives comprehensive summarization of the taxonomy and literature of explanation techniques. This includes a large number of model-specific explanations such as deepLIFT, [@shrikumar_not_2016; @shrikumar_learning_2017] a popular recursive method for estimating importance in neural networks. There are a fewer number of model-agnostic explanations, of which LIME, [@ribeiro_why_2016] SHAP, [@lundberg_unified_2017] and their variants are popular.
 
 <!-- Uses of local explanations -->
-These instance-level explanations are used in a variety of ways depending on the data. In images, saliency maps overlay or offset a heatmap indicating which pixels were important [@simonyan_deep_2014]. For instance, the presence of snow may be highlighted when distinguishing if a picture contains a wolf or husky. In text analysis, word-level contextual sentiment analysis can be used to highlight the sentiment and magnitude of influential words [@vanni_textual_2018]. In the case of numeric regression, they are used to explain variable additive contributions from model intercept to the observation's prediction [@ribeiro_why_2016].
+These instance-level explanations are used in a variety of ways depending on the data. In images, saliency maps overlay or offset a heatmap indicating which pixels were important [@simonyan_deep_2014]. For instance, snow may be highlighted when distinguishing if a picture contains a wolf or husky. In text analysis, word-level contextual sentiment analysis can be used to highlight the sentiment and magnitude of influential words [@vanni_textual_2018]. In the case of numeric regression, they are used to explain variable additive contributions from model intercept to the observation's prediction [@ribeiro_why_2016].
 
 
 ## SHAP and tree SHAP
@@ -135,7 +135,7 @@ SHaply Additive exPlanations (SHAP) approximates the variable importance in the 
 To illustrate SHAP and its original use, explaining the difference between the intercept and an observation's prediction, we use soccer data from FIFA 2020 season [@leone_fifa_2020]. We have 5000 observations of nine skill measures (after aggregating highly correlated variables). A random forest model is fit to regress the log wages, in 2020 Euros, from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). We expect to see a difference in the attribution of the variable importance across the two positions of the players.
 
 <!-- Illustration -->
-Figure \@ref(fig:shapdistrbd) shows the SHAP values of these players. Panel a) shows these players receive a sizable difference in wages. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more important to the model for explaining the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot [@gosiewska_ibreakdown_2019], where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry in the variable ordering, so we opt to fix the order to that of panel b), namely, by decreasing the sum of the SHAP values.
+Figure \@ref(fig:shapdistrbd) shows the SHAP values of these players. Panel a) shows these players receive a sizable difference in wages. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offensive and movement are more important for the offensive player, while defensive and power skills are more informative to the model for explaining the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions, such as goalkeepers or middle fielders. Panel c) shows a simplified breakdown plot [@gosiewska_ibreakdown_2019], where a local explanation is used to additively explain the difference from the intercept to the observations prediction. Such additive approaches will show an asymmetry in the variable ordering, so we opt to fix the order to panel b), namely, by decreasing the sum of the SHAP values.
 
 ```{r shapdistrbd, echo=F, fig.cap = "Illustration of the distribution of SHAP attributions and a breakdown plot. From FIFA 2020 data, a random forest model regresses wages from nine skill attributes for a star offensive and defensive player. The players have very different wages, but b) shows the distributions of the attributions permuting over 25 permutations in the explanatory variables. The medians of these distributions are the final SHAP values. The variable importance differs across the exogenous information of player position. These explanations make sense; the variable importances make sense in light of the player's position. c) Breakdown plots of the observations the explanation used to additively explain the difference between the model intercept and the observation prediction."}
 knitr::include_graphics("./figures/shap_distr_bd.png")
@@ -145,10 +145,17 @@ In summary, this highlights how local explanations bring interpretability to a m
 
 # Tours and the radial tour
 
-TODO:XXX
-```{r}
-##TODO:XXX
-```
+<!-- tours intro -->
+A data visualization _tour_ animates many linear projections over small changes in the basis. One of the key features of the tour is the object permanence of the data points; one can track the relative changes of observations as the basis moves, as opposed to discretely jumping to an orthogonal view with no intermediate information. There  are various types of tours, which are distinguished by the selection of their basis paths [@lee_state_2021; @cook_grand_2008].
+
+
+## Manual tours and the radial subset
+
+<!-- Manual tour -->
+The manual tour [@cook_manual_1997] defines its basis path by manipulating the basis contribution of a selected variable. A manipulation dimension is appended onto the projection plane, with a full contribution given to the selected variable. The bases are then selected based on rotating this newly created manipulation space. A crucial feature of the manual tour is that it allows users to control the variable contributions of the basis. This means that such manipulations can be selected and queued in advance or selected on the spot for human-in-the-loop analysis [@karwowski_international_2006]. However, this navigation is relatively time-consuming due to the huge volume of $p$-space. It is advisable to use this method to explore the sensitivity of the variable contribution to a previously identified feature of interest. In this case, the projection of the normalized explanations is the feature of interest.
+
+<!-- radial tour -->
+More generally, the manual tour can change the contribution of the variable in any of the display dimensions. We will with a specific more directed interaction, namely, a _radial_ tour. In a radial tour, the selected variable is allowed to change its magnitude of contribution but not its angle; it must move along the direction of its original contribution radius.
 
 # Application design {#sec:applicationdesign}
 
@@ -161,7 +168,7 @@ Below we illustrate the two primary displays of the application: the global view
 The global view provides an essential context of all observations and allows  exploration of the separability of the data- and attribution-spaces. While ultimately, its purpose is to facilitate the selection of a primary point and comparison point.
 
 <!-- Approximations of the spaces, PC1:2 -->
-An approximation of these spaces is given as the first two principal components of their respective spaces. This is shown side-by-side next to model information, the prediction, and the observed response variable. The orientation and magnitude  of the variables are inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of higher-dimensional spaces, it is a reasonable summarization real task at hand, the selection of observation, and nearby comparison.
+An approximation of these spaces is given as the first two principal components of their respective spaces. This is shown side-by-side next to model information, the prediction, and the observed response variable. The orientation and magnitude  of the variables are inscribed on a unit circle. While a single 2D projection will rarely encompass all of the structure of higher-dimensional spaces, it is a reasonable summarization, given the real task at hand, the selection of observations to explore further.
 
 <!-- Predicted by observed -->
 It is insightful to explore these two approximations against a visual of the model; prediction by observation is also displayed. Linked brushing and preserved aesthetic features such as circling misclassified observations help link information from the different spaces together.
@@ -179,7 +186,7 @@ The initial frame is the normalized SHAP values of the primary observation. The 
 The radial tour creates a basis path by varying the contribution of a selected variable, fully into and out of a projection frame. Doing so tests an individual variable's sensitivity to the structure identified by the local explanation. The default variable selected has the largest discrepancy between the primary and comparison observations attribution. In the following sections, we elaborate on the takeaways we draw from applying this approach in classification and regression tasks, respectively.
 
 <!-- Segue to classification -->
-Now that we have introduced the global view and corresponding cheem radial tour let's discuss the differences between the classification and regression cases.
+Now that we have introduced the global view and corresponding cheem radial tour, let's discuss the differences between the classification and regression cases.
 
 
 ## Classification task
@@ -193,7 +200,7 @@ knitr::include_graphics("./figures/app_classification.PNG")
 
 ## Regression task
 
-The regression case, we opt to color the global view on a statistic, the observation's residual, the log Mahanabis distance in data space (a measure of outlyingness), and the correlation of the attribution projection with the observed response. In the radial tour, the horizontal positions are the same, the  attribution projection, then varying as the radial tour changes basis. While the vertical position is fixed to the observed response variable and residuals for the middle and right panels, respectively. This changes the display from 1D density to a scatterplot. The basis is still one component, the horizontal position, independent with the vertical position.
+The regression case, we opt to color the global view on a statistic, the observation's residual, the log Mahanabis distance in data space (a measure of outlyingness), and the correlation of the attribution projection with the observed response. In the radial tour, the horizontal positions are the same, the  attribution projection, then varying as the radial tour changes basis. While the vertical position is fixed to the observed response variable and residuals for the middle and right panels, respectively. This changes the display from 1D density to a scatterplot. The basis is still one component, the horizontal position, independent of the vertical position.
 
 ```{r regressioncase, echo=F, out.width = "100%", fig.cap = "Display of the regression case. The global view can be colored on the correlation of the attribution projection and observed response. In the tour, the horizontal values are the same as the classification case. The vertical position is fixed to the observed response and residuals in the middle and right facets, respectively."}
 knitr::include_graphics("./figures/app_regression.PNG")
@@ -220,8 +227,8 @@ The benefit of having dynamic interaction with data is predicated on a reasonabl
 (ref:citeRf) @liaw_classification_2002
 (ref:citeTs) @kominsarczyk_treeshap_2021
 \begin{itemize}
-	\item \textbf{Data:} a complete numerical matrix; explanatory and response variable. An optional categorical variable can be mapped to color and shape of obervations. Explanatory variables are scaled in visualization after modeling or creating local explanations. 
-	\item \textbf{Model:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} [(ref:citeRf)] for compatability with the local explanation which requires tree-based models.
+	\item \textbf{Data:} a complete numerical matrix; explanatory and response variable. An optional categorical variable can be mapped to the color and shape of observations. Explanatory variables are scaled in visualization after modeling or creating local explanations. 
+	\item \textbf{Model:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} [(ref:citeRf)] for compatibility with the local explanation, which requires tree-based models.
 	\item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP, that is applicable to tree-based models. This is done with the package \textbf{treeshap} [(ref:citeTs), hosted on GitHub only]. The global view shows all observations in attribution space, requiring the variable importance from \emph{all} observations rather than just one.
 \end{itemize}
 
@@ -261,7 +268,7 @@ Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] consi
 knitr::include_graphics("./figures/case_penguins.png")
 ```
 
-In figure \@ref(fig:casepenguins), a misclassified point is contrasted with a correctly classified point of its observed class nearby in data-space. The attribution space from the tree SHAP local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution. The primary observation is in-between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to the linear explanation of this observation be misclassified.
+In figure \@ref(fig:casepenguins), a misclassified point is contrasted with a correctly classified point of its observed class nearby in data-space. The attribution space from the tree SHAP local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution. The primary observation is in-between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to the linear explanation of this observation being misclassified.
 
 ## 2) Chocolates, milk/dark chocolate classification
 
@@ -271,18 +278,18 @@ The chocolates dataset consists of 88 observations of 10 nutritional measurement
 knitr::include_graphics("./figures/case_chocolates.png")
 ```
 
-From figure \@ref(fig:casechocolates) we similarly see that attribution space is more separable relative to data-space. Interestingly there is not the class imbalance that we suspected; there are only 6 chocolates labeled as dark and predicted as milk, while 8 of the inverse case. Calories from fat is the variable with the largest difference in treeshap attribution between these points.
+In figure \@ref(fig:casechocolates), we similarly see that attribution space is more separable relative to data-space. Interestingly there is not the class imbalance that we suspected; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. Calories from fat is the variable with the largest difference in treeshap attribution between these points.
 
 
 ## 3) FIFA, wage regression
 
-The 2020 season FIFA [@leone_fifa_2020; @biecek_dalex_2018], contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \@ref(fig:shapdistrbd).
+The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \@ref(fig:shapdistrbd).
 
 ```{r casefifa, echo=F, out.width = "100%", fig.cap = "FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk)."}
 knitr::include_graphics("./figures/case_fifa.png")
 ```
 
-With figure \@ref(fig:casefifa) we will test the premise of the local explanation. If we remove reaction and movement skills from the basis, then offense skills has almost singular importance for the explanation of the offensive player. We vary the contribution of offensive skills. In the tour (3rd frame of b), offensive skills moved, and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, maintaining some separability.
+With figure \@ref(fig:casefifa), we will test the premise of the local explanation. If we remove reaction and movement skills from the basis, then offense skills have almost singular importance for the explanation of the offensive player. We vary the contribution of offensive skills. In the tour (3rd frame of b), offensive skills moved, and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, maintaining some separability.
 
 
 ## 4) Ames housing 2018, sales price regression
@@ -300,12 +307,12 @@ Figure \@ref(fig:caseames) shows the global view and extrema of the tour. The ho
 
 The need to maintain the interpretability of black-box models is evident. One aspect uses local explanations of the model in the vicinity of an observation. Local explanations approximate the linear variable importance to the model. Our contribution is to assess the explanations by examining the support of explanation, varying the contribution with a radial tour. First, a global view visualizes approximations of the data and explanation spaces side-by-side, using dynamic interaction to compare and contrast, and ultimately, identify primary and comparison observations of interest. Then normalized the linear importance from the explanation of the primary observation to use as the initial basis of a manual tour. The variable sensitivity to the structure identified in the explanation is explored with the tours varying basis.
 
-We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generally used with any compatible model-explanation pairing. We apply it to the classification and regression tasks. We have created an open-source __R__ package __cheem__, available on CRAN, to facilitate preprocessing and exploration with the described interactive application. Toy and real data are provided or upload your data after preprocessing.
+We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generally used with any compatible model-explanation pairing. We apply it to the classification and regression tasks. We have created an open-source __R__ package __cheem__, available on CRAN, to facilitate preprocessing and exploration with the described interactive application. Toy and real data are provided, or upload your data after preprocessing.
 
 
 # Acknowledgments
 
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader $\text{MI}^\text2$ lab group for the __DALEX__ ecosystem of __R__ and __Python__ packages. This research was supported by Australian government Research Training Program (RTP) scholarships.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader $\text{MI}^\text2$ lab group for the __DALEX__ ecosystem of __R__ and __Python__ packages. This research was supported by Australian Government Research Training Program (RTP) scholarships.
 
 The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations that are specific to tree-based models.
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.9)  12 DEC 2021 19:22
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.9)  15 DEC 2021 14:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -161,7 +161,7 @@ tim
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/microtyp
 e.sty
-Package: microtype 2021/12/02 v3.0a Micro-typographical refinements (RS)
+Package: microtype 2021/12/10 v3.0b Micro-typographical refinements (RS)
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.st
 y
@@ -176,16 +176,16 @@ Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \MT@toks=\toks24
 \MT@count=\count270
 \MT@tempbox=\box52
-LaTeX Info: Redefining \leftprotrusion on input line 1006.
-LaTeX Info: Redefining \rightprotrusion on input line 1014.
-LaTeX Info: Redefining \textls on input line 1182.
+LaTeX Info: Redefining \leftprotrusion on input line 1010.
+LaTeX Info: Redefining \rightprotrusion on input line 1018.
+LaTeX Info: Redefining \textls on input line 1173.
 \MT@outer@kern=\dimen148
-LaTeX Info: Redefining \textmicrotypecontext on input line 1768.
+LaTeX Info: Redefining \textmicrotypecontext on input line 1759.
 \MT@listname@count=\count271
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/microtyp
 e-pdftex.def
-File: microtype-pdftex.def 2021/12/02 v3.0a Definitions specific to pdftex (RS)
+File: microtype-pdftex.def 2021/12/10 v3.0b Definitions specific to pdftex (RS)
 
 LaTeX Info: Redefining \lsstyle on input line 897.
 LaTeX Info: Redefining \lslig on input line 897.
@@ -195,7 +195,7 @@ Package microtype Info: Loading configuration file microtype.cfg.
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/microtype/microtyp
 e.cfg
-File: microtype.cfg 2021/12/02 v3.0a microtype main configuration file (RS)
+File: microtype.cfg 2021/12/10 v3.0b microtype main configuration file (RS)
 ))
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/parskip/parskip.st
 y
@@ -807,130 +807,130 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}] [2]
-<./figures/shap_distr_bd.png, id=35, 505.89pt x 505.89pt>
+<./figures/shap_distr_bd.png, id=36, 505.89pt x 505.89pt>
 File: ./figures/shap_distr_bd.png Graphic file (type png)
 <use ./figures/shap_distr_bd.png>
-Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 206.
+Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 209.
 (pdftex.def)             Requested size: 505.89645pt x 505.89645pt.
 
-Overfull \hbox (36.14143pt too wide) in paragraph at lines 206--207
+Overfull \hbox (36.14143pt too wide) in paragraph at lines 209--210
  [][] 
  []
 
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 223.
+(Font)              <10> on input line 226.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 223.
+(Font)              <7> on input line 226.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 223.
+(Font)              <5> on input line 226.
 [3] [4pdfTeX warning (ext4): destination with the same identifier (name{figure.
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.238 
+l.234 
        <./figures/shap_distr_bd.png>]
-<./figures/app_classification.png, id=55, 712.46175pt x 533.5935pt>
+<./figures/app_classification.png, id=54, 712.46175pt x 533.5935pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
 Package pdftex.def Info: ./figures/app_classification.png  used on input line 2
-59.
+62.
 (pdftex.def)             Requested size: 469.7696pt x 351.83083pt.
-<./figures/app_regression.png, id=56, 678.73575pt x 590.80725pt>
-File: ./figures/app_regression.png Graphic file (type png)
-<use ./figures/app_regression.png>
-Package pdftex.def Info: ./figures/app_regression.png  used on input line 273.
-(pdftex.def)             Requested size: 469.75739pt x 408.9015pt.
-<./figures/app_interactions.png, id=57, 889.52325pt x 413.74574pt>
-File: ./figures/app_interactions.png Graphic file (type png)
-<use ./figures/app_interactions.png>
-Package pdftex.def Info: ./figures/app_interactions.png  used on input line 289
-.
-(pdftex.def)             Requested size: 469.76202pt x 218.50136pt.
 [5] [6pdfTeX warning (ext4): destination with the same identifier (name{figure.
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.294 \end{figure}
-                   <./figures/app_classification.PNG>] [7pdfTeX warning (ext4):
- destination with the same identifier (name{figure.3}) has been already used, d
-uplicate ignored
+l.273 
+       <./figures/app_classification.PNG>]
+<./figures/app_regression.png, id=74, 678.73575pt x 590.80725pt>
+File: ./figures/app_regression.png Graphic file (type png)
+<use ./figures/app_regression.png>
+Package pdftex.def Info: ./figures/app_regression.png  used on input line 276.
+(pdftex.def)             Requested size: 469.75739pt x 408.9015pt.
+<./figures/app_interactions.png, id=75, 889.52325pt x 413.74574pt>
+File: ./figures/app_interactions.png Graphic file (type png)
+<use ./figures/app_interactions.png>
+Package pdftex.def Info: ./figures/app_interactions.png  used on input line 292
+.
+(pdftex.def)             Requested size: 469.76202pt x 218.50136pt.
+[7pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) 
+has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.294 \end{figure}
-                   <./figures/app_regression.PNG>]
+l.303 
+       <./figures/app_regression.PNG>]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-05.
+08.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [8pdfTeX warning (ext4): destination with the same identifier (name{figure.4}
 ) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.316 
+l.319 
        <./figures/app_interactions.PNG>]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-20.
+23.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 321.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 324.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 321.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 324.
 
-<./figures/case_penguins.png, id=93, 433.62pt x 361.35pt>
+<./figures/case_penguins.png, id=95, 433.62pt x 361.35pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 346.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 349.
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
-<./figures/case_chocolates.png, id=95, 433.62pt x 361.35pt>
+<./figures/case_chocolates.png, id=97, 433.62pt x 361.35pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 362.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 365.
 
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.370 
+l.373 
        <./figures/case_penguins.png>] [11pdfTeX warning (ext4): destination wit
 h the same identifier (name{figure.6}) has been already used, duplicate ignored
 
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.370 
+l.373 
        <./figures/case_chocolates.png>]
-<./figures/case_fifa.png, id=122, 397.485pt x 578.16pt>
+<./figures/case_fifa.png, id=124, 397.485pt x 578.16pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 378.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 381.
 (pdftex.def)             Requested size: 397.50221pt x 578.18504pt.
-<./figures/case_ames2018.png, id=124, 578.16pt x 578.16pt>
+<./figures/case_ames2018.png, id=126, 578.16pt x 578.16pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 394.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 397.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
 [12] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.416 
+l.419 
        <./figures/case_fifa.png>] [14pdfTeX warning (ext4): destination with th
 e same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.416 
+l.419 
        <./figures/case_ames2018.png>] [15] [16] [17] (./_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 15844 strings out of 480293
- 259254 string characters out of 5894821
- 606084 words of memory out of 5000000
- 33108 multiletter control sequences out of 15000+600000
- 468968 words of font info for 166 fonts, out of 8000000 for 9000
+ 15868 strings out of 480293
+ 259502 string characters out of 5894821
+ 607146 words of memory out of 5000000
+ 33110 multiletter control sequences out of 15000+600000
+ 475863 words of font info for 178 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,6n,77p,1109b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,77p,1189b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX war
 ning (dest): name{sec:tour} has been referenced but does not exist, replaced by
  a fixed one
@@ -941,17 +941,19 @@ nc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mat
 hit.enc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/l
 m/lmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pub
 lic/lm/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
-1/public/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts
-/type1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/f
-onts/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-di
-st/fonts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf
--dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/
-texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roaming/Ti
-nyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on _paper.pdf (17 pages, 2619859 bytes).
+1/public/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/
+type1/public/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/f
+onts/type1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-di
+st/fonts/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texm
+f-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/t
+exmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTe
+X/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/T
+inyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roa
+ming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
+Output written on _paper.pdf (17 pages, 2674660 bytes).
 PDF statistics:
- 377 PDF objects out of 1000 (max. 8388607)
- 319 compressed objects within 4 object streams
+ 387 PDF objects out of 1000 (max. 8388607)
+ 325 compressed objects within 4 object streams
  115 named destinations out of 1000 (max. 500000)
- 35025 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 39121 words of extra memory for PDF output out of 42996 (max. 10000000)
 

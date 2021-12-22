@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.16)  22 DEC 2021 17:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.16)  22 DEC 2021 17:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -931,7 +931,7 @@ l.431
 Here is how much of TeX's memory you used:
  15918 strings out of 480293
  260359 string characters out of 5894820
- 606940 words of memory out of 5000000
+ 606933 words of memory out of 5000000
  33151 multiletter control sequences out of 15000+600000
  480828 words of font info for 182 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
@@ -958,7 +958,7 @@ mf-dist/fonts/type1/public/lm/lmri9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (17 pages, 2701044 bytes).
+Output written on _paper.pdf (17 pages, 2701475 bytes).
 PDF statistics:
  400 PDF objects out of 1000 (max. 8388607)
  335 compressed objects within 4 object streams

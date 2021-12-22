@@ -37,7 +37,7 @@
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
-  pdftitle={Interrogating the linear variable importance of local explanations of non-linear models with animated linear projections},
+  pdftitle={Scrutinizing the linear variable importance of local explanations of non-linear models with animated linear projections},
   pdfkeywords={R, XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, radial tour},
   colorlinks=true,
   linkcolor=red,
@@ -154,7 +154,7 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\title{Interrogating the linear variable importance of local explanations of non-linear models with animated linear projections}
+\title{Scrutinizing the linear variable importance of local explanations of non-linear models with animated linear projections}
 \author{}
 \date{\vspace{-2.5em}}
 
@@ -179,7 +179,7 @@ In multivariate data visualization, a \emph{tour} (Asimov 1985; Buja and Asimov 
 
 There are various types of tours distinguished by the generation of projection bases. In a \emph{manual} tour (Cook and Buja 1997; Spyrison and Cook 2020), the path is defined by changing the contribution of a selected variable. Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries (Wickham, Cook, and Hofmann 2015), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis path (Y. D. Lee et al. 2013; Silva, Cook, and Lee 2021).
 
-The proposed approach uses the radial, manual tour to interrogate a local explanation. After identifying an observation of interest, its explanation can be evaluated by testing the support of the structure identified by the explanation as the contributions of the variables are varied with the radial tour. We provide a free and open-source R package \textbf{cheem} with an interactive application to facilitate analysis. We provide toy and modern datasets case studies for both classification and regression tasks.
+The proposed approach uses the radial, manual tour to scrutinize a local explanation. After identifying an observation of interest, its explanation can be evaluated by testing the support of the structure identified by the explanation as the contributions of the variables are varied with the radial tour. We provide a free and open-source R package \textbf{cheem} with an interactive application to facilitate analysis. We provide toy and modern datasets case studies for both classification and regression tasks.
 
 The change in the projection basis might feel similar to counterfactual, what-if analysis, such as \emph{ceteris paribus} (Biecek 2020). This phrase, Latin for ``other things held constant'' or ``all else unchanged,'' shows how an observation's prediction would change from a marginal change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the variables by rotating the basis, a reorientation of the data object. Another difference is that the basis must remain orthonormal. That is to say, when the contribution of one variable decreases, the contributions of others necessarily increase such that there is a complete component in that direction.
 
@@ -212,7 +212,7 @@ To illustrate SHAP and its original use, explaining the difference between the i
 
 Figure \ref{fig:shapdistrbd} shows the SHAP values of these players. Panel a) shows these players receive a sizable difference in wages. Panel b) shows the underlying distribution of the SHAP attributions while permuting the explanatory variables, with the medians being the SHAP values. In the light of the player position, the difference in the variable importance makes sense; offense and movement skills are more important for the offensive player, while defensive and power skills are more informative to the model for explaining the prediction of the defensive player. We would likewise expect the profile of variable importance to be unique for star players of other positions, such as goalkeepers or middle fielders. Panel b) shows a simplified break-down plot (Gosiewska and Biecek 2019), where a local explanation is used to additively explain the difference from the intercept to the observation's prediction. Such additive approaches will show asymmetry in the variable ordering, so we opt to fix the order to panel a), by decreasing sum of the SHAP values.
 
-In summary, this figure highlights how local explanations bring interpretability to a model, at least in the vicinity of their observations. In this instance, two players with different positions receive different profiles of variable importance to explain the prediction of their wages. In application we apply \emph{tree SHAP}, a variant of SHAP that enjoys a lower computational complexity (S. M. Lundberg, Erion, and Lee 2018). Tree SHAP only compatible with tree-based models; we illustrate on random forests. In the following section, we will use normalized explanations as the starting projection basis to further interrogate the explanation.
+In summary, this figure highlights how local explanations bring interpretability to a model, at least in the vicinity of their observations. In this instance, two players with different positions receive different profiles of variable importance to explain the prediction of their wages. In application we apply \emph{tree SHAP}, a variant of SHAP that enjoys a lower computational complexity (S. M. Lundberg, Erion, and Lee 2018). Tree SHAP only compatible with tree-based models; we illustrate on random forests. In the following section, we will use normalized explanations as the starting projection basis to further scrutinize the explanation.
 
 \hypertarget{tours-and-the-radial-tour}{%
 \section{Tours and the radial tour}\label{tours-and-the-radial-tour}}

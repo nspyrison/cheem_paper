@@ -38,7 +38,9 @@
          x = .x_axis_title) + 
     ggtitle("Global view")
   .bas <- basis_attr_df(penguins_ls$attr_df, prim_obs)
-  .mv  <- manip_var_of_attr_df(penguins_ls$attr_df, prim_obs, comp_obs)
+  .mv  <- 1 ## seems better than the 3 from
+  ##manip_var_of_attr_df(penguins_ls$attr_df, prim_obs, comp_obs)
+  ## Cheem tour for stills
   .ggt <- radial_cheem_tour(
     penguins_ls, basis = .bas, manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
@@ -53,26 +55,38 @@
     ncol = 1)#, rel_heights = c(1.5, 1))
 }
 
-### Save
+### Save still shots for paper
 ggplot2::ggsave(
   "./figures/case_penguins.png",
   plot = .cp, device = "png",
   width = 6, height = 5, units = "in")
 .m <- gc()
 
+### Save .mp4, add GitHub urls to paper
+.ggt <- radial_cheem_tour(
+  penguins_ls, basis = .bas, manip_var = .mv,
+  primary_obs = prim_obs, comparison_obs = comp_obs,
+  do_add_pcp_segments = FALSE,
+  pcp_shape = 124, angle = .15) +## realistic angle
+  theme(legend.position = "top", legend.direction = "horizontal")
+.anim <- animate_gganimate(
+  .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
+  #height = 10, width = 12, units = "cm", ## "px", "in", "cm", or "mm."
+  render = gganimate::av_renderer("./figures/case_penguins.mp4")) ## Alternative render
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4
 
 
 ## Chocolates classification -----
 {
   names(chocolates_ls)
-  prim_obs <- 22L
-  comp_obs <- 34L
+  prim_obs <- 22L #"Dark Chocolate Bar, Lindt, Switzerland"
+  comp_obs <- 34L #"85% Cocoa Dark French Chocolate, Thorntos, UK (2nd) 
   if(F)
-    global_view(chocolates_ls, 
+    global_view(chocolates_ls,
                 22, #"Dark Chocolate Bar, Lindt, Switzerland"
                 49) #"Pure Dark Chocolate, Hershey's, US"
   
-  ### Global view and cheem tour stills
+  ### Global view
   .glob_view <- global_view(
     chocolates_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
     theme(legend.position = "right") +
@@ -81,6 +95,7 @@ ggplot2::ggsave(
     ggtitle("Global view")
   .bas <- basis_attr_df(chocolates_ls$attr_df, prim_obs)
   .mv  <- manip_var_of_attr_df(chocolates_ls$attr_df, prim_obs, comp_obs)
+  ## Cheem tour stills for paper
   .ggt <- radial_cheem_tour(
     chocolates_ls, basis = .bas, manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
@@ -93,13 +108,26 @@ ggplot2::ggsave(
     labels = c("a)", "b)"),
     ncol = 1)#, rel_heights = c(1.5, 1))
 }
-### Save
+
+### Save Stills
 ggplot2::ggsave(
   "./figures/case_chocolates.png",
   plot = .cp, device = "png",
   width = 6, height = 5, units = "in")
 .m <- gc()
 
+### Save .mp4, add GitHub urls to paper
+.ggt <- radial_cheem_tour(
+  chocolates_ls, basis = .bas, manip_var = .mv,
+  primary_obs = prim_obs, comparison_obs = comp_obs,
+  do_add_pcp_segments = FALSE,
+  pcp_shape = 124, angle = .15) + ## realistic angle
+  theme(legend.position = "top", legend.direction = "horizontal")
+.anim <- animate_gganimate(
+  .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
+  #height = 10, width = 12, units = "cm", ## "px", "in", "cm", or "mm."
+  render = gganimate::av_renderer("./figures/case_chocolates.mp4")) ## Alternative render
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
 
 ## FIFA 2020 wage regression ------
 {
@@ -137,6 +165,19 @@ ggplot2::ggsave(
   width = 5.5, height = 8, units = "in")
 .m <- gc()
 
+### Save .mp4, add GitHub urls to paper
+.ggt <- radial_cheem_tour(
+  fifa_ls, basis = .bas, manip_var = .mv,
+  primary_obs = prim_obs, comparison_obs = comp_obs,
+  do_add_pcp_segments = FALSE,
+  pcp_shape = 124, angle = .15) + ## realistic angle
+  theme(legend.position = "off")
+.anim <- animate_gganimate(
+  .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
+  #height = 10, width = 12, units = "cm", ## "px", "in", "cm", or "mm."
+  render = gganimate::av_renderer("./figures/case_fifa.mp4")) ## Alternative render
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4
+
 
 ## Ames Housing 2018 (North Ames) ----
 {
@@ -148,7 +189,7 @@ ggplot2::ggsave(
                 color = ames2018_ls$decode_df$residual,
                 shape = factor(ames2018_ls$decode_df$class))
   
-  ### global view and tours
+  ### global view
   .glob_view <- global_view(
     ames2018_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
     theme(legend.position = "off") +
@@ -156,6 +197,7 @@ ggplot2::ggsave(
     ggtitle("Global view")
   .bas <- basis_attr_df(ames2018_ls$attr_df, prim_obs)
   .mv  <- manip_var_of_attr_df(ames2018_ls$attr_df, prim_obs, comp_obs)
+  ### Cheem toru still shots
   .ggt <- radial_cheem_tour(
     ames2018_ls, basis = .bas, manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
@@ -174,6 +216,19 @@ ggplot2::ggsave(
   plot = .cp, device = "png",
   width = 8, height = 8, units = "in")
 .m <- gc()
+
+### Save .mp4, add GitHub urls to paper
+.ggt <- radial_cheem_tour(
+  ames2018_ls, basis = .bas, manip_var = .mv,
+  primary_obs = prim_obs, comparison_obs = comp_obs,
+  do_add_pcp_segments = FALSE,
+  pcp_shape = 124, angle = .15) + ## realistic angle
+  theme(legend.position = "off")
+.anim <- animate_gganimate(
+  .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
+  #height = 10, width = 12, units = "cm", ## "px", "in", "cm", or "mm."
+  render = gganimate::av_renderer("./figures/case_ames2018.mp4")) ## Alternative render
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4
 
 
 ### rejected -- Tidy Tuesday coffee -----

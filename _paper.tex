@@ -346,13 +346,15 @@ To illustrate the use of the cheem method, we apply it to modern datasets, two c
 
 Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst, Hill, and Gorman 2020) consist of 330 observations across four physical measurements of three species of penguins foraging near Palmer Station, Antarctica. A random forest model was fit, classifying the species of the penguin given the physical measurements.
 
+
+
 \begin{figure}
 
 {\centering \includegraphics[width=1\linewidth]{./figures/case_penguins} 
 
 }
 
-\caption{Species classification of Palmer penguin data.}\label{fig:casepenguins}
+\caption{Species classification of Palmer penguin data. We select an a chinstrp penguin that is mislabeled as an adlie. By varying the cntribution to bill length we that the explaintion does not hold when bill length has a large contribtuion. The .mp4 animaion of this tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4}{github.com/nspyrison/cheem\_paper/blob/main/figures/case\_penguins.mp4}}\label{fig:casepenguins}
 \end{figure}
 
 In figure \ref{fig:casepenguins}, a misclassified point is contrasted with a correctly classified point of its observed class nearby in data-space. The attribution space from the tree SHAP local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution. The primary observation is between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of bill length (b\_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to the linear explanation of this observation being misclassified.
@@ -362,21 +364,25 @@ In figure \ref{fig:casepenguins}, a misclassified point is contrasted with a cor
 
 The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. With this data, we can see if a manufacturer accurately portrays the chocolate. We are curious to see if there are chocolates that nutritionally look like milk chocolates labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We selected a chocolate labeled dark, through predicted to be milk chocolate compared with a chocolate labeled 85\% cocoa.
 
+
+
 \begin{figure}
 
 {\centering \includegraphics[width=1\linewidth]{./figures/case_chocolates} 
 
 }
 
-\caption{Chocolates data type classification (milk or dark).}\label{fig:casechocolates}
+\caption{Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate in light of the values on the nutritional label. We vary the contribution form Calories from Fat. Animated tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4}{github.com/nspyrison/cheem\_paper/blob/main/figures/case\_chocolates.mp4}.}\label{fig:casechocolates}
 \end{figure}
 
-In figure \ref{fig:casechocolates}, we similarly see that attribution space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. Calories from fat is the variable with the largest difference in treeshap attribution between these points.
+In figure \ref{fig:casechocolates}, we similarly see that attribution space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. Calories from fat is the variable with the largest difference in treeshap attribution between these points. In this case it feels a little bit strange to call the selected observation a misclassification of the model. There plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are. This feels more like measurement theory related problem. In this case the candy is being sold as dark chocolate, while nutritional value more closely resemble milk chocolate.
 
 \hypertarget{fifa-wage-regression}{%
 \subsection{3) FIFA, wage regression}\label{fifa-wage-regression}}
 
 The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress the log wages {[}2020 euros{]} given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \ref{fig:shapdistrbd}.
+
+
 
 \begin{figure}
 
@@ -384,7 +390,7 @@ The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurem
 
 }
 
-\caption{FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk).}\label{fig:casefifa}
+\caption{FIFA 2020, regressing log wages {[}2020 Euros{]} from aggregations of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). The animate radial tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4}{github.com/nspyrison/cheem\_paper/blob/main/figures/case\_fifa.mp4}}\label{fig:casefifa}
 \end{figure}
 
 With figure \ref{fig:casefifa}, we will test the premise of the local explanation. If we remove reaction and movement skills from the basis, then offense skills have almost singular importance for explaining the offensive player. We vary the contribution of offensive skills. In the tour (panel b, frame 3), offensive skills are removed, and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, maintaining some separability.
@@ -394,13 +400,15 @@ With figure \ref{fig:casefifa}, we will test the premise of the local explanatio
 
 Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales across nine variables. Using interaction from the global view, we select a house with an extreme negative residual and an accurate observation close to it in the data.
 
+
+
 \begin{figure}
 
 {\centering \includegraphics[width=1\linewidth]{./figures/case_ames2018} 
 
 }
 
-\caption{Ames housing 2018 regressing log sales price [2018 USD].}\label{fig:caseames}
+\caption{Ames housing 2018 regressing log sales price {[}2018 USD{]}. Because the SHAP values are relatively well distributed accross the variables, there is a lot of redundant information to explain the gap of a prediction. This case may not be ideal for the cheem methodology, though we did find a near singular frame in the manual tour not, something we came looing for, but certainly an interesting feature to find. The corresponding animation is at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4}{github.com/nspyrison/cheem\_paper/blob/main/figures/case\_ames2018.mp4}}\label{fig:caseames}
 \end{figure}
 
 Figure \ref{fig:caseames} shows the global view and extrema of the tour. The horizontal distance in the tour didn't show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can

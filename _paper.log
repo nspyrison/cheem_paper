@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.16)  22 DEC 2021 17:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2021.12.27)  29 DEC 2021 18:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -421,8 +421,7 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.
 sty
-Package: fancyvrb 2021/11/24\nobreakspace {} 4.1a\nobreakspace {}verbatim text 
-(tvz,hv)
+Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
 \FV@CodeLineNo=\count286
 \FV@InFile=\read2
 \FV@TabBox=\box53
@@ -881,61 +880,61 @@ File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 <./figures/case_penguins.png, id=95, 433.62pt x 361.35pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 351.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 353.
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.359 
+l.361 
        <./figures/case_penguins.png>]
-<./figures/case_chocolates.png, id=118, 433.62pt x 361.35pt>
+<./figures/case_chocolates.png, id=120, 433.62pt x 361.35pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 367.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 371.
 
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
 [11pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.380 
+l.379 
        <./figures/case_chocolates.png>]
-<./figures/case_fifa.png, id=130, 397.485pt x 578.16pt>
+<./figures/case_fifa.png, id=133, 397.485pt x 578.16pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 383.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 389.
 (pdftex.def)             Requested size: 397.50221pt x 578.18504pt.
-<./figures/case_ames2018.png, id=132, 578.16pt x 578.16pt>
+<./figures/case_ames2018.png, id=137, 578.16pt x 578.16pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 399.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 407.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 419.
+(Font)              <10> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 419.
+(Font)              <7> on input line 427.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 419.
+(Font)              <5> on input line 427.
 [12] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.431 
+l.428 
        <./figures/case_fifa.png>] [14pdfTeX warning (ext4): destination with th
 e same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.431 
+l.428 
        <./figures/case_ames2018.png>] [15] [16] [17] (./_paper.aux) ) 
 Here is how much of TeX's memory you used:
  15918 strings out of 480293
  260359 string characters out of 5894820
- 606933 words of memory out of 5000000
+ 608420 words of memory out of 5000000
  33151 multiletter control sequences out of 15000+600000
  480828 words of font info for 182 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,6n,77p,1229b,374s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,77p,1229b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
 pdfTeX war
 ning (dest): name{sec:cheemdiscussion} has been referenced but does not exist, 
 replaced by a fixed one
@@ -958,10 +957,10 @@ mf-dist/fonts/type1/public/lm/lmri9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX
 /texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roaming/T
 inyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppData/Roam
 ing/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (17 pages, 2701475 bytes).
+Output written on _paper.pdf (17 pages, 2560634 bytes).
 PDF statistics:
- 400 PDF objects out of 1000 (max. 8388607)
- 335 compressed objects within 4 object streams
+ 408 PDF objects out of 1000 (max. 8388607)
+ 339 compressed objects within 4 object streams
  116 named destinations out of 1000 (max. 500000)
  41177 words of extra memory for PDF output out of 42996 (max. 10000000)
 

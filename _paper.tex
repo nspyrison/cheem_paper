@@ -173,8 +173,7 @@ Interpretability is vital for exploring and protecting against potential biases 
 
 Another concern is that of data drift. Data drift is an unexpected shift in support of the variables. Non-linear models are regularly more sensitive to these changes. The interpretability of the model means more transparency to see where models' predictions may be plausible or completely unreliable.
 
-Explanabile Artificial Intelligence (XAI) is a recent branch of research that tries to increase the interpretability of black-box models.
-One way to do so is to use \emph{local explanations}, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate linear variable importance at the location of one observation. Even with a linear space or local approximation, the number of terms is usually sizable, thus challenging to visualize comprehensively.
+Explanabile Artificial Intelligence (XAI) is a recent branch of research that tries to increase the interpretability of black-box models. One way to do so is to use \emph{local explanations}, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate linear variable importance at the location of one observation. Even with a linear space or local approximation, the number of terms is usually sizable, thus challenging to visualize comprehensively.
 
 In multivariate data visualization, a \emph{tour} (Asimov 1985; Buja and Asimov 1986; S. Lee et al. 2021) is a sequence of linear projections of data onto a lower-dimensional space. Tours are viewed as an animation over minor changes to the projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of that structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the shape of the shadow change conveys information of the structure and features of the object.
 
@@ -279,7 +278,7 @@ In the regression case, the global view can be colored on a statistic to highlig
 \hypertarget{interactive-features}{%
 \subsection{Interactive features}\label{interactive-features}}
 
-The application has several reactive inputs that affect the data used, aesthetic display, and tour manipulation. These reactive inputs make the software flexible and extensible. The application also has more exploratory interactions to help link points across displays and reveal structure found in differnt spaces.
+The application has several reactive inputs that affect the data used, aesthetic display, and tour manipulation. These reactive inputs make the software flexible and extensible. The application also has more exploratory interactions to help link points across displays and reveal structure found in different spaces.
 
 A tooltip displays observation number/name and classification information while the cursor hovers over a point. Linked brushing allows the selection of points (left click and drag) where those points will be highlighted across plots. The information corresponding to the selected points is populated on a dynamic table. These interactions aid exploration of the spaces and, finally, identification of a primary and comparison observation.
 
@@ -295,7 +294,7 @@ A tooltip displays observation number/name and classification information while 
 \hypertarget{preprocessing}{%
 \subsection{Preprocessing}\label{preprocessing}}
 
-It is vital to mitigate the render time of visuals, especially when users may want to iterate many times. All computational operations should be prepared before runtime. The work remaining when an appication is ran is solely reacting to inputs and rendering of visuals and tables. Below we discuss the steps and details of the reprocessing.
+It is vital to mitigate the render time of visuals, especially when users may want to iterate many times. All computational operations should be prepared before runtime. The work remaining when an application is ran is solely reacting to inputs and rendering of visuals and tables. Below we discuss the steps and details of the reprocessing.
 
 
 
@@ -394,8 +393,7 @@ The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurem
 \caption{FIFA 2020, regressing log wages {[}2020 Euros{]} from aggregations of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). The animate radial tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4}{github.com/nspyrison/cheem\_paper/blob/main/figures/case\_fifa.mp4}}\label{fig:casefifa}
 \end{figure}
 
-With figure \ref{fig:casefifa}, we will test the premise of the local explanation. If we remove reaction and movement skills from the basis, offense skills are almost singularly important for explaining the offensive player. We vary the contribution of offensive skills. Offensive skills are removed in the tour (panel b, frame 3), and Messi
-is no longer separated from the group. We also notice that accuracy has rotated into the frame, maintaining some separability.
+With figure \ref{fig:casefifa}, we will test the premise of the local explanation. If we remove reaction and movement skills from the basis, offense skills are almost singularly important for explaining the offensive player. We vary the contribution of offensive skills. Offensive skills are removed in the tour (panel b, frame 3), and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, maintaining some separability.
 
 \hypertarget{ames-housing-2018-sales-price-regression}{%
 \subsection{4) Ames housing 2018, sales price regression}\label{ames-housing-2018-sales-price-regression}}
@@ -413,21 +411,19 @@ Ames 2018, housing data was subset to North Ames (the neighborhood with the most
 \caption{Ames housing 2018 regressing log sales price {[}2018 USD{]}. Because the SHAP values are relatively well distributed across the variables, there is a lot of redundant information to explain the gap between select observations. This case may not be ideal for the cheem methodology, though we did find a near singular frame in the manual tour not, something we came looking for, but certainly, an exciting feature to find. The corresponding animation is at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4}{github.com/nspyrison/cheem\_paper/blob/main/figures/case\_ames2018.mp4}}\label{fig:caseames}
 \end{figure}
 
-Figure \ref{fig:caseames} shows the global view and extrema of the tour. The horizontal distance in the tour did not show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can
-point toward others with meaningful data variation.
+Figure \ref{fig:caseames} shows the global view and extrema of the tour. The horizontal distance in the tour did not show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can point toward others with meaningful data variation.
 
-\hypertarget{sec:discussion}{%
-\section{Discussion}\label{sec:discussion}}
+\hypertarget{sec:cheemdiscussion}{%
+\section{Discussion}\label{sec:cheemdiscussion}}
 
-The need to maintain the interpretability of black-box models is evident. One aspect uses local explanations of the model in the vicinity of an observation. Local explanations approximate the linear variable importance to the model. Our contribution is to assess explanations by examining the support by varying the contributions with a radial tour. First, a global view visualizes approximations of the data space, explanation space, model predictions side-by-side, using dynamic interaction to compare and contrast and identify primary and comparison observations of interest. The normalized linear importance from the explanation of the primary observation becomes the feature of interest to further explore with the radial tour. The tours explore the variable sensitivity to the structure identified in
-the explanation.
+The need to maintain the interpretability of black-box models is evident. One aspect uses local explanations of the model in the vicinity of an observation. Local explanations approximate the linear variable importance to the model. Our contribution is to assess explanations by examining the support by varying the contributions with a radial tour. First, a global view visualizes approximations of the data space, explanation space, model predictions side-by-side, using dynamic interaction to compare and contrast and identify primary and comparison observations of interest. The normalized linear importance from the explanation of the primary observation becomes the feature of interest to further explore with the radial tour. The tours explore the variable sensitivity to the structure identified in the explanation.
 
 We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generally used with any compatible model-explanation pairing. We apply it to the classification and regression tasks. We have created an open-source \textbf{R} package \textbf{cheem}, available on \href{https://CRAN.R-project.org/package=cheem}{CRAN}, to facilitate preprocessing and exploration with the described interactive application. Toy and real data are provided, or upload your data after preprocessing.
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader \(\text{MI}^\text2\) lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Python} packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this piece.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader \(\text{MI}^\text2\) lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Python} packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article.
 
 The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. \textbf{DALEX} pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 

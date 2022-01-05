@@ -1,5 +1,5 @@
 ---
-title: "Scrutinizing the linear variable importance of local explanations of non-linear models with animated linear projections"
+title: "Exploring Local Explanations of Non-linear Models Using Animated Linear Projections"
 shorttitle: Cheem
 keywords:
 - R
@@ -12,8 +12,6 @@ keywords:
 - radial tour
 author:
 #- name: "Nicholas Spyrison"
-#     | Monash University
-#     | Faculty of Information Technology
 #   address: |
 #     | ORCiD: 0000-0002-8417-0212
 #   email: \email{nicholas.spyrison@monash.edu}
@@ -29,12 +27,12 @@ author:
 #     | ORCiD: 0000-0002-9813-0377
 #   orcid: 0000-0002-9813-0377
 abstract: |
- Artificial Intelligence (AI) has seen a revitalization in recent years from the use of increasingly hard-to-interpret black-box models. In such models, increased predictive power comes at the cost of the opacity of factor analysis and variable interpretability. The loss of interpretability has led to the field of eXplainable AI (XAI). XAI attempts to shed light on these models by providing means for interpreting them. A _local explanation_ of a non-linear model gives a point-estimate of linear variable importance in the vicinity of one observation. After creating a model and exacting explanations for each observation, we explore the original variables, the explanation's attribution, and model information side-by-side with interactively display. After identifying an observation of interest, its local explanation is used as a 1D projection basis. We then manipulate the magnitude of a variable's contribution with a _tour_ technique. The tour animates many projections over small changes in the projection basis as it changes the contribution of one variable. Doing so allows an analyst to visually explore the data through the lens of this local explanation and test the variable support where the explanation seems valid. The interactive application and code facilitating this methodology is available are the __R__ package __cheem__, available on CRAN.
+ Artificial Intelligence (AI) has seen a revitalization in recent years with the prevalence of increasingly hard-to-interpret black-box models. The increased predictive power comes at the cost of interpretability, which has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models are using predictors, to arrive at a prediction, with a point estimate of the linear variable importance in the vicinity of each observation. These are simply linear projections, and as such can be further explored interactively to better understand the interaction between variables used to make predictions, across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any observation, and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (footbal salaries, house prices) response variables. The methods are implemented in the __R__ package __cheem__, available on CRAN.
 # documentclass: jdssv
-classoption: article
+#classoption: article
 output:
-  bookdown::pdf_document2:
-  #pdf_document:
+  #bookdown::pdf_document2:
+  pdf_document:
     keep_tex: true
     toc: false
     #template: template/jdssv_template.tex
@@ -54,13 +52,14 @@ header-includes:
  - \usepackage{setspace} ## for title page spacing
  - \usepackage{hyperref} ## for all sorts of linking
 ---
-```{r include=FALSE, cache=FALSE}
-require("knitr")
-require("kableExtra")
-require("magrittr")
+
+```{r loadlibraries, include=FALSE, cache=FALSE}
+library("knitr")
+library("kableExtra")
+library("magrittr")
 ## Work packages
-require("cheem")
-require("spinifex")
+library("cheem")
+library("spinifex")
 ## chunk options
 knitr::opts_chunk$set(
   fig.align  = "center",
@@ -89,16 +88,16 @@ knitr::opts_chunk$set(
 # Introduction {#sec:intro}
 
 <!-- Introduce explanatory vs predictive modeling -->
-There are different reasons and emphases to fit a model. Breiman and Shmueli [@breiman_statistical_2001; @shmueli_explain_2010] introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose, while _predictive_ modeling focuses more on the predictions of out-of-sample observations. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for more accurate non-linear models. The use of black-box models is becoming increasingly common, but not without their share of controversy [@oneil_weapons_2016; @kodiyan_overview_2019]. However, the loss of interpretation should not be taken lightly.
+There are different reasons and emphases to fit a model. @breiman_statistical_2001 and @shmueli_explain_2010 introduce the idea of distinguishing modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose, while _predictive_ modeling focuses more on the predictions of out-of-sample observations. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for more accurate non-linear models. The use of black-box models is becoming increasingly common, but not without their share of controversy [@oneil_weapons_2016; @kodiyan_overview_2019]. However, the loss of interpretation presents a challenge.
 
 <!-- Interpretability & baises -->
 Interpretability is vital for exploring and protecting against potential biases in any model. For instance, models regularly pick up on biases in the training data that have observed influence on the response variable, which is then built into the model. Such biases include sex [@dastin_amazon_2018; @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]. Variable-level interpretability of models is essential in the evaluation models for such biases.
 
 <!-- Interpretability & data drift -->
-Another concern is that of data drift. Data drift is an unexpected shift in support of the variables. Non-linear models are regularly more sensitive to these changes. The interpretability of the model means more transparency to see where models' predictions may be plausible or completely unreliable.
+Another concern is that of data drift, which is a shift in support or domain of the explanatory variables. Non-linear models are typically more sensitive, and do not extrapolate well outside of the training data domain. Better interpretability of the model means that there is more transparency where models' predictions may be plausible or completely unreliable.
 
 <!-- Local explanations -->
-Explainable Artificial Intelligence (XAI) is a recent branch of research that tries to increase the interpretability of black-box models. One way to do so is to use _local explanations_, which take a variable attribution approach to bring transparency to a model. Local explanations attempt to approximate linear variable importance at the location of one observation. Even with a linear space or local approximation, the number of terms is usually sizable, thus challenging to visualize comprehensively.
+Explainable Artificial Intelligence (XAI) is an emerging field of research that tries to increase the interpretability of black-box models. A common approach is to use _local explanations_, which attempt to approximate linear variable importance at the location of each observation, or the predictions at a specific point in the data domain. Because these are point specific, a challenge is to visualize to more comprehensively understand a model.
 
 <!-- Data visualization tours -->
 In multivariate data visualization, a _tour_ [@asimov_grand_1985; @buja_grand_1986; @lee_state_2021] is a sequence of linear projections of data onto a lower-dimensional space. Tours are viewed as an animation over minor changes to the projection basis. Structure in a projection can then be explored visually to see which variables contribute to the formation of that structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the shape of the shadow change conveys information of the structure and features of the object.
@@ -107,13 +106,13 @@ In multivariate data visualization, a _tour_ [@asimov_grand_1985; @buja_grand_19
 There are various types of tours distinguished by the generation of projection bases. In a _manual_ tour [@cook_manual_1997; @spyrison_spinifex_2020], the path is defined by changing the contribution of a selected variable. <!--tours and models --> Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries [@wickham_visualizing_2015], and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis paths [@lee_pptree_2013; @da_silva_projection_2021].
 
 <!-- Purposed approach -->
-The proposed approach uses the radial, manual tour to scrutinize a local explanation. After identifying an observation of interest, its explanation can be evaluated by testing the support of the structure identified by changing variable contribution with the radial tour. We provide a free and open-source R package __cheem__ with an interactive application to facilitate analysis. We supply toy and modern datasets case studies for classification and regression tasks.
+In our proposed approach we use the radial manual tour to scrutinize a local explanation. Additional interactivity allows the user to identify an observation of interest, then explore its local explanation by changing variable contribution with the radial tour. The methods are implemented in R package __cheem__. Example datasets are provided to illustrate usage for classification and regression tasks.
 
 <!-- What-if & counterfactual analysis -->
-The change in the projection basis might feel similar to counterfactual, what-if analysis, such as _ceteris paribus_ [@biecek_ceterisparibus_2020]. This phrase, Latin for “other things held constant” or “all else unchanged”, shows how an observation's prediction would change from a marginal change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the variables by rotating the basis, a reorientation of the data object. Another difference is that the basis must remain orthonormal. That is to say, when the contribution of one variable decreases, the contributions of others necessarily increase such that there is a complete component in that direction.
+Using a radial tour can be considered similar to counterfactual, what-if analysis, such as _ceteris paribus_ [@biecek_ceterisparibus_2020]. This phrase, Latin for "other things held constant" or "all else unchanged", shows how an observation's prediction would change from a marginal change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the variables by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. That means, when the contribution of one variable decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions, and is thus an interpretable visualisation.
 
 <!-- Paper structure -->
-The remainder of this paper is organized as follows. The following section, [Local explanation statistics](#sec:explanations), covers the background of the local explanation, SHAP, and the traditional visuals produced from it. [Tours and the radial tour](#sec:tour) digs deeper into these animations of continuous linear projections. The section [Application Design](#sec:applicationdesign) discusses the visual layouts, how they facilitate analysis, data preprocessing, and package infrastructure. The section [Case Studies](#sec:casestudies) illustrates several applications of this method. We conclude with a [Discussion](#sec:cheemdiscussion) of the insights we draw from classification and regression tasks.
+The remainder of this paper is organized as follows. The following section, [Local explanation statistics](#sec:explanations), covers the background of the local explanation, and the traditional visuals produced. [Tours and the radial tour](#sec:tour) explains the animations of continuous linear projections. The section [Application Design](#sec:applicationdesign) discusses the visual layout in the interactive interface, how they facilitate analysis, data preprocessing, and package infrastructure. The section [Case Studies](#sec:casestudies) illustrates the application to supervised learning with categorical and quantitative response variables. We conclude with a [Discussion](#sec:cheemdiscussion) of the insights gained and directions that might be explore in the future. (XXX DC Can you change the references to number of the section not title?)
 
 
 # Local explanation statistics {#sec:explanations}
@@ -122,7 +121,7 @@ The remainder of this paper is organized as follows. The following section, [Loc
 Consider a highly non-linear model. At face value, it is hard to say which variable(s) are sensitive to  crossing a classification boundary or identify which variables caused an observation to have a relatively extreme residual. Local explanations shed light on these cases by approximating linear variable importance in the vicinity of one observation.
 
 <!-- Taxonomy of local explanations -->
-Figure six of @arrieta_explainable_2020 gives comprehensive summarization of the taxonomy and literature of explanation techniques. The figure includes a large number of model-specific explanations such as deepLIFT, [@shrikumar_not_2016; @shrikumar_learning_2017] a popular recursive method for estimating importance in neural networks. There are fewer model-agnostic explanations, of which LIME, [@ribeiro_why_2016] SHAP, [@lundberg_unified_2017] and their variants are popular.
+Figure six of @arrieta_explainable_2020 gives comprehensive summarization of the taxonomy and literature of explanation techniques. The figure includes a large number of model-specific explanations such as deepLIFT, [@shrikumar_not_2016; @shrikumar_learning_2017] a popular recursive method for estimating importance in neural networks. There are fewer model-agnostic explanations, of which LIME, [@ribeiro_why_2016] SHAP [@lundberg_unified_2017] and their variants are popular.
 
 <!-- Uses of local explanations -->
 These instance-level explanations are used in various ways depending on the data. In images, saliency maps overlay or offset a heatmap indicating necessary pixels [@simonyan_deep_2014]. For instance, snow may be highlighted when distinguishing if a picture contains a wolf or husky. In text analysis, word-level contextual sentiment analysis can be used to highlight the sentiment and magnitude of influential words [@vanni_textual_2018]. In the case of numeric regression, they are used to explain variable additive contributions from the model intercept to the observation's prediction [@ribeiro_why_2016].

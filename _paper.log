@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.2)  6 JAN 2022 15:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.2)  6 JAN 2022 21:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -390,7 +390,7 @@ x.def
 File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
 \BKM@id=\count282
 ))
-Package hyperref Info: Option `colorlinks' set `true' on input line 53.
+Package hyperref Info: Option `colorlinks' set `true' on input line 51.
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.
 sty
@@ -430,6 +430,74 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen163
 \FrameSep=\dimen164
 )
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.st
+y
+Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
+\LTleft=\skip55
+\LTright=\skip56
+\LTpre=\skip57
+\LTpost=\skip58
+\LTchunksize=\count289
+\LTcapwidth=\dimen165
+\LT@head=\box54
+\LT@firsthead=\box55
+\LT@foot=\box56
+\LT@lastfoot=\box57
+\LT@gbox=\box58
+\LT@cols=\count290
+\LT@rows=\count291
+\c@LT@tables=\count292
+\c@LT@chunks=\count293
+\LT@p@ftn=\toks26
+)
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.
+sty
+Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
+\heavyrulewidth=\dimen166
+\lightrulewidth=\dimen167
+\cmidrulewidth=\dimen168
+\belowrulesep=\dimen169
+\belowbottomsep=\dimen170
+\aboverulesep=\dimen171
+\abovetopsep=\dimen172
+\cmidrulesep=\dimen173
+\cmidrulekern=\dimen174
+\defaultaddspace=\dimen175
+\@cmidla=\count294
+\@cmidlb=\count295
+\@aboverulesep=\dimen176
+\@belowrulesep=\dimen177
+\@thisruleclass=\count296
+\@lastruleclass=\count297
+\@thisrulewidth=\dimen178
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
+\col@sep=\dimen179
+\ar@mcellbox=\box59
+\extrarowheight=\dimen180
+\NC@list=\toks27
+\extratabsurround=\skip59
+\backup@length=\skip60
+\ar@cellbox=\box60
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count298
+\calc@Bcount=\count299
+\calc@Adimen=\dimen181
+\calc@Bdimen=\dimen182
+\calc@Askip=\skip61
+\calc@Bskip=\skip62
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count300
+\calc@Cskip=\skip63
+)
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.
+sty
+Package: footnote 1997/01/28 1.13 Save footnotes around boxes
+\fn@notes=\box61
+\fn@width=\dimen183
+)
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.
 sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
@@ -446,78 +514,16 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen165
-\Gin@req@width=\dimen166
+\Gin@req@height=\dimen184
+\Gin@req@width=\dimen185
 )
-\cslhangindent=\skip55
-\csllabelwidth=\skip56
-\cslentryspacingunit=\skip57
-(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
-Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count289
-\calc@Bcount=\count290
-\calc@Adimen=\dimen167
-\calc@Bdimen=\dimen168
-\calc@Askip=\skip58
-\calc@Bskip=\skip59
-LaTeX Info: Redefining \setlength on input line 80.
-LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count291
-\calc@Cskip=\skip60
-)
+\cslhangindent=\skip64
+\csllabelwidth=\skip65
+\cslentryspacingunit=\skip66
+
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspace.
 sty
 Package: setspace 2011/12/19 v6.7a set line spacing
-)
-(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.
-sty
-Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen169
-\lightrulewidth=\dimen170
-\cmidrulewidth=\dimen171
-\belowrulesep=\dimen172
-\belowbottomsep=\dimen173
-\aboverulesep=\dimen174
-\abovetopsep=\dimen175
-\cmidrulesep=\dimen176
-\cmidrulekern=\dimen177
-\defaultaddspace=\dimen178
-\@cmidla=\count292
-\@cmidlb=\count293
-\@aboverulesep=\dimen179
-\@belowrulesep=\dimen180
-\@thisruleclass=\count294
-\@lastruleclass=\count295
-\@thisrulewidth=\dimen181
-)
-(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.st
-y
-Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip61
-\LTright=\skip62
-\LTpre=\skip63
-\LTpost=\skip64
-\LTchunksize=\count296
-\LTcapwidth=\dimen182
-\LT@head=\box54
-\LT@firsthead=\box55
-\LT@foot=\box56
-\LT@lastfoot=\box57
-\LT@gbox=\box58
-\LT@cols=\count297
-\LT@rows=\count298
-\c@LT@tables=\count299
-\c@LT@chunks=\count300
-\LT@p@ftn=\toks26
-) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
-Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
-\col@sep=\dimen183
-\ar@mcellbox=\box59
-\extrarowheight=\dimen184
-\NC@list=\toks27
-\extratabsurround=\skip65
-\backup@length=\skip66
-\ar@cellbox=\box60
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.
 sty
@@ -525,23 +531,23 @@ Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip67
 \multirow@cntb=\count301
 \multirow@dima=\skip68
-\bigstrutjot=\dimen185
+\bigstrutjot=\dimen186
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.st
 y
-\wrapoverhang=\dimen186
-\WF@size=\dimen187
+\wrapoverhang=\dimen187
+\WF@size=\dimen188
 \c@WF@wrappedlines=\count302
-\WF@box=\box61
+\WF@box=\box62
 \WF@everypar=\toks28
 Package: wrapfig 2003/01/31  v 3.6
 ) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count303
 \float@exts=\toks29
-\float@box=\box62
+\float@box=\box63
 \@float@everytoks=\toks30
-\@floatcapt=\box63
+\@floatcapt=\box64
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.
 sty
@@ -564,10 +570,10 @@ Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.
 sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
-\@vwid@box=\box64
+\@vwid@box=\box65
 \sift@deathcycles=\count304
-\@vwid@loff=\dimen188
-\@vwid@roff=\dimen189
+\@vwid@loff=\dimen189
+\@vwid@roff=\dimen190
 )
 \c@taburow=\count305
 \tabu@nbcols=\count306
@@ -575,27 +581,27 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@Xcol=\count308
 \tabu@alloc=\count309
 \tabu@nested=\count310
-\tabu@target=\dimen190
-\tabu@spreadtarget=\dimen191
-\tabu@naturalX=\dimen192
-\tabucolX=\dimen193
-\tabu@Xsum=\dimen194
-\extrarowdepth=\dimen195
-\abovetabulinesep=\dimen196
-\belowtabulinesep=\dimen197
-\tabustrutrule=\dimen198
+\tabu@target=\dimen191
+\tabu@spreadtarget=\dimen192
+\tabu@naturalX=\dimen193
+\tabucolX=\dimen194
+\tabu@Xsum=\dimen195
+\extrarowdepth=\dimen196
+\abovetabulinesep=\dimen197
+\belowtabulinesep=\dimen198
+\tabustrutrule=\dimen199
 \tabu@thebody=\toks32
 \tabu@footnotes=\toks33
-\tabu@box=\box65
-\tabu@arstrutbox=\box66
-\tabu@hleads=\box67
-\tabu@vleads=\box68
+\tabu@box=\box66
+\tabu@arstrutbox=\box67
+\tabu@hleads=\box68
+\tabu@vleads=\box69
 \tabu@cellskip=\skip70
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/thr
 eeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box69
+\@tempboxb=\box70
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/th
 reeparttablex.sty
@@ -611,21 +617,21 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
 \TPTL@width=\skip71
 ) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
-\UL@box=\box70
-\UL@hyphenbox=\box71
+\UL@box=\box71
+\UL@hyphenbox=\box72
 \UL@skip=\skip72
 \UL@hook=\toks34
-\UL@height=\dimen199
+\UL@height=\dimen256
 \UL@pe=\count311
-\UL@pixel=\dimen256
-\ULC@box=\box72
+\UL@pixel=\dimen257
+\ULC@box=\box73
 Package: ulem 2019/11/18
-\ULdepth=\dimen257
+\ULdepth=\dimen258
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.
 sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
-\rotheadsize=\dimen258
+\rotheadsize=\dimen259
 \c@nlinenum=\count312
 \TeXr@lab=\toks35
 )
@@ -633,34 +639,34 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 d-pdftex.def
 File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count313
-\l__pdf_internal_box=\box73
+\l__pdf_internal_box=\box74
 ) (./_paper.aux)
 \openout1 = `_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Info: Redefining \microtypecontext on input line 156.
-Package microtype Info: Applying patch `item' on input line 156.
-Package microtype Info: Applying patch `toc' on input line 156.
-Package microtype Info: Applying patch `eqnum' on input line 156.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 164.
+LaTeX Font Info:    ... okay on input line 164.
+LaTeX Info: Redefining \microtypecontext on input line 164.
+Package microtype Info: Applying patch `item' on input line 164.
+Package microtype Info: Applying patch `toc' on input line 164.
+Package microtype Info: Applying patch `eqnum' on input line 164.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 156.
+Package microtype Warning: Unable to apply patch `footnote' on input line 164.
 
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -668,7 +674,7 @@ Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 156.
+LaTeX Info: Redefining \showhyphens on input line 164.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -689,7 +695,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 156.
+Package hyperref Info: Link coloring ON on input line 164.
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -705,9 +711,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count314
 )
-LaTeX Info: Redefining \ref on input line 156.
-LaTeX Info: Redefining \pageref on input line 156.
-LaTeX Info: Redefining \nameref on input line 156.
+LaTeX Info: Redefining \ref on input line 164.
+LaTeX Info: Redefining \pageref on input line 164.
+LaTeX Info: Redefining \nameref on input line 164.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -743,32 +749,32 @@ LaTeX Info: Redefining \nameref on input line 156.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-58.
+66.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-58.
+66.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-158.
+166.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-158.
+166.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 158.
+(Font)              <12> on input line 166.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 158.
+(Font)              <8> on input line 166.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 158.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 158
+(Font)              <6> on input line 166.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 166
 .
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -777,7 +783,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 fg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 158
+LaTeX Font Info:    Trying to load font information for U+msb on input line 166
 .
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -788,153 +794,158 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) [1
 
 {c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
-x.map}] [2]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 337.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 337.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 337.
-<./figures/shap_distr_bd.png, id=35, 433.62pt x 505.89pt>
+x.map}]
+
+LaTeX Warning: Reference `sec:tour' on page 2 undefined on input line 189.
+
+[2]
+<./figures/shap_distr_bd.png, id=30, 433.62pt x 505.89pt>
 File: ./figures/shap_distr_bd.png Graphic file (type png)
 <use ./figures/shap_distr_bd.png>
-Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 353.
+Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 208.
 (pdftex.def)             Requested size: 433.62555pt x 505.89645pt.
 [3] [4pdfTeX warning (ext4): destination with the same identifier (name{figure.
 1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.408 
+l.235 
        <./figures/shap_distr_bd.png>]
-<./figures/app_classification.png, id=49, 819.66225pt x 908.79526pt>
+<./figures/app_classification.png, id=46, 819.66225pt x 908.79526pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
-Package pdftex.def Info: ./figures/app_classification.png  used on input line 4
-80.
+Package pdftex.def Info: ./figures/app_classification.png  used on input line 2
+54.
 (pdftex.def)             Requested size: 469.75127pt x 520.8337pt.
+<./figures/app_regression.png, id=47, 781.7205pt x 807.61725pt>
+File: ./figures/app_regression.png Graphic file (type png)
+<use ./figures/app_regression.png>
+Package pdftex.def Info: ./figures/app_regression.png  used on input line 268.
+(pdftex.def)             Requested size: 469.76353pt x 485.3258pt.
 [5] [6pdfTeX warning (ext4): destination with the same identifier (name{figure.
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.500 
-       <./figures/app_classification.PNG>]
-<./figures/app_regression.png, id=69, 781.7205pt x 807.61725pt>
-File: ./figures/app_regression.png Graphic file (type png)
-<use ./figures/app_regression.png>
-Package pdftex.def Info: ./figures/app_regression.png  used on input line 503.
-(pdftex.def)             Requested size: 469.76353pt x 485.3258pt.
-<./figures/app_interactions.png, id=70, 813.63976pt x 476.982pt>
+l.281 
+       <./figures/app_classification.PNG>] [7pdfTeX warning (ext4): destination
+ with the same identifier (name{figure.3}) has been already used, duplicate ign
+ored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.281 
+       <./figures/app_regression.PNG>]
+<./figures/app_interactions.png, id=74, 813.63976pt x 476.982pt>
 File: ./figures/app_interactions.png Graphic file (type png)
 <use ./figures/app_interactions.png>
-Package pdftex.def Info: ./figures/app_interactions.png  used on input line 529
+Package pdftex.def Info: ./figures/app_interactions.png  used on input line 284
 .
 (pdftex.def)             Requested size: 469.75116pt x 275.38335pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 5
-49.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
+00.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [7] [8pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.3}) has been already used, duplicate ignored
+) [8pdfTeX warning (ext4): destination with the same identifier (name{figure.4}
+) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.585 
-       <./figures/app_regression.PNG>] [9pdfTeX warning (ext4): destination wit
-h the same identifier (name{figure.4}) has been already used, duplicate ignored
-
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.585 
+l.306 
        <./figures/app_interactions.PNG>]
-LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 5
-93.
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
+18.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 594.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 319.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 594.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 319.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-605.
+330.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<./figures/case_penguins.png, id=97, 433.62pt x 361.35pt>
+<./figures/case_penguins.png, id=85, 433.62pt x 361.35pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 636.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 350.
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
-[10] [11pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.5}) has been already used, duplicate ignored
+[9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure
+.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.670 
-       <./figures/case_penguins.png>]
-<./figures/case_chocolates.png, id=120, 433.62pt x 361.35pt>
+l.360 ...lates-milkdark-chocolate-classification}}
+                                                   <./figures/case_penguins.png
+>]
+<./figures/case_chocolates.png, id=111, 433.62pt x 361.35pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 680.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 368.
 
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
-[12pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
+[11pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.712 
+l.376 
        <./figures/case_chocolates.png>]
-<./figures/case_fifa.png, id=130, 397.485pt x 578.16pt>
+<./figures/case_fifa.png, id=124, 397.485pt x 578.16pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 721.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 386.
 (pdftex.def)             Requested size: 397.50221pt x 578.18504pt.
-<./figures/case_ames2018.png, id=132, 578.16pt x 578.16pt>
+<./figures/case_ames2018.png, id=128, 578.16pt x 578.16pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 757.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 404.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
-[13] [14pdfTeX warning (ext4): destination with the same identifier (name{figur
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 423.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 423.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 423.
+[12] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.812 
-       <./figures/case_fifa.png>] [15pdfTeX warning (ext4): destination with th
+l.424 
+       <./figures/case_fifa.png>] [14pdfTeX warning (ext4): destination with th
 e same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.812 
-       <./figures/case_ames2018.png>] [16] [17] (./_paper.aux) ) 
-Here is how much of TeX's memory you used:
- 16216 strings out of 480293
- 264354 string characters out of 5894822
- 616800 words of memory out of 5000000
- 33475 multiletter control sequences out of 15000+600000
- 476280 words of font info for 177 fonts, out of 8000000 for 9000
- 14 hyphenation exceptions out of 8191
- 74i,6n,77p,1003b,363s stack positions out of 5000i,500n,10000p,200000b,80000s
-pdfTeX warning 
-(dest): name{sec:tour} has been referenced but does not exist, replaced by a fi
-xed one
+l.424 
+       <./figures/case_ames2018.png>] [15] [16] (./_paper.aux)
 
-{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc
-}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.e
-nc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmb
-x10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/l
-m/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pub
-lic/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
-/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
-ype1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fon
-ts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/
-fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-di
-st/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/tex
-mf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roaming/TinyT
-eX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppData/Roaming/
-TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (17 pages, 2860900 bytes).
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 16290 strings out of 480293
+ 265827 string characters out of 5894822
+ 620454 words of memory out of 5000000
+ 33539 multiletter control sequences out of 15000+600000
+ 476504 words of font info for 180 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 74i,6n,77p,1053b,363s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.e
+nc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1
+.enc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/l
+mbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public
+/lm/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/p
+ublic/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
+e1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts
+/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/f
+onts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dis
+t/fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-
+dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/t
+exmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roaming/Tin
+yTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppData/Roamin
+g/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on _paper.pdf (16 pages, 2848205 bytes).
 PDF statistics:
  378 PDF objects out of 1000 (max. 8388607)
- 315 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
+ 312 compressed objects within 4 object streams
+ 108 named destinations out of 1000 (max. 500000)
  39113 words of extra memory for PDF output out of 42996 (max. 10000000)
 

@@ -182,7 +182,7 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
     labs(title="SHAP distribution",
-         y = "Variable", x = "Normalized SHAP values\n the median of 25 permutations of the explanatory variables") +
+         y = "", x = "Normalized SHAP values\n the median of 25 orderings of the explanatory variables") +
     theme(legend.position = "off"))
 
 ## Breakdowns & plot ----
@@ -200,44 +200,47 @@ bd_dijk <- predict_parts(explainer       = rf_expl,
 bd_df_dijk <- my_bd_df(bd_dijk, "van Dijk (defense)")
 ## Bind, by row
 bd_df <- rbind(bd_df_messi, bd_df_dijk)
-bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
+bd_df <- bd_df[!(bd_df$variable %in% c("intercept", "prediction")), ]
 (g_bd <- ggplot() + #scale_y_continuous(limits = c(0, 1)) +
-    # ## vertical "lines"
+    # ## vertical lines
     # geom_segment(aes(x=variable_num, xend=variable_num, y=variable, yend=last_cumulative),
     #              data = bd_df, color = "black", size = .5) +
-    ## horizontal "bars"
-    geom_segment(aes(x=cumulative, xend=last_cumulative, y=variable, yend=variable, color=player),
-                 data = bd_df, size = 1.5, alpha = .8) + 
-    facet_grid(col=vars(player)) +
+    ## horizontal bars
+    geom_segment(
+      aes(x = cumulative, xend = last_cumulative,
+          y = variable, yend = variable, color = player),
+      data = bd_df, size = 1.5, alpha = .8) +
+    facet_grid(col = vars(player)) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     labs(title = "Breakdown plot", color = "Players",
-         y = "Variable", x = "Normalized contribution to prediction | variable order") +
-    theme(legend.margin = margin(0, 0, 0, 0),
+         y = "", x = "Normalized contribution to prediction | variable order") +
+    theme(legend.margin   = margin(0, 0, 0, 0),
           legend.position = "bottom",
-          axis.text.x = element_blank(),
-          axis.ticks.x = element_blank())
+          axis.text.x     = element_blank(),
+          axis.ticks.x    = element_blank())
 )
 
-## Relative wages and patchwork
-wages_df <- tibble::tibble(
-  player = factor(c("Messi (offense)", "van Dijk (defense)")),
-  wages = .raw$wage_eur[c(1L, 8L)])
-(g_wage <- ggplot(wages_df, aes(wages, player, xend = 0,
-                                yend = player, color = player)) +
-    geom_segment(size=3L) +
-    theme_bw() +
-    scale_color_brewer(palette = "Dark2") +
-    labs(y = "Player", x = "Wages [2020 Euros]") +
-    theme(legend.position = "off"))
+## Relative wages and cowplot
+if(F){ ## With differing player wages
+  wages_df <- tibble::tibble(
+    player = factor(c("Messi (offense)", "van Dijk (defense)")),
+    wages = .raw$wage_eur[c(1L, 8L)])
+  (g_wage <- ggplot(wages_df, aes(wages, player, xend = 0,
+                                  yend = player, color = player)) +
+      geom_segment(size=3L) +
+      theme_bw() +
+      scale_color_brewer(palette = "Dark2") +
+      labs(y = "Player", x = "Wages [2020 Euros]") +
+      theme(legend.position = "off"))
+  (cp <- cowplot::plot_grid(
+    g_wage, g_shap, g_bd, ncol = 1,
+    rel_heights = c(1, 2, 2), labels = letters[1:3]))
+}
 ### Plot together
 require("cowplot")
-if(F) ## With differing player wages
-  (cp <- cowplot::plot_grid(
-    g_wage, g_shap, g_bd, ncol = 1, 
-    rel_heights = c(1, 2, 2), labels=c("a)", "b)", "c)")))
 (cp <- cowplot::plot_grid(
-  g_shap, g_bd, ncol = 1, rel_heights = c(2, 2.5), labels=c("a)", "b)")))
+  g_shap, g_bd, ncol = 1, rel_heights = c(2, 2.2), labels = c("a)", "b)")))
 
 ## SAVE -----
 ggplot2::ggsave(

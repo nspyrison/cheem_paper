@@ -5,6 +5,11 @@
 %
 \documentclass[
 ]{article}
+\title{Exploring Local Explanations of Non-linear Models Using Animated
+Linear Projections}
+\author{}
+\date{\vspace{-2.5em}}
+
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -148,11 +153,6 @@ models, local explanations, grand tour, manual tour, radial tour},
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
-\title{Exploring Local Explanations of Non-linear Models Using Animated
-Linear Projections}
-\author{}
-\date{\vspace{-2.5em}}
-
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -175,6 +175,9 @@ available on CRAN.
 
 \hypertarget{sec:intro}{%
 \section{Introduction}\label{sec:intro}}
+
+NS ``\textbackslash{}(\textbf{ref?})() Not linking now, will have to go
+back to \textbackslash ref\{\} after changes \ldots{}
 
 There are different reasons and emphases to fit a model. Breiman (2001),
 reiterated by Shmueli (2010), taxonomizes modeling based on its purpose;
@@ -248,7 +251,7 @@ to illustrate usage for classification and regression tasks.
 
 Using a radial tour can be considered similar to counterfactual, what-if
 analysis, such as \emph{ceteris paribus} (Biecek 2020). This phrase,
-Latin for ``other things held constant'' or ``all else unchanged'',
+Latin for ``other things held constant'' or ``all else unchanged,''
 shows how an observation's prediction would change from a marginal
 change in one explanatory variable given that other variables are held
 constant. It ignores correlations of the variables and imagines a case
@@ -338,7 +341,7 @@ season (Leone 2020). There are 5000 observations of 9 skill measures
 is fit with log wages, in 2020 Euros, as the response, using the skill
 measures as predictors. We then extract the SHAP values of a star
 offensive player (L. Messi) and defensive player (V. van Dijk). The
-results are displayed in Figure @ref(fig:shapdistrbd). We expect to see
+results are displayed in Figure \ref{fig:shapdistrbd}. We expect to see
 a difference in the attribution of the variable importance across the
 two positions of the players, which would be interpreted as how the
 player's salary depends on this combination of skill sets. Plot (b) is a
@@ -347,7 +350,7 @@ variables is fixed, so the two observations can be more easily compared.
 
 \begin{figure}
 
-{\centering \includegraphics[width=29.17in]{./figures/shap_distr_bd} 
+{\centering \includegraphics[width=25in]{./figures/shap_distr_bd} 
 
 }
 
@@ -358,6 +361,11 @@ XXX DC Can you remove ``Variable'' from the vertical axes? And remove
 reference to ``permutations'' in the figure text. Also, why include
 interaction and prediction - suggest removing these because there is no
 information. Perhaps switch the order, and put the breakdown plot first?
+
+XXX NS double check for text discussing normalization of shap values or
+scaling distributions of permutations; Specifically in figure one within
+each player, we divide all contributions by the norm of the median
+values.
 
 In summary, these plots highlight how local explanations bring
 interpretability to a model, at least in the vicinity of their
@@ -473,7 +481,7 @@ evaluating the support or robustness of the prediction.
 
 }
 
-\caption{Display illustrating the classification case. Plots are  colored on predicted class, and red circles indicate misclassified observations. The radial tour is a 1D projection starting at the normalized tree SHAP values of the primary point. The first frame is the linear-variable importances that best describe the difference from model intercept to this observation's prediction. We probe the support of the variable contributions by selecting a variable to vary the contribution.}\label{fig:classificationcase}
+\caption{Display illustrating the classification case. Plots are colored on predicted class, and red circles indicate misclassified observations. The radial tour is a 1D projection starting at the normalized tree SHAP values of the primary point. The first frame is the linear-variable importances that best describe the difference from model intercept to this observation's prediction. We probe the support of the variable contributions by selecting a variable to vary the contribution.}(\#fig:classificationcase)
 \end{figure}
 
 \hypertarget{regression-task}{%
@@ -496,7 +504,7 @@ independent of the vertical position.
 
 }
 
-\caption{Display of the regression task. The global view can be colored on the correlation of the attribution projection and observed response. In the tour, the horizontal values are the same as the classification case; the projection through the basis. The vertical position is now mapped to the observed y and residuals.}\label{fig:regressioncase}
+\caption{Display of the regression task. The global view can be colored on the correlation of the attribution projection and observed response. In the tour, the horizontal values are the same as the classification case; the projection through the basis. The vertical position is now mapped to the observed y and residuals.}(\#fig:regressioncase)
 \end{figure}
 
 \hypertarget{interactive-features}{%
@@ -522,7 +530,7 @@ comparison observation.
 
 }
 
-\caption{Illustration of data explorations interactions in the global view. This view has linked brushing, where observations selected in one facet are highlighted in the other facets and populate an interactive tabular display below. Tooltips display when hovering over an observation.}\label{fig:interactions}
+\caption{Illustration of data explorations interactions in the global view. This view has linked brushing, where observations selected in one facet are highlighted in the other facets and populate an interactive tabular display below. Tooltips display when hovering over an observation.}(\#fig:interactions)
 \end{figure}
 
 \hypertarget{preprocessing}{%
@@ -629,7 +637,7 @@ of this tour can be found at
 
 }
 
-\caption{(ref:casepenguins)}\label{fig:casepenguins}
+\caption{(ref:casepenguins)}(\#fig:casepenguins)
 \end{figure}
 
 In figure @ref(fig:casepenguins), a misclassified point is contrasted
@@ -673,7 +681,7 @@ Animated tour can be found at
 
 }
 
-\caption{(ref:casechocolates)}\label{fig:casechocolates}
+\caption{(ref:casechocolates)}(\#fig:casechocolates)
 \end{figure}
 
 Figure @ref(fig:casechocolates) similarly shows that attribution-space
@@ -714,7 +722,7 @@ Dijk). The animate radial tour can be found at
 
 }
 
-\caption{(ref:casefifa)}\label{fig:casefifa}
+\caption{(ref:casefifa)}(\#fig:casefifa)
 \end{figure}
 
 With figure @ref(fig:casefifa), we will test the premise of the local
@@ -750,7 +758,7 @@ exciting feature to find. The corresponding animation is at
 
 }
 
-\caption{(ref:caseames)}\label{fig:caseames}
+\caption{(ref:caseames)}(\#fig:caseames)
 \end{figure}
 
 Figure @ref(fig:caseames) shows the global view and extrema of the tour.

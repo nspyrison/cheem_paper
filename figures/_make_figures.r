@@ -1,58 +1,60 @@
 # ch5_fig1_shap_distr_bd ----
-require("DALEX")
-require("dplyr")
-require("ggplot2")
-
-## Local func
-my_parts_boxplot_df <- function(pred_parts, player_tag = "<tag unused>"){
-  ## Remade from: iBreakDown:::print.break_down_uncertainty
-  data.frame(
-    player = player_tag,
-    label  = tapply(pred_parts$label, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
-    variable = tapply(pred_parts$variable_name, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
-    value  = tapply(pred_parts$variable_value, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE), ## oos variable value
-    ## Of the distribution of local attributions:
-    min    = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), min, na.rm = TRUE),
-    q1     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.25, na.rm = TRUE),
-    median = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), median, na.rm = TRUE),
-    q3     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.75, na.rm = TRUE),
-    max    = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), max, na.rm = TRUE))
+{
+  require("DALEX")
+  require("dplyr")
+  require("ggplot2")
+  set.seed(2022)
+  
+  ## Local func
+  my_parts_boxplot_df <- function(pred_parts, player_tag = "<tag unused>"){
+    ## Remade from: iBreakDown:::print.break_down_uncertainty
+    data.frame(
+      player = player_tag,
+      label  = tapply(pred_parts$label, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
+      variable = tapply(pred_parts$variable_name, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
+      value  = tapply(pred_parts$variable_value, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE), ## oos variable value
+      ## Of the distribution of local attributions:
+      min    = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), min, na.rm = TRUE),
+      q1     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.25, na.rm = TRUE),
+      median = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), median, na.rm = TRUE),
+      q3     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.75, na.rm = TRUE),
+      max    = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), max, na.rm = TRUE))
+  }
+  my_parts_distribution <- function(pred_parts, player_tag = "<tag unused>"){
+    df <- data.frame(
+      player       = player_tag,
+      label        = pred_parts$label,
+      variable     = pred_parts$variable_name,
+      value        = pred_parts$variable_value, ## Obs value of X
+      contribution = pred_parts$contribution,   ## SHAP contribution
+      B_perm_num   = pred_parts$B
+    )
+    rownames(df) <- paste(pred_parts$label, pred_parts$variable, pred_parts$B, sep = ": ")
+    return(df)
+  }
+  .lvl_ord <- c("reaction", "offense", "movement", "defense", "power", "accuracy", "BMI", "age", "goalkeeping")
+  my_bd_df <- function(break_down, player_tag = "<tag unused>"){
+    df <- data.frame(
+      player       = player_tag,
+      label        = break_down$label,
+      variable     = break_down$variable_name,
+      contribution = break_down$contribution, ## SHAP contribution
+      cumulative   = break_down$cumulative,   ## Cumulative SHAP contribution
+      sign         = break_down$sign
+    )
+    .n <- nrow(df)
+    df$variable[is.na(df$variable)|df$variable==""] <- "prediction"
+    df$variable <- factor(
+      df$variable, rev(c("intercept", .lvl_ord, "prediction")))
+    df$cumulative <- (df$cumulative - min(df$cumulative)) /
+      (max(df$cumulative) - min(df$cumulative))
+    df$last_cumulative <- c(NA, df$cumulative[-.n])
+    df$variable_num <- 1:.n
+    df$next_variable_num <- c(2:.n, NA)
+    rownames(df) <- paste(break_down$label, break_down$variable, break_down$B, sep = ": ")
+    return(df)
+  }
 }
-my_parts_distribution <- function(pred_parts, player_tag = "<tag unused>"){
-  df <- data.frame(
-    player = player_tag,
-    label = pred_parts$label,
-    variable = pred_parts$variable_name,
-    value = pred_parts$variable_value, ## Obs value of X
-    contribution = pred_parts$contribution, ## SHAP contribution
-    B_perm_num = pred_parts$B
-  )
-  rownames(df) <- paste(pred_parts$label, pred_parts$variable, pred_parts$B, sep = ": ")
-  return(df)
-}
-.lvl_ord <- c("reaction", "offense", "movement", "defense", "power", "accuracy", "BMI", "age", "goalkeeping")
-my_bd_df <- function(break_down, player_tag = "<tag unused>"){
-  df <- data.frame(
-    player = player_tag,
-    label = break_down$label,
-    variable = break_down$variable_name,
-    contribution = break_down$contribution, ## SHAP contribution
-    cumulative = break_down$cumulative, ## Cumulative SHAP contribution
-    sign = break_down$sign
-  )
-  .n <- nrow(df)
-  df$variable[is.na(df$variable)|df$variable==""] <- "prediction"
-  df$variable <- factor(
-    df$variable, rev(c("intercept", .lvl_ord, "prediction")))
-  df$cumulative <- (df$cumulative - min(df$cumulative)) /
-    (max(df$cumulative) - min(df$cumulative))
-  df$last_cumulative <- c(NA, df$cumulative[-.n])
-  df$variable_num <- 1:.n
-  df$next_variable_num <- c(2:.n, NA)
-  rownames(df) <- paste(break_down$label, break_down$variable, break_down$B, sep = ": ")
-  return(df)
-}
-
 
 ### Create FIFA x ------
 .raw <- DALEX::fifa
@@ -91,7 +93,7 @@ dat <- .dat_less_ys %>%
     goalkeeping = (goalkeeping_diving+goalkeeping_positioning+goalkeeping_reflexes+
             goalkeeping_handling+goalkeeping_kicking)/5L
   )
-## Class for the position of the player, eiter "fielder" or "goalkeeper"
+## Class for the position of the player, either "fielder" or "goalkeeper"
 position <- clas <- dplyr::case_when(
   dat$gk <= 40L ~ "fielder",
   dat$gk >  40L ~ "goalkeeper") %>%
@@ -112,10 +114,9 @@ Y <- .raw$wage_eur ## unscaled wages in Euros, assumed 2020 valuation.
 
 ## NOTE: this DALEX::predict_parts("SHAP")
 ## NOT theeshap::treeshap()
-rf_mod <- randomForest::randomForest(Y~., data = data.frame(Y, X),
-                                     mtry = .hp_mtry,
-                                     nodesize = .hp_node,
-                                     ntrees = .hp_ntrees)
+rf_mod <- randomForest::randomForest(
+  Y~., data = data.frame(Y, X),
+  mtry = .hp_mtry, nodesize = .hp_node, ntrees = .hp_ntrees)
 ## DALEX parts
 rf_expl <- DALEX::explain(model = rf_mod,
                           data  = X,
@@ -129,8 +130,13 @@ shap_messi <- predict_parts(explainer       = rf_expl,
                             new_observation = messi,
                             type            = "shap",
                             B               = 25L)
-shap_messi$contribution <- shap_messi$contribution %>%
-  spinifex::scale_01()
+norm_messi <- shap_messi %>%
+  group_by(variable) %>%
+  summarize(median = median(contribution)) %>%
+  pull(median) %>%
+  matrix(ncol = 1) %>%
+  norm()
+shap_messi$contribution <- shap_messi$contribution / norm_messi
 box_df_messi <- my_parts_boxplot_df(shap_messi, "Messi (offense)")
 
 ## Virgil van Dijk SHAP
@@ -140,8 +146,13 @@ shap_dijk <- predict_parts(explainer       = rf_expl,
                            type            = "shap",
                            B               = 25L,
                            order = .lvl_ord)
-shap_dijk$contribution <- shap_dijk$contribution %>%
-  spinifex::scale_01()
+norm_dijk <- shap_dijk %>%
+  group_by(variable) %>%
+  summarize(median = median(contribution)) %>%
+  pull(median) %>%
+  matrix(ncol = 1) %>%
+  norm()
+shap_dijk$contribution <- shap_dijk$contribution / norm_dijk
 box_df_dijk <- my_parts_boxplot_df(shap_dijk, "van Dijk (defense)")
 
 ## Bind shap aggs:
@@ -150,7 +161,7 @@ boxplot_df$variable <- factor(boxplot_df$variable, levels = rev(.lvl_ord))
 
 ## B Distributions of the SHAPS
 dist_shap_messi <- my_parts_distribution(shap_messi, "Messi (offense)")
-dist_shap_dijk <- my_parts_distribution(shap_dijk, "van Dijk (defense)")
+dist_shap_dijk  <- my_parts_distribution(shap_dijk, "van Dijk (defense)")
 dist_df <- rbind(dist_shap_messi, dist_shap_dijk)
 dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
 
@@ -196,13 +207,13 @@ bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
     #              data = bd_df, color = "black", size = .5) +
     ## horizontal "bars"
     geom_segment(aes(x=cumulative, xend=last_cumulative, y=variable, yend=variable, color=player),
-                 data = bd_df, size=1.5, alpha=.8) + 
+                 data = bd_df, size = 1.5, alpha = .8) + 
     facet_grid(col=vars(player)) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     labs(title = "Breakdown plot", color = "Players",
          y = "Variable", x = "Normalized contribution to prediction | variable order") +
-    theme(legend.margin = margin(0,0,0,0),
+    theme(legend.margin = margin(0, 0, 0, 0),
           legend.position = "bottom",
           axis.text.x = element_blank(),
           axis.ticks.x = element_blank())
@@ -212,7 +223,8 @@ bd_df <- bd_df[is.na(bd_df$variable) == FALSE, ]
 wages_df <- tibble::tibble(
   player = factor(c("Messi (offense)", "van Dijk (defense)")),
   wages = .raw$wage_eur[c(1L, 8L)])
-(g_wage <- ggplot(wages_df, aes(wages, player, xend=0, yend=player, color = player)) +
+(g_wage <- ggplot(wages_df, aes(wages, player, xend = 0,
+                                yend = player, color = player)) +
     geom_segment(size=3L) +
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
@@ -225,13 +237,12 @@ if(F) ## With differing player wages
     g_wage, g_shap, g_bd, ncol = 1, 
     rel_heights = c(1, 2, 2), labels=c("a)", "b)", "c)")))
 (cp <- cowplot::plot_grid(
-  g_shap, g_bd, ncol = 1, 
-  rel_heights = c(2, 2), labels=c("a)", "b)")))
+  g_shap, g_bd, ncol = 1, rel_heights = c(2, 2.5), labels=c("a)", "b)")))
 
 ## SAVE -----
 ggplot2::ggsave(
   "./figures/shap_distr_bd.png",
-  cp, device = "png", width = 7, height = 7, units = "in")
+  cp, device = "png", width = 6, height = 7, units = "in")
 
 
 # ch5_fig2_global_space -----

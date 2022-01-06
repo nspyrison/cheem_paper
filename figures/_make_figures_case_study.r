@@ -52,7 +52,7 @@
   .cp <- cowplot::plot_grid(
     .glob_view, .cheem_stills,
     labels = c("a)", "b)"),
-    ncol = 1)#, rel_heights = c(1.5, 1))
+    ncol = 1, rel_heights = c(1, 1.25))
 }
 
 ### Save still shots for paper
@@ -106,7 +106,7 @@ ggplot2::ggsave(
   .cp <- cowplot::plot_grid(
     .glob_view, .cheem_stills,
     labels = c("a)", "b)"),
-    ncol = 1)#, rel_heights = c(1.5, 1))
+    ncol = 1, rel_heights = c(1, 1.25))
 }
 
 ### Save Stills

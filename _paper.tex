@@ -5,10 +5,6 @@
 %
 \documentclass[
 ]{article}
-\title{Exploring Local Explanations of Non-linear Models Using Animated Linear Projections}
-\author{}
-\date{\vspace{-2.5em}}
-
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
 \usepackage{iftex}
@@ -161,6 +157,10 @@
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
 
+\title{Exploring Local Explanations of Non-linear Models Using Animated Linear Projections}
+\author{}
+\date{\vspace{-2.5em}}
+
 \begin{document}
 \maketitle
 \begin{abstract}
@@ -184,7 +184,7 @@ There are various types of tours distinguished by the generation of projection b
 
 In our proposed approach we use the radial manual tour to scrutinize a local explanation. Additional interactivity allows the user to identify an observation of interest, then explore its local explanation by changing variable contribution with the radial tour. The methods are implemented in R package \textbf{cheem}. Example datasets are provided to illustrate usage for classification and regression tasks.
 
-Using a radial tour can be considered similar to counterfactual, what-if analysis, such as \emph{ceteris paribus} (Biecek 2020). This phrase, Latin for ``other things held constant'' or ``all else unchanged,'' shows how an observation's prediction would change from a marginal change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the variables by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. That means, when the contribution of one variable decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions, and is thus an interpretable visualisation.
+Using a radial tour can be considered similar to counterfactual, what-if analysis, such as \emph{ceteris paribus} (Biecek 2020). This phrase, Latin for ``other things held constant'' or ``all else unchanged'', shows how an observation's prediction would change from a marginal change in one explanatory variable given that other variables are held constant. It ignores correlations of the variables and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the variables by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. That means, when the contribution of one variable decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions, and is thus an interpretable visualisation.
 
 The remainder of this paper is organized as follows. The following Section, \ref{sec:explanations} covers the background of the local explanation, and the traditional visuals produced. Section \ref{sec:tour} explains the animations of continuous linear projections. Section \ref{sec:applicationdesign} discusses the visual layout in the interactive interface, how they facilitate analysis, data preprocessing, and package infrastructure. Then Section @ref(\#sec:casestudies) illustrates the application to supervised learning with categorical and quantitative response variables. We conclude with Section \ref{sec:cheemdiscussion} of the insights gained and directions that might be explore in the future.
 
@@ -209,7 +209,7 @@ Following the use case \emph{Explanatory Model Analysis} (Biecek and Burzykowski
 
 }
 
-\caption{Illustration of the use of SHAP values for a random forest model for salaries for FIFA 2020 players based on nine predictors corresponding to different skills. Two observations (a star offensive player, Messi and a defensive player, van Dijk) are compared. Plot (a) shows the distribution of contributions for each variable across 25 permutations of predictors, with the median displayed as a dot, for both players. Plot b) is the break-down plot showing the SHAP values. It can be learned that reaction is important for explaining both players salaries. Offense and movement are important for Messi but not van Dijk, and conversely defense and power are important for van Dijk but not Messi.}\label{fig:shapdistrbd}
+\caption{Illustration of the use of SHAP values for a random forest model for salaries of FIFA 2020 players based on nine predictors corresponding to different skills. Two observations (a star offensive player, Messi and a defensive player, van Dijk) are compared. Plot (a) shows the distribution of contributions for each variable across 25 permutations of predictors, with the median displayed as a dot, for both players. Plot b) is the break-down plot showing the SHAP values. It can be learned that reaction is important for explaining both players salaries. Offense and movement are important for Messi but not van Dijk, and conversely defense and power are important for van Dijk but not Messi.}\label{fig:shapdistrbd}
 \end{figure}
 
 In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their observations. In this instance, two players with different positions receive different profiles of variable importance to explain the prediction of their wages.
@@ -217,11 +217,11 @@ In summary, these plots highlight how local explanations bring interpretability 
 \hypertarget{tours-and-the-radial-tour}{%
 \section{Tours and the radial tour}\label{tours-and-the-radial-tour}}
 
-A data visualization \emph{tour} animates many linear projections over small changes in the basis. One of the critical features of the tour is the object permanence of the data points; one can track the relative changes of observations as the basis moves, as opposed to discretely jumping to an orthogonal view with no intermediate information. There are various types of tours that are distinguished by selecting their basis paths (S. Lee et al. 2021; Cook et al. 2008).
+A \emph{tour} enables viewing of high-dimensional data by animating many linear projections with small incremental changes. It is achieved by following a path of linear projections (bases) of high-dimensional space. One of the features of the tour is the object permanence of the data points; one can track the relative change of observations in time, and as such gain information about the relationships between points across multiple variables. There are various types of tours that are distinguished by how the paths are generated (S. Lee et al. 2021; Cook et al. 2008).
 
-The manual tour (Cook and Buja 1997) defines its basis path by manipulating a selected variable's contribution to the basis. A manipulation dimension is appended onto the projection plane, giving a full contribution to the chosen variable. The bases are then selected based on rotating this newly created manipulation space. A crucial feature of the manual tour is that it allows users to control the variable contributions of the basis. Such manipulations can be selected and queued in advance or selected on the spot for human-in-the-loop analysis (Karwowski 2006). However, this navigation is relatively time-consuming due to the vast volume of the display space. It is advisable to use this method to explore the sensitivity of the variable contribution to a previously identified feature of interest. In this case, the projection of the normalized explanations is the feature of interest.
+The manual tour (Cook and Buja 1997) defines its path by changing a selected variable's contribution to a basis, to allow the variable to contribute more or less to the projection. The contribution of all other variables is constrained by the requirement that a basis needs to be orthonormal (column correspond to vectors, with unit length, and orthogonal to each other). The manual tour is primarily used to assess the importance of a variable to structure visible in a projection. It also lends itself to pre-computation to be queued in advance or computed on-the-fly for human-in-the-loop analysis (Karwowski 2006).
 
-More generally, the manual tour can change the contribution of a variable to the display dimensions. We will apply a more directed interaction, namely, a \emph{radial} tour. In a radial tour, the selected variable is allowed to change its magnitude of contribution but not its angle; it must move along the direction of its original contribution.
+A version of the manual tour called a \emph{radial tour} is implemented in Spyrison and Cook (2020) and forms the basis of the new work. In a radial tour, the selected variable is allowed to change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and also interactive re-calculation to focus on a different variable.
 
 \hypertarget{sec:applicationdesign}{%
 \section{The cheem viewer}\label{sec:applicationdesign}}

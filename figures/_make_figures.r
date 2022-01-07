@@ -182,7 +182,7 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
     labs(title="SHAP distribution",
-         y = "", x = "Normalized SHAP values\n the median of 25 orderings of the explanatory variables") +
+         y = "", x = "Normalized SHAP values") +
     theme(legend.position = "off"))
 
 ## Breakdowns & plot ----
@@ -214,7 +214,7 @@ bd_df <- bd_df[!(bd_df$variable %in% c("intercept", "prediction")), ]
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     labs(title = "Breakdown plot", color = "Players",
-         y = "", x = "Normalized contribution to prediction | variable order") +
+         y = "", x = "Normalized contribution to prediction") +
     theme(legend.margin   = margin(0, 0, 0, 0),
           legend.position = "bottom",
           axis.text.x     = element_blank(),

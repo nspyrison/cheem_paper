@@ -259,16 +259,22 @@ remotes::install_github('ModelOriented/treeshap') ## Local
 To illustrate the use of the cheem method, we apply it to modern datasets, two classification examples and then two of regression.
 
 
-## 1) Penguin, species classification
+## Palmer penguin, species classification
 
-Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] consist of 330 observations across four physical measurements of three species of penguins foraging near Palmer Station, Antarctica. A random forest model was fit, classifying the species of the penguin given the physical measurements.
+The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was provided publicly as a substitute for the over-used iris data, and is quite similar in form. There are 330 observations and we will use the four physical measurements, `bill_length_mm` (`b_l`), `bill_depth_mm` (`b_d`), `flipper_length_mm` (`f_l`), `body_mass_g` (`wgt`), for this illustration. A random forest model was fitted with species as the response variable.
 
 (ref:casepenguins) Species classification of Palmer penguin data. We select a chinstrap penguin that is mislabeled as an adelie. By varying the contribution to bill length, we observe the explanation does not hold when bill length has a significant contribution. The .mp4 animation of this tour can be found at [github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4)
 ```{r casepenguins, echo=F, out.width="100%", fig.cap = "(ref:casepenguins)"}
 knitr::include_graphics("./figures/case_penguins.png")
 ```
 
-In figure \@ref(fig:casepenguins), a misclassified point is contrasted with a correctly classified point of its observed class nearby in data-space. The attribution space from the tree SHAP local explanations is a more separable space, where the comparison is squarely in the middle of the orange distribution. The primary observation is between the predicted and observed clusters, a sign of uncertainty in the prediction. The tour varies the contribution of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to the linear explanation of this observation being misclassified.
+Figure \@ref(fig:casepenguins) shows plots from the cheem viewer for exploring the random forest model on the penguins data. Plot (a) shows the global view, and plot (b) shows several plots generated with the radial tour. 
+
+There is more separation visible in the attribution space than the data space, as would be expected. The observed vs predicted plot reveals a handful of misclassified observations. A misclassified point (represented by the asterisk in the global view, and as a solid vertical line in the tour view) is contrasted with a correctly classified point (represented by an $x$ and vertical dashed line). 
+
+The radial tour starts from the attribution projection of the misclassified observation (left plot). The important variables identifed by SHAP are `b_d` and `wgt` in contrast to `f_l`. 
+
+varies the contribution of bill length (b_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to the linear explanation of this observation being misclassified.
 
 
 ## 2) Chocolates, milk/dark chocolate classification

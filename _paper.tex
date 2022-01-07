@@ -199,18 +199,18 @@ These instance-level explanations are used in various ways depending on the data
 
 SHaply Additive exPlanations (SHAP) approximates the variable importance in the vicinity of one observation conceptually by examining the effect of other variables on the contribution of the variable of interest on predicting the response. This explanations almost all point to Shapley (1953)'s method to evaluate an individual's contribution to cooperative games by permuting the players that contribute to the score. Strumbelj and Kononenko (2010) introduced the use of SHAP for local explanations in ML models. However, it is also related to partial dependence plots (Molnar 2020), used to explain the effect of a variable by predicting the response for a range of values on this variable, after fixing the value of all other variables to their mean. It could also be considered to be similar to examining the coefficients from all subsets regression, as described in Wickham, Cook, and Hofmann (2015), which helps to understand the relative importance of each variable in the context of all other candidate variables.
 
-For our application, we use \emph{tree SHAP}, a variant of SHAP enjoys a lower computational complexity (S. M. Lundberg, Erion, and Lee 2018). Tree SHAP is only compatible with tree-based models; we illustrate random forests. The following section will use normalized explanations as the starting projection basis to further scrutinize the explanation.
-
-Following the use case \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021), we use FIFA data to illustrate the use of SHAP. Consider soccer data from the FIFA 2020 season (Leone 2020). There are 5000 observations of 9 skill measures (after aggregating highly correlated variables). A random forest model is fit regressing log wages {[}2020 Euros{]}, from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \ref{fig:shapdistrbd}. We expect to see a difference in the attribution of the variable importance across the two positions of the players, which would be interpreted as how the player's salary depends on this combination of skill sets. Plot (b) is a modified breakdown plot (Gosiewska and Biecek 2019) where the order of variables is fixed, so the two observations can be more easily compared.
+For our application, we use \emph{tree SHAP}, a variant of SHAP enjoys a lower computational complexity (S. M. Lundberg, Erion, and Lee 2018). Tree SHAP is only compatible with tree-based models; we illustrate random forests. The following section will use normalized explanations as the starting projection basis (call this the \emph{attribution projection}) to further scrutinize the explanation.
 
 \begin{figure}
 
-{\centering \includegraphics[width=25in]{./figures/shap_distr_bd} 
+{\centering \includegraphics[width=0.6\linewidth]{./figures/shap_distr_bd} 
 
 }
 
 \caption{Illustration of the use of SHAP values for a random forest model for salaries of FIFA 2020 players based on nine predictors corresponding to different skills. Two observations (a star offensive player, Messi and a defensive player, van Dijk) are compared. Plot (a) shows the distribution of contributions for each variable across 25 permutations of predictors, with the median displayed as a dot, for both players. Plot b) is the break-down plot showing the SHAP values. It can be learned that reaction is important for explaining both players salaries. Offense and movement are important for Messi but not van Dijk, and conversely defense and power are important for van Dijk but not Messi.}\label{fig:shapdistrbd}
 \end{figure}
+
+Following the use case \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021), we use FIFA data to illustrate the use of SHAP. Consider soccer data from the FIFA 2020 season (Leone 2020). There are 5000 observations of 9 skill measures (after aggregating highly correlated variables). A random forest model is fit regressing log wages {[}2020 Euros{]}, from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \ref{fig:shapdistrbd}. We expect to see a difference in the attribution of the variable importance across the two positions of the players, which would be interpreted as how the player's salary depends on this combination of skill sets. Plot (b) is a modified breakdown plot (Gosiewska and Biecek 2019) where the order of variables is fixed, so the two observations can be more easily compared.
 
 In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their observations. In this instance, two players with different positions receive different profiles of variable importance to explain the prediction of their wages.
 
@@ -226,17 +226,19 @@ A version of the manual tour called a \emph{radial tour} is implemented in Spyri
 \hypertarget{sec:applicationdesign}{%
 \section{The cheem viewer}\label{sec:applicationdesign}}
 
-Below we illustrate the two primary displays of the cheem viewer application: the global view and the tour view. Then we cover what we take away from the classification and regression tasks. Lastly, we discuss the preprocessing of the data before application runtime.
+To explore the local explanations, an ensemble of plots (Unwin and Valero-Mora 2018) is provided, called the \emph{cheem viewer}. There are two primary plots: the global view to give the context of all of the SHAP values, and the radial tour view to explore the local explanations with user-controlled rotation. In addition, there are numerous user inputs, including variable selection for the radial tour, and instance selection for making comparisons. Figures \ref{fig:classificationcase} and \ref{fig:regressioncase} contain screenshots showing the cheem viewer for the two primary tasks classification (categorical response) and regression (quantitative response).
 
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
 
-The global view provides an essential context of all observations and facilitates the exploration of the separability of the data- and attribution-spaces. While the comparison of these spaces is interesting, the global view's purpose is to enable the selection of observations. The local explanation of these points will be explored in more detail.
+The global view provides the context of all observations and facilitates the exploration of the separability of the data- and attribution-spaces. Both of these spaces are of dimension \(n\times p\), where \(n\) is the number of observations and \(p\) is the number of predictors. The attribution space corresponds to the local explanations for each observation, which will have \(p\) values for each observation.
 
-An approximation of these spaces is given as the first two principal components of their respective spaces. Model information, the observed response by its prediction, is also provided. The orientation and magnitude of the variables are inscribed on a unit circle. Misclassified observations are circled in red if applicable. Linked brushing between the plots and tabular display of select points facilitates exploration of the spaces and the model. A single 2D projection will not encompass all of the structure of higher-dimensional space. However, it is a reasonable summarization given the real task at hand; the selection of observations to explore further.
+A visualisation of these spaces is provided by the first two principal components of their respective spaces. In addition, a plot observed by predicted response is also provided. In both PCA plots the orientation and magnitude of the variables are inscribed on a unit circle, similar to a biplot (XXX REF). A single 2D projection will not encompass all of the structure of higher-dimensional space, but it is generally a useful visual summary. For classification tasks, misclassified observations are circled in red if applicable. Linked brushing between the plots is provided and a tabular display of selected points helps to facilitate exploration of the spaces and the model.
 
-\hypertarget{radial-cheem-tour}{%
-\subsection{Radial cheem tour}\label{radial-cheem-tour}}
+While the comparison of these spaces is interesting, a main purpose of the global view is to enable the selection of observations, from which to explore the local explanations.
+
+\hypertarget{radial-tour}{%
+\subsection{Radial tour}\label{radial-tour}}
 
 The global view facilitated the selection of a primary and optional comparison observation. The variable-level attribution of the primary observation is normalized and used as the initial 1D basis in a radial tour. This is an approximation of the contributions of the linear variables that best explain the difference between the model intercept and an observation's prediction, not the local shape of the model surface.
 
@@ -255,7 +257,7 @@ What information do we glean from using this method on a classification task? Ty
 
 }
 
-\caption{Display illustrating the classification case. Plots are colored on predicted class, and red circles indicate misclassified observations. The radial tour is a 1D projection starting at the normalized tree SHAP values of the primary point. The first frame is the linear-variable importances that best describe the difference from model intercept to this observation's prediction. We probe the support of the variable contributions by selecting a variable to vary the contribution.}\label{fig:classificationcase}
+\caption{Overview of the cheem view for classification tasks. Plots are colored on predicted class, and red circles indicate misclassified observations. The radial tour is a 1D projection starting at the normalized tree SHAP values of the primary point. The first frame is the linear variable importances that best describe the observation's prediction. We probe the support of variable contributions by selecting a variable and use the radial tour to vary the coefficient.}\label{fig:classificationcase}
 \end{figure}
 
 \hypertarget{regression-task}{%
@@ -269,7 +271,7 @@ In the regression case, the global view can be colored on a statistic to highlig
 
 }
 
-\caption{Display of the regression task. The global view can be colored on the correlation of the attribution projection and observed response. In the tour, the horizontal values are the same as the classification case; the projection through the basis. The vertical position is now mapped to the observed y and residuals.}\label{fig:regressioncase}
+\caption{Overview of the cheem view for tasks. The global view can be colored on the correlation between the projection of the data generated by the local explanation and the observed response. In the radial tour, the horizontal values are the same as the classification case; the projection through the basis. The vertical position is now mapped to the observed y and residuals.}\label{fig:regressioncase}
 \end{figure}
 
 \hypertarget{interactive-features}{%
@@ -546,6 +548,9 @@ Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package} for {Cr
 
 \leavevmode\vadjust pre{\hypertarget{ref-strumbelj_efficient_2010}{}}%
 Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation of Individual Classifications Using Game Theory.''} \emph{The Journal of Machine Learning Research} 11: 1--18.
+
+\leavevmode\vadjust pre{\hypertarget{ref-unwin}{}}%
+Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble Graphics.''} \emph{Journal of Computational and Graphical Statistics} 27 (1): 157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
 
 \leavevmode\vadjust pre{\hypertarget{ref-vanni_textual_2018}{}}%
 Vanni, Laurent, Mélanie Ducoffe, Carlos Aguilar, Frédéric Precioso, and Damon Mayaffre. 2018. {``Textual {Deconvolution} {Saliency} ({TDS}): A Deep Tool Box for Linguistic Analysis.''} In \emph{Proceedings of the 56th {Annual} {Meeting} of the {Association} for {Computational} {Linguistics} ({Volume} 1: {Long} {Papers})}, 548--57.

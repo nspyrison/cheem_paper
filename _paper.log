@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.13)  7 JAN 2022 11:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.13)  7 JAN 2022 14:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -658,93 +658,100 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 LaTeX Warning: Reference `sec:tour' on page 2 undefined on input line 189.
 
 [2]
-<./figures/shap_distr_bd.png, id=30, 433.62pt x 505.89pt>
+<./figures/shap_distr_bd.png, id=29, 433.62pt x 505.89pt>
 File: ./figures/shap_distr_bd.png Graphic file (type png)
 <use ./figures/shap_distr_bd.png>
-Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 208.
-(pdftex.def)             Requested size: 433.62555pt x 505.89645pt.
-[3] [4pdfTeX warning (ext4): destination with the same identifier (name{figure.
-1}) has been already used, duplicate ignored
+Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 206.
+(pdftex.def)             Requested size: 281.8695pt x 328.84775pt.
+[3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
+has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.236 A
-       n approximation of these spaces is given as the first two principal c...
+l.215 I
+       n summary, these plots highlight how local explanations bring interpr...
  <./figures/shap_distr_bd.png>]
-<./figures/app_classification.png, id=47, 819.66225pt x 908.79526pt>
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 234.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 234.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <5> on input line 234.
+[4]
+<./figures/app_classification.png, id=54, 819.66225pt x 908.79526pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
 Package pdftex.def Info: ./figures/app_classification.png  used on input line 2
-54.
+56.
 (pdftex.def)             Requested size: 469.75127pt x 520.8337pt.
-<./figures/app_regression.png, id=48, 781.7205pt x 807.61725pt>
+<./figures/app_regression.png, id=55, 781.7205pt x 807.61725pt>
 File: ./figures/app_regression.png Graphic file (type png)
 <use ./figures/app_regression.png>
-Package pdftex.def Info: ./figures/app_regression.png  used on input line 268.
+Package pdftex.def Info: ./figures/app_regression.png  used on input line 270.
 (pdftex.def)             Requested size: 469.76353pt x 485.3258pt.
-<./figures/app_interactions.png, id=49, 813.63976pt x 476.982pt>
+<./figures/app_interactions.png, id=56, 813.63976pt x 476.982pt>
 File: ./figures/app_interactions.png Graphic file (type png)
 <use ./figures/app_interactions.png>
-Package pdftex.def Info: ./figures/app_interactions.png  used on input line 284
+Package pdftex.def Info: ./figures/app_interactions.png  used on input line 286
 .
 (pdftex.def)             Requested size: 469.75116pt x 275.38335pt.
-[5] [6pdfTeX warning (ext4): destination with the same identifier (name{figure.
-2}) has been already used, duplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.289 \end{figure}
-                   <./figures/app_classification.png>] [7pdfTeX warning (ext4):
- destination with the same identifier (name{figure.3}) has been already used, d
-uplicate ignored
-
-\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
-                                                  \fi \fi 
-l.289 \end{figure}
-                   <./figures/app_regression.png>]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-00.
+02.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [8pdfTeX warning (ext4): destination with the same identifier (name{figure.4}
-) has been already used, duplicate ignored
+) [5] [6pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.2}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.306 
+l.303     \item \textbf
+                       {Model:} any model can be used with this method. Curr...
+ <./figures/app_classification.png>] [7pdfTeX warning (ext4): destination with 
+the same identifier (name{figure.3}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.303     \item \textbf
+                       {Model:} any model can be used with this method. Curr...
+ <./figures/app_regression.png>] [8pdfTeX warning (ext4): destination with the 
+same identifier (name{figure.4}) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.313 
        <./figures/app_interactions.png>]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-18.
+20.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 319.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 321.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 319.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 321.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-330.
+332.
 (/usr/local/texlive/2020/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-<./figures/case_penguins.png, id=85, 433.62pt x 361.35pt>
+<./figures/case_penguins.png, id=90, 433.62pt x 361.35pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 350.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 352.
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure
 .5}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.363 
+l.365 
        <./figures/case_penguins.png>]
-<./figures/case_chocolates.png, id=112, 433.62pt x 361.35pt>
+<./figures/case_chocolates.png, id=117, 433.62pt x 361.35pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 368.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 370.
 
 (pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
 [11pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
@@ -752,71 +759,68 @@ Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 368.
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.381 
+l.383 
        <./figures/case_chocolates.png>]
-<./figures/case_fifa.png, id=125, 397.485pt x 578.16pt>
+<./figures/case_fifa.png, id=130, 397.485pt x 578.16pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 386.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 388.
 (pdftex.def)             Requested size: 397.50221pt x 578.18504pt.
-<./figures/case_ames2018.png, id=129, 578.16pt x 578.16pt>
+<./figures/case_ames2018.png, id=134, 578.16pt x 578.16pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 404.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 406.
 (pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 423.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 423.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 423.
 [12] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.7}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.435 
+l.437 
        <./figures/case_fifa.png>] [14pdfTeX warning (ext4): destination with th
 e same identifier (name{figure.8}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.435 
+l.437 
        <./figures/case_ames2018.png>] [15]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 561.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 566.
 [16]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 561.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 566.
 (./_paper.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 561.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 561.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 566.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 566.
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15930 strings out of 480608
- 235115 string characters out of 5903630
- 566947 words of memory out of 5000000
+ 15931 strings out of 480608
+ 235112 string characters out of 5903630
+ 566983 words of memory out of 5000000
  31247 multiletter control sequences out of 15000+600000
  602741 words of font info for 146 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,6n,42p,1034b,360s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,6n,42p,1034b,391s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/
-texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}</usr/local/texlive/2020/
-texmf-dist/fonts/type1/public/lm/lmbx10.pfb></usr/local/texlive/2020/texmf-dist
-/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/typ
-e1/public/lm/lmbx9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/l
-m/lmr10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr17.pfb
-></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr7.pfb></usr/local
-/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/202
-0/texmf-dist/fonts/type1/public/lm/lmri10.pfb></usr/local/texlive/2020/texmf-di
-st/fonts/type1/public/lm/lmtko10.pfb></usr/local/texlive/2020/texmf-dist/fonts/
-type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publ
-ic/lm/lmtti10.pfb>
-Output written on _paper.pdf (16 pages, 2823563 bytes).
+texlive/2020/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2020/
+texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2020/texmf-dist
+/fonts/enc/dvips/lm/lm-mathit.enc}</usr/local/texlive/2020/texmf-dist/fonts/typ
+e1/public/lm/lmbx10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/
+lm/lmbx12.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmbx9.p
+fb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/l
+ocal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texliv
+e/2020/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2020/texm
+f-dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2020/texmf-dist/fonts
+/type1/public/lm/lmr9.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/publi
+c/lm/lmri10.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy1
+0.pfb></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></u
+sr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/t
+exlive/2020/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on _paper.pdf (16 pages, 2830697 bytes).
 PDF statistics:
- 365 PDF objects out of 1000 (max. 8388607)
- 312 compressed objects within 4 object streams
- 108 named destinations out of 1000 (max. 500000)
+ 381 PDF objects out of 1000 (max. 8388607)
+ 326 compressed objects within 4 object streams
+ 109 named destinations out of 1000 (max. 500000)
  14537 words of extra memory for PDF output out of 17280 (max. 10000000)
 

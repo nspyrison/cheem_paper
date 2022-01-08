@@ -11,48 +11,44 @@ keywords:
 - manual tour
 - radial tour
 author:
-#- name: "Nicholas Spyrison"
-#   address: |
-#     | ORCiD: 0000-0002-8417-0212
-#   email: \email{nicholas.spyrison@monash.edu}
-#   orcid: 0000-0002-8417-0212
-#- name: "Dianne Cook"
-#   affiliation: Monash University
-#   address: |
-#     | ORCiD: 000-0002-3813-7155
-#   orcid: 000-0002-3813-7155
-#- name: "Kimbal Marriott"
-#   affiliation: Monash University
-#   address: |
-#     | ORCiD: 0000-0002-9813-0377
-#   orcid: 0000-0002-9813-0377
+  #- name: "Nicholas Spyrison"
+  #   address: |
+  #     | ORCiD: 0000-0002-8417-0212
+  #   email: \email{nicholas.spyrison@monash.edu}
+  #   orcid: 0000-0002-8417-0212
+  #- name: "Dianne Cook"
+  #   affiliation: Monash University
+  #   address: |
+  #     | ORCiD: 000-0002-3813-7155
+  #   orcid: 000-0002-3813-7155
+  #- name: "Kimbal Marriott"
+  #   affiliation: Monash University
+  #   address: |
+  #     | ORCiD: 0000-0002-9813-0377
+  #   orcid: 0000-0002-9813-0377
 abstract: |
  Artificial Intelligence (AI) has seen a revitalization in recent years with the prevalence of increasingly hard-to-interpret black-box models. The increased predictive power comes at the cost of interpretability, which has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models are using predictors, to arrive at a prediction, with a point estimate of the linear variable importance in the vicinity of each observation. These are simply linear projections, and as such can be further explored interactively to better understand the interaction between variables used to make predictions, across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any observation, and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (football salaries, house prices) response variables. The methods are implemented in the __R__ package __cheem__, available on CRAN.
-# documentclass: jdssv
+#documentclass: jmlr
 #classoption: article
 output:
-  ## bookdown::pdf_document2: allows \@ref()
-  bookdown::pdf_document2:
   ## pdf_document: requires \ref{} 
   #pdf_document:
+  ## bookdown::pdf_document2: allows \@ref()
+  bookdown::pdf_document2:
     keep_tex: true
     toc: false
-    #template: template/jdssv_template.tex
     number_sections: yes
     fig_caption: yes
+    #includes:
+    #  in_header: template/jmlr2e.sty
 bibliography: cheem_paper.bib
-#appendix:
-# title:
-#   formatted: "Methods for understanding the variable importance of local explanations of black-box models"
-#   plain:     "Methods for understanding the variable importance of local explanations of black-box models"
-#   short:     "cheem: radial tour scrutinizing local explanations"
 editor_options:
   chunk_output_type: console
 urlcolor: blue
 linkcolor: red
 header-includes:
- - \usepackage{setspace} ## for title page spacing
- - \usepackage{hyperref} ## for all sorts of linking
+  - \usepackage{setspace} ## for title page spacing
+  - \usepackage{hyperref} ## for all sorts of linking
 ---
 
 ```{r loadlibraries, include=FALSE, cache=FALSE}
@@ -127,21 +123,22 @@ A comprehensive summary of the taxonomy and literature of explanation techniques
 <!-- Uses of local explanations -->
 These instance-level explanations are used in various ways depending on the data. In image classification, where pixels would correspond to predictors, saliency maps overlay or offset a heatmap indicating important pixels [@simonyan_deep_2014]. For instance, pixels corresponding to snow may be highlighted when distinguishing if a picture contains a wolf or husky. In text analysis, word-level contextual sentiment analysis can be used to highlight the sentiment and magnitude of influential words [@vanni_textual_2018]. In the case of numeric regression, they are used to explain variable additive contributions from the model intercept to the observation's prediction [@ribeiro_why_2016].
 
-<!-- ## SHAP and history -->
-SHaply Additive exPlanations (SHAP) approximates the variable importance in the vicinity of one observation conceptually by examining the effect of other variables on the contribution of the variable of interest on predicting the response. This explanations almost all point to @shapley_value_1953's method to evaluate an individual's contribution to cooperative games by permuting the players that contribute to the score. @strumbelj_efficient_2010 introduced the use of SHAP for local explanations in ML models. However, it is also related to partial dependence plots [@molnar_interpretable_2020], used to explain the effect of a variable by predicting the response for a range of values on this variable, after fixing the value of all other variables to their mean. It could also be considered to be similar to examining the coefficients from all subsets regression, as described in @wickham_visualizing_2015, which helps to understand the relative importance of each variable in the context of all other candidate variables.
+<!-- SHAP -->
+SHaply Additive exPlanations (SHAP) approximates the variable importance in the vicinity of one observation conceptually by examining the effect of other variables on the contribution of the variable of interest on predicting the response. This explanations almost all point to @shapley_value_1953's method to evaluate an individual's contribution to cooperative games by permuting the players that contribute to the score. @strumbelj_efficient_2010 introduced the use of SHAP for local explanations in ML models. While the models themselves are invariant to the order of the predictors, the additive explanations are not. The SHAP values are the mean contributions over some subset these permutations. This is also related to partial dependence plots [@molnar_interpretable_2020], used to explain the effect of a variable by predicting the response for a range of values on this variable, after fixing the value of all other variables to their mean. Partial dependence plots are a global approximation of the variable importance, while SHAP is specific to one instance. It could also be considered to be similar to examining the coefficients from all subsets regression, as described in @wickham_visualizing_2015, which helps to understand the relative importance of each variable in the context of all other candidate variables.
 
-For our application, we use _tree SHAP_, a variant of SHAP enjoys a lower computational complexity [@lundberg_consistent_2018]. Tree SHAP is only compatible with tree-based models; we illustrate random forests. The following section will use normalized explanations as the starting projection basis (call this the _attribution projection_) to further scrutinize the explanation.
+<!-- tree SHAP -->
+For our application, we use _tree SHAP_, a variant of SHAP enjoys a lower computational complexity [@lundberg_consistent_2018]. Instead of aggregating over permutations of the variable order, tree SHAP approximates instance level feature importance by exploring the stucture of the decision trees. Tree SHAP is only compatible with tree-based models; we illustrate random forests. The following section will use normalized explanations as the starting projection basis (call this the _attribution projection_) to further scrutinize the explanation.
 
-```{r shapdistrbd, echo=F, fig.align='center', out.width="60%", fig.cap = "Illustration of the use of SHAP values for a random forest model for salaries of FIFA 2020 players based on nine predictors corresponding to different skills. Two observations (a star offensive player, Messi and a defensive player, van Dijk) are compared. Plot (a) shows the distribution of contributions for each variable across 25 permutations of predictors, with the median displayed as a dot, for both players. Plot b) is the break-down plot showing the SHAP values. It can be learned that reaction is important for explaining both players salaries. Offense and movement are important for Messi but not van Dijk, and conversely defense and power are important for van Dijk but not Messi."}
+```{r shapdistrbd, echo=F, fig.align='center', out.width="60%", fig.cap = "Illustration of the use of SHAP values for a random forest model for salaries of FIFA 2020 players based on nine predictors corresponding to different skills. A star offensive and densive player, Messi and a defensive player are compared, L. Messi and V van Dijk respectively. Plot a) is the break-down plot showing one additive variable-attributution. These attributions are sensitive to the order of the variables. Plot b) shows the distribution of attribution for each variable across 25 such permutation of the order of predictors, with the mean displayed as a dot, for each players. Offense and movement are important for Messi but not van Dijk, and conversely defense and power are important for van Dijk but not Messi."}
 knitr::include_graphics("./figures/shap_distr_bd.png")
 ```
 
 <!-- Fifa example -->
-Following the use case _Explanatory Model Analysis_ [@biecek_explanatory_2021], we use FIFA data to illustrate the use of SHAP. Consider soccer data from the FIFA 2020 season [@leone_fifa_2020]. There are 5000 observations of 9 skill measures (after aggregating highly correlated variables). A random forest model is fit regressing log wages [2020 Euros], from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \@ref(fig:shapdistrbd). We expect to see a difference in the attribution of the variable importance across the two positions of the players, which would be interpreted as how the player's salary depends on this combination of skill sets. Plot (b) is a modified breakdown plot [@gosiewska_ibreakdown_2019] where the order of variables is fixed, so the two observations can be more easily compared.
-
+Following the use case _Explanatory Model Analysis_ [@biecek_explanatory_2021], we use FIFA data to illustrate the use of SHAP. Consider soccer data from the FIFA 2020 season [@leone_fifa_2020]. There are 5000 observations of 9 skill measures (after aggregating highly correlated variables). A random forest model is fit regressing wages [2020 Euros], from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \@ref(fig:shapdistrbd). We expect to see a difference in the attribution of the variable importance across the two positions of the players, which would be interpreted as how the player's salary depends on this combination of skill sets. Plot (b) is a modified breakdown plot [@gosiewska_ibreakdown_2019] where the order of variables is fixed, so the two observations can be more easily compared.
 
 <!-- Segue -->
 In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their observations. In this instance, two players with different positions receive different profiles of variable importance to explain the prediction of their wages.
+
 
 # Tours and the radial tour
 
@@ -152,11 +149,12 @@ A _tour_ enables viewing of high-dimensional data by animating many linear proje
 The manual tour [@cook_manual_1997] defines its path by changing a selected variable's contribution to a basis, to allow the variable to contribute more or less to the projection. The contribution of all other variables is constrained by the requirement that a basis needs to be orthonormal (column correspond to vectors, with unit length, and orthogonal to each other).  The manual tour is primarily used to assess the importance of a variable to structure visible in a projection. It also lends itself to pre-computation to be queued in advance or computed on-the-fly for human-in-the-loop analysis [@karwowski_international_2006]. <!-- However, this navigation is relatively time-consuming due to the vast volume of the display space. It is advisable to use this method to explore the sensitivity of the variable contribution to a previously identified feature of interest. In this case, the projection of the normalized explanations is the feature of interest.-->
 
 <!-- Radial tour -->
-A version of the manual tour called a _radial tour_ is implemented in @spyrison_spinifex_2020 and forms the basis of the new work. In a radial tour, the selected variable is allowed to change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and also interactive re-calculation to focus on a different variable. 
+A version of the manual tour called a _radial tour_ is implemented in @spyrison_spinifex_2020 and forms the basis of the new work. In a radial tour, the selected variable is allowed to change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and also interactive re-calculation to focus on a different variable.
+
 
 # The cheem viewer {#sec:applicationdesign}
 
-To explore the local explanations, an ensemble of plots [@unwin] is provided, called the _cheem viewer_. There are two primary plots: the global view to give the context of all of the SHAP values, and the radial tour view to explore the local explanations with user-controlled rotation. In addition, there are numerous user inputs, including variable selection for the radial tour, and instance selection for making comparisons. Figures \@ref(fig:classificationcase) and \@ref(fig:regressioncase) contain screenshots showing the cheem viewer for the two primary tasks classification (categorical response) and regression (quantitative response). 
+To explore the local explanations, an ensemble of plots [@unwin] is provided, called the _cheem viewer_. There are two primary plots: the global view to give the context of all of the SHAP values, and the radial tour view to explore the local explanations with user-controlled rotation. In addition, there are numerous user inputs, including variable selection for the radial tour, and instance selection for making comparisons. Figures \@ref(fig:classificationcase) and \@ref(fig:regressioncase) contain screenshots showing the cheem viewer for the two primary tasks classification (categorical response) and regression (quantitative response).
 
 
 ## Global view
@@ -165,9 +163,10 @@ To explore the local explanations, an ensemble of plots [@unwin] is provided, ca
 The global view provides the context of all observations and facilitates the exploration of the separability of the data- and attribution-spaces. Both of these spaces are of dimension $n\times p$, where $n$ is the number of observations and $p$ is the number of predictors. The attribution space corresponds to the local explanations for each observation, which will have $p$ values for each observation.
 
 <!-- Approximations of the spaces, PC1:2 -->
-A visualisation of these spaces is provided by the first two principal components of their respective spaces. In addition, a plot observed by predicted response is also provided. In both PCA plots the orientation and magnitude of the variables are inscribed on a unit circle, similar to a biplot (XXX REF). A single 2D projection will not encompass all of the structure of higher-dimensional space, but it is generally a useful visual summary. <!-- Interactions --> For classification tasks, misclassified observations are circled in red if applicable. Linked brushing between the plots is provided and a tabular display of selected points helps to facilitate exploration of the spaces and the model. 
+A visualisation of these spaces is provided by the first two principal components of their respective spaces. In addition, a plot observed by predicted response is also provided. In both PCA plots the orientation and magnitude of the variables are inscribed on a unit circle, similar to a biplot [@gabriel_biplot_1971]. A single 2D projection will not encompass all of the structure of higher-dimensional space, but it is generally a useful visual summary. <!-- Interactions --> For classification tasks, misclassified observations are circled in red if applicable. Linked brushing between the plots is provided and a tabular display of selected points helps to facilitate exploration of the spaces and the model. 
 
 While the comparison of these spaces is interesting, a main purpose of the global view is to enable the selection of observations, from which to explore the local explanations.
+
 
 ## Radial tour
 
@@ -183,9 +182,9 @@ The radial tour creates a basis path by varying the contribution of a selected v
 
 ## Classification task
 
-What information do we glean from using this method on a classification task? Typically we select a misclassified observation compared to a correctly classified point nearby in data space. The initial frame is the linear attribution of that observation's local explanation. By default, the manual tour varies the contribution of the variable with the largest difference between the primary and comparison observation; we can test the sensitivity of each variable to structure identified by the local explanation; we are exploring the support of the explanation, evaluating the support or robustness of the prediction.
+Typically we select a misclassified observation compared to a correctly classified point nearby in data space. The model infomation in the global view is a depiction of the model conmfusion matrix. The radial tour is 1D, with density display, while the goal of the tour; exploring the sensitivity of each variable to structure identified by the local explanation, evaluating the support or robustness of the prediction.
 
-```{r classificationcase, echo=F, out.width = "100%", fig.align="center", fig.cap = "Overview of the cheem view for classification tasks. Plots are colored on predicted class, and red circles indicate misclassified observations. The radial tour is a 1D projection starting at the normalized tree SHAP values of the primary point. The first frame is the linear variable importances that best describe the observation's prediction. We probe the support of variable contributions by selecting a variable and use the radial tour to vary the coefficient."}
+```{r classificationcase, echo=F, out.width = "100%", fig.align="center", fig.cap = "The cheem view for classification tasks. Plots are colored on predicted class, and red circles indicate misclassified observations. Model visual is essentially a representation of the confusion matrix of the model. The radial tour is a 1D projection starting the attribution projection. The first frame is the linear variable importances that best describe the observation's prediction. We probe the support of variable contributions by selecting a variable and use the radial tour to vary its coefficient."}
 knitr::include_graphics("./figures/app_classification.PNG")
 ```
 
@@ -219,13 +218,13 @@ It is vital to mitigate the render time of visuals, especially when users may wa
 (ref:citeRf) @liaw_classification_2002
 (ref:citeTs) @kominsarczyk_treeshap_2021
 \begin{itemize}
-	\item \textbf{Data:} a complete numerical matrix; explanatory and response variable. An optional categorical variable can be mapped to the color and shape of observations. Explanatory variables are scaled in visualization after modeling or creating local explanations. 
-	\item \textbf{Model:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} [(ref:citeRf)] for compatibility with the local explanation, which requires tree-based models.
-	\item \textbf{Local explanation:} any model-compatible linear explanation could be used. We apply tree SHAP, a more computationally efficient variant of SHAP, compatible with tree-based models. Tree SHAP was calculated with the package \textbf{treeshap} [(ref:citeTs), hosted on GitHub only]. The global view shows all observations in attribution space, requiring the variable importance from \emph{all} observations rather than just one.
+	\item \textbf{Data:} predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale invariant.
+	\item \textbf{Model and explanation:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} [(ref:citeRf)], compatibility tree SHAP. We use modest hyperparameters, namely: 125 trees, number variables randomly sampled at each split, mtry = $\sqrt{p}$ or $p/3$ for classification and regression, and minimum size of terminal nodes $max(1, n/500)$ or $max(5, n/500)$ for classification and regression. Tree SHAP is calculated for \emph{each} observation using the package \textbf{treeshap} (ref:citeTs). This implementation aggregates over exhaustively over the attribution of all trees and we opt to not to fit interactions of features. 
+	\item \textbf{Cheem view:} after the model and full explanation space are calculated we scale each feature by standard deviations away from the mean to achieve a common support for visuals. Statistics for mapping to color are calculated on the scaled spaces. Interactive tabular display reports the original values.
 \end{itemize}
 
 <!-- Note on time of execution -->
-The time to preprocess the data will vary significantly with the model and local explanation. For reference, the FIFA data, 5000 observations of nine explanatory variables, took 2.9 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each observation took 254 seconds combined. PCA and statistics of the variables and attributions took 0.6 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that the bulk of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. With its reduced computational complexity, this makes tree SHAP a good candidate to start with. Alternatively, the package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes, which are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
+The time to preprocess the data will vary significantly with the model and local explanation. For reference, the FIFA data, 5000 observations of nine explanatory variables, took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each observation took 270 seconds combined. PCA and statistics of the variables and attributions took 2.8 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that the bulk of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. With its reduced computational complexity, this makes tree SHAP a good candidate to start with. Alternatively, the package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes, which are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
 
 
 ## Package infrastructure {#sec:infrastructure}
@@ -263,7 +262,7 @@ To illustrate the use of the cheem method, we apply it to modern datasets, two c
 
 The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was provided publicly as a substitute for the over-used iris data, and is quite similar in form. There are 330 observations and we will use the four physical measurements, `bill_length_mm` (`b_l`), `bill_depth_mm` (`b_d`), `flipper_length_mm` (`f_l`), `body_mass_g` (`wgt`), for this illustration. A random forest model was fitted with species as the response variable.
 
-(ref:casepenguins) Species classification of Palmer penguin data. We select a chinstrap penguin that is mislabeled as an adelie. By varying the contribution to bill length, we observe the explanation does not hold when bill length has a significant contribution. The .mp4 animation of this tour can be found at [github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4)
+(ref:casepenguins) Species classification of Palmer penguin data. We select a chinstrap penguin that is mislabeled as an adelie. By varying the contribution to bill length, we observe the explanation does not hold when bill length has a significant contribution. The .mp4 animation of this tour can be found at [shorturl.at/hFHNS](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4)
 ```{r casepenguins, echo=F, out.width="100%", fig.cap = "(ref:casepenguins)"}
 knitr::include_graphics("./figures/case_penguins.png")
 ```
@@ -281,7 +280,7 @@ varies the contribution of bill length (b_l) as this variable differs most from 
 
 The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. We can see if a manufacturer accurately portrays the chocolate with this data. We are curious to see if chocolates that nutritionally look like milk chocolates are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We selected a chocolate labeled dark, through predicted to be milk chocolate compared with a chocolate labeled 85% cocoa.
 
-(ref:casechocolates) Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate in light of the values on the nutritional label. We vary the contribution of calories from fat. Animated tour can be found at [github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4).
+(ref:casechocolates) Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate in light of the values on the nutritional label. We vary the contribution of calories from fat. Animated tour can be found at [shorturl.at/dBE28](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4).
 ```{r casechocolates, echo=F, out.width="100%", fig.cap = "(ref:casechocolates)"}
 knitr::include_graphics("./figures/case_chocolates.png")
 ```
@@ -291,9 +290,9 @@ Figure \@ref(fig:casechocolates) similarly shows that attribution-space is more 
 
 ## 3) FIFA, wage regression
 
-The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress the log wages [2020 euros] given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \@ref(fig:shapdistrbd).
+The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress player wages [2020 euros] given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \@ref(fig:shapdistrbd).
 
-(ref:casefifa) FIFA 2020, regressing log wages [2020 Euros] from aggregations of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). The animate radial tour can be found at [github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4)
+(ref:casefifa) FIFA 2020 data, a random forest model regresses wages [2020 Euros] from aggregated of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). The animate radial tour can be found at [shorturl.at/lCK26](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4)
 ```{r casefifa, echo=F, out.width = "100%", fig.cap = "(ref:casefifa)"}
 knitr::include_graphics("./figures/case_fifa.png")
 ```
@@ -305,7 +304,7 @@ With figure \@ref(fig:casefifa), we will test the premise of the local explanati
 
 Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales across nine variables. Using interaction from the global view, we select a house with an extreme negative residual and an accurate observation close to it in the data.
 
-(ref:caseames) Ames housing 2018 regressing log sales price [2018 USD]. Because the SHAP values are relatively well distributed across the variables, there is a lot of redundant information to explain the gap between select observations. This case may not be ideal for the cheem methodology, though we did find a near singular frame in the manual tour not, something we came looking for, but certainly, an exciting feature to find. The corresponding animation is at [github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
+(ref:caseames) Ames housing 2018 regressing sales price [2018 USD]. Because the SHAP values are relatively well distributed across the variables, there is a lot of redundant information to explain the gap between select observations. This case may not be ideal for the cheem methodology, though we did find a near singular frame in the manual tour not, something we came looking for, but certainly, an exciting feature to find. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
 ```{r caseames, echo=F, out.width="100%", fig.cap = "(ref:caseames)"}
 knitr::include_graphics("./figures/case_ames2018.png")
 ```

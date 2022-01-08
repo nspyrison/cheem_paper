@@ -9,16 +9,18 @@
   my_parts_boxplot_df <- function(pred_parts, player_tag = "<tag unused>"){
     ## Remade from: iBreakDown:::print.break_down_uncertainty
     data.frame(
-      player = player_tag,
-      label  = tapply(pred_parts$label, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
+      player   = player_tag,
+      label    = tapply(pred_parts$label, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
       variable = tapply(pred_parts$variable_name, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE),
-      value  = tapply(pred_parts$variable_value, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE), ## oos variable value
+      value    = tapply(pred_parts$variable_value, paste(pred_parts$label, pred_parts$variable, sep = ": "), unique, na.rm = TRUE), ## oos variable value
       ## Of the distribution of local attributions:
-      min    = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), min, na.rm = TRUE),
-      q1     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.25, na.rm = TRUE),
-      median = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), median, na.rm = TRUE),
-      q3     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.75, na.rm = TRUE),
-      max    = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), max, na.rm = TRUE))
+      # min      = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), min, na.rm = TRUE),
+      # q1       = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.25, na.rm = TRUE),
+      mean     = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), mean, na.rm = TRUE),
+      median   = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), median, na.rm = TRUE)#,
+      # q3       = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), quantile, 0.75, na.rm = TRUE),
+      # max      = tapply(pred_parts$contribution, paste(pred_parts$label, pred_parts$variable, sep = ": "), max, na.rm = TRUE)
+    )
   }
   my_parts_distribution <- function(pred_parts, player_tag = "<tag unused>"){
     df <- data.frame(
@@ -76,22 +78,22 @@ if(F) ## View corrplot?
 #### Agg some highly correlated vars.
 dat <- .dat_less_ys %>%
   dplyr::mutate(
-    .keep = "none",
-    BMI = (weight_kg+(height_cm/100L)^2L),
-    age = age,
+    .keep    = "none",
+    BMI      = (weight_kg+(height_cm/100L)^2L),
+    age      = age,
     reaction = movement_reactions,
-    offense = (attacking_finishing+skill_long_passing+attacking_volleys+
-             power_long_shots+skill_curve+mentality_positioning+attacking_crossing+
-             attacking_short_passing+skill_dribbling+skill_ball_control)/10L,
-    defense = (defending_sliding_tackle+mentality_interceptions+
-             defending_standing_tackle+defending_marking+mentality_aggression)/5L,
+    offense  = (attacking_finishing+skill_long_passing+attacking_volleys+
+                  power_long_shots+skill_curve+mentality_positioning+attacking_crossing+
+                  attacking_short_passing+skill_dribbling+skill_ball_control)/10L,
+    defense  = (defending_sliding_tackle+mentality_interceptions+
+                  defending_standing_tackle+defending_marking+mentality_aggression)/5L,
     accuracy = (attacking_heading_accuracy+power_shot_power)/2L,
     movement = (movement_sprint_speed+movement_balance+movement_acceleration+
-             mentality_vision+mentality_composure+movement_agility+
-             mentality_penalties+skill_fk_accuracy+power_stamina+movement_reactions)/10L,
-    power = (power_strength+power_jumping)/2L,
+                  mentality_vision+mentality_composure+movement_agility+
+                  mentality_penalties+skill_fk_accuracy+power_stamina+movement_reactions)/10L,
+    power    = (power_strength+power_jumping)/2L,
     goalkeeping = (goalkeeping_diving+goalkeeping_positioning+goalkeeping_reflexes+
-            goalkeeping_handling+goalkeeping_kicking)/5L
+                     goalkeeping_handling+goalkeeping_kicking)/5L
   )
 ## Class for the position of the player, either "fielder" or "goalkeeper"
 position <- clas <- dplyr::case_when(
@@ -123,56 +125,56 @@ rf_expl <- DALEX::explain(model = rf_mod,
                           y     = Y,
                           label = "Random Forest")
 
-## SHAP values & plot ----
+## SHAP values & plot -----
 ## Messi SHAP
 messi <- X[1, ]
 shap_messi <- predict_parts(explainer       = rf_expl,
                             new_observation = messi,
                             type            = "shap",
-                            B               = 25L)
-norm_messi <- shap_messi %>%
-  group_by(variable) %>%
-  summarize(median = median(contribution)) %>%
-  pull(median) %>%
-  matrix(ncol = 1) %>%
-  norm()
-shap_messi$contribution <- shap_messi$contribution / norm_messi
+                            B               = 25L) %>%
+  as.data.frame()
+B_norms_messi <- shap_messi %>% 
+  group_by(B) %>%
+  summarize(B_norm = norm(matrix(contribution))) %>%
+  as.data.frame()
+shap_messi <- left_join(shap_messi, B_norms_messi, by = "B") %>%
+  mutate(contribution = contribution / B_norm) ## Normalize by the norm within B of each player.
 box_df_messi <- my_parts_boxplot_df(shap_messi, "Messi (offense)")
 
 ## Virgil van Dijk SHAP
-dijk <- X[8, ]
+dijk      <- X[8, ]
 shap_dijk <- predict_parts(explainer       = rf_expl,
                            new_observation = dijk,
                            type            = "shap",
                            B               = 25L,
-                           order = .lvl_ord)
-norm_dijk <- shap_dijk %>%
-  group_by(variable) %>%
-  summarize(median = median(contribution)) %>%
-  pull(median) %>%
-  matrix(ncol = 1) %>%
-  norm()
-shap_dijk$contribution <- shap_dijk$contribution / norm_dijk
+                           order = .lvl_ord) %>%
+  as.data.frame()
+B_norms_dijk <- shap_dijk %>%
+  group_by(B) %>%
+  summarize(B_norm = norm(matrix(contribution))) %>%
+  as.data.frame()
+shap_dijk <- left_join(shap_dijk, B_norms_dijk, by = "B") %>%
+  mutate(contribution = contribution / B_norm) ## Normalize by the norm within B of each player.
 box_df_dijk <- my_parts_boxplot_df(shap_dijk, "van Dijk (defense)")
 
 ## Bind shap aggs:
-boxplot_df <- rbind(box_df_messi, box_df_dijk)
+boxplot_df          <- rbind(box_df_messi, box_df_dijk)
 boxplot_df$variable <- factor(boxplot_df$variable, levels = rev(.lvl_ord))
 
 ## B Distributions of the SHAPS
-dist_shap_messi <- my_parts_distribution(shap_messi, "Messi (offense)")
-dist_shap_dijk  <- my_parts_distribution(shap_dijk, "van Dijk (defense)")
-dist_df <- rbind(dist_shap_messi, dist_shap_dijk)
+dist_shap_messi  <- my_parts_distribution(shap_messi, "Messi (offense)")
+dist_shap_dijk   <- my_parts_distribution(shap_dijk, "van Dijk (defense)")
+dist_df          <- rbind(dist_shap_messi, dist_shap_dijk)
 dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
 
 (g_shap <- ggplot(boxplot_df) +
     # Connecting grey line
     geom_segment(aes(x=`Messi (offense)`, xend=`van Dijk (defense)`, y=variable, yend=variable),
                  alpha =.7, size = 2L, color = "grey", fill = NA,
-                 data = boxplot_df %>% select(player, variable, median) %>%
-                   tidyr::pivot_wider(names_from = "player", values_from = "median") %>%
+                 data = boxplot_df %>% select(player, variable, mean) %>%
+                   tidyr::pivot_wider(names_from = "player", values_from = "mean") %>%
                    mutate(sum = `Messi (offense)` + `van Dijk (defense)`)) +
-    geom_point(aes(x=median, y=variable, color=player, fill=player),
+    geom_point(aes(x=mean, y=variable, color=player, fill=player),
                alpha =.7, size = 5L) +
     ## Shap distributions
     geom_point(aes(x=contribution, y=variable, color=player, fill=player),
@@ -183,7 +185,8 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     scale_fill_brewer(palette = "Dark2") +
     labs(title="SHAP distribution",
          y = "", x = "Normalized SHAP values") +
-    theme(legend.position = "off"))
+    theme(legend.margin   = margin(0, 0, 0, 0),
+          legend.position = "bottom"))
 
 ## Breakdowns & plot ----
 ## Messi Breakdown
@@ -216,7 +219,7 @@ bd_df <- bd_df[!(bd_df$variable %in% c("intercept", "prediction")), ]
     labs(title = "Breakdown plot", color = "Players",
          y = "", x = "Normalized contribution to prediction") +
     theme(legend.margin   = margin(0, 0, 0, 0),
-          legend.position = "bottom",
+          legend.position = "off",
           axis.text.x     = element_blank(),
           axis.ticks.x    = element_blank())
 )
@@ -240,159 +243,9 @@ if(F){ ## With differing player wages
 ### Plot together
 require("cowplot")
 (cp <- cowplot::plot_grid(
-  g_shap, g_bd, ncol = 1, rel_heights = c(2, 2.2), labels = c("a)", "b)")))
+  g_bd, g_shap, ncol = 1, rel_heights = c(2, 2.3), labels = c("a)", "b)")))
 
 ## SAVE -----
 ggplot2::ggsave(
   "./figures/shap_distr_bd.png",
-  cp, device = "png", width = 6, height = 7, units = "in")
-
-
-# ch5_fig2_global_space -----
-{
-  require("plotly")
-  require("spinifex")
-  require("cheem")
-  layer_ls <- readRDS(
-    "../cheem/inst/shiny_apps/cheem_initial/data/preprocess_toy_classification.rds")
-  shap_obs <- 36L; comp_obs <- 23;
-  
-  ## Create ggplot
-  gg <- global_view(layer_ls, shap_obs, comp_obs,
-                    color = "cor_attr_proj.y", as_ggplot = TRUE)
-  
-  ## Save -----
-  ggplot2::ggsave(
-    "./figures_from_script/ch5_fig2_global_space.png",
-    plot = gg + theme(aspect.ratio = 1), device = "png",
-    width = 8, height = 4.8, units = "in")
-  
-  ## Save interactive html widget
-  ggp <- ggplotly(p, tooltip = "tooltip") %>%
-    config(displayModeBar = FALSE) %>% ## Remove html buttons
-    layout(dragmode = "select", showlegend = FALSE,
-           width = 640, height = 320) %>% ## Set drag left mouse
-    event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-    highlight(on = "plotly_selected", off = "plotly_deselect")
-  htmlwidgets::saveWidget(ggp, "./figures_from_script/ch5_fig2_global_space.html",
-                          selfcontained = TRUE)
-  
-# ch5_fig3_cheem_initial_bas -----
-  .df <- layer_ls$shap_df
-  bas <- .df[shap_obs, -ncol(.df)] %>%
-    as.matrix(nrow = 1L) %>% t() %>%
-    tourr::normalise()
-  mv <- 2L #spinifex::manip_var_of(bas)
-  .opts <- rownames(bas)
-  mv_nm <- .opts[mv]
-  
-  ?cheem::radial_cheem_ggtour()
-  ggt142 <- radial_cheem_ggtour(
-    layer_ls, bas, mv_nm,
-    shap_obs, comp_obs,
-    #do_add_pcp_segements = TRUE,
-    pcp_shape = c(142, 124), ## '|' plotly and gganimate respectively
-    angle = .2)
-  (anim <-
-      animate_plotly(ggt142) %>%
-      layout(dragmode = FALSE, showlegend = FALSE,
-             ## Animation doesn't seem to like width/height.
-      ) %>%
-      event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-      highlight(on = "plotly_selected", off = "plotly_deselect"))
-  
-  ## Save .html cheem tour, and with prim/comp obs swapped -----
-  htmlwidgets::saveWidget(
-    anim, "./figures_from_script/ch5_fig3_cheem_tour.html",
-    selfcontained = TRUE)
-  ### SWAPPING shap and comp obs
-  bas_swap <- .df[comp_obs, -ncol(.df)] %>%
-    as.matrix(nrow = 1L) %>% t() %>%
-    tourr::normalise()
-  ggt142_swapped <- radial_cheem_ggtour(
-  layer_ls, bas_swap, mv_nm,
-  primary_obs = comp_obs, comparison_obs = shap_obs,
-  #do_add_pcp_segements = TRUE,
-  pcp_shape = c(142, 124), ## '|' plotly and gganimate respectively
-  angle = .2) + ggtitle("Comparison point's perspective \n(swap primary & comparison obs)")
-(anim_swapped <-
-    animate_plotly(ggt142_swapped) %>% layout(dragmode = FALSE, showlegend = FALSE) %>% ## Set drag left mouse
-    event_register("plotly_selected") %>% ## Reflect "selected", on release of the mouse button.
-    highlight(on = "plotly_selected", off = "plotly_deselect"))
-  
-## Save widget?
-# htmlwidgets::saveWidget(
-#   anim_swapped,
-#   "./figures_from_script/ch5_fig3_cheem_tour_SWAPPED.html",
-#   selfcontained = TRUE)
-}
-
-## Manually make static frames -----
-{
-  array_dummy <- bas
-  attr(array_dummy, "manip_var") <- mv
-  manual_tour(array_dummy, mv)
-
-  ## Initial basis, with distribution
-  fr1_with <- THIS_manual_tour1d_func(
-    tour_array = array_dummy,
-    layer_ls,
-    shap_obs, comp_obs,
-    do_add_basis_distri = TRUE,
-    do_add_pcp_segments = TRUE,
-    pcp_shape = 124L, ## '|' plotly and gganimate respectively
-    angle = .2) +
-    theme(legend.position = "off") +
-    ggtitle(waiver(), subtitle = "Initial contribution")
-  ## Initial, with/out distribution
-  fr1_wo <- THIS_manual_tour1d_func(
-    tour_array = array_dummy,
-    layer_ls,
-    shap_obs, comp_obs,
-    do_add_basis_distri = FALSE,
-    do_add_pcp_segments = FALSE,
-    pcp_shape = 124L, ## '|' plotly and gganimate respectively
-    angle = .2) +
-    theme(legend.position = "off") +
-    ggtitle(waiver(), subtitle = "Initial contribution")
-  msp <- create_manip_space(bas, mv)
-  ## Full contribution
-  bas2 <- rotate_manip_space(msp, 0, -1.6)
-  attr(bas2, "manip_var") <- mv
-  (fr2 <- THIS_manual_tour1d_func(
-    tour_array = bas2,
-    layer_ls,
-    shap_obs, comp_obs,
-    FALSE, FALSE,
-    pcp_shape = 124L, ## '|' plotly and gganimate respectively
-    angle = .2) +
-      theme(legend.position = "off") +
-      ggtitle(waiver(), subtitle = "Full contribution"))
-  ## Zero contribution
-  bas3 <- rotate_manip_space(msp, 0, -.029)
-  attr(bas3, "manip_var") <- mv
-  (fr3 <- THIS_manual_tour1d_func(
-    tour_array = bas3,
-    layer_ls,
-    shap_obs, comp_obs,
-    FALSE, FALSE,
-    pcp_shape = 124L, ## '|' plotly and gganimate respectively
-    angle = .2) +
-      theme(legend.position = "off") +
-      ggtitle(waiver(), subtitle = "Zero contribution"))
-
-  require("patchwork")
-  pw <- (fr1_wo + fr2 + fr3)
-}
-
-## Save static frames -----
-## Frame 1 with distribution
-ggplot2::ggsave(
-  "./figures_from_script/ch5_fig3_cheem_initial_bas.png",
-  fr1_with, device = "png", width = 8, height = 4, units = "in")
-
-# ch5_fig4_cheem_endpts technically
-## tour end points without distribution
-ggplot2::ggsave(
-  "./figures_from_script/ch5_fig4_cheem_endpts.png",
-  pw, device = "png", width = 8, height = 4, units = "in")
+  cp, device = "png", width = 6.1, height = 7, units = "in")

@@ -18,7 +18,6 @@
   ames2018_ls   <- readRDS(paste0(fp, "preprocess_ames2018.rds"))
   chocolates_ls <- readRDS(paste0(fp, "preprocess_chocolates.rds"))
   
-
   .x_axis_title     <- "          x: PC1, y: PC2        x: PC1, y: PC2  x: predicted, y: observed"
   .x_axis_title_reg <- "          x: PC1, y: PC2             x: PC1, y: PC2     x: predicted, y: observed"
 }
@@ -28,17 +27,17 @@
   ## Data setup, spinifex::penguins
   names(penguins_ls)
   prim_obs <- 124L
-  comp_obs <- 86L
+  comp_obs <- 76L
   
   ### Global view and cheem tour stills
   .glob_view <- global_view(
     penguins_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
     theme(legend.position = "right") +
     labs(color = 'Predicted class', shape = 'Predicted class',
-         x = .x_axis_title) + 
+         x = .x_axis_title) +
     ggtitle("Global view")
   .bas <- basis_attr_df(penguins_ls$attr_df, prim_obs)
-  .mv  <- 1 ## seems better than the 3 from
+  .mv  <- 1 ## seems better than the 3 returned from
   ##manip_var_of_attr_df(penguins_ls$attr_df, prim_obs, comp_obs)
   ## Cheem tour for stills
   .ggt <- radial_cheem_tour(
@@ -47,8 +46,7 @@
     do_add_pcp_segments = FALSE,
     pcp_shape = 124, angle = 6) + theme(legend.position = "")
   .cheem_stills <- spinifex::filmstrip(.ggt, nrow = 1) +
-    ggtitle("Cheem tour, extrema contributions")# +
-    #theme(plot.title = element_text(hjust = 0.05))
+    ggtitle("Radial tour, select frames")
   .cp <- cowplot::plot_grid(
     .glob_view, .cheem_stills,
     labels = c("a)", "b)"),
@@ -59,7 +57,7 @@
 ggplot2::ggsave(
   "./figures/case_penguins.png",
   plot = .cp, device = "png",
-  width = 6, height = 5, units = "in")
+  width = 7, height = 6, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
@@ -102,7 +100,7 @@ ggplot2::ggsave(
     do_add_pcp_segments = FALSE,
     pcp_shape = 124, angle = 6) + theme(legend.position = "")
   .cheem_stills <- spinifex::filmstrip(.ggt, nrow = 1) +
-    ggtitle("Cheem tour, extrema contributions")
+    ggtitle("Radial tour, select frames")
   .cp <- cowplot::plot_grid(
     .glob_view, .cheem_stills,
     labels = c("a)", "b)"),
@@ -143,7 +141,7 @@ ggplot2::ggsave(
     labs(x = .x_axis_title_reg) +
     ggtitle("Global view")
   ## Without reaction and movement
-  .bas <- basis_attr_df(fifa_ls$attr_df, prim_obs)[-c(3,7),, drop=FALSE]
+  .bas <- basis_attr_df(fifa_ls$attr_df, prim_obs)[-c(3, 7),, drop=FALSE]
   .mv  <- 3 ## "offense, that is what is talked about in the paper.
   .ggt <- radial_cheem_tour(
     fifa_ls, basis = .bas, manip_var = .mv,
@@ -152,7 +150,7 @@ ggplot2::ggsave(
     pcp_shape = 124, angle = 6, inc_var_nms = colnames(fifa_ls$attr_df)[-c(3,7)]) +
     theme(legend.position = "")
   .cheem_stills <- spinifex::filmstrip(.ggt, nrow = 3) +
-    ggtitle("Cheem tour, extrema contributions")
+    ggtitle("Radial tour, select frames")
   .cp <- cowplot::plot_grid(
     .glob_view, .cheem_stills,
     labels = c("a)", "b)"),
@@ -162,7 +160,7 @@ ggplot2::ggsave(
 ggplot2::ggsave(
   "./figures/case_fifa.png",
   plot = .cp, device = "png",
-  width = 5.5, height = 8, units = "in")
+  width = 6, height = 8, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
@@ -204,17 +202,17 @@ ggplot2::ggsave(
     do_add_pcp_segments = FALSE,
     pcp_shape = 124, angle = 6) + theme(legend.position = "")
   .cheem_stills <- spinifex::filmstrip(.ggt, nrow = 3) +
-    ggtitle("Cheem tour, select frames")
+    ggtitle("Radial tour, select frames")
   .cp <- cowplot::plot_grid(
     .glob_view, .cheem_stills,
     labels = c("a)", "b)"),
-    ncol = 1, rel_heights = c(1, 2))
+    ncol = 1, rel_heights = c(1, 2.4))
 }
 ### Save
 ggplot2::ggsave(
   "./figures/case_ames2018.png",
   plot = .cp, device = "png",
-  width = 8, height = 8, units = "in")
+  width = 5, height = 8, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper

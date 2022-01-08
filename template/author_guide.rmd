@@ -1,0 +1,63 @@
+Following: https://www.jmlr.org/format/authors-guide.html
+
+# Authors' Guide: Instructions for Final Preparation
+
+## Journal of Machine Learning Research
+
+Congratulations on the acceptance of your paper into JMLR. Once a paper has been accepted for publication, you should follow the procedure outlined below. The final version of your manuscript is due to us within three months of the acceptance date. If you require more than three months, please request an extension from the editor.
+
+Because JMLR follows a low-cost, open access model, our production staff is all volunteer. Therefore, please follow the formatting instructions carefully, as this will save both your time and that of the production staff.
+
+Please take special note of this common list of formatting errors.
+
+Make sure that your article is formatted according the JMLR style. The JMLR style is described in Instructions for Formatting JMLR Articles. This page contains more information, including the official JMLR style file, and example papers. Please pay particular attention to the list of common formatting errors.
+
+Your paper should be prepared in LaTeX, using the official JMLR style file, which you should not modify. We must be able to compile your paper using pdflatex. In particular, this means that if you use PostScript figures, you must use eps files rather than ps files.
+
+Most likely, you will have done this already for the submission of your paper. However, you should go over the formatting rules and the checklist again carefully before submitting the camera ready copy. It is our experience that most authors break at least a dozen formatting rules. (Can you do better? :-)
+
+Authors are responsible for correctly formatting their article. If you wish we can recommend professionals who will do this for you for a fee.
+
+Make any final changes and have your article proofread. Because our production staff is all volunteer, we ourselves cannot copy edit your paper. Authors are notoriously bad proofreaders. Have the paper proofread by a skilled proofreader — NOT one of the authors.
+
+If you wish, create an online appendix. Online appendices can contain source code, data, even quicktime demonstrations — anything that that will make life easier (or more interesting) for your readers and researchers who follow in your footsteps.
+
+If there are online appendices containing source code, please sign the software release form (available in PDF format) and send it along with the Copyright form. The release form is intended to reduce the liability of JMLR.
+
+Create a file archive (zip or tar.gz is file) with your paper. This archive should contain the latex source, the .bib file, figures, and everything needed to compile your document. The archive should contain only one .tex file (please do not use \include or \input.) We process your paper via an automatic system, so please follow these rules:
+
+Your submission must be an archive that contains all of the tex files necessary to compile the paper. It must be compilable using pdflatex. We will not run any custom Makefiles.
+
+Your main tex file should be named after the paper id you were assigned during the reviewing process, e.g., if your paper had id 12-150, then your tex file should be called 12-150.tex. It is OK if your archive file contains files within a subdirectory (of any name). If you wish to include online-only supplementary material, please place the final pdf for this material in a directory of your archive called supplementary.
+
+The system will fail if it sees file types it does not recognize. The most common causes of this are .synctex.gz files.
+
+Your page numbers should start at 1, both in the \jmlrheading command and in your actual paper.
+
+You file should include an \editor{...} command that lists the action editor who has corresponded with you.
+
+Your \jmlrheading command should contain the correct year, volume number, publication dates, etc. You must fill in all of the information. The format for this is:
+
+   \jmlrheading{volume}{year}{pages}{dates when your paper submitted}{date published}{your paper id}{all authors full names}
+For example, suppose that you submitted your paper to the production system in April 2017. The current volume at that time was 18 (you can find the current volume on the front page of jmlr.org)
+
+       \jmlrheading{18}{2017}{1-36}{8/14; Revised 12/15}{4/17}{15-449}{John
+Smith, Jane Doe, and Frank Jones}
+Please use the current month and year as the publication date.
+
+If you never needed to submit a revision (i.e. you submitted one version that was accepted with no changes), then you should leave off the "Revised" date. These dates will be verified against the paper database, so it is important that they be correct.
+
+Our automated system does not run bibtex (this is similar to what arxiv.org does). Therefore if your paper uses bibtex, you should include the bbl file that is necessary to compile your final paper.
+The scripts specifically check whether the paper headings are correct (e.g., page numbers, \jmlrheading, \ShortHeadings, \editor, and so on). To speed processing of your paper, please give special attention to make sure that these are correct and follow the lines of the example file.
+
+In the past, we have spell checked all papers before publication, but we will no longer be doing this as part of the automated system. Fortunately, we are able to make available an aspell word list that we have been using for the past several years: https://github.com/JournalMLR/jmlr-aspell. This dictionary contains many technical terms that should make spell checking easier. Contributions are welcome; just create a pull request.
+
+Print out, fill in, and sign the Permission to Publish form (PDF). The form agreement grants a CC-by license to the public, which allows for publication in JMLR online by JMLR, Inc. and in a print-archive edition by Microtome Publishing. The copyright remains with the author.
+
+Upload your paper archive and the Permission to Publish form to the Production Editor of JMLR using the online web form. You should have received an email with the URLs of the automated system when your paper was accepted. If you have not received this email, please contact the production editor.
+
+The production staff will review your submission. Most times there will be a few minor typographical changes that we will need from you. We will prepare a pdf from the files that you send us, and send it to you for final approval for publication.
+
+After we receive the final version and release the article, we will post an announcement on the JMLR mailing list. The paper will also be stored at the JMLR distribution site and forwarded to ACM's computing repository (CORR) and the CiteSeer Index.
+
+Based on the JAIR Author's Guide, gratefully reproduced by permission of JAIR. This file is available at http://www.jmlr.org/format/authors-guide.html. Last modified by Charles Sutton, 22 December 2014.

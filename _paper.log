@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.2)  8 JAN 2022 18:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.2)  10 JAN 2022 22:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -129,9 +129,16 @@ LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
 (Font)                  OT1/cmr/bx/it --> OT1/lmr/bx/it on input line 37.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 (Font)                  OT1/cmtt/m/n --> OT1/lmtt/m/n on input line 38.
-) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.st
+)
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifxetex.st
 y
+Package: ifxetex 2019/10/25 v0.7 ifxetex legacy package. Use iftex instead.
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/ifluatex.s
+ty
+Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 ) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmr on input line 11
@@ -390,7 +397,7 @@ x.def
 File: bkm-pdftex.def 2020-11-06 v1.29 bookmark driver for pdfTeX (HO)
 \BKM@id=\count282
 ))
-Package hyperref Info: Option `colorlinks' set `true' on input line 51.
+Package hyperref Info: Option `colorlinks' set `true' on input line 47.
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/geometry/geometry.
 sty
@@ -517,10 +524,6 @@ Package graphics Info: Driver file: pdftex.def on input line 107.
 \Gin@req@height=\dimen184
 \Gin@req@width=\dimen185
 )
-\cslhangindent=\skip64
-\csllabelwidth=\skip65
-\cslentryspacingunit=\skip66
-
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/setspace/setspace.
 sty
 Package: setspace 2011/12/19 v6.7a set line spacing
@@ -528,9 +531,9 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.
 sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
-\multirow@colwidth=\skip67
+\multirow@colwidth=\skip64
 \multirow@cntb=\count301
-\multirow@dima=\skip68
+\multirow@dima=\skip65
 \bigstrutjot=\dimen186
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.st
@@ -553,7 +556,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
 \everycr=\toks31
-\minrowclearance=\skip69
+\minrowclearance=\skip66
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscap
 e.sty
@@ -596,7 +599,7 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@arstrutbox=\box67
 \tabu@hleads=\box68
 \tabu@vleads=\box69
-\tabu@cellskip=\skip70
+\tabu@cellskip=\skip67
 )
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/thr
 eeparttable.sty
@@ -615,11 +618,11 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 ces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip71
+\TPTL@width=\skip68
 ) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box71
 \UL@hyphenbox=\box72
-\UL@skip=\skip72
+\UL@skip=\skip69
 \UL@hook=\toks34
 \UL@height=\dimen256
 \UL@pe=\count311
@@ -635,6 +638,9 @@ Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \c@nlinenum=\count312
 \TeXr@lab=\toks35
 )
+\cslhangindent=\skip70
+\csllabelwidth=\skip71
+
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backen
 d-pdftex.def
 File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
@@ -643,30 +649,30 @@ File: l3backend-pdftex.def 2021-12-14 L3 backend support: PDF output (pdfTeX)
 ) (./_paper.aux)
 \openout1 = `_paper.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 164.
-LaTeX Font Info:    ... okay on input line 164.
-LaTeX Info: Redefining \microtypecontext on input line 164.
-Package microtype Info: Applying patch `item' on input line 164.
-Package microtype Info: Applying patch `toc' on input line 164.
-Package microtype Info: Applying patch `eqnum' on input line 164.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 161.
+LaTeX Font Info:    ... okay on input line 161.
+LaTeX Info: Redefining \microtypecontext on input line 161.
+Package microtype Info: Applying patch `item' on input line 161.
+Package microtype Info: Applying patch `toc' on input line 161.
+Package microtype Info: Applying patch `eqnum' on input line 161.
 
-Package microtype Warning: Unable to apply patch `footnote' on input line 164.
+Package microtype Warning: Unable to apply patch `footnote' on input line 161.
 
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
@@ -674,7 +680,7 @@ Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 164.
+LaTeX Info: Redefining \showhyphens on input line 161.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -695,7 +701,7 @@ df-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring ON on input line 164.
+Package hyperref Info: Link coloring ON on input line 161.
 
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.s
 ty
@@ -711,9 +717,9 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count314
 )
-LaTeX Info: Redefining \ref on input line 164.
-LaTeX Info: Redefining \pageref on input line 164.
-LaTeX Info: Redefining \nameref on input line 164.
+LaTeX Info: Redefining \ref on input line 161.
+LaTeX Info: Redefining \pageref on input line 161.
+LaTeX Info: Redefining \nameref on input line 161.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -749,32 +755,32 @@ LaTeX Info: Redefining \nameref on input line 164.
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-66.
+63.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-66.
+63.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-166.
+163.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-166.
+163.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 166.
+(Font)              <12> on input line 163.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 166.
+(Font)              <8> on input line 163.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 166.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 166
+(Font)              <6> on input line 163.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 163
 .
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -783,7 +789,7 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 fg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 166
+LaTeX Font Info:    Trying to load font information for U+msb on input line 163
 .
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -796,135 +802,143 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 {c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}]
 
-LaTeX Warning: Reference `sec:tour' on page 2 undefined on input line 189.
+LaTeX Warning: Reference `sec:tour' on page 2 undefined on input line 186.
 
 [2]
 <./figures/shap_distr_bd.png, id=29, 433.62pt x 505.89pt>
 File: ./figures/shap_distr_bd.png Graphic file (type png)
 <use ./figures/shap_distr_bd.png>
-Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 206.
+Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 203.
 (pdftex.def)             Requested size: 281.8695pt x 328.84775pt.
 [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.214 
+l.211 
        <./figures/shap_distr_bd.png>]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 234.
+(Font)              <10> on input line 231.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 234.
+(Font)              <7> on input line 231.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 234.
+(Font)              <5> on input line 231.
 [4]
 <./figures/app_classification.png, id=53, 819.66225pt x 908.79526pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
 Package pdftex.def Info: ./figures/app_classification.png  used on input line 2
-56.
+53.
 (pdftex.def)             Requested size: 469.75127pt x 520.8337pt.
 <./figures/app_regression.png, id=54, 781.7205pt x 807.61725pt>
 File: ./figures/app_regression.png Graphic file (type png)
 <use ./figures/app_regression.png>
-Package pdftex.def Info: ./figures/app_regression.png  used on input line 270.
+Package pdftex.def Info: ./figures/app_regression.png  used on input line 267.
 (pdftex.def)             Requested size: 469.76353pt x 485.3258pt.
 <./figures/app_interactions.png, id=55, 813.63976pt x 476.982pt>
 File: ./figures/app_interactions.png Graphic file (type png)
 <use ./figures/app_interactions.png>
-Package pdftex.def Info: ./figures/app_interactions.png  used on input line 286
+Package pdftex.def Info: ./figures/app_interactions.png  used on input line 283
 .
 (pdftex.def)             Requested size: 469.75116pt x 275.38335pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 3
-02.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
+99.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [5] [6pdfTeX warning (ext4): destination with the same identifier (name{figur
 e.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.303     \item \textbf
+l.300     \item \textbf
                        {Model and explanation:} any model can be used with t...
  <./figures/app_classification.PNG>] [7pdfTeX warning (ext4): destination with 
 the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.303     \item \textbf
+l.300     \item \textbf
                        {Model and explanation:} any model can be used with t...
  <./figures/app_regression.PNG>] [8pdfTeX warning (ext4): destination with the 
 same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.313 
+l.310 
        <./figures/app_interactions.PNG>]
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
-20.
+17.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 321.
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 318.
 
 LaTeX Font Warning: Font shape `T1/lmtt/bx/it' in size <10> not available
-(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 321.
+(Font)              Font shape `T1/lmtt/b/sl' tried instead on input line 318.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-332.
+329.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-<./figures/case_penguins.png, id=91, 433.62pt x 361.35pt>
+<./figures/case_penguins.png, id=91, 325.215pt x 505.89pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 352.
-(pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 349.
+(pdftex.def)             Requested size: 325.21916pt x 505.89645pt.
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure
 .5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.371 
+l.368 
        <./figures/case_penguins.png>]
-<./figures/case_chocolates.png, id=117, 433.62pt x 361.35pt>
+<./figures/case_chocolates.png, id=117, 361.35pt x 505.89pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 376.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 373.
 
-(pdftex.def)             Requested size: 433.61894pt x 361.34912pt.
-[11pdfTeX warning (ext4): destination with the same identifier (name{figure.6})
- has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.389 
-       <./figures/case_chocolates.png>]
-<./figures/case_fifa.png, id=130, 397.485pt x 578.16pt>
+(pdftex.def)             Requested size: 361.35463pt x 505.89645pt.
+<./figures/case_fifa.png, id=122, 433.62pt x 578.16pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 394.
-(pdftex.def)             Requested size: 397.50221pt x 578.18504pt.
-<./figures/case_ames2018.png, id=134, 578.16pt x 578.16pt>
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 391.
+(pdftex.def)             Requested size: 433.63878pt x 578.18504pt.
+
+LaTeX Warning: Float too large for page by 12.25504pt on input line 396.
+
+<./figures/case_ames2018.png, id=126, 433.62pt x 578.16pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 412.
-(pdftex.def)             Requested size: 469.75385pt x 469.75385pt.
-[12] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.7}) has been already used, duplicate ignored
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 409.
+(pdftex.def)             Requested size: 433.63878pt x 578.18504pt.
+
+LaTeX Warning: Float too large for page by 12.25504pt on input line 414.
+
+[11] [12pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.443 
-       <./figures/case_fifa.png>] [14pdfTeX warning (ext4): destination with th
-e same identifier (name{figure.8}) has been already used, duplicate ignored
+l.423 W
+       e have illustrated this method on random forest models using the tree...
+ <./figures/case_chocolates.png>] [13pdfTeX warning (ext4): destination with th
+e same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.443 
-       <./figures/case_ames2018.png>] [15] [16] (./_paper.aux)
+l.423 W
+       e have illustrated this method on random forest models using the tree...
+ <./figures/case_fifa.png>] [14pdfTeX warning (ext4): destination with the same
+ identifier (name{figure.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.423 W
+       e have illustrated this method on random forest models using the tree...
+ <./figures/case_ames2018.png>] [15] [16] [17] (./_paper.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 16295 strings out of 480293
- 265880 string characters out of 5894822
- 622368 words of memory out of 5000000
- 33539 multiletter control sequences out of 15000+600000
+ 15908 strings out of 480293
+ 260205 string characters out of 5894822
+ 608928 words of memory out of 5000000
+ 33145 multiletter control sequences out of 15000+600000
  476695 words of font info for 182 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,6n,77p,1355b,414s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -947,10 +961,10 @@ oaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppD
 ata/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyr
 i/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users
 /spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (16 pages, 2860232 bytes).
+Output written on _paper.pdf (17 pages, 2599168 bytes).
 PDF statistics:
- 402 PDF objects out of 1000 (max. 8388607)
- 331 compressed objects within 4 object streams
- 109 named destinations out of 1000 (max. 500000)
+ 407 PDF objects out of 1000 (max. 8388607)
+ 335 compressed objects within 4 object streams
+ 111 named destinations out of 1000 (max. 500000)
  39113 words of extra memory for PDF output out of 42996 (max. 10000000)
 

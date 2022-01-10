@@ -1,18 +1,14 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
 \documentclass[
 ]{article}
-\title{Exploring Local Explanations of Non-linear Models Using Animated Linear Projections}
-\author{}
-\date{\vspace{-2.5em}}
-
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{iftex}
-\ifPDFTeX
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -44,10 +40,10 @@
   pdftitle={Exploring Local Explanations of Non-linear Models Using Animated Linear Projections},
   pdfkeywords={R, XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, radial tour},
   colorlinks=true,
-  linkcolor={red},
-  filecolor={Maroon},
-  citecolor={Blue},
-  urlcolor={blue},
+  linkcolor=red,
+  filecolor=Maroon,
+  citecolor=Blue,
+  urlcolor=blue,
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
@@ -118,29 +114,6 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newlength{\cslentryspacingunit} % times entry-spacing
-\setlength{\cslentryspacingunit}{\parskip}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1
-  \let\oldpar\par
-  \def\par{\hangindent=\cslhangindent\oldpar}
-  \fi
-  % set entry spacing
-  \setlength{\parskip}{#2\cslentryspacingunit}
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \usepackage{setspace}
 \usepackage{hyperref}
 \usepackage{booktabs}
@@ -157,9 +130,33 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\ifLuaTeX
+\ifluatex
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
+  % set entry spacing
+  \ifnum #2 > 0
+  \setlength{\parskip}{#2\baselineskip}
+  \fi
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\title{Exploring Local Explanations of Non-linear Models Using Animated Linear Projections}
+\author{}
+\date{\vspace{-2.5em}}
 
 \begin{document}
 \maketitle
@@ -210,7 +207,7 @@ For our application, we use \emph{tree SHAP}, a variant of SHAP enjoys a lower c
 \caption{Illustration of the use of SHAP values for a random forest model for salaries of FIFA 2020 players based on nine predictors corresponding to different skills. A star offensive and densive player, Messi and a defensive player are compared, L. Messi and V van Dijk respectively. Plot a) is the break-down plot showing one additive variable-attributution. These attributions are sensitive to the order of the variables. Plot b) shows the distribution of attribution for each variable across 25 such permutation of the order of predictors, with the mean displayed as a dot, for each players. Offense and movement are important for Messi but not van Dijk, and conversely defense and power are important for van Dijk but not Messi.}\label{fig:shapdistrbd}
 \end{figure}
 
-Following the use case \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021), we use FIFA data to illustrate the use of SHAP. Consider soccer data from the FIFA 2020 season (Leone 2020). There are 5000 observations of 9 skill measures (after aggregating highly correlated variables). A random forest model is fit regressing log wages {[}2020 Euros{]}, from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \ref{fig:shapdistrbd}. We expect to see a difference in the attribution of the variable importance across the two positions of the players, which would be interpreted as how the player's salary depends on this combination of skill sets. Plot (b) is a modified breakdown plot (Gosiewska and Biecek 2019) where the order of variables is fixed, so the two observations can be more easily compared.
+Following the use case \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021), we use FIFA data to illustrate the use of SHAP. Consider soccer data from the FIFA 2020 season (Leone 2020). There are 5000 observations of 9 skill measures (after aggregating highly correlated variables). A random forest model is fit regressing wages {[}2020 Euros{]}, from the skill measures. We then extract the SHAP values of a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \ref{fig:shapdistrbd}. We expect to see a difference in the attribution of the variable importance across the two positions of the players, which would be interpreted as how the player's salary depends on this combination of skill sets. Plot (b) is a modified breakdown plot (Gosiewska and Biecek 2019) where the order of variables is fixed, so the two observations can be more easily compared.
 
 In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their observations. In this instance, two players with different positions receive different profiles of variable importance to explain the prediction of their wages.
 
@@ -233,7 +230,7 @@ To explore the local explanations, an ensemble of plots (Unwin and Valero-Mora 2
 
 The global view provides the context of all observations and facilitates the exploration of the separability of the data- and attribution-spaces. Both of these spaces are of dimension \(n\times p\), where \(n\) is the number of observations and \(p\) is the number of predictors. The attribution space corresponds to the local explanations for each observation, which will have \(p\) values for each observation.
 
-A visualisation of these spaces is provided by the first two principal components of their respective spaces. In addition, a plot observed by predicted response is also provided. In both PCA plots the orientation and magnitude of the variables are inscribed on a unit circle, similar to a biplot (XXX REF). A single 2D projection will not encompass all of the structure of higher-dimensional space, but it is generally a useful visual summary. For classification tasks, misclassified observations are circled in red if applicable. Linked brushing between the plots is provided and a tabular display of selected points helps to facilitate exploration of the spaces and the model.
+A visualisation of these spaces is provided by the first two principal components of their respective spaces. In addition, a plot observed by predicted response is also provided. In both PCA plots the orientation and magnitude of the variables are inscribed on a unit circle, similar to a biplot (Gabriel 1971). A single 2D projection will not encompass all of the structure of higher-dimensional space, but it is generally a useful visual summary. For classification tasks, misclassified observations are circled in red if applicable. Linked brushing between the plots is provided and a tabular display of selected points helps to facilitate exploration of the spaces and the model.
 
 While the comparison of these spaces is interesting, a main purpose of the global view is to enable the selection of observations, from which to explore the local explanations.
 
@@ -299,9 +296,9 @@ It is vital to mitigate the render time of visuals, especially when users may wa
 
 
 \begin{itemize}
-    \item \textbf{Data:} predictors are unscaled complete numerical matrix; while the response variable is occasionally log scaled for a more Gaussian distribution. Most models and local explanations will be scale invariant.
+    \item \textbf{Data:} predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale invariant.
     \item \textbf{Model and explanation:} any model can be used with this method. Currently, we apply random forest models via the package \textbf{randomForest} [Liaw and Wiener (2002)], compatibility tree SHAP. We use modest hyperparameters, namely: 125 trees, number variables randomly sampled at each split, mtry = $\sqrt{p}$ or $p/3$ for classification and regression, and minimum size of terminal nodes $max(1, n/500)$ or $max(5, n/500)$ for classification and regression. Tree SHAP is calculated for \emph{each} observation using the package \textbf{treeshap} Kominsarczyk et al. (2021). This implementation aggregates over exhaustively over the attribution of all trees and we opt to not to fit interactions of features. 
-    \item \textbf{Cheem view:} after the model and full explanation space are calculated we scale each feature by the standard deviation away from the mean to achieve a common support for visuals. Statistics are calculated on the scaled spaces. Interactive tabular display reports the original values.
+    \item \textbf{Cheem view:} after the model and full explanation space are calculated we scale each feature by standard deviations away from the mean to achieve a common support for visuals. Statistics for mapping to color are calculated on the scaled spaces. Interactive tabular display reports the original values.
 \end{itemize}
 
 The time to preprocess the data will vary significantly with the model and local explanation. For reference, the FIFA data, 5000 observations of nine explanatory variables, took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each observation took 270 seconds combined. PCA and statistics of the variables and attributions took 2.8 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that the bulk of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. With its reduced computational complexity, this makes tree SHAP a good candidate to start with. Alternatively, the package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes, which are attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.
@@ -353,7 +350,7 @@ The Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst, Hill, and Go
 
 }
 
-\caption{Species classification of Palmer penguin data. We select a chinstrap penguin that is mislabeled as an adelie. By varying the contribution to bill length, we observe the explanation does not hold when bill length has a significant contribution. The .mp4 animation of this tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4}{shorturl.at/hFHNS}}\label{fig:casepenguins}
+\caption{Species classification of Palmer penguin data. We select a adelie penguin that is mislabeled as an chinstrap. Starting from the attribution projection we varying the contribution to \texttt{bill\ length}. This explanation is not supported sense by the time there is moderate contribution. The current basis is fairly close to the regularly attribution to other chinstrap penguins aside from the sign on flipper length being flipped. It feels odd that SHAP has identified a profile where chinstrap and adelie penguins are hard to distinguish when there are separating orientations that should be found within 125 trees. The .mp4 animation of this tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4}{shorturl.at/hFHNS}}\label{fig:casepenguins}
 \end{figure}
 
 Figure \ref{fig:casepenguins} shows plots from the cheem viewer for exploring the random forest model on the penguins data. Plot (a) shows the global view, and plot (b) shows several plots generated with the radial tour.
@@ -365,9 +362,9 @@ The radial tour starts from the attribution projection of the misclassified obse
 varies the contribution of bill length (b\_l) as this variable differs most from the contribution of the comparison observation. Downplaying the contribution of bill length is crucial to the linear explanation of this observation being misclassified.
 
 \hypertarget{chocolates-milkdark-chocolate-classification}{%
-\subsection{2) Chocolates, milk/dark chocolate classification}\label{chocolates-milkdark-chocolate-classification}}
+\subsection{Chocolates, milk/dark chocolate classification}\label{chocolates-milkdark-chocolate-classification}}
 
-The chocolates dataset consists of 88 observations of 10 nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. We can see if a manufacturer accurately portrays the chocolate with this data. We are curious to see if chocolates that nutritionally look like milk chocolates are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We selected a chocolate labeled dark, through predicted to be milk chocolate compared with a chocolate labeled 85\% cocoa.
+The chocolates dataset consists of 88 observations of ten nutritional measurements from their labels. Each of which was labeled as being either milk or dark chocolates. We can see if a manufacturer accurately portrays the chocolate with this data. We are curious to see if chocolates that nutritionally look like milk chocolates are labeled as dark chocolates, which may hold a higher market value. We should note that not all chocolates consist wholly of chocolate. The addition of other ingredients will decrease the predictive power of the model nutritional explanatory variable. A random forest model is fit classifying the type of chocolate. We selected a chocolate labeled dark, through predicted to be milk chocolate compared with a chocolate labeled 85\% cocoa.
 
 
 
@@ -377,15 +374,15 @@ The chocolates dataset consists of 88 observations of 10 nutritional measurement
 
 }
 
-\caption{Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate in light of the values on the nutritional label. We vary the contribution of calories from fat. Animated tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4}{shorturl.at/dBE28}.}\label{fig:casechocolates}
+\caption{Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate from the values on the nutritional label. The attribution projection already looks more like a dark chocolate than milk. We remove a 4 variables with the lowest contribution for the selected instance and vary the contribution of \texttt{Sugar}. The misclassification of two instances seems improbable when sugar is near max contribution. Animated tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4}{shorturl.at/dBE28}.}\label{fig:casechocolates}
 \end{figure}
 
-Figure \ref{fig:casechocolates} similarly shows that attribution-space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. Calories from fat is the variable with the largest difference in treeshap attribution between these points. In this case, it feels strange to call the selected observation a misclassification of the model. There are plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are. This feels more like a measurement theory-related problem. In this case, the candy is being sold as dark chocolate, while nutritional value more closely resembles milk chocolates.
+Figure \ref{fig:casechocolates} similarly shows that attribution-space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. We look at one extreme instance and vary the contribution of \texttt{sugar}. We see notice 2 instances that have clearly well within the milk chocolate dispite being observed as dark chocolate on their product label. While conjector, there are plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are. This feels related a measurement theory problem.
 
 \hypertarget{fifa-wage-regression}{%
-\subsection{3) FIFA, wage regression}\label{fifa-wage-regression}}
+\subsection{FIFA, wage regression}\label{fifa-wage-regression}}
 
-The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress the log wages {[}2020 euros{]} given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \ref{fig:shapdistrbd}.
+The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurements of soccer/football players and wage information. After aggregation of the skill measurements, we regress player wages {[}2020 euros{]} given just the skill aggregates. The model was fit from 5000 observations of the nine skill aggregates before being thinned to 500 players to mitigate occlusion and render time. We compare a leading offensive fielder (L. Messi) with that of a top defensive fielder (V. van Dijk), the same observations were used in figure \ref{fig:shapdistrbd}.
 
 
 
@@ -395,13 +392,13 @@ The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurem
 
 }
 
-\caption{FIFA 2020, regressing log wages {[}2020 Euros{]} from aggregations of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). The animate radial tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4}{shorturl.at/lCK26}}\label{fig:casefifa}
+\caption{FIFA 2020 data, a random forest model regresses wages {[}2020 Euros{]} from nine aggregated of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). We remove three variables with low attribution from both players. The attribution projection starts with selected instance on the right. We vary the contribution from \texttt{defense}, the star offensive player is not distinguished in the horizontal direction. At this point defensive players have been rotated to the highest horizonatal value. The animate radial tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4}{shorturl.at/lCK26}}\label{fig:casefifa}
 \end{figure}
 
-With figure \ref{fig:casefifa}, we will test the premise of the local explanation. If we remove reaction and movement skills from the basis, offense skills are almost singularly important for explaining the offensive player. We vary the contribution of offensive skills. Offensive skills are removed in the tour (panel b, frame 3), and Messi is no longer separated from the group. We also notice that accuracy has rotated into the frame, maintaining some separability.
+With figure \ref{fig:casefifa}, we will test the premise of the local explanation. While \texttt{offense} and \texttt{reaction} skills both crutial to the explaintion of a star offensive player. We increase the contribution of denfensive skills and Messi is no longer separated from the group while van Dijk and other defensive players are better explained in this case.
 
 \hypertarget{ames-housing-2018-sales-price-regression}{%
-\subsection{4) Ames housing 2018, sales price regression}\label{ames-housing-2018-sales-price-regression}}
+\subsection{Ames housing 2018, sales price regression}\label{ames-housing-2018-sales-price-regression}}
 
 Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales across nine variables. Using interaction from the global view, we select a house with an extreme negative residual and an accurate observation close to it in the data.
 
@@ -413,7 +410,7 @@ Ames 2018, housing data was subset to North Ames (the neighborhood with the most
 
 }
 
-\caption{Ames housing 2018 regressing log sales price {[}2018 USD{]}. Because the SHAP values are relatively well distributed across the variables, there is a lot of redundant information to explain the gap between select observations. This case may not be ideal for the cheem methodology, though we did find a near singular frame in the manual tour not, something we came looking for, but certainly, an exciting feature to find. The corresponding animation is at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4}{shorturl.at/oqyDU}}\label{fig:caseames}
+\caption{Ames housing 2018 regressing sales price {[}2018 USD{]}. The primary observation is a house that a large \texttt{lot\ area} (\texttt{LtA}), but small \texttt{living\ area} (\texttt{LvA}). The comparison instance is in the opposite; a large house on a relatively small lot. Similar to the soccer players, these house sale have diverging attribution to better predict their sales prices. Varying the contribution \texttt{living\ area} the separation between these house sales crosses when there is a low contribution which is so important to explaining their prediction though in differet ways. The corresponding animation is at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4}{shorturl.at/oqyDU}}\label{fig:caseames}
 \end{figure}
 
 Figure \ref{fig:caseames} shows the global view and extrema of the tour. The horizontal distance in the tour did not show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can point toward others with meaningful data variation.
@@ -438,133 +435,136 @@ The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Wh
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\vadjust pre{\hypertarget{ref-arrieta_explainable_2020}{}}%
+\leavevmode\hypertarget{ref-arrieta_explainable_2020}{}%
 Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser, Adrien Bennetot, Siham Tabik, Alberto Barbado, Salvador García, Sergio Gil-López, Daniel Molina, and Richard Benjamins. 2020. {``Explainable {Artificial} {Intelligence} ({XAI}): {Concepts}, Taxonomies, Opportunities and Challenges Toward Responsible {AI}.''} \emph{Information Fusion} 58: 82--115.
 
-\leavevmode\vadjust pre{\hypertarget{ref-asimov_grand_1985}{}}%
+\leavevmode\hypertarget{ref-asimov_grand_1985}{}%
 Asimov, Daniel. 1985. {``The {Grand} {Tour}: A {Tool} for {Viewing} {Multidimensional} {Data}.''} \emph{SIAM Journal on Scientific and Statistical Computing} 6 (1): 128--43. https://doi.org/\url{https://doi.org/10.1137/0906011}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-biecek_dalex_2018}{}}%
+\leavevmode\hypertarget{ref-biecek_dalex_2018}{}%
 Biecek, Przemyslaw. 2018. {``{DALEX}: Explainers for Complex Predictive Models in {R}.''} \emph{The Journal of Machine Learning Research} 19 (1): 3245--49.
 
-\leavevmode\vadjust pre{\hypertarget{ref-biecek_ceterisparibus_2020}{}}%
+\leavevmode\hypertarget{ref-biecek_ceterisparibus_2020}{}%
 ---------. 2020. \emph{{ceterisParibus}: {Ceteris} {Paribus} {Profiles}}. \url{https://CRAN.R-project.org/package=ceterisParibus}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-biecek_explanatory_2021}{}}%
+\leavevmode\hypertarget{ref-biecek_explanatory_2021}{}%
 Biecek, Przemyslaw, and Tomasz Burzykowski. 2021. \emph{Explanatory {Model} {Analysis}: {Explore}, {Explain}, and {Examine} {Predictive} {Models}}. CRC Press.
 
-\leavevmode\vadjust pre{\hypertarget{ref-breiman_statistical_2001}{}}%
+\leavevmode\hypertarget{ref-breiman_statistical_2001}{}%
 Breiman, Leo. 2001. {``Statistical Modeling: {The} Two Cultures (with Comments and a Rejoinder by the Author).''} \emph{Statistical Science} 16 (3): 199--231.
 
-\leavevmode\vadjust pre{\hypertarget{ref-buja_grand_1986}{}}%
+\leavevmode\hypertarget{ref-buja_grand_1986}{}%
 Buja, Andreas, and Daniel Asimov. 1986. {``Grand {Tour} {Methods}: {An} {Outline}.''} In \emph{Proceedings of the {Seventeenth} {Symposium} on the {Interface} of {Computer} {Sciences} and {Statistics} on {Computer} {Science} and {Statistics}}, 63--67. New York, NY, USA: Elsevier North-Holland, Inc. \url{http://dl.acm.org/citation.cfm?id=26036.26046}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-chang_shiny_2021}{}}%
+\leavevmode\hypertarget{ref-chang_shiny_2021}{}%
 Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. \emph{Shiny: Web Application Framework for r}. \url{https://CRAN.R-project.org/package=shiny}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cook_manual_1997}{}}%
+\leavevmode\hypertarget{ref-cook_manual_1997}{}%
 Cook, Dianne, and Andreas Buja. 1997. {``Manual {Controls} for {High}-{Dimensional} {Data} {Projections}.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-cook_grand_2008}{}}%
+\leavevmode\hypertarget{ref-cook_grand_2008}{}%
 Cook, Dianne, Andreas Buja, Eun-Kyung Lee, and Hadley Wickham. 2008. {``Grand {Tours}, {Projection} {Pursuit} {Guided} {Tours}, and {Manual} {Controls}.''} In \emph{Handbook of {Data} {Visualization}}, 295--314. Berlin, Heidelberg: Springer Berlin Heidelberg. \url{https://doi.org/10.1007/978-3-540-33037-0_13}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-da_silva_projection_2021}{}}%
+\leavevmode\hypertarget{ref-da_silva_projection_2021}{}%
 da Silva, Natalia, Dianne Cook, and Eun-Kyung Lee. 2021. {``A {Projection} {Pursuit} {Forest} {Algorithm} for {Supervised} {Classification}.''} \emph{Journal of Computational and Graphical Statistics}, 1--21.
 
-\leavevmode\vadjust pre{\hypertarget{ref-dastin_amazon_2018}{}}%
+\leavevmode\hypertarget{ref-dastin_amazon_2018}{}%
 Dastin, Jeffrey. 2018. {``Amazon Scraps Secret {AI} Recruiting Tool That Showed Bias Against Women.''} \emph{Reuters}, October. \url{https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-diaz_addressing_2018}{}}%
+\leavevmode\hypertarget{ref-diaz_addressing_2018}{}%
 Díaz, Mark, Isaac Johnson, Amanda Lazar, Anne Marie Piper, and Darren Gergle. 2018. {``Addressing Age-Related Bias in Sentiment Analysis.''} In \emph{Proceedings of the 2018 Chi Conference on Human Factors in Computing Systems}, 1--14.
 
-\leavevmode\vadjust pre{\hypertarget{ref-duffy_apple_2019}{}}%
+\leavevmode\hypertarget{ref-duffy_apple_2019}{}%
 Duffy, Claire. 2019. {``Apple Co-Founder {Steve} {Wozniak} Says {Apple} {Card} Discriminated Against His Wife.''} \emph{CNN}, November. \url{https://www.cnn.com/2019/11/10/business/goldman-sachs-apple-card-discrimination/index.html}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-gorman_ecological_2014}{}}%
+\leavevmode\hypertarget{ref-gabriel_biplot_1971}{}%
+Gabriel, Karl Ruben. 1971. {``The Biplot Graphic Display of Matrices with Application to Principal Component Analysis.''} \emph{Biometrika} 58 (3): 453--67.
+
+\leavevmode\hypertarget{ref-gorman_ecological_2014}{}%
 Gorman, Kristen B., Tony D. Williams, and William R. Fraser. 2014. {``Ecological Sexual Dimorphism and Environmental Variability Within a Community of {Antarctic} Penguins (Genus {Pygoscelis}).''} \emph{PloS One} 9 (3): e90081.
 
-\leavevmode\vadjust pre{\hypertarget{ref-gosiewska_ibreakdown_2019}{}}%
+\leavevmode\hypertarget{ref-gosiewska_ibreakdown_2019}{}%
 Gosiewska, Alicja, and Przemyslaw Biecek. 2019. {``{IBreakDown}: {Uncertainty} of Model Explanations for Non-Additive Predictive Models.''} \emph{arXiv Preprint arXiv:1903.11420}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-greenwell_fastshap_2020}{}}%
+\leavevmode\hypertarget{ref-greenwell_fastshap_2020}{}%
 Greenwell, Brandon. 2020. \emph{Fastshap: {Fast} {Approximate} {Shapley} {Values}}. \url{https://CRAN.R-project.org/package=fastshap}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-horst_palmerpenguins_2020}{}}%
+\leavevmode\hypertarget{ref-horst_palmerpenguins_2020}{}%
 Horst, Allison Marie, Alison Presmanes Hill, and Kristen B. Gorman. 2020. {``Palmerpenguins: {Palmer} {Archipelago} ({Antarctica}) Penguin Data.''} \url{https://allisonhorst.github.io/palmerpenguins/}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-karwowski_international_2006}{}}%
+\leavevmode\hypertarget{ref-karwowski_international_2006}{}%
 Karwowski, Waldemar. 2006. \emph{International {Encyclopedia} of {Ergonomics} and {Human} {Factors}, -3 {Volume} {Set}}. CRC Press.
 
-\leavevmode\vadjust pre{\hypertarget{ref-kodiyan_overview_2019}{}}%
+\leavevmode\hypertarget{ref-kodiyan_overview_2019}{}%
 Kodiyan, Akhil Alfons. 2019. {``An Overview of Ethical Issues in Using {AI} Systems in Hiring with a Case Study of {Amazon}'s {AI} Based Hiring Tool.''} \emph{Researchgate Preprint}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-kominsarczyk_treeshap_2021}{}}%
+\leavevmode\hypertarget{ref-kominsarczyk_treeshap_2021}{}%
 Kominsarczyk, Konrad, Pawel Kozminski, Szymon Maksymiuk, and Przemyslaw Biecek. 2021. {``Treeshap.''} Model Oriented. \url{https://github.com/ModelOriented/treeshap}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-larson_how_2016}{}}%
+\leavevmode\hypertarget{ref-larson_how_2016}{}%
 Larson, Jeff, Surya Mattu, Lauren Kirchner, and Julia Angwin. 2016. {``How {We} {Analyzed} the {COMPAS} {Recidivism} {Algorithm}.''} \emph{ProPublica}, May. \url{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm?token=RPR1E2qtzJltfJ0tS-gB_41kmfoWZAu4}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-lee_state_2021}{}}%
+\leavevmode\hypertarget{ref-lee_state_2021}{}%
 Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Nicholas Spyrison, Earo Wang, and H. Sherry Zhang. 2021. {``The State-of-the-Art on Tours for Dynamic Visualization of High-Dimensional Data.''} \emph{WIREs Computational Statistics} n/a (n/a): e1573. \url{https://doi.org/10.1002/wics.1573}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-lee_pptree_2013}{}}%
+\leavevmode\hypertarget{ref-lee_pptree_2013}{}%
 Lee, Yoon Dong, Dianne Cook, Ji-won Park, and Eun-Kyung Lee. 2013. {``{PPtree}: {Projection} Pursuit Classification Tree.''} \emph{Electronic Journal of Statistics} 7: 1369--86.
 
-\leavevmode\vadjust pre{\hypertarget{ref-leone_fifa_2020}{}}%
+\leavevmode\hypertarget{ref-leone_fifa_2020}{}%
 Leone, Stefano. 2020. {``{FIFA} 20 Complete Player Dataset.''} \url{https://kaggle.com/stefanoleone992/fifa-20-complete-player-dataset}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-liaw_classification_2002}{}}%
+\leavevmode\hypertarget{ref-liaw_classification_2002}{}%
 Liaw, Andy, and Matthew Wiener. 2002. {``Classification and Regression by {randomForest}.''} \emph{R News} 2 (3): 18--22.
 
-\leavevmode\vadjust pre{\hypertarget{ref-lundberg_consistent_2018}{}}%
+\leavevmode\hypertarget{ref-lundberg_consistent_2018}{}%
 Lundberg, Scott M., Gabriel G. Erion, and Su-In Lee. 2018. {``Consistent Individualized Feature Attribution for Tree Ensembles.''} \emph{arXiv Preprint arXiv:1802.03888}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-lundberg_unified_2017}{}}%
+\leavevmode\hypertarget{ref-lundberg_unified_2017}{}%
 Lundberg, Scott M., and Su-In Lee. 2017. {``A Unified Approach to Interpreting Model Predictions.''} In \emph{Proceedings of the 31st International Conference on Neural Information Processing Systems}, 4768--77.
 
-\leavevmode\vadjust pre{\hypertarget{ref-molnar_interpretable_2020}{}}%
+\leavevmode\hypertarget{ref-molnar_interpretable_2020}{}%
 Molnar, Christoph. 2020. \emph{Interpretable Machine Learning}. Lulu. com. \href{https://christophm.github.io/interpretable-ml-book/}{christophm.github.io/interpretable-ml-book/}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-oneil_weapons_2016}{}}%
+\leavevmode\hypertarget{ref-oneil_weapons_2016}{}%
 O'Neil, Cathy. 2016. \emph{Weapons of Math Destruction: {How} Big Data Increases Inequality and Threatens Democracy}. Crown.
 
-\leavevmode\vadjust pre{\hypertarget{ref-ribeiro_why_2016}{}}%
+\leavevmode\hypertarget{ref-ribeiro_why_2016}{}%
 Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. {``"{Why} {Should} {I} {Trust} {You}?": {Explaining} the {Predictions} of {Any} {Classifier}.''} In \emph{Proceedings of the 22nd {ACM} {SIGKDD} {International} {Conference} on {Knowledge} {Discovery} and {Data} {Mining}}, 1135--44. {KDD} '16. New York, NY, USA: Association for Computing Machinery. \url{https://doi.org/10.1145/2939672.2939778}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-shapley_value_1953}{}}%
+\leavevmode\hypertarget{ref-shapley_value_1953}{}%
 Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton University Press.
 
-\leavevmode\vadjust pre{\hypertarget{ref-shmueli_explain_2010}{}}%
+\leavevmode\hypertarget{ref-shmueli_explain_2010}{}%
 Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical Science} 25 (3): 289--310.
 
-\leavevmode\vadjust pre{\hypertarget{ref-shrikumar_learning_2017}{}}%
+\leavevmode\hypertarget{ref-shrikumar_learning_2017}{}%
 Shrikumar, Avanti, Peyton Greenside, and Anshul Kundaje. 2017. {``Learning Important Features Through Propagating Activation Differences.''} In \emph{International {Conference} on {Machine} {Learning}}, 3145--53. PMLR.
 
-\leavevmode\vadjust pre{\hypertarget{ref-shrikumar_not_2016}{}}%
+\leavevmode\hypertarget{ref-shrikumar_not_2016}{}%
 Shrikumar, Avanti, Peyton Greenside, Anna Shcherbina, and Anshul Kundaje. 2016. {``Not Just a Black Box: {Learning} Important Features Through Propagating Activation Differences.''} \emph{arXiv Preprint arXiv:1605.01713}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-sievert_interactive_2020}{}}%
+\leavevmode\hypertarget{ref-sievert_interactive_2020}{}%
 Sievert, Carson. 2020. \emph{Interactive {Web}-{Based} {Data} {Visualization} with {R}, Plotly, and Shiny}. Chapman; Hall/CRC. \url{https://plotly-r.com}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-simonyan_deep_2014}{}}%
+\leavevmode\hypertarget{ref-simonyan_deep_2014}{}%
 Simonyan, Karen, Andrea Vedaldi, and Andrew Zisserman. 2014. {``Deep Inside Convolutional Networks: {Visualising} Image Classification Models and Saliency Maps.''} In \emph{In {Workshop} at {International} {Conference} on {Learning} {Representations}}. Citeseer.
 
-\leavevmode\vadjust pre{\hypertarget{ref-spyrison_spinifex_2020}{}}%
+\leavevmode\hypertarget{ref-spyrison_spinifex_2020}{}%
 Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package} for {Creating} a {Manual} {Tour} of {Low}-Dimensional {Projections} of {Multivariate} {Data}.''} \emph{The R Journal} 12 (1): 243. \url{https://doi.org/10.32614/RJ-2020-027}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-strumbelj_efficient_2010}{}}%
+\leavevmode\hypertarget{ref-strumbelj_efficient_2010}{}%
 Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation of Individual Classifications Using Game Theory.''} \emph{The Journal of Machine Learning Research} 11: 1--18.
 
-\leavevmode\vadjust pre{\hypertarget{ref-unwin}{}}%
+\leavevmode\hypertarget{ref-unwin}{}%
 Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble Graphics.''} \emph{Journal of Computational and Graphical Statistics} 27 (1): 157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-vanni_textual_2018}{}}%
+\leavevmode\hypertarget{ref-vanni_textual_2018}{}%
 Vanni, Laurent, Mélanie Ducoffe, Carlos Aguilar, Frédéric Precioso, and Damon Mayaffre. 2018. {``Textual {Deconvolution} {Saliency} ({TDS}): A Deep Tool Box for Linguistic Analysis.''} In \emph{Proceedings of the 56th {Annual} {Meeting} of the {Association} for {Computational} {Linguistics} ({Volume} 1: {Long} {Papers})}, 548--57.
 
-\leavevmode\vadjust pre{\hypertarget{ref-wickham_ggplot2_2016}{}}%
+\leavevmode\hypertarget{ref-wickham_ggplot2_2016}{}%
 Wickham, Hadley. 2016. \emph{Ggplot2: {Elegant} {Graphics} for {Data} {Analysis}}. Springer-Verlag New York. \url{https://ggplot2.tidyverse.org}.
 
-\leavevmode\vadjust pre{\hypertarget{ref-wickham_visualizing_2015}{}}%
+\leavevmode\hypertarget{ref-wickham_visualizing_2015}{}%
 Wickham, Hadley, Dianne Cook, and Heike Hofmann. 2015. {``Visualizing Statistical Models: {Removing} the Blindfold.''} \emph{Statistical Analysis and Data Mining: The ASA Data Science Journal} 8 (4): 203--25. \url{https://doi.org/10.1002/sam.11271}.
 
 \end{CSLReferences}

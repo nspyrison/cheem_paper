@@ -210,25 +210,9 @@ ggplot2::ggsave(
   primary_obs = prim_obs, comparison_obs = comp_obs,
   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
   pcp_shape = 124, angle = .15)
-.anim <- animate_plotly(.ggt, fps = 6)
-htmlwidgets::saveWidget(widget = .anim,
-                        file = "./figures/case_fifa.html",
-                        selfcontained = FALSE,
-                        title = "FIFA 2020, cheem radial tour")
+animate_plotly(.ggt, fps = 6)
+messgae("Manual capturing this tour from app.")
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.html
-if(F){
-  .ggt <- radial_cheem_tour(
-    fifa_ls, basis = .bas, manip_var = .mv,
-    primary_obs = prim_obs, comparison_obs = comp_obs,
-    do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-    pcp_shape = 124, angle = .15) + ## realistic angle
-    theme(legend.position = "off")
-  .anim <- animate_gganimate(
-    .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
-    height = 800, width = 800, units = "px", ## "px", "in", "cm", or "mm."
-    render = gganimate::av_renderer("./figures/case_fifa.mp4")) ## Alternative render
-}
-## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4
 
 
 ## Ames Housing 2018 (North Ames) ----
@@ -291,41 +275,8 @@ ggplot2::ggsave(
   primary_obs = prim_obs, comparison_obs = comp_obs,
   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
   pcp_shape = 124, angle = .15)
-.anim <- animate_plotly(.ggt, fps = 6)
-htmlwidgets::saveWidget(widget = .anim,
-                        file = "./figures/case_ames2018.html",
-                        selfcontained = FALSE,
-                        title = "North Ames 2018, cheem radial tour")
-## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.html
-
-.ggt <- radial_cheem_tour(
-  ames2018_ls, basis = .bas, manip_var = .mv,
-  primary_obs = prim_obs, comparison_obs = comp_obs,
-  do_add_pcp_segments = FALSE,
-  pcp_shape = 124, angle = .15) + ## realistic angle
-  theme(legend.position = "off")
-.anim <- animate_gganimate(
-  .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
-  #height = 10, width = 12, units = "cm", ## "px", "in", "cm", or "mm."
-  render = gganimate::av_renderer("./figures/case_ames2018.mp4")) ## Alternative render
+animate_plotly(.ggt, fps = 6)
+messgae("Manual capturing this tour from app.")
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4
 
 
-### rejected -- Tidy Tuesday coffee -----
-if(F){
-  if(F) ## Regress score
-    browseURL("https://github.com/rfordatascience/tidytuesday/blob/master/data/2020/2020-07-07/readme.md")
-  coffee <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-07-07/coffee_ratings.csv')
-  (skimr::skim(coffee))
-  Y <- coffee$total_cup_points
-  hist(Y) ## exactly 1 with score 0 will remove
-  summary(Y)
-  r_idx <- Y > 20
-  Y <- Y[r_idx]
-  clas <- coffee$species[r_idx]
-  X <- coffee[r_idx, c(
-    "aroma", "flavor", "aftertaste", "acidity", "body", "balance",
-    "uniformity", "clean_cup", "sweetness", "cupper_points", "moisture")]
-  
-  ## would need modern copy of workflow.
-}

@@ -114,7 +114,7 @@ ggplot2::ggsave(
   .inc_var_nms <- c("Calories", "SatFat", "Chol", "Na", "Fiber", "Sugars")
   ## Removed 4 with lowest contribution for the prim_obs.
   .bas <- basis_attr_df(chocolates_ls$attr_df[, .inc_var_nms], prim_obs)
-  .mv  <- which(.inc_var_nms == "Sugars")
+  .mv  <- which(.inc_var_nms == "Fiber")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.
   dim(mt_interp)

@@ -276,18 +276,25 @@ The radial tour starts from the attribution projection of the misclassified obse
 
 ## Chocolates, milk/dark chocolate classification
 
-The chocolates dataset consists of 88 observations of ten nutritional measurements determined from their labels, and labeled as being either milk or dark. Dark chocolates are typically considered healthier and often can be marketed at a higher price. It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk, to determine if a manufacturer is being honest. <!--We should note that chocolates often have other ingredients will decrease the predictive power of the model nutritional explanatory variable. Hot sure that this is correct because these were all plain chocolate not caramel chocolate or with nuts. --> A random forest model is used, and a chocolate labeled dark but predicted to be milk is chosen as the observation of interest (chocolate 22). It is compared with a correctly classified dark chocolate. 
+The chocolates dataset consists of 88 observations of ten nutritional measurements determined from their labels, and labeled as being either milk or dark. Dark chocolates are typically considered healthier and often can be marketed at a higher price. It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk, to determine if a manufacturer is being honest. <!--We should note that chocolates often have other ingredients will decrease the predictive power of the model nutritional explanatory variable. Hot sure that this is correct because these were all plain chocolate not caramel chocolate or with nuts. --> A random forest model is used, and a chocolate labeled dark but predicted to be milk is chosen as the observation of interest (chocolate 22). It is compared with a correctly classified dark chocolate.
 
-(ref:casechocolates) Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate from the values on the nutritional label. The attribution projection already looks more like a dark chocolate than milk. We remove a 4 variables with the lowest contribution for the selected instance and vary the contribution of `Sugar`. The misclassification of two instances seems improbable when sugar is near max contribution. Animated tour can be found at [shorturl.at/dBE28](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4).
+XXX: NS: not as bad as I remember, but a couple, remove them?
+```{r}
+cheem::chocolates$Name[c(26, 74)]
+```
+
+(ref:casechocolates) Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate from the values on the nutritional label. The attribution projection already looks more like a dark chocolate than milk. We remove a 4 variables with the lowest contribution for the selected instance and vary the contribution of `fiber`. The misclassification of two instances seems improbable when sugar is near max contribution. Animated tour can be found at [shorturl.at/dBE28](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4).
 ```{r casechocolates, echo=F, out.width="100%", fig.cap = "(ref:casechocolates)"}
 knitr::include_graphics("./figures/case_chocolates.png")
 ```
 
-Figure \@ref(fig:casechocolates) similarly shows that attribution-space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. We look at one extreme instance and vary the contribution of `sugar`. We see notice 2 instances that have clearly well within the milk chocolate dispite being observed as dark chocolate on their product label. While conjector, there are plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are. 
+Figure \@ref(fig:casechocolates) similarly shows that attribution-space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. We look at one extreme instance and vary the contribution of `fiber`. We see notice two instances that have clearly well within the milk chocolate despite being observed as dark chocolate on their product label. While conjecture, there are plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are.
 
-XXX Attribution projection shows difference between milk and dark is mostly fiber. Is this one, considered similar to the small group of (predicted) milk chocolates that have high fiber and low sugar? there has to be another variable that is generating this little bubble. 
+XXX Attribution projection shows difference between milk and dark is mostly fiber. Is this one, considered similar to the small group of (predicted) milk chocolates that have high fiber and low sugar? there has to be another variable that is generating this little bubble.
 
 XXX Need to re-do. Not sure that sugar is the right variable to modify. Teh difference between milk and dark is typically fiber, and sugars. So maybe this is a low fiber dark chocolate? It is funny that in whatever view we look at it there is no doubt that this looks like a dark chocolate! Fiber has the most contribution
+
+NS: Sugar is slightly better imo, but fiber is fine.
 
 ## FIFA, wage regression
 
@@ -306,7 +313,7 @@ XXX think about the projection as a what if. So for Messi, if his new stats were
 
 Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales across nine variables. Using interaction from the global view, we select a house with an extreme negative residual and an accurate observation close to it in the data.
 
-(ref:caseames) Ames housing 2018 regressing sales price [2018 USD]. The primary observation is a house that a large `lot area` (`LtA`), but small `living area` (`LvA`). The comparison instance is in the opposite; a large house on a relatively small lot. Similar to the soccer players, these house sale have diverging attribution to better predict their sales prices. Varying the contribution `living area` the separation between these house sales crosses when there is a low contribution which is so important to explaining their prediction though in differet ways. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
+(ref:caseames) Ames housing 2018 regressing sales price [2018 USD]. The primary observation is a house that a large `lot area` (`LtA`), but small `living area` (`LvA`). The comparison instance is in the opposite; a large house on a relatively small lot. Similar to the soccer players, these house sale have diverging attribution to better predict their sales prices. Varying the contribution `living area` the separation between these house sales crosses when there is a low contribution which is so important to explaining their prediction though in different ways. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
 ```{r caseames, echo=F, out.width="100%", fig.cap = "(ref:caseames)"}
 knitr::include_graphics("./figures/case_ames2018.png")
 ```

@@ -298,8 +298,9 @@ The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many s
 knitr::include_graphics("./figures/case_fifa.png")
 ```
 
-With figure \@ref(fig:casefifa), we will test the premise of the local explanation. While `offense` and `reaction` skills both crutial to the explaintion of a star offensive player. We increase the contribution of denfensive skills and Messi is no longer separated from the group while van Dijk and other defensive players are better explained in this case.
+With figure \@ref(fig:casefifa), we will test the premise of the local explanation. While `offense` and `reaction` skills both crutial to the explanation of a star offensive player. We increase the contribution of denfensive skills and Messi is no longer separated from the group while van Dijk and other defensive players are better explained in this case.
 
+XXX think about the projection as a what if. So for Messi, if his new stats were .... (those shown in second projection) then is salary would be predicted to be halved.
 
 ## Ames housing 2018, sales price regression
 
@@ -312,6 +313,7 @@ knitr::include_graphics("./figures/case_ames2018.png")
 
 Figure \@ref(fig:caseames) shows the global view and extrema of the tour. The horizontal distance in the tour did not show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can point toward others with meaningful data variation.
 
+XXX Observation 170, big residual; maybe look at obs 33
 
 # Discussion {#sec:cheemdiscussion}
 

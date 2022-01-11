@@ -400,7 +400,9 @@ The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurem
 \caption{FIFA 2020 data, a random forest model regresses wages {[}2020 Euros{]} from nine aggregated of skill measurements. The primary observation is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). We remove three variables with low attribution from both players. The attribution projection starts with selected instance on the right. We vary the contribution from \texttt{defense}, the star offensive player is not distinguished in the horizontal direction. At this point defensive players have been rotated to the highest horizonatal value. The animate radial tour can be found at \href{https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4}{shorturl.at/lCK26}}\label{fig:casefifa}
 \end{figure}
 
-With figure \ref{fig:casefifa}, we will test the premise of the local explanation. While \texttt{offense} and \texttt{reaction} skills both crutial to the explaintion of a star offensive player. We increase the contribution of denfensive skills and Messi is no longer separated from the group while van Dijk and other defensive players are better explained in this case.
+With figure \ref{fig:casefifa}, we will test the premise of the local explanation. While \texttt{offense} and \texttt{reaction} skills both crutial to the explanation of a star offensive player. We increase the contribution of denfensive skills and Messi is no longer separated from the group while van Dijk and other defensive players are better explained in this case.
+
+XXX think about the projection as a what if. So for Messi, if his new stats were \ldots. (those shown in second projection) then is salary would be predicted to be halved.
 
 \hypertarget{ames-housing-2018-sales-price-regression}{%
 \subsection{Ames housing 2018, sales price regression}\label{ames-housing-2018-sales-price-regression}}
@@ -419,6 +421,8 @@ Ames 2018, housing data was subset to North Ames (the neighborhood with the most
 \end{figure}
 
 Figure \ref{fig:caseames} shows the global view and extrema of the tour. The horizontal distance in the tour did not show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can point toward others with meaningful data variation.
+
+XXX Observation 170, big residual; maybe look at obs 33
 
 \hypertarget{sec:cheemdiscussion}{%
 \section{Discussion}\label{sec:cheemdiscussion}}

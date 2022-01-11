@@ -213,7 +213,8 @@ ggplot2::ggsave(
 .anim <- animate_plotly(.ggt, fps = 6)
 htmlwidgets::saveWidget(widget = .anim,
                         file = "./figures/case_fifa.html",
-                        selfcontained = TRUE)
+                        selfcontained = FALSE,
+                        title = "FIFA 2020, cheem radial tour")
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.html
 if(F){
   .ggt <- radial_cheem_tour(
@@ -293,7 +294,8 @@ ggplot2::ggsave(
 .anim <- animate_plotly(.ggt, fps = 6)
 htmlwidgets::saveWidget(widget = .anim,
                         file = "./figures/case_ames2018.html",
-                        selfcontained = TRUE)
+                        selfcontained = FALSE,
+                        title = "North Ames 2018, cheem radial tour")
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.html
 
 .ggt <- radial_cheem_tour(

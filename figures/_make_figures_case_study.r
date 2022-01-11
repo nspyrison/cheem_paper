@@ -9,7 +9,7 @@
   require("patchwork")
   
   wd <- getwd()
-  if(substr(wd, nchar(wd)-10, nchar(wd)) != "cheem_paper")
+  if(substr(wd, nchar(wd) - 10, nchar(wd)) != "cheem_paper")
     warning("Expected work directory to be cheem_paper.")
   fp <- "../cheem/inst/shiny_apps/cheem_initial/data/"
   if(F)
@@ -205,16 +205,28 @@ ggplot2::ggsave(
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
-.ggt <- radial_cheem_tour(
+.ggt <- cheem:::radial_cheem_tour_subplots(
   fifa_ls, basis = .bas, manip_var = .mv,
   primary_obs = prim_obs, comparison_obs = comp_obs,
   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-  pcp_shape = 124, angle = .15) + ## realistic angle
-  theme(legend.position = "off")
-.anim <- animate_gganimate(
-  .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
-  height = 800, width = 800, units = "px", ## "px", "in", "cm", or "mm."
-  render = gganimate::av_renderer("./figures/case_fifa.mp4")) ## Alternative render
+  pcp_shape = 124, angle = .15)
+.anim <- animate_plotly(.ggt, fps = 6)
+htmlwidgets::saveWidget(widget = .anim,
+                        file = "./figures/case_fifa.html",
+                        selfcontained = TRUE)
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.html
+if(F){
+  .ggt <- radial_cheem_tour(
+    fifa_ls, basis = .bas, manip_var = .mv,
+    primary_obs = prim_obs, comparison_obs = comp_obs,
+    do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
+    pcp_shape = 124, angle = .15) + ## realistic angle
+    theme(legend.position = "off")
+  .anim <- animate_gganimate(
+    .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
+    height = 800, width = 800, units = "px", ## "px", "in", "cm", or "mm."
+    render = gganimate::av_renderer("./figures/case_fifa.mp4")) ## Alternative render
+}
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.mp4
 
 
@@ -273,6 +285,17 @@ ggplot2::ggsave(
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
+.ggt <- cheem:::radial_cheem_tour_subplots(
+  ames2018_ls, basis = .bas, manip_var = .mv,
+  primary_obs = prim_obs, comparison_obs = comp_obs,
+  do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
+  pcp_shape = 124, angle = .15)
+.anim <- animate_plotly(.ggt, fps = 6)
+htmlwidgets::saveWidget(widget = .anim,
+                        file = "./figures/case_ames2018.html",
+                        selfcontained = TRUE)
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.html
+
 .ggt <- radial_cheem_tour(
   ames2018_ls, basis = .bas, manip_var = .mv,
   primary_obs = prim_obs, comparison_obs = comp_obs,

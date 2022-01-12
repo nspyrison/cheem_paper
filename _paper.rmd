@@ -271,30 +271,20 @@ Figure \@ref(fig:casepenguins) shows plots from the cheem viewer for exploring t
 
 There is more separation visible in the attribution space than the data space, as would be expected. The observed vs predicted plot reveals a handful of misclassified observations. A misclassified point (represented by the asterisk in the global view, and as a dashed vertical line in the tour view) is contrasted with a correctly classified point (represented by an $\times$ and vertical dotted line). 
 
-The radial tour starts from the attribution projection of the misclassified observation (left plot). The important variables identifed by SHAP in the (wrong) prediction for this observation is mostly `b_d` with smaller contributions of `f_l` and `wgt`. This projection is a view where the Gentoo (purple) penguins are most distinguished from Adelie and Chinstrap. For this observation we would like to know why an Adelie has been wrongly labelled a Chinstrap, so this combination of variables is not particularly useful. To explore this we use the radial tour to vary the contribution of bill length (`b_l`). The more `b_l` contributes to the the projection the more this penguin looks like a Chinstrap, that it is mislabelled as. This suggests that `b_l` should have been an important variable for explaining the (wrong) prediction. 
+The radial tour starts from the attribution projection of the misclassified observation (left plot). The important variables identifed by SHAP in the (wrong) prediction for this observation is mostly `b_d` with smaller contributions of `f_l` and `wgt`. This projection is a view where the Gentoo (purple) penguins are most distinguished from Adelie and Chinstrap. For this observation we would like to know why an Adelie has been wrongly labelled a Chinstrap, so this combination of variables is not particularly useful. To explore this we use the radial tour to vary the contribution of bill length (`b_l`). The more `b_l` contributes to the the projection the more this penguin looks like a Chinstrap, that it is mislabelled as. This suggests that `b_l` should have been an important variable for explaining the (wrong) prediction.
 
 
 ## Chocolates, milk/dark chocolate classification
 
-The chocolates dataset consists of 88 observations of ten nutritional measurements determined from their labels, and labeled as being either milk or dark. Dark chocolates are typically considered healthier and often can be marketed at a higher price. It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk, to determine if a manufacturer is being honest. <!--We should note that chocolates often have other ingredients will decrease the predictive power of the model nutritional explanatory variable. Hot sure that this is correct because these were all plain chocolate not caramel chocolate or with nuts. --> A random forest model is used, and a chocolate labeled dark but predicted to be milk is chosen as the observation of interest (chocolate 22). It is compared with a correctly classified dark chocolate.
-
-XXX: NS: not as bad as I remember, but a couple, remove them?
-```{r}
-cheem::chocolates$Name[c(26, 74)]
-```
+The chocolates dataset consists of 88 observations of ten nutritional measurements determined from their labels, and labeled as being either milk or dark. Dark chocolates are typically considered healthier and often can be marketed at a higher price. It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk, to determine if a manufacturer is being honest. A random forest model is used, and a chocolate labeled dark but predicted to be milk is chosen as the observation of interest (chocolate 22). It is compared with a correctly classified dark chocolate.
 
 (ref:casechocolates) Chocolates data type classification (milk or dark). We select a chocolate labeled as dark though a random forest model predicts it to be milk chocolate from the values on the nutritional label. The attribution projection already looks more like a dark chocolate than milk. We remove a 4 variables with the lowest contribution for the selected instance and vary the contribution of `fiber`. The misclassification of two instances seems improbable when sugar is near max contribution. Animated tour can be found at [shorturl.at/dBE28](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4).
 ```{r casechocolates, echo=F, out.width="100%", fig.cap = "(ref:casechocolates)"}
 knitr::include_graphics("./figures/case_chocolates.png")
 ```
 
-Figure \@ref(fig:casechocolates) similarly shows that attribution-space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. We look at one extreme instance and vary the contribution of `fiber`. We see notice two instances that have clearly well within the milk chocolate despite being observed as dark chocolate on their product label. While conjecture, there are plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are.
+Figure \@ref(fig:casechocolates) similarly shows that attribution-space is more separable than data-space. Interestingly, the class imbalance that we suspected was not observed; there are only six chocolates labeled as dark and predicted as milk, while eight of the inverse case. We look at one extreme instance and vary the contribution of `fiber`. We see notice two instances that have clearly well within the milk chocolate despite being observed as dark chocolate on their product label. While conjecture, there are plausible reasons that a manufacturer has incentives to cut corners and label their products different than what they are. In the penguin case we explored how the model misclassified an observation from a type one error perspective. In contrast, in the chocolates cases shows a type two error view; looking for extreme support of the models classification to challenge the original observation.
 
-XXX Attribution projection shows difference between milk and dark is mostly fiber. Is this one, considered similar to the small group of (predicted) milk chocolates that have high fiber and low sugar? there has to be another variable that is generating this little bubble.
-
-XXX Need to re-do. Not sure that sugar is the right variable to modify. Teh difference between milk and dark is typically fiber, and sugars. So maybe this is a low fiber dark chocolate? It is funny that in whatever view we look at it there is no doubt that this looks like a dark chocolate! Fiber has the most contribution
-
-NS: Sugar is slightly better imo, but fiber is fine.
 
 ## FIFA, wage regression
 
@@ -305,9 +295,8 @@ The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many s
 knitr::include_graphics("./figures/case_fifa.png")
 ```
 
-With figure \@ref(fig:casefifa), we will test the premise of the local explanation. While `offense` and `reaction` skills both crutial to the explanation of a star offensive player. We increase the contribution of denfensive skills and Messi is no longer separated from the group while van Dijk and other defensive players are better explained in this case.
+With figure \@ref(fig:casefifa), we will test the premise of the local explanation. While `offense` and `reaction` skills both crucial to the explanation of a star offensive player. As the contribution of defensive skills increases Messi's is no longer separated from the group and other defensive players are better predicted in this attribution case. In terms of what-if analysis, were Messi's tree SHAP attributions at theses levels, his predicted wages would be halved.
 
-XXX think about the projection as a what if. So for Messi, if his new stats were .... (those shown in second projection) then is salary would be predicted to be halved.
 
 ## Ames housing 2018, sales price regression
 
@@ -318,9 +307,12 @@ Ames 2018, housing data was subset to North Ames (the neighborhood with the most
 knitr::include_graphics("./figures/case_ames2018.png")
 ```
 
-Figure \@ref(fig:caseames) shows the global view and extrema of the tour. The horizontal distance in the tour did not show a significant disparity between our selected points. This is not particularly surprising as most variables have a sizable contribution. Rotating any one variable out of the frame will rotate other vital variables into the frame, preserving most of the distance from intercept to prediction. However, the tour has revealed an interesting feature worth discussing. Notice that the observations pivot about the origin, the basis roughly halfway between bases in frames one and two of panel b) the data is near a singular profile. This means that there is a basis orthogonal to this point that describes sizable variation. Knowing these singular bases can point toward others with meaningful data variation.
+Figure \@ref(fig:caseames) selects a sale of with relatively large lot size and small house compared with the opposite. Contribution of `living area` is crucial to the predictions of each observation though the sign varies. The attribution of `lot area` is not particularity essential to either observation in isolation. Perhaps this is because this variable interacts with exogenous geometry and layout information, or with endogenous information maybe the year build and overall quality holds redundant information. As the contribution of `living area` is changed it crosses a basis where, if the explanation were this attribution, the predicted house sale would be equal.
 
 XXX Observation 170, big residual; maybe look at obs 33
+NS Looking  at old version? current Ames housing obs:
+prim_obs <- 311 ## Large lot area to living area ratio ## small house, big lot
+comp_obs <- 220 ## Small on that ratio ## large house, small lot
 
 # Discussion {#sec:cheemdiscussion}
 

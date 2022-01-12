@@ -37,7 +37,7 @@
   .glob_view <- global_view(
     penguins_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
     labs(color = 'Predicted class', shape = 'Predicted class',x = .x_title) +
-    ggtitle("Global view") + theme( 
+    ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),
       legend.position  = "bottom",
@@ -54,14 +54,14 @@
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE,
     pcp_shape = 124, angle = 0) + 
-    theme(legend.position = "off", aspect.ratio = 2) +
+    theme(legend.position = "off", aspect.ratio = 1.4) +
     ggtitle("Radial tour, select frames")
   .ggt2 <- radial_cheem_tour(
     penguins_ls, basis = mt_interp[,,18, drop=FALSE], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE,
     pcp_shape = 124, angle = 0) + 
-    theme(legend.position = "off", aspect.ratio = 2)
+    theme(legend.position = "off", aspect.ratio = 1.4)
   ## Using patchwork:
   .pw <- .ggt1 + .ggt2
   .cp <- cowplot::plot_grid(
@@ -123,13 +123,13 @@ ggplot2::ggsave(
     chocolates_ls, basis = mt_interp[,,1], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
-    pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 2) +
+    pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4) +
     ggtitle("Radial tour, select frames")
   .ggt2 <- radial_cheem_tour(
-    chocolates_ls, basis = mt_interp[,,12], manip_var = .mv,
+    chocolates_ls, basis = mt_interp[,,18], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
-    pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 2)
+    pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4)
   pw <- .ggt1 + .ggt2
   .cp <- cowplot::plot_grid(
     .glob_view, pw,
@@ -218,8 +218,8 @@ messgae("Manual capturing this tour from app.")
 ## Ames Housing 2018 (North Ames) ----
 {
   names(ames2018_ls)
-  prim_obs <- 311L ## Large lot area to living area ratio ## small house on big lot
-  comp_obs <- 220L ## Small on that ratio ## large house small lot
+  prim_obs <- 311 ## Large lot area to living area ratio ## small house, big lot
+  comp_obs <- 220 ## Small on that ratio ## large house, small lot
   if(F)
     global_view(ames2018_ls, prim_obs, comp_obs,
                 color = ames2018_ls$decode_df$residual,

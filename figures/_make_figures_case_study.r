@@ -119,7 +119,7 @@ ggplot2::ggsave(
 {
   names(chocolates_ls)
   prim_obs <- 22L #"Dark Chocolate Bar, Lindt, Switzerland"
-  comp_obs <- 34L #"85% Cocoa Dark French Chocolate, Thorntos, UK (2nd) 
+  comp_obs <- 7L #"85% Cocoa Dark French Chocolate, Thorntos, UK (2nd) 
   if(F)
     global_view(chocolates_ls,
                 prim_obs,

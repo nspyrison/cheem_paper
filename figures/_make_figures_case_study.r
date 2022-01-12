@@ -27,11 +27,33 @@
 }
 
 ## Penguins classification ------
+### Save orthogonal display of penguins with
+(.g <- ggplot(penguins_na.rm, aes(x=bill_length_mm,
+                                  y=flipper_length_mm,
+                                  colour=species)) +
+   geom_point(size=1) +
+   ## Prim obs
+   geom_point(data=penguins_na.rm[243,], shape=8, size=5, alpha=0.8) +
+   ## Comparison obs
+   #geom_point(data=penguins_na.rm[169,], shape=4, size=3, alpha=0.6) +
+   theme_bw() +
+   theme(aspect.ratio = 1) +
+   #legend.margin   = margin(0, 0, 0, 0),
+   #legend.position = "bottom") +
+   scale_color_brewer(palette = "Dark2") +
+   labs(y = "Flipper length [mm]", x = "Bill length [mm]", color = "Observed species"))
+## Save
+ggplot2::ggsave(
+  "./figures/case_penguins_BlFl.png",
+  plot = .g, device = "png",
+  height = 4, units = "in")
+.m <- gc()
+
 {
   ## Data setup, spinifex::penguins
   names(penguins_ls)
-  prim_obs <- 124L
-  comp_obs <- 76L
+  prim_obs <- 243
+  comp_obs <- 169
   
   ### Global view and cheem tour stills
   .glob_view <- global_view(
@@ -43,8 +65,7 @@
       legend.position  = "bottom",
       legend.direction = "horizontal")
   .bas <- basis_attr_df(penguins_ls$attr_df, prim_obs)
-  .mv  <- 1 ## seems better than the 3 returned from
-  ##manip_var_of_attr_df(penguins_ls$attr_df, prim_obs, comp_obs)
+  .mv  <- which(colnames(penguins_ls$attr_df) == "f_l")
   ## Cheem tour for stills
   mt_interp <- manual_tour(basis = .bas, manip_var = .mv) %>% 
     spinifex:::interpolate_manual_tour(angle = .15) ## app is .15
@@ -57,7 +78,7 @@
     theme(legend.position = "off", aspect.ratio = 1.4) +
     ggtitle("Radial tour, select frames")
   .ggt2 <- radial_cheem_tour(
-    penguins_ls, basis = mt_interp[,,18, drop=FALSE], manip_var = .mv,
+    penguins_ls, basis = mt_interp[,,8, drop=FALSE], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE,
     pcp_shape = 124, angle = 0) + 
@@ -92,6 +113,8 @@ ggplot2::ggsave(
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4
 
 
+
+
 ## Chocolates classification -----
 {
   names(chocolates_ls)
@@ -114,7 +137,7 @@ ggplot2::ggsave(
   .inc_var_nms <- c("Calories", "SatFat", "Chol", "Na", "Fiber", "Sugars")
   ## Removed 4 with lowest contribution for the prim_obs.
   .bas <- basis_attr_df(chocolates_ls$attr_df[, .inc_var_nms], prim_obs)
-  .mv  <- which(.inc_var_nms == "Fiber")
+  .mv  <- which(.inc_var_nms == "Sugars")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.
   dim(mt_interp)
@@ -218,8 +241,8 @@ messgae("Manual capturing this tour from app.")
 ## Ames Housing 2018 (North Ames) ----
 {
   names(ames2018_ls)
-  prim_obs <- 311 ## Large lot area to living area ratio ## small house, big lot
-  comp_obs <- 220 ## Small on that ratio ## large house, small lot
+  prim_obs <- 74 ## Large lot area to living area ratio ## small house, big lot
+  comp_obs <- 192 ## Small on that ratio ## large house, small lot
   if(F)
     global_view(ames2018_ls, prim_obs, comp_obs,
                 color = ames2018_ls$decode_df$residual,
@@ -233,10 +256,10 @@ messgae("Manual capturing this tour from app.")
       legend.margin    = margin(0,0,0,0),
       legend.position  = "bottom",
       legend.direction = "horizontal")
-  .inc_var_nms <- c("LtA", "Qlt", "LvA", "Rms", "GYB", "GrA")
+  .inc_var_nms <- c("LtA", "Qlt", "YrB", "LvA", "Rms", "GYB", "GrA")
   ## Removed 4 with lowest contribution for the prim_obs.
   .bas <- basis_attr_df(ames2018_ls$attr_df[, .inc_var_nms], prim_obs)
-  .mv  <- which(.inc_var_nms == "LvA")
+  .mv  <- which(.inc_var_nms == "LtA")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.
   dim(mt_interp)
@@ -252,7 +275,7 @@ messgae("Manual capturing this tour from app.")
   #   do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
   #   pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1)
   .ggt3 <- radial_cheem_tour(
-    ames2018_ls, basis = mt_interp[,,19], manip_var = .mv,
+    ames2018_ls, basis = mt_interp[,,17], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1)

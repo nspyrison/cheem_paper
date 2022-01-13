@@ -180,7 +180,11 @@ ggplot2::ggsave(
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
 
 
+<<<<<<< Updated upstream
 # ## Chocolates inverse case ---
+=======
+# ## Chocolates inverse case -----
+>>>>>>> Stashed changes
 # {
 #   names(chocolates_ls)
 #   prim_obs <- 83L #"Silky smooth Milk chocolate - Extra Creamy, Dove, US"
@@ -237,7 +241,11 @@ ggplot2::ggsave(
 #   chocolates_ls, basis = .bas, manip_var = .mv,
 #   primary_obs = prim_obs, comparison_obs = comp_obs,
 #   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
+<<<<<<< Updated upstream
 #   pcp_shape = 124, angle = .15) + ## app angle
+=======
+#   pcp_shape = 124, angle = .15) + ## realistic angle
+>>>>>>> Stashed changes
 #   theme(legend.position = "top", legend.direction = "horizontal")
 # .anim <- animate_gganimate(
 #   .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom

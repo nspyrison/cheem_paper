@@ -260,23 +260,24 @@ To illustrate the use of the cheem method, we apply it to modern datasets, two c
 
 ## Palmer penguin, species classification
 
-(ref:casepenguinsblfl) An orthogonal view of penguins data showing the PI, a Gentoo (purple) close to the distribution of Chinstrap (orange).
-```{r casepenguinsblfl, echo=F, out.width="100%", fig.cap = "(ref:casepenguinsblfl)"}
-knitr::include_graphics("./figures/case_penguins_BlFl.png")
-```
 
 The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was publicly available to be a substitute for the overly-used iris data, and is quite similar in form. After removing incomplete observations, there are 333 instances and we will use the four physical measurements, `bill_length_mm` (`b_l`), `bill_depth_mm` (`b_d`), `flipper_length_mm` (`f_l`), `body_mass_g` (`wgt`), for this illustration. A random forest model was fitted with species as the response feature.
 
-(ref:casepenguins) Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is an Chinstrap (orange) penguin that is misclassified as a Gentoo (purple), marked as an asterisk in (a), and the dashed vertical line in (b). Starting from the attribution projection the contribution of `b_l` is varied. This explanation is not supported sense by the time there is moderate contribution. The basis showing the correct species separation is fairly close to the regularly attribution to other Gentoo penguins aside from the sign change on flipper length. The .mp4 animation of this tour can be found at [shorturl.at/hFHNS](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4)
+(ref:casepenguins) Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is an Chinstrap (orange) penguin that is misclassified as a Gentoo (purple), marked as an asterisk in (a), and the dashed vertical line in (b). The radial view shows varying the contribution of `f_l` from the initial attribution projection (b, left), which produces a linear combination where the PI is more probably a Chinstrap than a Gentoo (b, right). (The .mp4 animation of the radial tour is at [shorturl.at/hFHNS](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4).)
 ```{r casepenguins, echo=F, out.width="100%", fig.cap = "(ref:casepenguins)"}
 knitr::include_graphics("./figures/case_penguins.png")
 ```
 
-Figure \@ref(fig:casepenguins) shows plots from the cheem viewer for exploring the random forest model on the penguins data. Plot (a) shows the global view, and plot (b) shows several 1D projections generated with the radial tour. Penguin 243, an Chinstrap (orange), is the PI because it has been misclassified as a Gentoo (purple). 
+Figure \@ref(fig:casepenguins) shows plots from the cheem viewer for exploring the random forest model on the penguins data. Plot (a) shows the global view, and plot (b) shows several 1D projections generated with the radial tour. Penguin 243, a Gentoo (purple), is the PI because it has been misclassified as a  Chinstrap (orange). 
 
-There is more separation visible in the attribution space than the data space, as would be expected. The observed vs predicted plot reveals a handful of misclassified instances. A misclassified point (represented by the asterisk in the global view, and as a dashed vertical line in the tour view) is contrasted with a correctly classified point (represented by an $\times$ and vertical dotted line). 
+(ref:casepenguinsblfl) Checking what is learned from the cheem viewer. This is a plot of flipper length (`f_l`) and bill length (`b_l`), where the PI is highlighted by an asterisk. It is a Gentoo (purple) misclassified as a Chinstrap (orange). The PI has an unusually small `f_l` length which is the primary reason it is confused with a Chinstrap.
+```{r casepenguinsblfl, echo=F, out.width="100%", fig.cap = "(ref:casepenguinsblfl)"}
+knitr::include_graphics("./figures/case_penguins_BlFl.png")
+```
 
-The radial tour starts from the attribution projection of the misclassified instance (left plot). The important features identifed by SHAP in the (wrong) prediction for this instance is mostly `b_l` and `b_d` with small contributions of `f_l` and `wgt`. This projection is a view where the Gentoo (purple) looks much more likely for this instance than Chinstrap. For this instance we would like to know why an Adelie has been wrongly labelled a Chinstrap, so this combination of features is not particularly useful. To explore this we use the radial tour to vary the contribution of flipper length (`f_l`). The more that `f_l` contributes to the the projection the more this penguin looks like a Gentoo, its observed species. This suggests that `f_l` should have been an important feature for explaining the (wrong) prediction.
+There is more separation visible in the attribution space than the data space, as would be expected. The observed vs predicted plot reveals a handful of misclassified instances. The PI is a misclassified point (represented by the asterisk in the global view, and as a dashed vertical line in the tour view). The CI is a correctly classified point (represented by an $\times$ and a vertical dotted line). 
+
+The radial tour starts from the attribution projection of the misclassified instance (left plot). The important features identifed by SHAP in the (wrong) prediction for this instance is mostly `b_l` and `b_d` with small contributions of `f_l` and `wgt`. This projection is a view where the Gentoo (purple) looks much more likely for this instance than Chinstrap. For this instance we would like to know why a Gentoo has been wrongly labelled a Chinstrap. This combination of features is not particularly useful because the PI looks very much like other Gentoo penguins. To explore this we use the radial tour to vary the contribution of flipper length (`f_l`). The more that `f_l` contributes to the the projection the more this penguin looks like a Chinstrap. This suggests that `f_l` should have been an important feature for explaining the (wrong) prediction.
 
 
 ## Chocolates, milk/dark chocolate classification

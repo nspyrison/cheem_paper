@@ -47,7 +47,6 @@ ggplot2::ggsave(
   "./figures/case_penguins_BlFl.png",
   plot = .g, device = "png",
   height = 4, units = "in")
-.m <- gc()
 
 {
   ## Data setup, spinifex::penguins
@@ -119,7 +118,7 @@ ggplot2::ggsave(
 {
   names(chocolates_ls)
   prim_obs <- 22L #"Dark Chocolate Bar, Lindt, Switzerland"
-  comp_obs <- 7L #"85% Cocoa Dark French Chocolate, Thorntos, UK (2nd) 
+  comp_obs <- 7L  #"70% Cocoa, Columbia
   if(F)
     global_view(chocolates_ls,
                 prim_obs,
@@ -149,7 +148,7 @@ ggplot2::ggsave(
     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4) +
     ggtitle("Radial tour, select frames")
   .ggt2 <- radial_cheem_tour(
-    chocolates_ls, basis = mt_interp[,,18], manip_var = .mv,
+    chocolates_ls, basis = mt_interp[,,20], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4)
@@ -172,13 +171,82 @@ ggplot2::ggsave(
   chocolates_ls, basis = .bas, manip_var = .mv,
   primary_obs = prim_obs, comparison_obs = comp_obs,
   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-  pcp_shape = 124, angle = .15) + ## realistic angle
+  pcp_shape = 124, angle = .15) + ## app angle
   theme(legend.position = "top", legend.direction = "horizontal")
 .anim <- animate_gganimate(
   .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
   height = 800, width = 600, units = "px", ## "px", "in", "cm", or "mm."
   render = gganimate::av_renderer("./figures/case_chocolates.mp4")) ## Alternative render
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
+
+
+# ## Chocolates inverse case ---
+# {
+#   names(chocolates_ls)
+#   prim_obs <- 83L #"Silky smooth Milk chocolate - Extra Creamy, Dove, US"
+#   comp_obs <- 7L  #"Promises Silky Smooth Milk Chocolate, Dove, US"
+#   if(F)
+#     global_view(chocolates_ls,
+#                 prim_obs,
+#                 comp_obs)
+#   
+#   ### Global view
+#   .glob_view <- global_view(
+#     chocolates_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
+#     labs(color = 'Predicted class', shape = 'Predicted class',x = .x_title) +
+#     ggtitle("Global view") + theme(
+#       plot.margin      = margin(0,0,0,0),
+#       legend.margin    = margin(0,0,0,0),
+#       legend.position  = "bottom",
+#       legend.direction = "horizontal")
+#   .inc_var_nms <- c("Calories", "SatFat", "Chol", "Na", "Fiber", "Sugars")
+#   ## Removed 4 with lowest contribution for the prim_obs.
+#   .bas <- basis_attr_df(chocolates_ls$attr_df[, .inc_var_nms], prim_obs)
+#   .mv  <- which(.inc_var_nms == "Sugars")
+#   mt_interp <- manual_tour(.bas, .mv) %>%
+#     spinifex:::interpolate_manual_tour(.15) ## App angle.
+#   dim(mt_interp)
+#   ## Cheem tour stills for paper
+#   .ggt1 <- radial_cheem_tour(
+#     chocolates_ls, basis = mt_interp[,,1], manip_var = .mv,
+#     primary_obs = prim_obs, comparison_obs = comp_obs,
+#     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
+#     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4) +
+#     ggtitle("Radial tour, select frames")
+#   .ggt2 <- radial_cheem_tour(
+#     chocolates_ls, basis = mt_interp[,,18], manip_var = .mv,
+#     primary_obs = prim_obs, comparison_obs = comp_obs,
+#     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
+#     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4)
+#   pw <- .ggt1 + .ggt2
+#   .cp <- cowplot::plot_grid(
+#     .glob_view, pw,
+#     labels = c("a)", "b)"),
+#     ncol = 1, rel_heights = c(1, 1.6))
+# }
+# 
+# ### Save Stills
+# ggplot2::ggsave(
+#   "./figures/case_chocolates_inverse.png",
+#   plot = .cp, device = "png",
+#   width = 5, height = 7, units = "in")
+# .m <- gc()
+# 
+# ### Save .mp4, add GitHub urls to paper
+# .ggt <- radial_cheem_tour(
+#   chocolates_ls, basis = .bas, manip_var = .mv,
+#   primary_obs = prim_obs, comparison_obs = comp_obs,
+#   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
+#   pcp_shape = 124, angle = .15) + ## app angle
+#   theme(legend.position = "top", legend.direction = "horizontal")
+# .anim <- animate_gganimate(
+#   .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
+#   height = 800, width = 600, units = "px", ## "px", "in", "cm", or "mm."
+#   render = gganimate::av_renderer("./figures/case_chocolates_inverse.mp4")) ## Alternative render
+# ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
+
+
+
 
 ## FIFA 2020 wage regression ------
 {
@@ -207,24 +275,26 @@ ggplot2::ggsave(
     fifa_ls, basis = mt_interp[,,1], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
-    pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1) +
+    pcp_shape = 124, angle = 0) + theme(
+      legend.position = "off", aspect.ratio = 1, strip.text = element_blank()) +
     ggtitle("Radial tour, select frames")
   .ggt2 <- radial_cheem_tour(
     fifa_ls, basis = mt_interp[,,9], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
-    pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1)
+    pcp_shape = 124, angle = 0) + theme(
+      legend.position = "off", aspect.ratio = 1, strip.text = element_blank())
   pw <- .ggt1 / .ggt2
   .cp <- cowplot::plot_grid(
     .glob_view, pw,
     labels = c("a)", "b)"),
-    ncol = 1, rel_heights = c(1, 1.4))
+    ncol = 1, rel_heights = c(1, 2.1))
 }
 ### Save
 ggplot2::ggsave(
   "./figures/case_fifa.png",
   plot = .cp, device = "png",
-  width = 6, height = 8, units = "in")
+  width = 6, height = 9, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
@@ -283,13 +353,13 @@ messgae("Manual capturing this tour from app.")
   .cp <- cowplot::plot_grid(
     .glob_view, pw,
     labels = c("a)", "b)"),
-    ncol = 1, rel_heights = c(1, 1.4))
+    ncol = 1, rel_heights = c(1, 2.1))
 }
 ### Save
 ggplot2::ggsave(
   "./figures/case_ames2018.png",
   plot = .cp, device = "png",
-  width = 6, height = 8, units = "in")
+  width = 6, height = 9, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper

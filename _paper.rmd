@@ -140,7 +140,7 @@ Following the use case _Explanatory Model Analysis_ [@biecek_explanatory_2021], 
 In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their instances. In this instance, two players with different positions receive different profiles of feature importance to explain the prediction of their wages.
 
 
-# Tours and the radial tour
+# Tours and the radial tour {#sec:tour}
 
 <!-- Tours intro -->
 A _tour_ enables viewing of high-dimensional data by animating many linear projections with small incremental changes. It is achieved by following a path of linear projections (bases) of high-dimensional space. One of the features of the tour is the object permanence of the data points; one can track the relative change of instances in time, and as such gain information about the relationships between points across multiple features. There are various types of tours that are distinguished by how the paths are generated [@lee_state_2021; @cook_grand_2008].
@@ -319,11 +319,9 @@ With figure \@ref(fig:casefifa), we will test the premise of the local explanati
 
 ## Ames housing 2018, sales price regression
 
-Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales across nine features. Using interaction from the global view, we select a house with an extreme negative residual and an accurate instance close to it in the data.
+Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest is regressed this price with the features `LotArea` (`LtA`), `OverallQual` (`Qlt`), `YearBuild` (`YrB`), `LivingArea` (`LvA`), `Bathrms` (`Bth`), `Bedrms` (`Bdr`), `TotRms` (`Rms`), `GarageYrBlt` (`GYB`), and `GarageArea` (`GrA`). Using interaction from the global view, we select a house with an extreme negative residual and an accurate instance close to it in the data.
 
-XXX You need to explain the variables.
-
-(ref:caseames) Ames housing 2018 regressing sales price [2018 USD]. The PI sale price was under predicted, and had sizable attribution to lot area (`LtA`). The CI was predicted sales price was similar and much more accurate with its observed sales price while it has very little attribution to lot area. Varying the contribution lot area the separation between these house sales crosses when there is a low contribution of `LtA`,  which is important to explaining the PI and near invariant to the sales price of the CI. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
+(ref:caseames) Ames housing 2018 regressing sales price [USD]. The PI sale price was under predicted, and had sizable attribution to lot area (`LtA`). The CI was predicted sales price was similar and much more accurate with its observed sales price while it has very little attribution to lot area. Varying the contribution lot area the separation between these house sales crosses when there is a low contribution of `LtA`,  which is important to explaining the PI and near invariant to the sales price of the CI. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
 ```{r caseames, echo=F, out.width="100%", fig.cap = "(ref:caseames)"}
 knitr::include_graphics("./figures/case_ames2018.png")
 ```

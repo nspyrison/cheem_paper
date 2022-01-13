@@ -140,7 +140,7 @@ Following the use case _Explanatory Model Analysis_ [@biecek_explanatory_2021], 
 In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their instances. In this instance, two players with different positions receive different profiles of feature importance to explain the prediction of their wages.
 
 
-# Tours and the radial tour
+# Tours and the radial tour {#sec:tour}
 
 <!-- Tours intro -->
 A _tour_ enables viewing of high-dimensional data by animating many linear projections with small incremental changes. It is achieved by following a path of linear projections (bases) of high-dimensional space. One of the features of the tour is the object permanence of the data points; one can track the relative change of instances in time, and as such gain information about the relationships between points across multiple features. There are various types of tours that are distinguished by how the paths are generated [@lee_state_2021; @cook_grand_2008].
@@ -174,7 +174,7 @@ While the comparison of these spaces is interesting, a main purpose of the globa
 The global view facilitated the selection instances. The feature-level attribution of the primary instance is normalized and used as the initial 1D basis in a radial tour. This is an approximation of the contributions of the linear features that best explain the difference between the model intercept and an instance's prediction, not the local shape of the model surface.
 
 <!-- Tour start frame -->
-The initial frame is the normalized SHAP values of the PI. The current projection basis is depicted as the width of a bar, the feature's contribution to the horizontal axis. The normalized values of all instances are shown as vertical parallel coordinate plots.
+The initial frame is the normalized SHAP values of the PI. The distribution normalized values from all instances are shown depicted in the basis as vertical parallel coordinate plots, where each line connects an instance's feature attribution. The PI is highlighted as larger dashed line and CI as  a dotted line. The current projection basis is depicted as the width of a bar, the feature contributions to the horizontal axis.
 
 <!-- Tour animation -->
 The radial tour creates a basis path by varying the contribution of a selected feature, fully into and out of a projection frame. Doing so tests an individual feature's sensitivity to the structure identified by the local explanation. The default feature selected has the largest discrepancy between the attribution of primary and comparison instances. The following sections elaborate on the takeaways from applying this approach in classification and regression tasks. <!-- Segue to classification -->Now that we have introduced the global view and corresponding cheem radial tour, let us discuss the differences between the classification and regression cases.
@@ -185,7 +185,7 @@ The radial tour creates a basis path by varying the contribution of a selected f
 Typically we select a misclassified instance compared to a correctly classified point nearby in data space. The model infomation in the global view is a depiction of the model conmfusion matrix. The radial tour is 1D, with density display, while the goal of the tour; exploring the sensitivity of each feature to structure identified by the local explanation, evaluating the support or robustness of the prediction.
 
 ```{r classificationcase, echo=F, out.width = "100%", fig.align="center", fig.cap = "Overview of the cheem viewer for classification tasks. Plots are colored on predicted class, and red circles indicate misclassified instances. Model visual is essentially a representation of the confusion matrix of the model. The radial tour is a 1D projection starting the attribution projection. The first frame is the linear feature importances that best describe the instance's prediction. We probe the support of feature contributions by selecting a feature and use the radial tour to vary its coefficient."}
-knitr::include_graphics("./figures/app_classification.PNG")
+knitr::include_graphics("./figures/app_classification_annotations.PNG")
 ```
 
 
@@ -319,11 +319,9 @@ With figure \@ref(fig:casefifa), we will test the premise of the local explanati
 
 ## Ames housing 2018, sales price regression
 
-Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales across nine features. Using interaction from the global view, we select a house with an extreme negative residual and an accurate instance close to it in the data.
+Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest is regressed this price with the features `LotArea` (`LtA`), `OverallQual` (`Qlt`), `YearBuild` (`YrB`), `LivingArea` (`LvA`), `Bathrms` (`Bth`), `Bedrms` (`Bdr`), `TotRms` (`Rms`), `GarageYrBlt` (`GYB`), and `GarageArea` (`GrA`). Using interaction from the global view, we select a house with an extreme negative residual and an accurate instance close to it in the data.
 
-XXX You need to explain the variables.
-
-(ref:caseames) Ames housing 2018 regressing sales price [2018 USD]. The PI sale price was under predicted, and had sizable attribution to lot area (`LtA`). The CI was predicted sales price was similar and much more accurate with its observed sales price while it has very little attribution to lot area. Varying the contribution lot area the separation between these house sales crosses when there is a low contribution of `LtA`,  which is important to explaining the PI and near invariant to the sales price of the CI. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
+(ref:caseames) Ames housing 2018 regressing sales price [USD]. The PI sale price was under predicted, and had sizable attribution to lot area (`LtA`). The CI was predicted sales price was similar and much more accurate with its observed sales price while it has very little attribution to lot area. Varying the contribution lot area the separation between these house sales crosses when there is a low contribution of `LtA`,  which is important to explaining the PI and near invariant to the sales price of the CI. The corresponding animation is at [shorturl.at/oqyDU](https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4)
 ```{r caseames, echo=F, out.width="100%", fig.cap = "(ref:caseames)"}
 knitr::include_graphics("./figures/case_ames2018.png")
 ```

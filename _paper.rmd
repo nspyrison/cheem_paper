@@ -174,7 +174,7 @@ While the comparison of these spaces is interesting, a main purpose of the globa
 The global view facilitated the selection instances. The feature-level attribution of the primary instance is normalized and used as the initial 1D basis in a radial tour. This is an approximation of the contributions of the linear features that best explain the difference between the model intercept and an instance's prediction, not the local shape of the model surface.
 
 <!-- Tour start frame -->
-The initial frame is the normalized SHAP values of the PI. The current projection basis is depicted as the width of a bar, the feature's contribution to the horizontal axis. The normalized values of all instances are shown as vertical parallel coordinate plots.
+The initial frame is the normalized SHAP values of the PI. The distribution normalized values from all instances are shown depicted in the basis as vertical parallel coordinate plots, where each line connects an instance's feature attribution. The PI is highlighted as larger dashed line and CI as  a dotted line. The current projection basis is depicted as the width of a bar, the feature contributions to the horizontal axis.
 
 <!-- Tour animation -->
 The radial tour creates a basis path by varying the contribution of a selected feature, fully into and out of a projection frame. Doing so tests an individual feature's sensitivity to the structure identified by the local explanation. The default feature selected has the largest discrepancy between the attribution of primary and comparison instances. The following sections elaborate on the takeaways from applying this approach in classification and regression tasks. <!-- Segue to classification -->Now that we have introduced the global view and corresponding cheem radial tour, let us discuss the differences between the classification and regression cases.
@@ -185,7 +185,7 @@ The radial tour creates a basis path by varying the contribution of a selected f
 Typically we select a misclassified instance compared to a correctly classified point nearby in data space. The model infomation in the global view is a depiction of the model conmfusion matrix. The radial tour is 1D, with density display, while the goal of the tour; exploring the sensitivity of each feature to structure identified by the local explanation, evaluating the support or robustness of the prediction.
 
 ```{r classificationcase, echo=F, out.width = "100%", fig.align="center", fig.cap = "Overview of the cheem viewer for classification tasks. Plots are colored on predicted class, and red circles indicate misclassified instances. Model visual is essentially a representation of the confusion matrix of the model. The radial tour is a 1D projection starting the attribution projection. The first frame is the linear feature importances that best describe the instance's prediction. We probe the support of feature contributions by selecting a feature and use the radial tour to vary its coefficient."}
-knitr::include_graphics("./figures/app_classification.PNG")
+knitr::include_graphics("./figures/app_classification_annotations.PNG")
 ```
 
 

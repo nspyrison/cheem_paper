@@ -239,7 +239,7 @@ While the comparison of these spaces is interesting, a main purpose of the globa
 
 The global view facilitated the selection instances. The feature-level attribution of the primary instance is normalized and used as the initial 1D basis in a radial tour. This is an approximation of the contributions of the linear features that best explain the difference between the model intercept and an instance's prediction, not the local shape of the model surface.
 
-The initial frame is the normalized SHAP values of the PI. The current projection basis is depicted as the width of a bar, the feature's contribution to the horizontal axis. The normalized values of all instances are shown as vertical parallel coordinate plots.
+The initial frame is the normalized SHAP values of the PI. The distribution normalized values from all instances are shown depicted in the basis as vertical parallel coordinate plots, where each line connects an instance's feature attribution. The PI is highlighted as larger dashed line and CI as a dotted line. The current projection basis is depicted as the width of a bar, the feature contributions to the horizontal axis.
 
 The radial tour creates a basis path by varying the contribution of a selected feature, fully into and out of a projection frame. Doing so tests an individual feature's sensitivity to the structure identified by the local explanation. The default feature selected has the largest discrepancy between the attribution of primary and comparison instances. The following sections elaborate on the takeaways from applying this approach in classification and regression tasks. Now that we have introduced the global view and corresponding cheem radial tour, let us discuss the differences between the classification and regression cases.
 
@@ -250,7 +250,7 @@ Typically we select a misclassified instance compared to a correctly classified 
 
 \begin{figure}
 
-{\centering \includegraphics[width=1\linewidth]{./figures/app_classification} 
+{\centering \includegraphics[width=1\linewidth]{./figures/app_classification_annotations} 
 
 }
 

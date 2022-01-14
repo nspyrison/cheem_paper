@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.13)  14 JAN 2022 14:53
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.2.13)  14 JAN 2022 14:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -664,8 +664,9 @@ has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.214 
-       <./figures/shap_distr_bd.png>]
+l.215 I
+       n summary, these plots highlight how local explanations bring interpr...
+ <./figures/shap_distr_bd.png>]
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10> on input line 234.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -798,7 +799,7 @@ Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 584.
 Here is how much of TeX's memory you used:
  15927 strings out of 480608
  235187 string characters out of 5903630
- 569791 words of memory out of 5000000
+ 569683 words of memory out of 5000000
  31246 multiletter control sequences out of 15000+600000
  602598 words of font info for 144 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -819,7 +820,7 @@ b></usr/local/texlive/2020/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/lo
 cal/texlive/2020/texmf-dist/fonts/type1/public/lm/lmtko10.pfb></usr/local/texli
 ve/2020/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2020/te
 xmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (17 pages, 2435995 bytes).
+Output written on _paper.pdf (17 pages, 2435941 bytes).
 PDF statistics:
  389 PDF objects out of 1000 (max. 8388607)
  336 compressed objects within 4 object streams

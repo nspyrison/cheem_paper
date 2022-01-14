@@ -86,7 +86,7 @@ ggplot2::ggsave(
   .pw <- .ggt1 + .ggt2
   .cp <- cowplot::plot_grid(
     .glob_view, .pw,
-    labels = c("a)", "b)"),
+    labels = c("a", "b"),
     ncol = 1, rel_heights = c(1, 1.6),
     align = 'v', axis = 'l')
 }
@@ -155,7 +155,7 @@ ggplot2::ggsave(
   pw <- .ggt1 + .ggt2
   .cp <- cowplot::plot_grid(
     .glob_view, pw,
-    labels = c("a)", "b)"),
+    labels = c("a", "b"),
     ncol = 1, rel_heights = c(1, 1.6))
 }
 
@@ -180,11 +180,9 @@ ggplot2::ggsave(
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
 
 
-<<<<<<< Updated upstream
+
 # ## Chocolates inverse case ---
-=======
-# ## Chocolates inverse case -----
->>>>>>> Stashed changes
+
 # {
 #   names(chocolates_ls)
 #   prim_obs <- 83L #"Silky smooth Milk chocolate - Extra Creamy, Dove, US"
@@ -241,11 +239,7 @@ ggplot2::ggsave(
 #   chocolates_ls, basis = .bas, manip_var = .mv,
 #   primary_obs = prim_obs, comparison_obs = comp_obs,
 #   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-<<<<<<< Updated upstream
 #   pcp_shape = 124, angle = .15) + ## app angle
-=======
-#   pcp_shape = 124, angle = .15) + ## realistic angle
->>>>>>> Stashed changes
 #   theme(legend.position = "top", legend.direction = "horizontal")
 # .anim <- animate_gganimate(
 #   .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
@@ -266,7 +260,7 @@ ggplot2::ggsave(
   ### global view and tours
   .glob_view <- global_view(
     fifa_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
-    labs(color = 'Predicted class', shape = 'Predicted class',x = .x_title_reg) +
+    labs(color = 'Predicted class', shape = 'Predicted class', x = .x_title_reg) +
     ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),
@@ -295,7 +289,7 @@ ggplot2::ggsave(
   pw <- .ggt1 / .ggt2
   .cp <- cowplot::plot_grid(
     .glob_view, pw,
-    labels = c("a)", "b)"),
+    labels = c("a", "b"),
     ncol = 1, rel_heights = c(1, 2.1))
 }
 ### Save
@@ -360,7 +354,7 @@ messgae("Manual capturing this tour from app.")
   pw <- .ggt1 / .ggt3
   .cp <- cowplot::plot_grid(
     .glob_view, pw,
-    labels = c("a)", "b)"),
+    labels = c("a", "b"),
     ncol = 1, rel_heights = c(1, 2.1))
 }
 ### Save

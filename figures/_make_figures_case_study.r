@@ -296,7 +296,7 @@ ggplot2::ggsave(
 ggplot2::ggsave(
   "./figures/case_fifa.png",
   plot = .cp, device = "png",
-  width = 6, height = 9, units = "in")
+  width = 6, height = 8, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
@@ -361,7 +361,7 @@ messgae("Manual capturing this tour from app.")
 ggplot2::ggsave(
   "./figures/case_ames2018.png",
   plot = .cp, device = "png",
-  width = 6, height = 9, units = "in")
+  width = 6, height = 8, units = "in")
 .m <- gc()
 
 ### Save .mp4, add GitHub urls to paper

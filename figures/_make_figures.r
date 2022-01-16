@@ -35,9 +35,10 @@
     return(df)
   }
   .lvl_ord <- c("reaction", "offense", "movement", "defense", "power", "accuracy", "BMI", "age", "goalkeeping")
-  my_bd_df <- function(break_down, player_tag = "<tag unused>"){
+  my_bd_df <- function(break_down, player_tag = "<tag unused>", seq_name = "<seq_name unused>", seq_ord = .lvl_ord){
     df <- data.frame(
       player       = player_tag,
+      seq_name     = seq_name,
       label        = break_down$label,
       variable     = break_down$variable_name,
       contribution = break_down$contribution, ## SHAP contribution
@@ -47,83 +48,103 @@
     .n <- nrow(df)
     df$variable[is.na(df$variable)|df$variable==""] <- "prediction"
     df$variable <- factor(
-      df$variable, rev(c("intercept", .lvl_ord, "prediction")))
+      df$variable, rev(c("intercept", seq_ord, "prediction")))
     df$cumulative <- (df$cumulative - min(df$cumulative)) /
       (max(df$cumulative) - min(df$cumulative))
     df$last_cumulative <- c(NA, df$cumulative[-.n])
     df$variable_num <- 1:.n
     df$next_variable_num <- c(2:.n, NA)
     rownames(df) <- paste(break_down$label, break_down$variable, break_down$B, sep = ": ")
+    df <- df[!(df$variable %in% c("intercept", "prediction")), ]
     return(df)
+  }
+  my_bd_plot <- function(df){
+    ggplot() + 
+      ## horizontal bars
+      geom_segment(
+        aes(x = cumulative, xend = last_cumulative,
+            y = variable, yend = variable, color = player),
+        data = df, size = 1.5, alpha = .8) +
+      facet_grid(rows = vars(seq_name), col = vars(player)) +
+      theme_bw() +
+      scale_color_brewer(palette = "Dark2") +
+      labs(title = "Breakdown plot", color = "Players",
+           y = "", x = "Normalized contribution to prediction") +
+      theme(legend.margin   = margin(0, 0, 0, 0),
+            legend.position = "off",
+            axis.text.x     = element_blank(),
+            axis.ticks.x    = element_blank())
   }
 }
 
 ### Create FIFA x ------
-.raw <- DALEX::fifa
-.dat_less_ys <- .raw %>%
-  dplyr::select(-c(`nationality`, ## useless class
-                   `overall`, `potential`, `value_eur`, `wage_eur`)) %>% ## potential target vars.
-  as.data.frame()
-
-if(F) ## View corrplot?
-  corrplot::corrplot(cor(.dat_less_ys),
-                     method = "circle", ## geom
-                     type = "upper", ## only upper triangle
-                     diag = F, ## remove auto correlation
-                     order = "FPC", ## First principal component
-                     tl.col = "black", tl.srt = 90, ## Text label color and rotation
-                     tl.pos = "td")
-
-## Munging aspects
-#### Agg some highly correlated vars.
-dat <- .dat_less_ys %>%
-  dplyr::mutate(
-    .keep    = "none",
-    BMI      = (weight_kg+(height_cm/100L)^2L),
-    age      = age,
-    reaction = movement_reactions,
-    offense  = (attacking_finishing+skill_long_passing+attacking_volleys+
-                  power_long_shots+skill_curve+mentality_positioning+attacking_crossing+
-                  attacking_short_passing+skill_dribbling+skill_ball_control)/10L,
-    defense  = (defending_sliding_tackle+mentality_interceptions+
-                  defending_standing_tackle+defending_marking+mentality_aggression)/5L,
-    accuracy = (attacking_heading_accuracy+power_shot_power)/2L,
-    movement = (movement_sprint_speed+movement_balance+movement_acceleration+
-                  mentality_vision+mentality_composure+movement_agility+
-                  mentality_penalties+skill_fk_accuracy+power_stamina+movement_reactions)/10L,
-    power    = (power_strength+power_jumping)/2L,
-    goalkeeping = (goalkeeping_diving+goalkeeping_positioning+goalkeeping_reflexes+
-                     goalkeeping_handling+goalkeeping_kicking)/5L
-  )
-## Class for the position of the player, either "fielder" or "goalkeeper"
-position <- clas <- dplyr::case_when(
-  dat$gk <= 40L ~ "fielder",
-  dat$gk >  40L ~ "goalkeeper") %>%
-  factor(levels = c("fielder", "goalkeeper"))
-
-## Starting with 42 variables, we remove `nationality`, and some potential Y vars,
-#### and aggregate into 9 aggregate 'aspect' dimensions based on var correlation
-X <- dat ## 9 aspects of the X's
-Y <- .raw$wage_eur ## unscaled wages in Euros, assumed 2020 valuation.
-
-## Create same RF used downstream -----
-.is_y_disc <- FALSE ## regressing on continuous wages
-.hp_ntrees <- sqrt(nrow(X))
-.hp_mtry <- if(.is_y_disc == TRUE) sqrt(ncol(X)) else ncol(X) / 3L
-.hp_node <- if(.is_y_disc == TRUE) 1L else 5L
-.hp_node <- max(.hp_node, nrow(X) / 500L)
-
-
-## NOTE: this DALEX::predict_parts("SHAP")
-## NOT theeshap::treeshap()
-rf_mod <- randomForest::randomForest(
-  Y~., data = data.frame(Y, X),
-  mtry = .hp_mtry, nodesize = .hp_node, ntrees = .hp_ntrees)
-## DALEX parts
-rf_expl <- DALEX::explain(model = rf_mod,
-                          data  = X,
-                          y     = Y,
-                          label = "Random Forest")
+{
+  .raw <- DALEX::fifa
+  .dat_less_ys <- .raw %>%
+    dplyr::select(-c(`nationality`, ## useless class
+                     `overall`, `potential`, `value_eur`, `wage_eur`)) %>% ## potential target vars.
+    as.data.frame()
+  
+  if(F) ## View corrplot?
+    corrplot::corrplot(cor(.dat_less_ys),
+                       method = "circle", ## geom
+                       type = "upper", ## only upper triangle
+                       diag = F, ## remove auto correlation
+                       order = "FPC", ## First principal component
+                       tl.col = "black", tl.srt = 90, ## Text label color and rotation
+                       tl.pos = "td")
+  
+  ## Munging aspects
+  #### Agg some highly correlated vars.
+  dat <- .dat_less_ys %>%
+    dplyr::mutate(
+      .keep    = "none",
+      BMI      = (weight_kg+(height_cm/100L)^2L),
+      age      = age,
+      reaction = movement_reactions,
+      offense  = (attacking_finishing+skill_long_passing+attacking_volleys+
+                    power_long_shots+skill_curve+mentality_positioning+attacking_crossing+
+                    attacking_short_passing+skill_dribbling+skill_ball_control)/10L,
+      defense  = (defending_sliding_tackle+mentality_interceptions+
+                    defending_standing_tackle+defending_marking+mentality_aggression)/5L,
+      accuracy = (attacking_heading_accuracy+power_shot_power)/2L,
+      movement = (movement_sprint_speed+movement_balance+movement_acceleration+
+                    mentality_vision+mentality_composure+movement_agility+
+                    mentality_penalties+skill_fk_accuracy+power_stamina+movement_reactions)/10L,
+      power    = (power_strength+power_jumping)/2L,
+      goalkeeping = (goalkeeping_diving+goalkeeping_positioning+goalkeeping_reflexes+
+                       goalkeeping_handling+goalkeeping_kicking)/5L
+    )
+  ## Class for the position of the player, either "fielder" or "goalkeeper"
+  position <- clas <- dplyr::case_when(
+    dat$gk <= 40L ~ "fielder",
+    dat$gk >  40L ~ "goalkeeper") %>%
+    factor(levels = c("fielder", "goalkeeper"))
+  
+  ## Starting with 42 variables, we remove `nationality`, and some potential Y vars,
+  #### and aggregate into 9 aggregate 'aspect' dimensions based on var correlation
+  X <- dat ## 9 aspects of the X's
+  Y <- .raw$wage_eur ## unscaled wages in Euros, assumed 2020 valuation.
+  
+  ## Create same RF used downstream -----
+  .is_y_disc <- FALSE ## regressing on continuous wages
+  .hp_ntrees <- sqrt(nrow(X))
+  .hp_mtry <- if(.is_y_disc == TRUE) sqrt(ncol(X)) else ncol(X) / 3L
+  .hp_node <- if(.is_y_disc == TRUE) 1L else 5L
+  .hp_node <- max(.hp_node, nrow(X) / 500L)
+  
+  
+  ## NOTE: this DALEX::predict_parts("SHAP")
+  ## NOT theeshap::treeshap()
+  rf_mod <- randomForest::randomForest(
+    Y~., data = data.frame(Y, X),
+    mtry = .hp_mtry, nodesize = .hp_node, ntrees = .hp_ntrees)
+  ## DALEX parts
+  rf_expl <- DALEX::explain(model = rf_mod,
+                            data  = X,
+                            y     = Y,
+                            label = "Random Forest")
+}
 
 ## SHAP values & plot -----
 ## Messi SHAP
@@ -189,63 +210,69 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
           legend.position = "bottom"))
 
 ## Breakdowns & plot ----
-## Messi Breakdown
-bd_messi <- predict_parts(explainer       = rf_expl,
-                          new_observation = messi,
-                          type            = "break_down",
-                          order= .lvl_ord)
-bd_df_messi <- my_bd_df(bd_messi, "Messi (offense)")
-## Dijk Breakdown
-bd_dijk <- predict_parts(explainer       = rf_expl,
-                         new_observation = dijk,
-                         type            = "break_down",
-                         order = .lvl_ord)
-bd_df_dijk <- my_bd_df(bd_dijk, "van Dijk (defense)")
-## Bind, by row
-bd_df <- rbind(bd_df_messi, bd_df_dijk)
-bd_df <- bd_df[!(bd_df$variable %in% c("intercept", "prediction")), ]
-(g_bd <- ggplot() + #scale_y_continuous(limits = c(0, 1)) +
-    # ## vertical lines
-    # geom_segment(aes(x=variable_num, xend=variable_num, y=variable, yend=last_cumulative),
-    #              data = bd_df, color = "black", size = .5) +
-    ## horizontal bars
-    geom_segment(
-      aes(x = cumulative, xend = last_cumulative,
-          y = variable, yend = variable, color = player),
-      data = bd_df, size = 1.5, alpha = .8) +
-    facet_grid(col = vars(player)) +
-    theme_bw() +
-    scale_color_brewer(palette = "Dark2") +
-    labs(title = "Breakdown plot", color = "Players",
-         y = "", x = "Normalized contribution to prediction") +
-    theme(legend.margin   = margin(0, 0, 0, 0),
-          legend.position = "off",
-          axis.text.x     = element_blank(),
-          axis.ticks.x    = element_blank())
-)
+## add alternate sequences -----
+shap_byplayer <- boxplot_df %>% select(player, variable, mean) %>%
+  tidyr::pivot_wider(names_from = "player", values_from = "mean")
+.seq_messi <-
+  shap_byplayer$variable[order(abs(shap_byplayer$`Messi (offense)`), decreasing = TRUE)] %>%
+  as.character()
+.seq_dijk  <-
+  shap_byplayer$variable[order(abs(shap_byplayer$`van Dijk (defense)`), decreasing = TRUE)] %>%
+  as.character()
 
-## Relative wages and cowplot
-if(F){ ## With differing player wages
-  wages_df <- tibble::tibble(
-    player = factor(c("Messi (offense)", "van Dijk (defense)")),
-    wages = .raw$wage_eur[c(1L, 8L)])
-  (g_wage <- ggplot(wages_df, aes(wages, player, xend = 0,
-                                  yend = player, color = player)) +
-      geom_segment(size=3L) +
-      theme_bw() +
-      scale_color_brewer(palette = "Dark2") +
-      labs(y = "Player", x = "Wages [2020 Euros]") +
-      theme(legend.position = "off"))
-  (cp <- cowplot::plot_grid(
-    g_wage, g_shap, g_bd, ncol = 1,
-    rel_heights = c(1, 2, 2), labels = letters[1:3]))
-}
+## seq_1, desc messi shap
+bd <- predict_parts(explainer       = rf_expl,
+                    new_observation = messi,
+                    type            = "break_down",
+                    order           = .seq_messi)
+bd_df_messi1 <- my_bd_df(bd, "Messi (offense)", "sequence 1", .seq_messi)
+bd <- predict_parts(explainer       = rf_expl,
+                    new_observation = dijk,
+                    type            = "break_down",
+                    order           = .seq_messi)
+bd_df_dijk1  <- my_bd_df(bd, "van Dijk (defense)", "sequence 1", .seq_messi)
+## seq_2, desc dijk shap
+bd <- predict_parts(explainer       = rf_expl,
+                    new_observation = messi,
+                    type            = "break_down",
+                    order           = .seq_dijk)
+bd_df_messi2 <- my_bd_df(bd, "Messi (offense)", "sequence 2", .seq_dijk)
+bd <- predict_parts(explainer       = rf_expl,
+                    new_observation = dijk,
+                    type            = "break_down",
+                    order           = .seq_dijk)
+bd_df_dijk2  <- my_bd_df(bd, "van Dijk (defense)", "sequence 2", .seq_dijk)
+## seq_3, desc sum shap
+bd <- predict_parts(explainer       = rf_expl,
+                    new_observation = messi,
+                    type            = "break_down",
+                    order           = .lvl_ord)
+bd_df_messi3 <- my_bd_df(bd, "Messi (offense)", "sequence 3", .lvl_ord)
+bd <- predict_parts(explainer       = rf_expl,
+                    new_observation = dijk,
+                    type            = "break_down",
+                    order           = .lvl_ord)
+bd_df_dijk3 <- my_bd_df(bd, "van Dijk (defense)", "sequence 3", .lvl_ord)
+
+bd_seq1 <- my_bd_plot(rbind(bd_df_messi1, bd_df_dijk1)) +
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm")) +
+  labs(x = element_blank(), title = "Breakdown plots")
+bd_seq2 <- my_bd_plot(rbind(bd_df_messi2, bd_df_dijk2)) +
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"),
+        strip.text.x = element_blank()) +
+  labs(title = element_blank(), x = element_blank())
+bd_seq3 <- my_bd_plot(rbind(bd_df_messi3, bd_df_dijk3)) +
+  theme(plot.margin = unit(c(0, 0, 0, 0), "cm"),
+        strip.text.x = element_blank()) +
+  labs(title = element_blank())
+(g_bd <- cowplot::plot_grid(bd_seq1, bd_seq2, bd_seq3, ncol = 1, rel_heights = c(1.25, 1, 1.08)))
+
 ### Plot together
 require("cowplot")
 (cp <- cowplot::plot_grid(
-  g_bd, g_shap, ncol = 1, rel_heights = c(2, 2.3), labels = c("a)", "b)")))
+  g_bd, g_shap, ncol = 1, rel_heights = c(3, 2), labels = c("a)", "b)")))
 
 ## SAVE -----
 ggplot2::ggsave(
   "./figures/shap_distr_bd.png",
-  cp, device = "png", width = 6.1, height = 7, units = "in")
+  cp, device = "png", width = 6.1, height = 8, units = "in")

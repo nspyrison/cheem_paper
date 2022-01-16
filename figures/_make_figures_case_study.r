@@ -198,7 +198,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
   .inc_var_nms <- c("CalFat", "TotFat", "SatFat", "Na", "Fiber", "Sugars")
   ## Removed 4 with lowest contribution for the prim_obs.
   .bas <- basis_attr_df(chocolates_ls$attr_df[, .inc_var_nms], prim_obs)
-  .mv  <- which(.inc_var_nms == "Sugars")
+  .mv  <- which(.inc_var_nms == "Na")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.
   dim(mt_interp)
@@ -210,7 +210,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4) +
     ggtitle("Radial tour, select frames")
   .ggt2 <- radial_cheem_tour(
-    chocolates_ls, basis = mt_interp[,,18], manip_var = .mv,
+    chocolates_ls, basis = mt_interp[,,19], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1.4)
@@ -247,7 +247,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
     ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),
-      legend.position  = "bottom",
+      legend.position  = "off",
       legend.direction = "horizontal")
   .inc_var_nms <- c("BMI", "react", "off", "def", "mvm", "pwr")
   ## Removed 4 with lowest contribution for the prim_obs.
@@ -309,7 +309,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
     ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),
-      legend.position  = "bottom",
+      legend.position  = "off",
       legend.direction = "horizontal")
   .inc_var_nms <- c("LtA", "Qlt", "YrB", "LvA", "Rms", "GYB", "GrA")
   ## Removed 4 with lowest contribution for the prim_obs.

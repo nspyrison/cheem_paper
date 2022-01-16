@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.13)  16 JAN 2022 14:13
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.13)  16 JAN 2022 16:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -801,11 +801,11 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 
 {c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}] [2]
-<./figures/shap_distr_bd.png, id=31, 433.62pt x 505.89pt>
+<./figures/shap_distr_bd.png, id=33, 440.847pt x 578.16pt>
 File: ./figures/shap_distr_bd.png Graphic file (type png)
 <use ./figures/shap_distr_bd.png>
-Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 203.
-(pdftex.def)             Requested size: 281.8695pt x 328.84775pt.
+Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 201.
+(pdftex.def)             Requested size: 281.85185pt x 369.64178pt.
 [3pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) 
 has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -819,35 +819,35 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <5> on input line 231.
 [4]
-<./figures/app_classification.png, id=60, 830.50275pt x 770.88pt>
+<./figures/app_classification.png, id=61, 830.50275pt x 770.88pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
 Package pdftex.def Info: ./figures/app_classification.png  used on input line 2
 55.
 (pdftex.def)             Requested size: 469.7545pt x 436.03029pt.
-<./figures/app_regression_interactions.png, id=61, 825.68475pt x 847.36575pt>
+<./figures/app_regression_interactions.png, id=62, 825.68475pt x 847.36575pt>
 File: ./figures/app_regression_interactions.png Graphic file (type png)
 <use ./figures/app_regression_interactions.png>
 Package pdftex.def Info: ./figures/app_regression_interactions.png  used on inp
 ut line 269.
 (pdftex.def)             Requested size: 469.76328pt x 482.09842pt.
+[5] [6pdfTeX warning (ext4): destination with the same identifier (name{figure.
+2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.287 
+       <./figures/app_classification.PNG>] [7pdfTeX warning (ext4): destination
+ with the same identifier (name{figure.3}) has been already used, duplicate ign
+ored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.287 
+       <./figures/app_regression_interactions.PNG>]
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 2
 92.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-) [5] [6pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.2}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.293     \item \textbf
-                       {Model and explanation:} any model can be used with t...
- <./figures/app_classification.PNG>] [7pdfTeX warning (ext4): destination with 
-the same identifier (name{figure.3}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.293     \item \textbf
-                       {Model and explanation:} any model can be used with t...
- <./figures/app_regression_interactions.PNG>]
+)
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 3
 10.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/t1lmtt.fd
@@ -885,8 +885,8 @@ Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 379.
 .4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.387 
-       <./figures/case_penguins.png>]
+l.384 \end{figure}
+                   <./figures/case_penguins.png>]
 <./figures/case_chocolates_inverse.png, id=127, 361.35pt x 505.89pt>
 File: ./figures/case_chocolates_inverse.png Graphic file (type png)
 <use ./figures/case_chocolates_inverse.png>
@@ -897,22 +897,15 @@ ine 400.
  has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.410 ... regression}\label{fifa-wage-regression}}
-                                                   <./figures/case_penguins_BlF
-l.png>] [12pdfTeX warning (ext4): destination with the same identifier (name{fi
-gure.6}) has been already used, duplicate ignored
+l.405 \end{figure}
+                   <./figures/case_penguins_BlFl.png>] [12pdfTeX warning (ext4)
+: destination with the same identifier (name{figure.6}) has been already used, 
+duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.410 ... regression}\label{fifa-wage-regression}}
-                                                   <./figures/case_chocolates.p
-ng>] [13pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.7}) has been already used, duplicate ignored
-<argument> ...shipout:D \box_use:N \l_shipout_box 
-                                                  \__shipout_drop_firstpage_...
-l.410 ... regression}\label{fifa-wage-regression}}
-                                                   <./figures/case_chocolates_i
-nverse.png>]
-<./figures/case_fifa.png, id=148, 433.62pt x 578.16pt>
+l.405 \end{figure}
+                   <./figures/case_chocolates.png>]
+<./figures/case_fifa.png, id=142, 433.62pt x 578.16pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
 Package pdftex.def Info: ./figures/case_fifa.png  used on input line 418.
@@ -920,7 +913,7 @@ Package pdftex.def Info: ./figures/case_fifa.png  used on input line 418.
 
 LaTeX Warning: Float too large for page by 12.25504pt on input line 423.
 
-<./figures/case_ames2018.png, id=152, 433.62pt x 578.16pt>
+<./figures/case_ames2018.png, id=146, 433.62pt x 578.16pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
 Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 436.
@@ -928,51 +921,55 @@ Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 436.
 
 LaTeX Warning: Float too large for page by 12.25504pt on input line 441.
 
-[14] [15pdfTeX warning (ext4): destination with the same identifier (name{figur
-e.8}) has been already used, duplicate ignored
+[13] [14pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.457 T
-       he namesake, Cheem, refers to a fictional race of humanoid trees from...
- <./figures/case_fifa.png>] [16pdfTeX warning (ext4): destination with the same
- identifier (name{figure.9}) has been already used, duplicate ignored
+l.456 
+       <./figures/case_chocolates_inverse.png>] [15pdfTeX warning (ext4): desti
+nation with the same identifier (name{figure.8}) has been already used, duplica
+te ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.457 T
-       he namesake, Cheem, refers to a fictional race of humanoid trees from...
- <./figures/case_ames2018.png>] [17] [18] [19] (./_paper.aux) ) 
+l.456 
+       <./figures/case_fifa.png>] [16pdfTeX warning (ext4): destination with th
+e same identifier (name{figure.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.456 
+       <./figures/case_ames2018.png>] [17] [18] [19] (./_paper.aux) ) 
 Here is how much of TeX's memory you used:
  15906 strings out of 480226
  260646 string characters out of 5893492
- 602653 words of memory out of 5000000
+ 602668 words of memory out of 5000000
  33224 multiletter control sequences out of 15000+600000
  541860 words of font info for 176 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,6n,77p,1299b,414s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/spyri/
-AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/spyri
-/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/spy
-ri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/sp
-yri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Use
-rs/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c
-:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.p
-fb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmb
-x12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/l
-m/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/publ
-ic/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1
-/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/t
-ype1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fon
-ts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/
-fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-di
-st/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/tex
-mf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTe
-X/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Roaming/
-TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppData/Roa
-ming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (19 pages, 2637116 bytes).
+ 74i,6n,77p,1299b,374s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Users/
+spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users
+/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Use
+rs/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Us
+ers/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{
+c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.
+enc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lm
+bx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/
+lm/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pu
+blic/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
+1/public/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts
+/type1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/f
+onts/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-di
+st/fonts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf
+-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/te
+xmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyT
+eX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roaming/
+TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Ro
+aming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppDa
+ta/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on _paper.pdf (19 pages, 2700162 bytes).
 PDF statistics:
- 425 PDF objects out of 1000 (max. 8388607)
- 351 compressed objects within 4 object streams
+ 426 PDF objects out of 1000 (max. 8388607)
+ 352 compressed objects within 4 object streams
  113 named destinations out of 1000 (max. 500000)
  39118 words of extra memory for PDF output out of 42996 (max. 10000000)
 

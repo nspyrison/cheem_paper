@@ -27,27 +27,6 @@
 }
 
 ## Penguins classification ------
-### Save orthogonal display of penguins with
-(.g <- ggplot(penguins_na.rm, aes(x=bill_length_mm,
-                                  y=flipper_length_mm,
-                                  colour=species)) +
-   geom_point(size=1) +
-   ## Prim obs
-   geom_point(data=penguins_na.rm[243,], shape=8, size=5, alpha=0.8) +
-   ## Comparison obs
-   #geom_point(data=penguins_na.rm[169,], shape=4, size=3, alpha=0.6) +
-   theme_bw() +
-   theme(aspect.ratio = 1) +
-   #legend.margin   = margin(0, 0, 0, 0),
-   #legend.position = "bottom") +
-   scale_color_brewer(palette = "Dark2") +
-   labs(y = "Flipper length [mm]", x = "Bill length [mm]", color = "Observed species"))
-## Save
-ggplot2::ggsave(
-  "./figures/case_penguins_BlFl.png",
-  plot = .g, device = "png",
-  height = 4, units = "in")
-
 {
   ## Data setup, spinifex::penguins
   names(penguins_ls)
@@ -90,6 +69,26 @@ ggplot2::ggsave(
     align = "v", axis = "l")
 }
 
+## Penguins orthogonal BlFl ----
+(.g <- ggplot(penguins_na.rm, aes(x=bill_length_mm,
+                                  y=flipper_length_mm,
+                                  colour=species)) +
+   geom_point(size=1) +
+   ## Prim obs
+   geom_point(data=penguins_na.rm[243,], shape=8, size=5, alpha=0.8) +
+   ## Comparison obs
+   #geom_point(data=penguins_na.rm[169,], shape=4, size=3, alpha=0.6) +
+   theme_bw() +
+   theme(aspect.ratio = 1) +
+   
+   scale_color_brewer(palette = "Dark2") +
+   labs(y = "Flipper length [mm]", x = "Bill length [mm]", color = "Observed species"))
+## Save
+ggplot2::ggsave(
+  "./figures/case_penguins_BlFl.png",
+  plot = .g, device = "png",
+  height = 4, units = "in")
+
 ### Save still shots for paper
 ggplot2::ggsave(
   "./figures/case_penguins.png",
@@ -99,17 +98,7 @@ ggplot2::ggsave(
 
 ### Save .mp4, add GitHub urls to paper
 message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
-# .ggt <- radial_cheem_tour(
-#   penguins_ls, basis = .bas, manip_var = .mv,
-#   primary_obs = prim_obs, comparison_obs = comp_obs,
-#   do_add_pcp_segments = TRUE,
-#   pcp_shape = 124, angle = .15) + ## app angle
-#   theme(legend.position = "top", legend.direction = "horizontal")
-# .anim <- animate_gganimate(
-#   .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
-#   height = 800, width = 600, units = "px", ## "px", "in", "cm", or "mm."
-#   render = gganimate::av_renderer("./figures/case_penguins.mp4")) ## Alternative render
-# ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_penguins.mp4
 
 
 
@@ -164,17 +153,7 @@ ggplot2::ggsave(
 
 ### Save .mp4, add GitHub urls to paper
 message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
-# .ggt <- radial_cheem_tour(
-#   chocolates_ls, basis = .bas, manip_var = .mv,
-#   primary_obs = prim_obs, comparison_obs = comp_obs,
-#   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-#   pcp_shape = 124, angle = .15) + ## app angle
-#   theme(legend.position = "top", legend.direction = "horizontal")
-# .anim <- animate_gganimate(
-#   .ggt, fps = 6, res = 100, ## resolution, not the same as dpi, 100 seems about 1x zoom
-#   height = 800, width = 600, units = "px", ## "px", "in", "cm", or "mm."
-#   render = gganimate::av_renderer("./figures/case_chocolates.mp4")) ## Alternative render
-# ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
 
 
 
@@ -283,14 +262,7 @@ ggplot2::ggsave(
 
 ### Save .mp4, add GitHub urls to paper
 message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
-# .ggt <- cheem:::radial_cheem_tour_subplots(
-#   fifa_ls, basis = .bas, manip_var = .mv,
-#   primary_obs = prim_obs, comparison_obs = comp_obs,
-#   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-#   pcp_shape = 124, angle = .15)
-# animate_plotly(.ggt, fps = 6)
-# messgae("Manual capturing this tour from app.")
-# ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.html
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_fifa.html
 
 
 ## Ames Housing 2018 (North Ames) ----
@@ -324,11 +296,6 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
     do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
     pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1) +
     ggtitle("Radial tour, select frames")
-  # .ggt2 <- radial_cheem_tour( ## Max difference
-  #   ames2018_ls, basis = mt_interp[,,8], manip_var = .mv,
-  #   primary_obs = prim_obs, comparison_obs = comp_obs,
-  #   do_add_pcp_segments = FALSE, inc_var_nms = .inc_var_nms,
-  #   pcp_shape = 124, angle = 0) + theme(legend.position = "off", aspect.ratio = 1)
   .ggt3 <- radial_cheem_tour(
     ames2018_ls, basis = mt_interp[,,17], manip_var = .mv,
     primary_obs = prim_obs, comparison_obs = comp_obs,
@@ -348,13 +315,6 @@ ggplot2::ggsave(
 
 ### Save .mp4, add GitHub urls to paper
 message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
-# .ggt <- cheem:::radial_cheem_tour_subplots(
-#   ames2018_ls, basis = .bas, manip_var = .mv,
-#   primary_obs = prim_obs, comparison_obs = comp_obs,
-#   do_add_pcp_segments = TRUE, inc_var_nms = .inc_var_nms,
-#   pcp_shape = 124, angle = .15)
-# animate_plotly(.ggt, fps = 6)
-# messgae("Manual capturing this tour from app.")
-# ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4
+## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_ames2018.mp4
 
 

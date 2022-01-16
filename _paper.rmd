@@ -109,7 +109,7 @@ We use the radial manual tour to scrutinize a local explanation in our proposed 
 Using a radial tour can be considered similar to counterfactual, what-if analysis, such as _ceteris paribus_ [@biecek_ceterisparibus_2020]. This phrase, Latin for "other things held constant" or "all else unchanged", shows how an instance's prediction would change from a marginal change in one explanatory feature given that other features are held constant. It ignores correlations of the features and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the features by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. When the contribution of one feature decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions and is thus an interpretable visualization.
 
 <!-- Paper structure -->
-The remainder of this paper is organized as follows. The following Section, \@ref(sec:explanations), covers the background of the local explanation and the traditional visuals produced. Section \@ref(sec:tour) explains the animations of continuous linear projections. Section \@ref(sec:applicationdesign) discusses the visual layout in the interactive interface, how they facilitate analysis, data preprocessing, and package infrastructure. Then Section \@ref(sec:casestudies) illustrates the application to supervised learning with categorical and quantitative response features. We conclude with Section \@ref(sec:cheemdiscussion) of the insights gained and directions that might be explored in the future.
+The remainder of this paper is organized as follows. The following Section, \@ref(sec:explanations), covers the background of the local explanation and the traditional visuals produced. Section \@ref(sec:tour) explains the animations of continuous linear projections. Section \@ref(sec:cheemviwer) discusses the visual layout in the interactive interface, how they facilitate analysis, data preprocessing, and package infrastructure. Then Section \@ref(sec:casestudies) illustrates the application to supervised learning with categorical and quantitative response features. We conclude with Section \@ref(sec:cheemdiscussion) of the insights gained and directions that might be explored in the future.
 
 
 # Local explanations {#sec:explanations}
@@ -152,7 +152,7 @@ The manual tour [@cook_manual_1997] defines its path by changing a selected feat
 A version of the manual tour called a _radial tour_ is implemented in @spyrison_spinifex_2020 and forms the basis of the new work. In a radial tour, the selected feature can change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and interactive re-calculation to focus on a different feature.
 
 
-# The cheem viewer {#sec:applicationdesign}
+# The cheem viewer {#sec:cheemviwer}
 
 To explore the local explanations, an ensemble of plots [@unwin] is provided, called the _cheem viewer_. There are two primary plots: the global view to give the context of all of the SHAP values, and the radial tour view to explore the local explanations with user-controlled rotation. In addition, there are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. Figures \@ref(fig:classificationcase) and \@ref(fig:regressioncase) contain screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
 
@@ -229,9 +229,10 @@ The time to preprocess the data will vary significantly with the model and local
 
 The above-described method and application are implemented as an open-source __R__ package, __cheem__ available on [CRAN](https://CRAN.R-project.org/package=cheem). Preprocessing was facilitated with models created via __randomForest__ [@liaw_classification_2002] and explanations calculated with __treeshap__ [@kominsarczyk_treeshap_2021]. The application was made with __shiny__ [@chang_shiny_2021]. The tour visual is built with __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive HTML widgets with __plotly__ [@sievert_interactive_2020]. __DALEX__ [@biecek_dalex_2018] and the free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] were a huge boon to understanding local explanations and how to apply them.
 
+
 ## Installation and getting started
 
-The following __R__ code will help with geting up and running:
+The following __R__ code will help with getting up and running:
 
 ```{r eval=FALSE, echo=TRUE}
 ## Download the package
@@ -281,7 +282,7 @@ Figure \@ref(fig:casepenguinsblfl) confirms that flipper length (`f_l`) is impor
 
 ## Chocolates, milk/dark chocolate classification
 
-The chocolates dataset consists of 88 instances of ten nutritional measurements determined from their labels and labeled as either milk or dark. Dark chocolate is considered healthier than milk. The data was collected by students during the Iowa State University class STAT503 from nutritional information from the manufacturer's website and normalized to 100g equivalents. The data is available in the `cheem` package. A random forest model is used for the classification of chocolate type.
+The chocolates dataset consists of 88 instances of ten nutritional measurements determined from their labels and labeled as either milk or dark. Dark chocolate is considered healthier than milk. The data was collected by students during the Iowa State University class STAT503 from nutritional information from the manufacturer's website and normalized to 100g equivalents. The data is available in the __cheem__ package. A random forest model is used for the classification of chocolate type.
 
 It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk. A reason to do this is that a dark chocolate that is nutritionally more like milk should not be considered a healthy alternative. It is interesting to explore which of the nutritional features contribute most to misclassification.
 
@@ -329,7 +330,7 @@ Ames 2018, housing data was subset to North Ames (the neighborhood with the most
 knitr::include_graphics("./figures/case_ames2018.png")
 ```
 
-Figure \@ref(fig:caseames) selects the house sale 74, a sizable under prediction that has a large contribution from lot area. The CI has a similar predicted price though the prediction was accurate and gives almost no attribution to lot size. The attribution projection is places instances with high living areas to the right. We control the contribution of this feature. As the contribution of lot area decreases, the predictive power decreases for the PI, while the CI remains stationary. This large of an importance is living area is relatively uncommon. Boosting tree models may be more resilient to such an under prediction as up-weighting this residual would force its inclusion in the final model. 
+Figure \@ref(fig:caseames) selects the house sale 74, a sizable under prediction that has a large contribution from lot area. The CI has a similar predicted price though the prediction was accurate and gives almost no attribution to lot size. The attribution projection is places instances with high living areas to the right. We control the contribution of this feature. As the contribution of lot area decreases, the predictive power decreases for the PI, while the CI remains stationary. This large of an importance is living area is relatively uncommon. Boosting tree models may be more resilient to such an under prediction as up-weighting this residual would force its inclusion in the final model.
 
 
 # Discussion {#sec:cheemdiscussion}

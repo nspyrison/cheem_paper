@@ -204,7 +204,7 @@ dist_df$variable <- factor(dist_df$variable, levels = rev(.lvl_ord))
     theme_bw() +
     scale_color_brewer(palette = "Dark2") +
     scale_fill_brewer(palette = "Dark2") +
-    labs(title="SHAP distribution",
+    labs(title = "SHAP",
          y = "", x = "Normalized SHAP values") +
     theme(legend.margin   = margin(0, 0, 0, 0),
           legend.position = "bottom"))

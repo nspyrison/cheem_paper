@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.13)  16 JAN 2022 21:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.13)  17 JAN 2022 15:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -941,12 +941,12 @@ l.449
        <./figures/case_ames2018.png>] [17] [18] [19] (./_paper.aux) ) 
 Here is how much of TeX's memory you used:
  15908 strings out of 480226
- 260656 string characters out of 5893492
- 602324 words of memory out of 5000000
+ 260670 string characters out of 5893492
+ 602325 words of memory out of 5000000
  33224 multiletter control sequences out of 15000+600000
  541990 words of font info for 177 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,6n,77p,1280b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 74i,6n,77p,1281b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/
 spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users
 /spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Use
@@ -967,7 +967,7 @@ eX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roaming/
 TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Ro
 aming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppDa
 ta/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (19 pages, 2696755 bytes).
+Output written on _paper.pdf (19 pages, 2696766 bytes).
 PDF statistics:
  426 PDF objects out of 1000 (max. 8388607)
  352 compressed objects within 4 object streams

@@ -21,9 +21,9 @@
   ames2018_ls   <- readRDS(paste0(fp, "preprocess_ames2018.rds"))
   chocolates_ls <- readRDS(paste0(fp, "preprocess_chocolates.rds"))
   
-  .x_title      <- "        x: PC1, y: PC2          x: PC1, y: PC2  x: predicted, y: observed"
-  .x_title_reg  <- "      x: PC1, y: PC2               x: PC1, y: PC2     x: predicted, y: observed"
-  .x_title_reg2 <- "        x: PC1, y: PC2        x: PC1, y: PC2    x: predicted, y: observed"
+  .x_title_peng <- "x: PC1, y: PC2          x: PC1, y: PC2        x: pred, y: obs"
+  .x_title_choc <- "x: PC1, y: PC2                x: PC1, y: PC2             x: pred, y: obs"
+  .x_title_reg  <- "x: PC1, y: PC2                       x: PC1, y: PC2                      x: pred, y: obs"
 }
 
 ## Penguins classification ------
@@ -36,7 +36,7 @@
   ### Global view and cheem tour stills
   .glob_view <- global_view(
     penguins_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
-    labs(color = "Predicted class", shape = "Predicted class", x = .x_title) +
+    labs(color = "Predicted class", shape = "Predicted class", x = .x_title_peng) +
     ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),
@@ -69,10 +69,18 @@
     align = "v", axis = "l")
 }
 
+### Save still shots for paper
+ggplot2::ggsave(
+  "./figures/case_penguins.png",
+  plot = .cp, device = "png",
+  width = 4.5, height = 7, units = "in")
+.m <- gc()
+
+
 ## Penguins orthogonal BlFl ----
-(.g <- ggplot(penguins_na.rm, aes(x=bill_length_mm,
-                                  y=flipper_length_mm,
-                                  colour=species)) +
+(.g <- ggplot(penguins_na.rm, aes(x = bill_length_mm,
+                                  y = flipper_length_mm,
+                                  colour = species)) +
    geom_point(size=1) +
    ## Prim obs
    geom_point(data=penguins_na.rm[243,], shape=8, size=5, alpha=0.8) +
@@ -88,13 +96,6 @@ ggplot2::ggsave(
   "./figures/case_penguins_BlFl.png",
   plot = .g, device = "png",
   height = 4, units = "in")
-
-### Save still shots for paper
-ggplot2::ggsave(
-  "./figures/case_penguins.png",
-  plot = .cp, device = "png",
-  width = 4.5, height = 7, units = "in")
-.m <- gc()
 
 ### Save .mp4, add GitHub urls to paper
 message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
@@ -113,7 +114,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
   ### Global view
   .glob_view <- global_view(
     chocolates_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
-    labs(color = "Predicted class", shape = "Predicted class", x = .x_title) +
+    labs(color = "Predicted class", shape = "Predicted class", x = .x_title_choc) +
     ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),
@@ -156,7 +157,6 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
 ## https://github.com/nspyrison/cheem_paper/blob/main/figures/case_chocolates.mp4
 
 
-
 ## Chocolates inverse case -----
 {
   names(chocolates_ls)
@@ -168,7 +168,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
   ### Global view
   .glob_view <- global_view(
     chocolates_ls, prim_obs, comp_obs, as_ggplot = TRUE) +
-    labs(color = "Predicted class", shape = "Predicted class", x = .x_title) +
+    labs(color = "Predicted class", shape = "Predicted class", x = .x_title_choc) +
     ggtitle("Global view") + theme(
       plot.margin      = margin(0,0,0,0),
       legend.margin    = margin(0,0,0,0),

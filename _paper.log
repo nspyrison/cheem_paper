@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.13)  17 JAN 2022 15:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.1.13)  20 JAN 2022 13:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -821,18 +821,18 @@ LaTeX Font Info:    External font `lmex10' loaded for size
                                                   \__shipout_drop_firstpage_...
 l.232 
        <./figures/shap_distr_bd.png>]
-<./figures/app_classification.png, id=58, 830.50275pt x 770.88pt>
+<./figures/app_classification.png, id=58, 592.614pt x 549.85425pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
 Package pdftex.def Info: ./figures/app_classification.png  used on input line 2
 55.
-(pdftex.def)             Requested size: 469.7545pt x 436.03029pt.
-<./figures/app_regression_interactions.png, id=59, 825.68475pt x 847.36575pt>
+(pdftex.def)             Requested size: 469.7695pt x 435.87352pt.
+<./figures/app_regression_interactions.png, id=59, 596.82974pt x 605.26125pt>
 File: ./figures/app_regression_interactions.png Graphic file (type png)
 <use ./figures/app_regression_interactions.png>
 Package pdftex.def Info: ./figures/app_regression_interactions.png  used on inp
 ut line 269.
-(pdftex.def)             Requested size: 469.76328pt x 482.09842pt.
+(pdftex.def)             Requested size: 469.76003pt x 476.39638pt.
 [5] [6pdfTeX warning (ext4): destination with the same identifier (name{figure.
 2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -967,7 +967,7 @@ eX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roaming/
 TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Ro
 aming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppDa
 ta/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (19 pages, 2696766 bytes).
+Output written on _paper.pdf (19 pages, 2507052 bytes).
 PDF statistics:
  426 PDF objects out of 1000 (max. 8388607)
  352 compressed objects within 4 object streams

@@ -249,7 +249,7 @@ The attribution projection of the PI is the initial 1D basis in a radial tour, d
 \hypertarget{classification-task}{%
 \subsection{Classification task}\label{classification-task}}
 
-Typically we select a misclassified instance compared to a correctly classified point nearby in data space. The model information in the global view depicts the model confusion matrix. The radial tour is 1D, with a density display, while the goal of the tour; exploring the sensitivity of each feature to structure identified by the local explanation, evaluating the support or robustness of the prediction.
+Selecting a misclassified instance as PI and a correctly classified point nearby in data space as CI, makes it easier to examine the features most responsible for the error. The global view (right plot) displays the model confusion matrix. The radial tour is 1D, plotted as a density where colour indicates class. A scrollbar here enables the user to vary the contribution of each feature to explore the sensitivity the separation to that feature.
 
 \begin{figure}
 

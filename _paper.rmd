@@ -1,5 +1,5 @@
 ---
-title: "Exploring Local Explanations of Non-linear Models Using Animated Linear Projections"
+title: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
 shorttitle: Cheem
 keywords:
 - R
@@ -85,13 +85,13 @@ knitr::opts_chunk$set(
 # Introduction {#sec:intro}
 
 <!-- Introduce explanatory vs predictive modeling -->
-There are different reasons and emphases to fit a model. @breiman_statistical_2001, reiterated by @shmueli_explain_2010, taxonomize modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose, while _predictive_ modeling focuses more on the predictions of out-of-sample instances. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for more accurate non-linear models. The use of black-box models is becoming increasingly common, but not without their share of controversy [@oneil_weapons_2016; @kodiyan_overview_2019]. However, the loss of interpretation presents a challenge.
+There are different reasons and emphases to fit a model. @breiman_statistical_2001, reiterated by @shmueli_explain_2010, taxonomize modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose, while _predictive_ modeling focuses more on the predictions of out-of-sample instances. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for more accurate nonlinear models. The use of black-box models is becoming increasingly common, but not without their share of controversy [@oneil_weapons_2016; @kodiyan_overview_2019]. However, the loss of interpretation presents a challenge.
 
 <!-- Interpretability & baises -->
 Interpretability is vital for exploring and protecting against potential biases (e.g., sex [@dastin_amazon_2018; @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]) in any model. For instance, models regularly pick up on biases in the training data that have observed influence on the response (output) feature, which is then built into the model. Feature-level (variable-level) interpretability of models is essential in evaluating such biases. It is also generally important for many problems, where it is not enough to predict accurately. Still, one must be able to explain which predictors are most responsible for generating a response value.
 
 <!-- Interpretability & data drift -->
-Another concern is data drift, a shift in support or domain of the explanatory features (variable or predictors). Non-linear models are typically more sensitive and do not extrapolate well outside the training data domain. Better interpretability of the model means more transparency where models' predictions may be plausible or completely unreliable.
+Another concern is data drift, a shift in support or domain of the explanatory features (variable or predictors). Nonlinear models are typically more sensitive and do not extrapolate well outside the training data domain. Better interpretability of the model means more transparency where models' predictions may be plausible or completely unreliable.
 
 <!-- Local explanations -->
 Explainable Artificial Intelligence (XAI) is an emerging field of research that tries to increase the interpretability of black-box models. A common approach is to use _local explanations_, which attempt to approximate linear feature importance at the location of each instance (observation), or the predictions at a specific point in the data domain. Because these are point-specific, it is challenging to visualize them to comprehensively understand a model.
@@ -115,7 +115,7 @@ The remainder of this paper is organized as follows. The following Section, \@re
 # Local explanations {#sec:explanations}
 
 <!-- Reminder of local explanation -->
-Consider a highly non-linear model. It can be hard to determine whether small changes in a feature's value will make a class prediction change group or identify which features contribute to an extreme residual. Local explanations shed light on these situations by approximating linear feature importance in the vicinity of a single instance.
+Consider a highly nonlinear model. It can be hard to determine whether small changes in a feature's value will make a class prediction change group or identify which features contribute to an extreme residual. Local explanations shed light on these situations by approximating linear feature importance in the vicinity of a single instance.
 
 <!-- Taxonomy of local explanations -->
 A comprehensive summary of the taxonomy and literature of explanation techniques is provided in Figure 6 of @arrieta_explainable_2020. It includes a large number of model-specific explanations such as deepLIFT [@shrikumar_not_2016; @shrikumar_learning_2017], a popular recursive method for estimating importance in neural networks. There are fewer model-agnostic explanations, of which LIME, [@ribeiro_why_2016] SHAP, [@lundberg_unified_2017], and their variants are popular.
@@ -154,7 +154,7 @@ A version of the manual tour called a _radial tour_ is implemented in @spyrison_
 
 # The cheem viewer {#sec:cheemviwer}
 
-To explore the local explanations, an ensemble of plots [@unwin_ensemble_2018] is provided, called the _cheem viewer_. There are two primary plots: the **global view** to give the context of all of the SHAP values, and the **radial tour view** to explore the local explanations with user-controlled rotation. In addition, there are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. There are different plots used for categorical and quantitative response. Figures \@ref(fig:classificationcase) and \@ref(fig:regressioncase) contain screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
+To explore the local explanations, an ensemble of plots [@unwin_ensemble_2018] is provided, called the _cheem viewer_. There are two primary plots: the __global view__ to give the context of all of the SHAP values, and the __radial tour view__ to explore the local explanations with user-controlled rotation. In addition, there are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. There are different plots used for categorical and quantitative response. Figures \@ref(fig:classificationcase) and \@ref(fig:regressioncase) contain screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
 
 
 ## Global view
@@ -337,7 +337,11 @@ Figure \@ref(fig:caseames) selects the house sale 74, a sizable under prediction
 
 The need to maintain the interpretability of black-box models is evident. One aspect uses local explanations of the model in the vicinity of an instance. Local explanations approximate the linear feature importance to the model. Our contribution is to assess explanations by examining the support by varying the contributions with a radial tour. First, a global view visualizes approximations of the data space, explanation space, model predictions side-by-side, using dynamic interaction to compare and contrast and identify instances of interest. The normalized linear importance from the explanation of the PI becomes the feature of interest to further explore with the radial tour. The tours explore the feature sensitivity to the structure identified in the explanation.
 
-We have illustrated this method on random forest models using the tree SHAP local explanation, while it could be generally used with any compatible model-explanation pairing. We apply it to the classification and regression tasks. We have created an open-source __R__ package __cheem__, available on [CRAN](https://CRAN.R-project.org/package=cheem), to facilitate preprocessing and exploration with the described interactive application. Toy and real data are provided, or upload your data after preprocessing.
+We have illustrated this method on random forest models using the tree SHAP local explanation. While this analysis could be generally used with any compatible model-explanation pairing. We have created an open-source __R__ package __cheem__, available on [CRAN](https://CRAN.R-project.org/package=cheem), to facilitate preprocessing and exploration with the described interactive application. Toy and real data are provided, or upload your data after preprocessing.
+
+One limitation of the __cheem__ packages is that it currently only calculates tree SHAP for tree-based models supported by __treeshap__ (tree based models from __randomForest__, __ranger__, __gbm__, __xgboost__, __lightgbm__, or __catboost__). The SHAP and oscillation explainations could be added with use of the `DALEX::explain()` seems to be an excellent direction to extend [@biecek_dalex_2018; @biecek_explanatory_2021]. Tree SHAP was selected because of its reduced computational complexity; processing runtime of the explanation will be a looming concern.
+
+Attribution space does tend to be more separable than data space at least in the first couple principal components. Different statistics should be explored to convey a clearer understanding what structure the explanation distinguishes. It is curious that the attribution space the same dimensionality of the data with a seemingly better separation. It sounds like a candidate to fit another model. However, such an attempt should want to be vigilant not to over-fit the training data.
 
 
 # Acknowledgments

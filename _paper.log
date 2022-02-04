@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.3)  4 FEB 2022 18:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.3)  4 FEB 2022 21:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -935,39 +935,39 @@ e same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.444 
-       <./figures/case_ames2018.png>] [17] [18] [19] (./_paper.aux) ) 
+       <./figures/case_ames2018.png>] [17] [18] [19] [20] (./_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 15914 strings out of 480227
- 260738 string characters out of 5893516
- 602809 words of memory out of 5000000
+ 15915 strings out of 480227
+ 260747 string characters out of 5893516
+ 603802 words of memory out of 5000000
  33223 multiletter control sequences out of 15000+600000
- 542344 words of font info for 180 fonts, out of 8000000 for 9000
+ 542333 words of font info for 180 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 74i,6n,77p,1281b,370s stack positions out of 5000i,500n,10000p,200000b,80000s
-{c:/Users/
-spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users
-/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Use
-rs/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Us
-ers/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{
-c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.
-enc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lm
-bx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/
-lm/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pu
-blic/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type
-1/public/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts
-/type1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/f
-onts/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-di
-st/fonts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf
--dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/te
-xmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyT
-eX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roaming/
-TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppData/Ro
-aming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/AppDa
-ta/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on _paper.pdf (19 pages, 2534643 bytes).
+ 74i,6n,77p,1281b,374s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/U
+sers/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/
+Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c
+:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{
+c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.
+enc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ma
+thit.enc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/
+lm/lmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/pu
+blic/lm/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/typ
+e1/public/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts
+/type1/public/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/
+fonts/type1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-d
+ist/fonts/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/tex
+mf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/
+texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyT
+eX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/
+TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roa
+ming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtko10.pfb><c:/Users/spyri/AppDa
+ta/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb><c:/Users/spyri/
+AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
+Output written on _paper.pdf (20 pages, 2536701 bytes).
 PDF statistics:
- 433 PDF objects out of 1000 (max. 8388607)
- 357 compressed objects within 4 object streams
- 113 named destinations out of 1000 (max. 500000)
+ 437 PDF objects out of 1000 (max. 8388607)
+ 360 compressed objects within 4 object streams
+ 114 named destinations out of 1000 (max. 500000)
  39118 words of extra memory for PDF output out of 42996 (max. 10000000)
 

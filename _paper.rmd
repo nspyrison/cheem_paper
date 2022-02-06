@@ -195,7 +195,7 @@ Selecting an inaccurately predicted instance as PI and an accurately predicted i
 
 In the radial tour view, the observed response and the residuals (vertical) are plotted against the attribution projection of the PI (horizontal). The attribution projection can be interpreted similarly to the predicted value from the global view plot. It represents a linear combination of the features, and a good fit would be indicated when there is a strong relationship seen with the observed values. This can be viewed as a local linear approximation if the fitted model is nonlinear. As the contribution of a feature is varied, if the value of the PI doesn't change much it would indicate that the prediction for this instance is NOT sensitive to that feature. Conversely, if the predicted value varies substantially, the prediction is very sensitive to that feature, suggesting that the feature is very important for the PI's prediction.
 
-```{r regressioncase, echo=F, out.width="100%", fig.cap="Overview of the cheem viewer for regression task highlighting the differences from the classification task and interactive features. Panel (a) shows linked brushing across the global view and the tooltip display when the cursor hovers over an instance. Applied linked brushing, (b), selected points are highlighted in the component spaces and tabularly displayed. Coloring on a statistic (c) highlights structure organized in the attribution space. Interactive tabular display (d) populates when instances are selected. Contribution of the 1D basis effecting the horizontal position (e) parallel coorindate display of the feature attribution from all observations, and horizontal bars show the contribution to the current basis. Regression projection (f) uses the same horizontal projection and fixes the vertical positions to the observed y and residuals, (left and right)."}
+```{r regressioncase, echo=F, out.width="100%", fig.cap="Overview of the cheem viewer for regression task highlighting the differences from the classification task and interactive features. Panel (a) PCA of the data and attributions spaces, (b), residual plot, predictions by observed values. Four points areselected points and highlighted in the PC spaces and tabularly displayed. Coloring on a statistic (c) highlights structure organized in the attribution space. Interactive tabular display (d) populates when instances are selected. Contribution of the 1D basis effecting the horizontal position (e) parallel coorindate display of the feature attribution from all observations, and horizontal bars show the contribution to the current basis. Regression projection (f) uses the same horizontal projection and fixes the vertical positions to the observed y and residuals, (left and right)."}
 knitr::include_graphics("./figures/app_regression_interactions.PNG")
 ```
 
@@ -232,24 +232,24 @@ The above-described method and application are implemented as an open-source __R
 
 ## Installation and getting started
 
-Version 0.2.0 of the package can be installed from CRAN using the following __R__ code:
+The package can be installed from GitHub using the following __R__ code:
 
 ```{r eval=FALSE, echo=TRUE}
-install.packages("cheem", dependencies = TRUE)
+# Install remotes if absent
+if(require("remotes") == FALSE) install.packages("remotes")
+remotes::install.packages("cheem", dependencies = TRUE)
 library("cheem")
 run_app()
 ```
 
-To process your own data, you will need to use the `treeshap` package, which can be installed from GitHub: 
+To process your own data, you will need to use the `treeshap` package, which can be installed from GitHub:
 
 ```{r eval=FALSE, echo=TRUE}
-# install.packages("remotes") # if you don't have it
 remotes::install_github('ModelOriented/treeshap')
 ```
 
-and follow the examples provided with the package to compute the local explainers. XXX Add some information on what type of data object gets passed into cheem.
+Follow the examples provided with the package to compute the local explainers, (see `?cheem_ls`). The application expects the return of call from `cheem_ls()` which is then saved to an .rds file with `saveRDS()`. Alternatively, the cheem viewer shiny app can be directly accessed at https://ebsmonash.shinyapps.io/cheem_initial/.  
 
-Alternatively, the cheem viewer shiny app can be directly accessed at https://ebsmonash.shinyapps.io/cheem_initial/.  
 
 # Case studies {#sec:casestudies}
 

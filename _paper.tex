@@ -273,7 +273,7 @@ In the radial tour view, the observed response and the residuals (vertical) are 
 
 }
 
-\caption{Overview of the cheem viewer for regression task highlighting the differences from the classification task and interactive features. Panel (a) shows linked brushing across the global view and the tooltip display when the cursor hovers over an instance. Applied linked brushing, (b), selected points are highlighted in the component spaces and tabularly displayed. Coloring on a statistic (c) highlights structure organized in the attribution space. Interactive tabular display (d) populates when instances are selected. Contribution of the 1D basis effecting the horizontal position (e) parallel coorindate display of the feature attribution from all observations, and horizontal bars show the contribution to the current basis. Regression projection (f) uses the same horizontal projection and fixes the vertical positions to the observed y and residuals, (left and right).}\label{fig:regressioncase}
+\caption{Overview of the cheem viewer for regression task highlighting the differences from the classification task and interactive features. Panel (a) PCA of the data and attributions spaces, (b), residual plot, predictions by observed values. Four points areselected points and highlighted in the PC spaces and tabularly displayed. Coloring on a statistic (c) highlights structure organized in the attribution space. Interactive tabular display (d) populates when instances are selected. Contribution of the 1D basis effecting the horizontal position (e) parallel coorindate display of the feature attribution from all observations, and horizontal bars show the contribution to the current basis. Regression projection (f) uses the same horizontal projection and fixes the vertical positions to the observed y and residuals, (left and right).}\label{fig:regressioncase}
 \end{figure}
 
 \hypertarget{interactive-features}{%
@@ -307,11 +307,13 @@ The above-described method and application are implemented as an open-source \te
 \hypertarget{installation-and-getting-started}{%
 \subsection{Installation and getting started}\label{installation-and-getting-started}}
 
-Version 0.2.0 of the package can be installed from CRAN using the following \textbf{R} code:
+The package can be installed from GitHub using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
+\CommentTok{\# Install remotes if absent}
+\ControlFlowTok{if}\NormalTok{(}\FunctionTok{require}\NormalTok{(}\StringTok{"remotes"}\NormalTok{) }\SpecialCharTok{==} \ConstantTok{FALSE}\NormalTok{) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"remotes"}\NormalTok{)}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"cheem"}\NormalTok{)}
 \FunctionTok{run\_app}\NormalTok{()}
 \end{Highlighting}
@@ -321,14 +323,11 @@ To process your own data, you will need to use the \texttt{treeshap} package, wh
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# install.packages("remotes") \# if you don\textquotesingle{}t have it}
 \NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{\textquotesingle{}ModelOriented/treeshap\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-and follow the examples provided with the package to compute the local explainers. XXX Add some information on what type of data object gets passed into cheem.
-
-Alternatively, the cheem viewer shiny app can be directly accessed at \url{https://ebsmonash.shinyapps.io/cheem_initial/}.
+Follow the examples provided with the package to compute the local explainers, (see \texttt{?cheem\_ls}). The application expects the return of call from \texttt{cheem\_ls()} which is then saved to an .rds file with \texttt{saveRDS()}. Alternatively, the cheem viewer shiny app can be directly accessed at \url{https://ebsmonash.shinyapps.io/cheem_initial/}.
 
 \hypertarget{sec:casestudies}{%
 \section{Case studies}\label{sec:casestudies}}

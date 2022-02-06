@@ -307,12 +307,11 @@ The above-described method and application are implemented as an open-source \te
 \hypertarget{installation-and-getting-started}{%
 \subsection{Installation and getting started}\label{installation-and-getting-started}}
 
-The package can be installed from GitHub using the following \textbf{R} code:
+Version 0.2.0 of the package can be installed from CRAN using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# install.packages("remotes") \# if you don\textquotesingle{}t have it}
-\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"cheem"}\NormalTok{)}
 \FunctionTok{run\_app}\NormalTok{()}
 \end{Highlighting}
@@ -322,6 +321,7 @@ To process your own data, you will need to use the \texttt{treeshap} package, wh
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\CommentTok{\# install.packages("remotes") \# if you don\textquotesingle{}t have it}
 \NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{\textquotesingle{}ModelOriented/treeshap\textquotesingle{}}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}

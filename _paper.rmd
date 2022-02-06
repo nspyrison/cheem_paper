@@ -232,11 +232,10 @@ The above-described method and application are implemented as an open-source __R
 
 ## Installation and getting started
 
-The package can be installed from GitHub using the following __R__ code:
+Version 0.2.0 of the package can be installed from CRAN using the following __R__ code:
 
 ```{r eval=FALSE, echo=TRUE}
-# install.packages("remotes") # if you don't have it
-remotes::install.packages("cheem", dependencies = TRUE)
+install.packages("cheem", dependencies = TRUE)
 library("cheem")
 run_app()
 ```
@@ -244,6 +243,7 @@ run_app()
 To process your own data, you will need to use the `treeshap` package, which can be installed from GitHub: 
 
 ```{r eval=FALSE, echo=TRUE}
+# install.packages("remotes") # if you don't have it
 remotes::install_github('ModelOriented/treeshap')
 ```
 

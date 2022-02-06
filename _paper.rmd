@@ -232,25 +232,24 @@ The above-described method and application are implemented as an open-source __R
 
 ## Installation and getting started
 
-The following __R__ code will help with getting up and running:
+The package can be installed from GitHub using the following __R__ code:
 
 ```{r eval=FALSE, echo=TRUE}
-## Download the package
-install.packages("cheem", dependencies = TRUE)
-## Restart the R session, so the IDE has the correct directory structure
-restartSession()
-## Load cheem into session
+# install.packages("remotes") # if you don't have it
+remotes::install.packages("cheem", dependencies = TRUE)
 library("cheem")
-## Try the app
 run_app()
-
-# Processing your data
-## Install treeshap from github to use as a local explainer
-remotes::install_github('ModelOriented/treeshap')
-## Follow the examples in cheem_ls()
-?cheem_ls
 ```
 
+To process your own data, you will need to use the `treeshap` package, which can be installed from GitHub: 
+
+```{r eval=FALSE, echo=TRUE}
+remotes::install_github('ModelOriented/treeshap')
+```
+
+and follow the examples provided with the package to compute the local explainers. XXX Add some information on what type of data object gets passed into cheem.
+
+Alternatively, the cheem viewer shiny app can be directly accessed at https://ebsmonash.shinyapps.io/cheem_initial/.  
 
 # Case studies {#sec:casestudies}
 

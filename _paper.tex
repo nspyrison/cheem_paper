@@ -307,26 +307,28 @@ The above-described method and application are implemented as an open-source \te
 \hypertarget{installation-and-getting-started}{%
 \subsection{Installation and getting started}\label{installation-and-getting-started}}
 
-The following \textbf{R} code will help with getting up and running:
+The package can be installed from GitHub using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\DocumentationTok{\#\# Download the package}
-\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
-\DocumentationTok{\#\# Restart the R session, so the IDE has the correct directory structure}
-\FunctionTok{restartSession}\NormalTok{()}
-\DocumentationTok{\#\# Load cheem into session}
+\CommentTok{\# install.packages("remotes") \# if you don\textquotesingle{}t have it}
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"cheem"}\NormalTok{)}
-\DocumentationTok{\#\# Try the app}
 \FunctionTok{run\_app}\NormalTok{()}
-
-\CommentTok{\# Processing your data}
-\DocumentationTok{\#\# Install treeshap from github to use as a local explainer}
-\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{\textquotesingle{}ModelOriented/treeshap\textquotesingle{}}\NormalTok{)}
-\DocumentationTok{\#\# Follow the examples in cheem\_ls()}
-\NormalTok{?cheem\_ls}
 \end{Highlighting}
 \end{Shaded}
+
+To process your own data, you will need to use the \texttt{treeshap} package, which can be installed from GitHub:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{\textquotesingle{}ModelOriented/treeshap\textquotesingle{}}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+and follow the examples provided with the package to compute the local explainers. XXX Add some information on what type of data object gets passed into cheem.
+
+Alternatively, the cheem viewer shiny app can be directly accessed at \url{https://ebsmonash.shinyapps.io/cheem_initial/}.
 
 \hypertarget{sec:casestudies}{%
 \section{Case studies}\label{sec:casestudies}}

@@ -250,6 +250,7 @@ remotes::install_github('ModelOriented/treeshap')
 
 Follow the examples provided with the package to compute the local explainers, (see `?cheem_ls`). The application expects the return of call from `cheem_ls()` which is then saved to an .rds file with `saveRDS()`. Alternatively, the cheem viewer shiny app can be directly accessed at https://ebsmonash.shinyapps.io/cheem_initial/.  
 
+
 # Case studies {#sec:casestudies}
 
 To illustrate the use of the cheem method, we apply it to modern datasets, two classification examples and then two of regression.

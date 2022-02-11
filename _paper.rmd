@@ -232,23 +232,27 @@ The above-described method and application are implemented as an open-source __R
 
 ## Installation and getting started
 
-The package can be installed from GitHub using the following __R__ code:
+The package can be installed from CRAN, and the shiny app can be run, using the following __R__ code:
 
 ```{r eval=FALSE, echo=TRUE}
-# Install remotes if absent
-if(require("remotes") == FALSE) install.packages("remotes")
-remotes::install.packages("cheem", dependencies = TRUE)
+install.packages("cheem", dependencies = TRUE)
 library("cheem")
 run_app()
 ```
 
-To process your own data, you will need to use the `treeshap` package, which can be installed from GitHub:
+Alternatively, 
+
+- a version of the cheem viewer shiny app can be directly accessed at [ebsmonash.shinyapps.io/cheem_initial/](https://ebsmonash.shinyapps.io/cheem_initial/). 
+- the development version of the package is available at https://github.com/nspyrison/cheem, and 
+- documentation of the package can be found at https://nspyrison.github.io/cheem/. 
+
+To explore your own data, you will need to use pre-process it using the `treeshap` package, which can be installed from GitHub:
 
 ```{r eval=FALSE, echo=TRUE}
 remotes::install_github('ModelOriented/treeshap')
 ```
 
-Follow the examples provided with the package to compute the local explainers, (see `?cheem_ls`). The application expects the return of call from `cheem_ls()` which is then saved to an .rds file with `saveRDS()`. Alternatively, the cheem viewer shiny app can be directly accessed at [ebsmonash.shinyapps.io/cheem_initial/](https://ebsmonash.shinyapps.io/cheem_initial/).
+Follow the examples provided with the package to compute the local explainers (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an .rds file with `saveRDS()`, to be uploaded. 
 
 
 # Case studies {#sec:casestudies}

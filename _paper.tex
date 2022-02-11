@@ -1,14 +1,14 @@
 % Options for packages loaded elsewhere
 \PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
-\PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
 %
 \documentclass[
 ]{article}
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
-\usepackage{ifxetex,ifluatex}
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+\usepackage{iftex}
+\ifPDFTeX
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
   \usepackage{textcomp} % provide euro and other symbols
@@ -40,10 +40,10 @@
   pdftitle={Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections},
   pdfkeywords={R, XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, radial tour},
   colorlinks=true,
-  linkcolor=red,
-  filecolor=Maroon,
-  citecolor=Blue,
-  urlcolor=blue,
+  linkcolor={red},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={blue},
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
@@ -114,6 +114,29 @@
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
 \setcounter{secnumdepth}{5}
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 \usepackage{setspace}
 \usepackage{hyperref}
 \usepackage{booktabs}
@@ -130,29 +153,9 @@
 \usepackage[normalem]{ulem}
 \usepackage{makecell}
 \usepackage{xcolor}
-\ifluatex
+\ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
-\newlength{\cslhangindent}
-\setlength{\cslhangindent}{1.5em}
-\newlength{\csllabelwidth}
-\setlength{\csllabelwidth}{3em}
-\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
- {% don't indent paragraphs
-  \setlength{\parindent}{0pt}
-  % turn on hanging indent if param 1 is 1
-  \ifodd #1 \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces\fi
-  % set entry spacing
-  \ifnum #2 > 0
-  \setlength{\parskip}{#2\baselineskip}
-  \fi
- }%
- {}
-\usepackage{calc}
-\newcommand{\CSLBlock}[1]{#1\hfill\break}
-\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
-\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
-\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
 \title{Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections}
 \author{}
@@ -181,7 +184,7 @@ There are various types of tours distinguished by the generation of projection b
 
 We use the radial manual tour to scrutinize a local explanation in our proposed approach. Additional interactivity allows the user to identify an instance of interest then explore its local explanation by changing feature contribution with the radial tour. The methods are implemented in R package \textbf{cheem}. Example datasets are provided to illustrate usage for classification and regression tasks.
 
-Using a radial tour can be compared with counterfactual, what-if analysis, such as \emph{ceteris paribus} profiles (Biecek 2020). Ceteris paribus, is Latin for ``other things held constant'' or ``all else unchanged.'' These profiles show how an instance's prediction would change from a marginal change in one explanatory feature given that other features are held constant. It ignores correlations of the features and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the features by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. When the contribution of one feature decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions and is thus an interpretable visualization.
+Using a radial tour can be compared with counterfactual, what-if analysis, such as \emph{ceteris paribus} profiles (Biecek 2020). Ceteris paribus, is Latin for ``other things held constant'' or ``all else unchanged''. These profiles show how an instance's prediction would change from a marginal change in one explanatory feature given that other features are held constant. It ignores correlations of the features and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the features by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. When the contribution of one feature decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions and is thus an interpretable visualization.
 
 The remainder of this paper is organized as follows. The following Section, \ref{sec:explanations}, covers the background of the local explanation and the traditional visuals produced. Section \ref{sec:tour} explains the animations of continuous linear projections. Section \ref{sec:cheemviwer} discusses the visual layout in the interactive interface, how they facilitate analysis, data preprocessing, and package infrastructure. Then Section \ref{sec:casestudies} illustrates the application to supervised learning with categorical and quantitative response features. We conclude with Section \ref{sec:cheemdiscussion} of the insights gained and directions that might be explored in the future.
 
@@ -304,19 +307,29 @@ The above-described method and application are implemented as an open-source \te
 \hypertarget{installation-and-getting-started}{%
 \subsection{Installation and getting started}\label{installation-and-getting-started}}
 
-The package can be installed from GitHub using the following \textbf{R} code:
+The package can be installed from CRAN, and the shiny app can be run, using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Install remotes if absent}
-\ControlFlowTok{if}\NormalTok{(}\FunctionTok{require}\NormalTok{(}\StringTok{"remotes"}\NormalTok{) }\SpecialCharTok{==} \ConstantTok{FALSE}\NormalTok{) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"remotes"}\NormalTok{)}
-\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"cheem"}\NormalTok{)}
 \FunctionTok{run\_app}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-To process your own data, you will need to use the \texttt{treeshap} package, which can be installed from GitHub:
+Alternatively,
+
+\begin{itemize}
+\tightlist
+\item
+  a version of the cheem viewer shiny app can be directly accessed at \href{https://ebsmonash.shinyapps.io/cheem_initial/}{ebsmonash.shinyapps.io/cheem\_initial/}.
+\item
+  the development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
+\item
+  documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
+\end{itemize}
+
+To explore your own data, you will need to use pre-process it using the \texttt{treeshap} package, which can be installed from GitHub:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -324,7 +337,7 @@ To process your own data, you will need to use the \texttt{treeshap} package, wh
 \end{Highlighting}
 \end{Shaded}
 
-Follow the examples provided with the package to compute the local explainers, (see \texttt{?cheem\_ls}). The application expects the return of call from \texttt{cheem\_ls()} which is then saved to an .rds file with \texttt{saveRDS()}. Alternatively, the cheem viewer shiny app can be directly accessed at \href{https://ebsmonash.shinyapps.io/cheem_initial/}{ebsmonash.shinyapps.io/cheem\_initial/}.
+Follow the examples provided with the package to compute the local explainers (using \texttt{?cheem\_ls}). The application expects the output returned by \texttt{cheem\_ls()}, saved to an .rds file with \texttt{saveRDS()}, to be uploaded.
 
 \hypertarget{sec:casestudies}{%
 \section{Case studies}\label{sec:casestudies}}
@@ -473,133 +486,133 @@ The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Wh
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
-\leavevmode\hypertarget{ref-arrieta_explainable_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-arrieta_explainable_2020}{}}%
 Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser, Adrien Bennetot, Siham Tabik, Alberto Barbado, Salvador García, Sergio Gil-López, Daniel Molina, and Richard Benjamins. 2020. {``Explainable {Artificial} {Intelligence} ({XAI}): {Concepts}, Taxonomies, Opportunities and Challenges Toward Responsible {AI}.''} \emph{Information Fusion} 58: 82--115.
 
-\leavevmode\hypertarget{ref-asimov_grand_1985}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-asimov_grand_1985}{}}%
 Asimov, Daniel. 1985. {``The {Grand} {Tour}: A {Tool} for {Viewing} {Multidimensional} {Data}.''} \emph{SIAM Journal on Scientific and Statistical Computing} 6 (1): 128--43. https://doi.org/\url{https://doi.org/10.1137/0906011}.
 
-\leavevmode\hypertarget{ref-biecek_dalex_2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-biecek_dalex_2018}{}}%
 Biecek, Przemyslaw. 2018. {``{DALEX}: Explainers for Complex Predictive Models in {R}.''} \emph{The Journal of Machine Learning Research} 19 (1): 3245--49.
 
-\leavevmode\hypertarget{ref-biecek_ceterisparibus_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-biecek_ceterisparibus_2020}{}}%
 ---------. 2020. \emph{{ceterisParibus}: {Ceteris} {Paribus} {Profiles}}. \url{https://CRAN.R-project.org/package=ceterisParibus}.
 
-\leavevmode\hypertarget{ref-biecek_explanatory_2021}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-biecek_explanatory_2021}{}}%
 Biecek, Przemyslaw, and Tomasz Burzykowski. 2021. \emph{Explanatory {Model} {Analysis}: {Explore}, {Explain}, and {Examine} {Predictive} {Models}}. CRC Press.
 
-\leavevmode\hypertarget{ref-breiman_statistical_2001}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-breiman_statistical_2001}{}}%
 Breiman, Leo. 2001. {``Statistical Modeling: {The} Two Cultures (with Comments and a Rejoinder by the Author).''} \emph{Statistical Science} 16 (3): 199--231.
 
-\leavevmode\hypertarget{ref-buja_grand_1986}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-buja_grand_1986}{}}%
 Buja, Andreas, and Daniel Asimov. 1986. {``Grand {Tour} {Methods}: {An} {Outline}.''} In \emph{Proceedings of the {Seventeenth} {Symposium} on the {Interface} of {Computer} {Sciences} and {Statistics} on {Computer} {Science} and {Statistics}}, 63--67. New York, NY, USA: Elsevier North-Holland, Inc. \url{http://dl.acm.org/citation.cfm?id=26036.26046}.
 
-\leavevmode\hypertarget{ref-chang_shiny_2021}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-chang_shiny_2021}{}}%
 Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. \emph{Shiny: Web Application Framework for r}. \url{https://CRAN.R-project.org/package=shiny}.
 
-\leavevmode\hypertarget{ref-cook_manual_1997}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-cook_manual_1997}{}}%
 Cook, Dianne, and Andreas Buja. 1997. {``Manual {Controls} for {High}-{Dimensional} {Data} {Projections}.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
 
-\leavevmode\hypertarget{ref-cook_grand_2008}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-cook_grand_2008}{}}%
 Cook, Dianne, Andreas Buja, Eun-Kyung Lee, and Hadley Wickham. 2008. {``Grand {Tours}, {Projection} {Pursuit} {Guided} {Tours}, and {Manual} {Controls}.''} In \emph{Handbook of {Data} {Visualization}}, 295--314. Berlin, Heidelberg: Springer Berlin Heidelberg. \url{https://doi.org/10.1007/978-3-540-33037-0_13}.
 
-\leavevmode\hypertarget{ref-da_silva_projection_2021}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-da_silva_projection_2021}{}}%
 da Silva, Natalia, Dianne Cook, and Eun-Kyung Lee. 2021. {``A {Projection} {Pursuit} {Forest} {Algorithm} for {Supervised} {Classification}.''} \emph{Journal of Computational and Graphical Statistics}, 1--21.
 
-\leavevmode\hypertarget{ref-dastin_amazon_2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-dastin_amazon_2018}{}}%
 Dastin, Jeffrey. 2018. {``Amazon Scraps Secret {AI} Recruiting Tool That Showed Bias Against Women.''} \emph{Reuters}, October. \url{https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G}.
 
-\leavevmode\hypertarget{ref-diaz_addressing_2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-diaz_addressing_2018}{}}%
 Díaz, Mark, Isaac Johnson, Amanda Lazar, Anne Marie Piper, and Darren Gergle. 2018. {``Addressing Age-Related Bias in Sentiment Analysis.''} In \emph{Proceedings of the 2018 Chi Conference on Human Factors in Computing Systems}, 1--14.
 
-\leavevmode\hypertarget{ref-duffy_apple_2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-duffy_apple_2019}{}}%
 Duffy, Claire. 2019. {``Apple Co-Founder {Steve} {Wozniak} Says {Apple} {Card} Discriminated Against His Wife.''} \emph{CNN}, November. \url{https://www.cnn.com/2019/11/10/business/goldman-sachs-apple-card-discrimination/index.html}.
 
-\leavevmode\hypertarget{ref-gorman_ecological_2014}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-gorman_ecological_2014}{}}%
 Gorman, Kristen B., Tony D. Williams, and William R. Fraser. 2014. {``Ecological Sexual Dimorphism and Environmental Variability Within a Community of {Antarctic} Penguins (Genus {Pygoscelis}).''} \emph{PloS One} 9 (3): e90081.
 
-\leavevmode\hypertarget{ref-gosiewska_ibreakdown_2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-gosiewska_ibreakdown_2019}{}}%
 Gosiewska, Alicja, and Przemyslaw Biecek. 2019. {``{IBreakDown}: {Uncertainty} of Model Explanations for Non-Additive Predictive Models.''} \emph{arXiv Preprint arXiv:1903.11420}.
 
-\leavevmode\hypertarget{ref-greenwell_fastshap_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-greenwell_fastshap_2020}{}}%
 Greenwell, Brandon. 2020. \emph{Fastshap: {Fast} {Approximate} {Shapley} {Values}}. \url{https://CRAN.R-project.org/package=fastshap}.
 
-\leavevmode\hypertarget{ref-horst_palmerpenguins_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-horst_palmerpenguins_2020}{}}%
 Horst, Allison Marie, Alison Presmanes Hill, and Kristen B. Gorman. 2020. {``Palmerpenguins: {Palmer} {Archipelago} ({Antarctica}) Penguin Data.''} \url{https://allisonhorst.github.io/palmerpenguins/}.
 
-\leavevmode\hypertarget{ref-karwowski_international_2006}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-karwowski_international_2006}{}}%
 Karwowski, Waldemar. 2006. \emph{International {Encyclopedia} of {Ergonomics} and {Human} {Factors}, -3 {Volume} {Set}}. CRC Press.
 
-\leavevmode\hypertarget{ref-kodiyan_overview_2019}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-kodiyan_overview_2019}{}}%
 Kodiyan, Akhil Alfons. 2019. {``An Overview of Ethical Issues in Using {AI} Systems in Hiring with a Case Study of {Amazon}'s {AI} Based Hiring Tool.''} \emph{Researchgate Preprint}.
 
-\leavevmode\hypertarget{ref-kominsarczyk_treeshap_2021}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-kominsarczyk_treeshap_2021}{}}%
 Kominsarczyk, Konrad, Pawel Kozminski, Szymon Maksymiuk, and Przemyslaw Biecek. 2021. {``Treeshap.''} Model Oriented. \url{https://github.com/ModelOriented/treeshap}.
 
-\leavevmode\hypertarget{ref-larson_how_2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-larson_how_2016}{}}%
 Larson, Jeff, Surya Mattu, Lauren Kirchner, and Julia Angwin. 2016. {``How {We} {Analyzed} the {COMPAS} {Recidivism} {Algorithm}.''} \emph{ProPublica}, May. \url{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm?token=RPR1E2qtzJltfJ0tS-gB_41kmfoWZAu4}.
 
-\leavevmode\hypertarget{ref-lee_state_2021}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-lee_state_2021}{}}%
 Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Nicholas Spyrison, Earo Wang, and H. Sherry Zhang. 2021. {``The State-of-the-Art on Tours for Dynamic Visualization of High-Dimensional Data.''} \emph{WIREs Computational Statistics} n/a (n/a): e1573. \url{https://doi.org/10.1002/wics.1573}.
 
-\leavevmode\hypertarget{ref-lee_pptree_2013}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-lee_pptree_2013}{}}%
 Lee, Yoon Dong, Dianne Cook, Ji-won Park, and Eun-Kyung Lee. 2013. {``{PPtree}: {Projection} Pursuit Classification Tree.''} \emph{Electronic Journal of Statistics} 7: 1369--86.
 
-\leavevmode\hypertarget{ref-leone_fifa_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-leone_fifa_2020}{}}%
 Leone, Stefano. 2020. {``{FIFA} 20 Complete Player Dataset.''} \url{https://kaggle.com/stefanoleone992/fifa-20-complete-player-dataset}.
 
-\leavevmode\hypertarget{ref-liaw_classification_2002}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-liaw_classification_2002}{}}%
 Liaw, Andy, and Matthew Wiener. 2002. {``Classification and Regression by {randomForest}.''} \emph{R News} 2 (3): 18--22.
 
-\leavevmode\hypertarget{ref-lundberg_consistent_2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-lundberg_consistent_2018}{}}%
 Lundberg, Scott M., Gabriel G. Erion, and Su-In Lee. 2018. {``Consistent Individualized Feature Attribution for Tree Ensembles.''} \emph{arXiv Preprint arXiv:1802.03888}.
 
-\leavevmode\hypertarget{ref-lundberg_unified_2017}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-lundberg_unified_2017}{}}%
 Lundberg, Scott M., and Su-In Lee. 2017. {``A Unified Approach to Interpreting Model Predictions.''} In \emph{Proceedings of the 31st International Conference on Neural Information Processing Systems}, 4768--77.
 
-\leavevmode\hypertarget{ref-molnar_interpretable_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-molnar_interpretable_2020}{}}%
 Molnar, Christoph. 2020. \emph{Interpretable Machine Learning}. Lulu. com. \href{https://christophm.github.io/interpretable-ml-book/}{christophm.github.io/interpretable-ml-book/}.
 
-\leavevmode\hypertarget{ref-oneil_weapons_2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-oneil_weapons_2016}{}}%
 O'Neil, Cathy. 2016. \emph{Weapons of Math Destruction: {How} Big Data Increases Inequality and Threatens Democracy}. Crown.
 
-\leavevmode\hypertarget{ref-ribeiro_why_2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-ribeiro_why_2016}{}}%
 Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. {``"{Why} {Should} {I} {Trust} {You}?": {Explaining} the {Predictions} of {Any} {Classifier}.''} In \emph{Proceedings of the 22nd {ACM} {SIGKDD} {International} {Conference} on {Knowledge} {Discovery} and {Data} {Mining}}, 1135--44. {KDD} '16. New York, NY, USA: Association for Computing Machinery. \url{https://doi.org/10.1145/2939672.2939778}.
 
-\leavevmode\hypertarget{ref-shapley_value_1953}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-shapley_value_1953}{}}%
 Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton University Press.
 
-\leavevmode\hypertarget{ref-shmueli_explain_2010}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-shmueli_explain_2010}{}}%
 Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical Science} 25 (3): 289--310.
 
-\leavevmode\hypertarget{ref-shrikumar_learning_2017}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-shrikumar_learning_2017}{}}%
 Shrikumar, Avanti, Peyton Greenside, and Anshul Kundaje. 2017. {``Learning Important Features Through Propagating Activation Differences.''} In \emph{International {Conference} on {Machine} {Learning}}, 3145--53. PMLR.
 
-\leavevmode\hypertarget{ref-shrikumar_not_2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-shrikumar_not_2016}{}}%
 Shrikumar, Avanti, Peyton Greenside, Anna Shcherbina, and Anshul Kundaje. 2016. {``Not Just a Black Box: {Learning} Important Features Through Propagating Activation Differences.''} \emph{arXiv Preprint arXiv:1605.01713}.
 
-\leavevmode\hypertarget{ref-sievert_interactive_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-sievert_interactive_2020}{}}%
 Sievert, Carson. 2020. \emph{Interactive {Web}-{Based} {Data} {Visualization} with {R}, Plotly, and Shiny}. Chapman; Hall/CRC. \url{https://plotly-r.com}.
 
-\leavevmode\hypertarget{ref-simonyan_deep_2014}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-simonyan_deep_2014}{}}%
 Simonyan, Karen, Andrea Vedaldi, and Andrew Zisserman. 2014. {``Deep Inside Convolutional Networks: {Visualising} Image Classification Models and Saliency Maps.''} In \emph{In {Workshop} at {International} {Conference} on {Learning} {Representations}}. Citeseer.
 
-\leavevmode\hypertarget{ref-spyrison_spinifex_2020}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-spyrison_spinifex_2020}{}}%
 Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package} for {Creating} a {Manual} {Tour} of {Low}-Dimensional {Projections} of {Multivariate} {Data}.''} \emph{The R Journal} 12 (1): 243. \url{https://doi.org/10.32614/RJ-2020-027}.
 
-\leavevmode\hypertarget{ref-strumbelj_efficient_2010}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-strumbelj_efficient_2010}{}}%
 Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation of Individual Classifications Using Game Theory.''} \emph{The Journal of Machine Learning Research} 11: 1--18.
 
-\leavevmode\hypertarget{ref-unwin_ensemble_2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-unwin_ensemble_2018}{}}%
 Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble Graphics.''} \emph{Journal of Computational and Graphical Statistics} 27 (1): 157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
 
-\leavevmode\hypertarget{ref-vanni_textual_2018}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-vanni_textual_2018}{}}%
 Vanni, Laurent, Mélanie Ducoffe, Carlos Aguilar, Frédéric Precioso, and Damon Mayaffre. 2018. {``Textual {Deconvolution} {Saliency} ({TDS}): A Deep Tool Box for Linguistic Analysis.''} In \emph{Proceedings of the 56th {Annual} {Meeting} of the {Association} for {Computational} {Linguistics} ({Volume} 1: {Long} {Papers})}, 548--57.
 
-\leavevmode\hypertarget{ref-wickham_ggplot2_2016}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-wickham_ggplot2_2016}{}}%
 Wickham, Hadley. 2016. \emph{Ggplot2: {Elegant} {Graphics} for {Data} {Analysis}}. Springer-Verlag New York. \url{https://ggplot2.tidyverse.org}.
 
-\leavevmode\hypertarget{ref-wickham_visualizing_2015}{}%
+\leavevmode\vadjust pre{\hypertarget{ref-wickham_visualizing_2015}{}}%
 Wickham, Hadley, Dianne Cook, and Heike Hofmann. 2015. {``Visualizing Statistical Models: {Removing} the Blindfold.''} \emph{Statistical Analysis and Data Mining: The ASA Data Science Journal} 8 (4): 203--25. \url{https://doi.org/10.1002/sam.11271}.
 
 \end{CSLReferences}

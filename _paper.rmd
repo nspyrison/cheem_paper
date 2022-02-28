@@ -149,7 +149,7 @@ The manual tour [@cook_manual_1997] defines its path by changing a selected feat
 A version of the manual tour called a _radial tour_ is implemented in @spyrison_spinifex_2020 and forms the basis of the new work. In a radial tour, the selected feature can change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and interactive re-calculation to focus on a different feature.
 
 
-# The cheem viewer {#sec:cheemviwer}
+# The cheem viewer {#sec:cheemviewer}
 
 To explore the local explanations, coordinated views [@roberts_state_2007] [also known as ensemble graphics, @unwin_ensemble_2018] are provided in the _cheem viewer_ application. There are two primary plots: the __global view__ to give the context of all of the SHAP values and the __radial tour view__ to explore the local explanations with user-controlled rotation. There are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. There are different plots used for the categorical and quantitative responses. Figures \@ref(fig:classificationcase) and \@ref(fig:regressioncase) are screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
 
@@ -230,17 +230,21 @@ The above-described method and application are implemented as an open-source __R
 
 ## Installation and getting started
 
-The package can be installed from GitHub using the following __R__ code:
+The package can be installed from CRAN, and the shiny app can be run, using the following __R__ code:
 
 ```{r eval=FALSE, echo=TRUE}
-# Install remotes if absent
-if(require("remotes") == FALSE) install.packages("remotes")
-remotes::install.packages("cheem", dependencies = TRUE)
+install.packages("cheem", dependencies = TRUE)
 library("cheem")
 run_app()
 ```
 
-Follow the examples provided with the package to compute the local explainers (see `?cheem_ls`). The application uses the returned objects from a from `cheem_ls()` call. Alternatively, the cheem viewer shiny app can be directly accessed at [ebsmonash.shinyapps.io/cheem_initial/](https://ebsmonash.shinyapps.io/cheem_initial/).
+Alternatively, 
+
+- a version of the cheem viewer shiny app can be directly accessed at [ebsmonash.shinyapps.io/cheem_initial/](https://ebsmonash.shinyapps.io/cheem_initial/). 
+- the development version of the package is available at https://github.com/nspyrison/cheem, and 
+- documentation of the package can be found at https://nspyrison.github.io/cheem/. 
+
+Follow the examples provided with the package to compute the local explainers (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an .rds file with `saveRDS()`, to be uploaded.
 
 
 # Case studies {#sec:casestudies}
@@ -318,7 +322,7 @@ Comparing the attribution with the CI (dotted line), large discrepancies in Sodi
 <!-- Data description -->
 The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many skill measurements of soccer/football players and wage information. Nine higher-level skill groupings were identified and aggregated from highly correlated features. A random forest model is fit from these predictors, regressing player wages [2020 euros]. The model was fit from 5000 instances before being thinned to 500 players to mitigate occlusion and render time. Continuing from the exploration in section \@ref(sec:explanations), we are interested to see the difference in attribution based on the exogenous player position. That is, the model should be able to use multiple linear profiles to better predict the wages from different field positions of players despite not having this information. A leading offensive fielder (L. Messi) is compared with a top defensive fielder (V. van Dijk). The same instances were used in figure \@ref(fig:shapdistrbd).
 
-(ref:casefifa-cap) FIFA 2020 data, a random forest model, regresses wages [2020 Euros] from nine aggregated skill measurements. The PI is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). Three features with low attribution from both players are removed. The attribution projection starts with the selected instance on the right. The contribution to defense (`def`) is varied. The star offensive player is not distinguished in the horizontal direction. At this point, defensive players have been rotated to the highest horizontal value. (A video of the animated radial tour can be found at [vimeo.com/666431163](https://vimeo.com/666431163).)
+(ref:casefifa-cap) Exploring the wages [euros] relative to skill measurements in the FIFA 2020 data. Star offensive player (L. Messi) is the PI and he is compared with a top defensive player (V. van Dijk). The attribution projection is shown at left, and it can be seen that this combination of features produces a view where Messi has very high predicted (and observed) wages. Defense (`def`) is the chosen feature to vary. It starts off very low, and as its contribution is increased (right plot) it can be seen that Messi's predicted wages decrease dramatically. The increased contribution in defense comes at the expense of offensive and reaction skills. The interpretation is that indeed, Messi's high wages are most attributable to his offensive and reaction skills, as initially provided by the local explanation. (A video of the animated radial tour can be found at [vimeo.com/666431163](https://vimeo.com/666431163).)
 ```{r casefifa, echo=F, out.width = "100%", fig.cap = "(ref:casefifa-cap)"}
 knitr::include_graphics("./figures/case_fifa.png")
 ```
@@ -330,7 +334,7 @@ The contribution from `def` will be varied to contrast with offensive skills. As
 
 ## Ames housing 2018, sales price regression
 
-Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model has regressed this price with the features Lot Area (`LtA`), Overall Quality (`Qlt`), Year the house was Built (`YrB`), Living Area (`LvA`), number of Bathrooms (`Bth`), number of Bedrooms (`Bdr`), the total number of Rooms (`Rms`), Year the Garage was Built (`GYB`), and Garage Area (`GrA`). Using interaction from the global view, a house with an extreme negative residual and an accurate instance with a similar prediction are selected.
+Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model has fitted this price [USD] with the property features: Lot Area (`LtA`), Overall Quality (`Qlt`), Year the house was Built (`YrB`), Living Area (`LvA`), number of Bathrooms (`Bth`), number of Bedrooms (`Bdr`), the total number of Rooms (`Rms`), Year the Garage was Built (`GYB`), and Garage Area (`GrA`). Using interaction from the global view, a house with an extreme negative residual and an accurate instance with a similar prediction are selected.
 
 (ref:caseames-cap) Exploring an instance with a large residual as the PI from fitting sales price [USD] to other variables in the Ames housing 2018. The sale price of the PI was under-predicted. The local explanation indicates a sizable attribution to Lot Area (`LtA`). The CI has a similar predicted sales price and smaller residual and has minimal attribution to Lot Area. In the attribution projection, the PI has a higher sales price than the CI. Reducing the contribution of Lot Area brings these two prices in line. This suggests if the model did not consider Lot Area, then the two houses would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at [vimeo.com/666431134](https://vimeo.com/666431134).)
 ```{r caseames, echo=F, out.width="100%", fig.cap = "(ref:caseames-cap)"}

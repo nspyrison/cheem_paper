@@ -218,10 +218,10 @@ The manual tour (Cook and Buja 1997) defines its path by changing a selected fea
 
 A version of the manual tour called a \emph{radial tour} is implemented in Spyrison and Cook (2020) and forms the basis of the new work. In a radial tour, the selected feature can change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and interactive re-calculation to focus on a different feature.
 
-\hypertarget{sec:cheemviwer}{%
-\section{The cheem viewer}\label{sec:cheemviwer}}
+\hypertarget{sec:cheemviewer}{%
+\section{The cheem viewer}\label{sec:cheemviewer}}
 
-To explore the local explanations, coordinated views (\textbf{roberts\_state\_2007?}) (also known as ensemble graphics, Unwin and Valero-Mora 2018) are provided in the \emph{cheem viewer} application. There are two primary plots: the \textbf{global view} to give the context of all of the SHAP values and the \textbf{radial tour view} to explore the local explanations with user-controlled rotation. There are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. There are different plots used for the categorical and quantitative responses. Figures \ref{fig:classificationcase} and \ref{fig:regressioncase} are screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
+To explore the local explanations, coordinated views (Roberts 2007) (also known as ensemble graphics, Unwin and Valero-Mora 2018) are provided in the \emph{cheem viewer} application. There are two primary plots: the \textbf{global view} to give the context of all of the SHAP values and the \textbf{radial tour view} to explore the local explanations with user-controlled rotation. There are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. There are different plots used for the categorical and quantitative responses. Figures \ref{fig:classificationcase} and \ref{fig:regressioncase} are screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
 
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
@@ -303,19 +303,29 @@ The above-described method and application are implemented as an open-source \te
 \hypertarget{installation-and-getting-started}{%
 \subsection{Installation and getting started}\label{installation-and-getting-started}}
 
-The package can be installed from GitHub using the following \textbf{R} code:
+The package can be installed from CRAN, and the shiny app can be run, using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Install remotes if absent}
-\ControlFlowTok{if}\NormalTok{(}\FunctionTok{require}\NormalTok{(}\StringTok{"remotes"}\NormalTok{) }\SpecialCharTok{==} \ConstantTok{FALSE}\NormalTok{) }\FunctionTok{install.packages}\NormalTok{(}\StringTok{"remotes"}\NormalTok{)}
-\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
+\FunctionTok{install.packages}\NormalTok{(}\StringTok{"cheem"}\NormalTok{, }\AttributeTok{dependencies =} \ConstantTok{TRUE}\NormalTok{)}
 \FunctionTok{library}\NormalTok{(}\StringTok{"cheem"}\NormalTok{)}
 \FunctionTok{run\_app}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-Follow the examples provided with the package to compute the local explainers (see \texttt{?cheem\_ls}). The application uses the returned objects from a from \texttt{cheem\_ls()} call. Alternatively, the cheem viewer shiny app can be directly accessed at \href{https://ebsmonash.shinyapps.io/cheem_initial/}{ebsmonash.shinyapps.io/cheem\_initial/}.
+Alternatively,
+
+\begin{itemize}
+\tightlist
+\item
+  a version of the cheem viewer shiny app can be directly accessed at \href{https://ebsmonash.shinyapps.io/cheem_initial/}{ebsmonash.shinyapps.io/cheem\_initial/}.
+\item
+  the development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
+\item
+  documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
+\end{itemize}
+
+Follow the examples provided with the package to compute the local explainers (using \texttt{?cheem\_ls}). The application expects the output returned by \texttt{cheem\_ls()}, saved to an .rds file with \texttt{saveRDS()}, to be uploaded.
 
 \hypertarget{sec:casestudies}{%
 \section{Case studies}\label{sec:casestudies}}
@@ -413,7 +423,7 @@ The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurem
 
 }
 
-\caption{FIFA 2020 data, a random forest model, regresses wages {[}2020 Euros{]} from nine aggregated skill measurements. The PI is a star offensive player (L. Messi) compared with a top defensive player (V. van Dijk). Three features with low attribution from both players are removed. The attribution projection starts with the selected instance on the right. The contribution to defense (\texttt{def}) is varied. The star offensive player is not distinguished in the horizontal direction. At this point, defensive players have been rotated to the highest horizontal value. (A video of the animated radial tour can be found at \href{https://vimeo.com/666431163}{vimeo.com/666431163}.)}\label{fig:casefifa}
+\caption{Exploring the wages {[}euros{]} relative to skill measurements in the FIFA 2020 data. Star offensive player (L. Messi) is the PI and he is compared with a top defensive player (V. van Dijk). The attribution projection is shown at left, and it can be seen that this combination of features produces a view where Messi has very high predicted (and observed) wages. Defense (\texttt{def}) is the chosen feature to vary. It starts off very low, and as its contribution is increased (right plot) it can be seen that Messi's predicted wages decrease dramatically. The increased contribution in defense comes at the expense of offensive and reaction skills. The interpretation is that indeed, Messi's high wages are most attributable to his offensive and reaction skills, as initially provided by the local explanation. (A video of the animated radial tour can be found at \href{https://vimeo.com/666431163}{vimeo.com/666431163}.)}\label{fig:casefifa}
 \end{figure}
 
 Figure \ref{fig:casefifa}, tests the support of the local explanation. Offensive and reaction skills (\texttt{off} and \texttt{rct}) are both crucial to explaining a star offensive player. If either of them were rotated out, the other would be rotated into the frame, maintaining a far-right position. However, Increasing the contribution of a variable with low importance would rotate both features out of the frame.
@@ -423,7 +433,7 @@ The contribution from \texttt{def} will be varied to contrast with offensive ski
 \hypertarget{ames-housing-2018-sales-price-regression}{%
 \subsection{Ames housing 2018, sales price regression}\label{ames-housing-2018-sales-price-regression}}
 
-Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model has regressed this price with the features Lot Area (\texttt{LtA}), Overall Quality (\texttt{Qlt}), Year the house was Built (\texttt{YrB}), Living Area (\texttt{LvA}), number of Bathrooms (\texttt{Bth}), number of Bedrooms (\texttt{Bdr}), the total number of Rooms (\texttt{Rms}), Year the Garage was Built (\texttt{GYB}), and Garage Area (\texttt{GrA}). Using interaction from the global view, a house with an extreme negative residual and an accurate instance with a similar prediction are selected.
+Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model has fitted this price {[}USD{]} with the property features: Lot Area (\texttt{LtA}), Overall Quality (\texttt{Qlt}), Year the house was Built (\texttt{YrB}), Living Area (\texttt{LvA}), number of Bathrooms (\texttt{Bth}), number of Bedrooms (\texttt{Bdr}), the total number of Rooms (\texttt{Rms}), Year the Garage was Built (\texttt{GYB}), and Garage Area (\texttt{GrA}). Using interaction from the global view, a house with an extreme negative residual and an accurate instance with a similar prediction are selected.
 
 
 
@@ -447,7 +457,7 @@ This approach has been illustrated using four data examples of random forest mod
 
 This analysis is manually intensive and thus only feasible for investigating a few instances. The approach selects instances that the model has not done well to predict and compare it with an instance where it did fit well. The radial tour launches from the attribution projection to enable exploration of the sensitivity of the prediction to any feature. It can be helpful to make additional plots of the features and responses to cross-check interpretations made from the cheem viewer. This methodology provides an additional tool in the box for studying model fitting.
 
-An implementation is provided in the open-source \textbf{R} package \textbf{cheem}, available on \href{https://CRAN.R-project.org/package=cheem}{CRAN}. Example data sets are provided, and you can upload your data after model fitting and computing the local explanations. In theory, this approach would work with any black-box model, but the implementation currently only calculates tree SHAP for tree-based models supported by \textbf{treeshap} (tree based models from \textbf{gbm}, \textbf{lightgbm}, \textbf{randomForest}, \textbf{ranger}, or \textbf{xgboost} \textbf{greenwell\_gbm\_2020?}; \textbf{shi\_lightgbm\_2022?}; Liaw and Wiener 2002; \textbf{wright\_ranger\_2017?}; \textbf{chen\_xgboost\_2021?}, respectively). Tree SHAP was selected because of its computational efficiency. The SHAP and oscillation explanations could be added with the use of the \texttt{DALEX::explain()} and would be an excellent direction to extend the work (Biecek 2018; Biecek and Burzykowski 2021).
+An implementation is provided in the open-source \textbf{R} package \textbf{cheem}, available on \href{https://CRAN.R-project.org/package=cheem}{CRAN}. Example data sets are provided, and you can upload your data after model fitting and computing the local explanations. In theory, this approach would work with any black-box model, but the implementation currently only calculates tree SHAP for tree-based models supported by \textbf{treeshap} (tree based models from \textbf{gbm}, \textbf{lightgbm}, \textbf{randomForest}, \textbf{ranger}, or \textbf{xgboost} Greenwell et al. 2020; Shi et al. 2022; Liaw and Wiener 2002; Wright and Ziegler 2017; Chen et al. 2021, respectively). Tree SHAP was selected because of its computational efficiency. The SHAP and oscillation explanations could be added with the use of the \texttt{DALEX::explain()} and would be an excellent direction to extend the work (Biecek 2018; Biecek and Burzykowski 2021).
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
@@ -486,6 +496,9 @@ Buja, Andreas, and Daniel Asimov. 1986. {``Grand {Tour} {Methods}: {An} {Outline
 \leavevmode\hypertarget{ref-chang_shiny_2021}{}%
 Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. \emph{Shiny: Web Application Framework for r}. \url{https://CRAN.R-project.org/package=shiny}.
 
+\leavevmode\hypertarget{ref-chen_xgboost_2021}{}%
+Chen, Tianqi, Tong He, Michael Benesty, Vadim Khotilovich, Yuan Tang, Hyunsu Cho, Kailong Chen, et al. 2021. {``Xgboost: {Extreme} {Gradient} {Boosting}.''} \url{https://CRAN.R-project.org/package=xgboost}.
+
 \leavevmode\hypertarget{ref-cook_manual_1997}{}%
 Cook, Dianne, and Andreas Buja. 1997. {``Manual {Controls} for {High}-{Dimensional} {Data} {Projections}.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
 
@@ -515,6 +528,9 @@ Gosiewska, Alicja, and Przemyslaw Biecek. 2019. {``{IBreakDown}: {Uncertainty} o
 
 \leavevmode\hypertarget{ref-greenwell_fastshap_2020}{}%
 Greenwell, Brandon. 2020. \emph{Fastshap: {Fast} {Approximate} {Shapley} {Values}}. \url{https://CRAN.R-project.org/package=fastshap}.
+
+\leavevmode\hypertarget{ref-greenwell_gbm_2020}{}%
+Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and G. B. M. Developers. 2020. {``Gbm: {Generalized} {Boosted} {Regression} {Models}.''} \url{https://CRAN.R-project.org/package=gbm}.
 
 \leavevmode\hypertarget{ref-horst_palmerpenguins_2020}{}%
 Horst, Allison Marie, Alison Presmanes Hill, and Kristen B. Gorman. 2020. {``Palmerpenguins: {Palmer} {Archipelago} ({Antarctica}) Penguin Data.''} \url{https://allisonhorst.github.io/palmerpenguins/}.
@@ -561,8 +577,14 @@ Ocagne, Maurice d'. 1885. \emph{Coordonnées Parallèles Et Axiales. {Méthode} 
 \leavevmode\hypertarget{ref-ribeiro_why_2016}{}%
 Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. {``"{Why} {Should} {I} {Trust} {You}?": {Explaining} the {Predictions} of {Any} {Classifier}.''} In \emph{Proceedings of the 22nd {ACM} {SIGKDD} {International} {Conference} on {Knowledge} {Discovery} and {Data} {Mining}}, 1135--44. {KDD} '16. New York, NY, USA: Association for Computing Machinery. \url{https://doi.org/10.1145/2939672.2939778}.
 
+\leavevmode\hypertarget{ref-roberts_state_2007}{}%
+Roberts, Jonathan C. 2007. {``State of the Art: {Coordinated} \& Multiple Views in Exploratory Visualization.''} In \emph{Fifth International Conference on Coordinated and Multiple Views in Exploratory Visualization ({CMV} 2007)}, 61--71. IEEE.
+
 \leavevmode\hypertarget{ref-shapley_value_1953}{}%
 Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton University Press.
+
+\leavevmode\hypertarget{ref-shi_lightgbm_2022}{}%
+Shi, Yu, Guolin Ke, Damien Soukhavong, James Lamb, Qi Meng, Thomas Finley, Taifeng Wang, et al. 2022. {``Lightgbm: {Light} {Gradient} {Boosting} {Machine}.''} \url{https://CRAN.R-project.org/package=lightgbm}.
 
 \leavevmode\hypertarget{ref-shmueli_explain_2010}{}%
 Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical Science} 25 (3): 289--310.
@@ -586,7 +608,7 @@ Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package} for {Cr
 Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation of Individual Classifications Using Game Theory.''} \emph{The Journal of Machine Learning Research} 11: 1--18.
 
 \leavevmode\hypertarget{ref-unwin_ensemble_2018}{}%
-Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble Graphics.''} \emph{Journal of Computational and Graphical Statistics} 27 (1): 157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
+Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble {Graphics}.''} \emph{Journal of Computational and Graphical Statistics} 27 (1): 157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
 
 \leavevmode\hypertarget{ref-vanni_textual_2018}{}%
 Vanni, Laurent, Mélanie Ducoffe, Carlos Aguilar, Frédéric Precioso, and Damon Mayaffre. 2018. {``Textual {Deconvolution} {Saliency} ({TDS}): A Deep Tool Box for Linguistic Analysis.''} In \emph{Proceedings of the 56th {Annual} {Meeting} of the {Association} for {Computational} {Linguistics} ({Volume} 1: {Long} {Papers})}, 548--57.
@@ -596,6 +618,9 @@ Wickham, Hadley. 2016. \emph{Ggplot2: {Elegant} {Graphics} for {Data} {Analysis}
 
 \leavevmode\hypertarget{ref-wickham_visualizing_2015}{}%
 Wickham, Hadley, Dianne Cook, and Heike Hofmann. 2015. {``Visualizing Statistical Models: {Removing} the Blindfold.''} \emph{Statistical Analysis and Data Mining: The ASA Data Science Journal} 8 (4): 203--25. \url{https://doi.org/10.1002/sam.11271}.
+
+\leavevmode\hypertarget{ref-wright_ranger_2017}{}%
+Wright, Marvin N., and Andreas Ziegler. 2017. {``Ranger: {A} {Fast} {Implementation} of {Random} {Forests} for {High} {Dimensional} {Data} in {C}++ and {R}.''} \emph{Journal of Statistical Software} 77 (1): 1--17. \url{https://doi.org/10.18637/jss.v077.i01}.
 
 \end{CSLReferences}
 

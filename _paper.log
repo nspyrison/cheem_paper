@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.28)  28 FEB 2022 13:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.2.28)  1 MAR 2022 14:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -665,89 +665,89 @@ File: ./figures/app_regression_interactions.png Graphic file (type png)
 <use ./figures/app_regression_interactions.png>
 Package pdftex.def Info: ./figures/app_regression_interactions.png  used on input line 267.
 (pdftex.def)             Requested size: 469.76003pt x 476.39638pt.
-LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 290.
+LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 289.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [6] [7pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.297 
+l.299 
        <./figures/app_classification.PNG>] [8pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.297 
+l.299 
        <./figures/app_regression_interactions.PNG>]
-Overfull \hbox (4.35002pt too wide) in paragraph at lines 321--323
+Overfull \hbox (4.35002pt too wide) in paragraph at lines 323--325
 []\T1/lmr/m/n/10 (-20) a ver-sion of the cheem viewer shiny app can be di-rectly ac-cessed at [][]eb-smonash.shinyapps.io/cheem_initial/[][]. 
  []
 
 <./figures/case_penguins.png, id=109, 433.62pt x 433.62pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 344.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 346.
 (pdftex.def)             Requested size: 433.63878pt x 433.63878pt.
 <./figures/case_penguins_BlFl.png, id=113, 330.2739pt x 289.08pt>
 File: ./figures/case_penguins_BlFl.png Graphic file (type png)
 <use ./figures/case_penguins_BlFl.png>
-Package pdftex.def Info: ./figures/case_penguins_BlFl.png  used on input line 357.
+Package pdftex.def Info: ./figures/case_penguins_BlFl.png  used on input line 359.
 (pdftex.def)             Requested size: 330.28818pt x 289.09251pt.
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.365 
+l.367 
        <./figures/case_penguins.png>] [11pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.365 
+l.367 
        <./figures/case_penguins_BlFl.png>]
 <./figures/case_chocolates.png, id=137, 433.62pt x 433.62pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 381.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 383.
 (pdftex.def)             Requested size: 433.63878pt x 433.63878pt.
 [12] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.397 
+l.399 
        <./figures/case_chocolates.png>]
 <./figures/case_chocolates_inverse.png, id=156, 433.62pt x 433.62pt>
 File: ./figures/case_chocolates_inverse.png Graphic file (type png)
 <use ./figures/case_chocolates_inverse.png>
-Package pdftex.def Info: ./figures/case_chocolates_inverse.png  used on input line 402.
+Package pdftex.def Info: ./figures/case_chocolates_inverse.png  used on input line 404.
 (pdftex.def)             Requested size: 433.63878pt x 433.63878pt.
 <./figures/case_fifa.png, id=161, 433.62pt x 505.89pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 422.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 424.
 (pdftex.def)             Requested size: 433.62555pt x 505.89645pt.
 <./figures/case_ames2018.png, id=165, 433.62pt x 505.89pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 442.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 444.
 (pdftex.def)             Requested size: 433.62555pt x 505.89645pt.
 [14] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.455 
+l.457 
        <./figures/case_chocolates_inverse.png>] [16pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.455 
+l.457 
        <./figures/case_fifa.png>] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.455 
+l.457 
        <./figures/case_ames2018.png>] [18] [19] [20] [21] (./_paper.aux) ) 
 Here is how much of TeX's memory you used:
- 15850 strings out of 480216
- 259609 string characters out of 5893255
+ 15848 strings out of 480216
+ 259585 string characters out of 5893255
  604492 words of memory out of 5000000
  33164 multiletter control sequences out of 15000+600000
- 545689 words of font info for 180 fonts, out of 8000000 for 9000
+ 545595 words of font info for 179 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  74i,6n,77p,1410b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}<c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmbx9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr17.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr7.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri9.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb>
-Output written on _paper.pdf (21 pages, 2512269 bytes).
+Output written on _paper.pdf (21 pages, 2512279 bytes).
 PDF statistics:
  455 PDF objects out of 1000 (max. 8388607)
  380 compressed objects within 4 object streams

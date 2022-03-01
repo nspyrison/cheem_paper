@@ -210,14 +210,11 @@ A tooltip displays instance number/name and classification information while the
 
 It is vital to mitigate the render time of visuals, especially when users may want to iterate many explorations. All computational operations should be prepared before runtime. The work remaining when an application is run solely reacts to inputs and rendering visuals and tables. Below discusses the steps and details of the reprocessing. 
 
-(ref:citeRf) [@liaw_classification_2002]
-(ref:citeTs) [@kominsarczyk_treeshap_2021]
-\begin{itemize}
-	\item \textbf{Data:} predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant.
-	\item \textbf{Model:} any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package \textbf{randomForest} (ref:citeRf), compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, number features randomly sampled at each split, mtry = $\sqrt{p}$ or $p/3$ for classification and regression, and minimum size of terminal nodes $max(1, n/500)$ or $max(5, n/500)$ for classification and regression. 
-	\item \textbf{Local explanation:} Tree SHAP is calculated for \emph{each} instance using the package \textbf{treeshap} (ref:citeTs). This implementation aggregates exhaustively over all trees' attribution and does not fit interactions of features.
-	\item \textbf{Cheem viewer:} after the model and full explanation space are calculated, each feature is scaled by standard deviations away from the mean to achieve common support for visuals. Statistics for mapping to color are computed on the scaled spaces.
-\end{itemize}
+<!-- Switch to rmd bullets, consistent with thesis -->
+- __Data:__ predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant.
+- __Model:__ any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package __randomForest__ [@liaw_classification_2002], compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, number variables randomly sampled at each split, mtry = $\sqrt{p}$ or $p/3$ for classification and regression, and minimum size of terminal nodes $max(1, n/500)$ or $max(5, n/500)$ for classification and regression. 
+- __Local explanation:__ Tree SHAP is calculated for _each_ observation using the package __treeshap__ [@kominsarczyk_treeshap_2021]. This implementation aggregates exhaustively over all trees' attribution and does not fit interactions of variables.
+- __Cheem viewer:__ after the model and full explanation space are calculated, each variable is scaled by standard deviations away from the mean to achieve common support for visuals. Statistics for mapping to color are computed on the scaled spaces.
 
 <!-- Note on time of execution -->
 The time to preprocess the data will vary significantly with the complexity of the  model and local explanation. For reference, the FIFA data contained 5000 instances of nine explanatory features took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each instance took 270 seconds total. PCA and statistics of the features and attributions took 2.8 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. (Alternatively, the package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.)

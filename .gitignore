@@ -37,3 +37,11 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+*.blg
+*.out
+
+template/sample.aux
+template/sample.bbl
+template/sample.log
+template/sample.synctex.gz

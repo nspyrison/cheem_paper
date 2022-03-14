@@ -1,0 +1,21 @@
+---
+title: "title"
+author: 
+  - author
+  - author2
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  pdf_document:
+    keep_tex: true
+    includes:
+      in_header:
+        #- ../template/jmlr2e.sty ## Doesn't work
+        #- tmp_jmlr.tex ## Doesn't work
+        - mystyles.sty ## Works
+---
+
+A minimal reprex following https://stackoverflow.com/questions/56174593/how-to-add-sty-file-to-rmarkdown-pdf-output.
+
+# Section 1
+
+Hello world

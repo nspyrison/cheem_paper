@@ -38,7 +38,9 @@
 \IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
 \hypersetup{
   pdftitle={Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections},
-  pdfkeywords={R, XAI, explanable artificial intelligence, black-box models, local explanations, grand tour, manual tour, radial tour},
+  pdfauthor={Nicholas Spyrison; Dianne Cook; Kimbal Marriott},
+  pdfkeywords={R, XAI, explanable artificial intelligence, black-box
+models, local explanations, grand tour, manual tour, radial tour},
   colorlinks=true,
   linkcolor=red,
   filecolor=Maroon,
@@ -87,16 +89,6 @@
 \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\usepackage{longtable,booktabs,array}
-\usepackage{calc} % for calculating minipage widths
-% Correct order of tables after \paragraph or \subparagraph
-\usepackage{etoolbox}
-\makeatletter
-\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
-\makeatother
-% Allow footnotes in longtable head/foot
-\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
-\makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
 \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
@@ -154,47 +146,180 @@
 \newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
 \newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
 
-\title{Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections}
-\author{}
-\date{\vspace{-2.5em}}
+\title{Exploring Local Explanations of Nonlinear Models Using Animated
+Linear Projections}
+\author{Nicholas Spyrison \and Dianne Cook \and Kimbal Marriott}
+\date{}
 
 \begin{document}
 \maketitle
 \begin{abstract}
-The increased predictive power of nonlinear models comes at the cost of interpretability of its terms. This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction with \emph{local explanations}, a point estimate of the linear feature importance in the vicinity of one instance. These can be considered linear projections and can be further explored to understand better the interactions between features used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any instance and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) output. The methods are implemented in the \textbf{R} package \textbf{cheem}, available on CRAN.
+The increased predictive power of nonlinear models comes at the cost of
+interpretability of its terms. This trade-off has led to the emergence
+of eXplainable AI (XAI). XAI attempts to shed light on how models use
+predictors to arrive at a prediction with \emph{local explanations}, a
+point estimate of the linear feature importance in the vicinity of one
+instance. These can be considered linear projections and can be further
+explored to understand better the interactions between features used to
+make predictions across the predictive model surface. Here we describe
+interactive linear interpolation used for exploration at any instance
+and illustrate with examples with categorical (penguin species,
+chocolate types) and quantitative (soccer/football salaries, house
+prices) output. The methods are implemented in the \textbf{R} package
+\textbf{cheem}, available on CRAN.
 \end{abstract}
 
 \hypertarget{sec:intro}{%
 \section{Introduction}\label{sec:intro}}
 
-There are different reasons and emphases to fit a model. Breiman (2001), reiterated by Shmueli (2010), taxonomize modeling based on its purpose; \emph{explanatory} modeling is done for some inferential purpose, while \emph{predictive} modeling focuses more on the predictions of out-of-sample instances. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for more accurate nonlinear models. The use of black-box models is becoming increasingly common, but not without their share of controversy (O'Neil 2016; Kodiyan 2019). However, the loss of interpretation presents a challenge.
+There are different reasons and emphases when considering to fit a
+model. Breiman (2001b), reiterated by Shmueli (2010), taxonomize models
+based on their purpose. \emph{Explanatory} modeling is done for some
+inferential purpose, while \emph{predictive} modeling focuses more
+narrowly on the performance of some objective function. The intended use
+has important implications for model selection and development. In
+explanatory modeling, interpretability is vital for drawing inferential
+conclusions. Nonlinear models range from additive models with at least
+one polynomial term to more complex machine learning models such as
+random forest, support-vector machine, or neural network to name a few
+(Breiman 2001a; Boser, Guyon, and Vapnik 1992; Anderson 1995,
+receptively).
 
-Interpretability is vital for exploring and protecting against potential biases (e.g., sex (Dastin 2018; Duffy 2019), race (Larson et al. 2016), and age (Díaz et al. 2018)) in any model. For instance, models regularly pick up on biases in the training data that have observed influence on the response (output) feature, which is then built into the model. Feature-level (variable-level) interpretability of models is essential in evaluating such biases. It is also generally important for many problems, where it is not enough to predict accurately. Still, one must be able to explain which predictors are most responsible for generating a response value.
+Nonlinear models have many or complex interactive terms, which cause an
+opaqueness to the interpretation of the variables. This difficulty in
+interpreting the terms in complex nonlinear models sometimes leads to
+them being referred to as black box models. Despite the potentially
+better performance of nonlinear models, their use is not without
+controversy (O'Neil 2016; Kodiyan 2019). And the loss of interpretation
+presents a challenge.
 
-Another concern is data drift, a shift in support or domain of the explanatory features (variable or predictors). Nonlinear models are typically more sensitive and do not extrapolate well outside the training data domain. Better interpretability of the model means more transparency where models' predictions may be plausible or completely unreliable.
+Interpretability is vital for exploring and protecting against potential
+biases in any model (e.g.~sex -- Dastin (2018); Duffy (2019), race --
+Larson et al. (2016), and age -- Díaz et al. (2018)). For instance,
+models regularly pick up on biases in the training data where such
+classes correlate with changes in the response variable. This bias is
+then built into the model. Variable-level (feature-level)
+interpretability of models is essential in evaluating and addressing
+such biases.
 
-Explainable Artificial Intelligence (XAI) is an emerging field of research that tries to increase the interpretability of black-box models. A common approach is to use \emph{local explanations}, which attempt to approximate linear feature importance at the location of each instance (observation) or the predictions at a specific point in the data domain. Because these are point-specific, it is challenging to visualize them to comprehensively understand a model.
+Another concern is data drift, where a shift in the range of the
+explanatory variables (features or predictors). Some nonlinear models
+are sensitive to this and do not extrapolate well outside the support of
+the training data (Espadoto et al. 2021). Maintaining variable
+interpretability is also essential to address issues arising from data
+drift.
 
-In multivariate data visualization, a \emph{tour} (Asimov 1985; Buja and Asimov 1986; S. Lee et al. 2021) is a sequence of linear projections of data onto a lower-dimensional space. Tours are viewed as an animation over minor changes to the projection basis. Structure in a projection can then be explored visually to see which features contribute to the formation of that structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the shape of the shadow change conveys information about the structure and features of the object.
+Explainable Artificial Intelligence (XAI) is an emerging field of
+research that tries to increase the interpretability of black-box models
+(Adadi and Berrada 2018; Arrieta et al. 2020). A common approach is to
+use \emph{local explanations}, which attempt to approximate linear
+feature importance at the location of each instance (observation) or the
+predictions at a specific point in the data domain. Because these are
+point-specific, it is challenging to visualize them to comprehensively
+understand a model.
 
-There are various types of tours distinguished by the generation of projection bases. In a \emph{manual} tour (Cook and Buja 1997; Spyrison and Cook 2020), the path is defined by changing the contribution of a selected feature. Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries (Wickham, Cook, and Hofmann 2015), and using tree- and forest-based approaches as a projection pursuit index to generate a tour basis paths (Y. D. Lee et al. 2013; da Silva, Cook, and Lee 2021).
+In multivariate data visualization, a \emph{tour} (Asimov 1985; Buja and
+Asimov 1986; S. Lee et al. 2021) is a sequence of linear projections of
+data onto a lower-dimensional space. Tours are viewed as an animation
+over minor changes to the projection basis. Structure in a projection
+can then be explored visually to see which features contribute to the
+formation of that structure. The intuition is similar to watching the
+shadow of a hidden 3D object change as the object is rotated; watching
+the shape of the shadow change conveys information about the structure
+and features of the object.
 
-We use the radial manual tour to scrutinize a local explanation in our proposed approach. Additional interactivity allows the user to identify an instance of interest then explore its local explanation by changing feature contribution with the radial tour. The methods are implemented in R package \textbf{cheem}. Example datasets are provided to illustrate usage for classification and regression tasks.
+There are various types of tours distinguished by the generation of
+projection bases. In a \emph{manual} tour (Cook and Buja 1997; Spyrison
+and Cook 2020), the path is defined by changing the contribution of a
+selected feature. Applying tours to models has been done in a couple of
+contexts. Specifically for exploring various statistical model fits and
+classification boundaries (Wickham, Cook, and Hofmann 2015), and using
+tree- and forest-based approaches as a projection pursuit index to
+generate a tour basis paths (Y. D. Lee et al. 2013; da Silva, Cook, and
+Lee 2021).
 
-Using a radial tour can be compared with counterfactual, what-if analysis, such as \emph{ceteris paribus} profiles (Biecek 2020). Ceteris paribus, is Latin for ``other things held constant'' or ``all else unchanged.'' These profiles show how an instance's prediction would change from a marginal change in one explanatory feature given that other features are held constant. It ignores correlations of the features and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the features by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. When the contribution of one feature decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensions and is thus an interpretable visualization.
+We use the radial manual tour to scrutinize a local explanation in our
+proposed approach. Additional interactivity allows the user to identify
+an instance of interest then explore its local explanation by changing
+feature contribution with the radial tour. The methods are implemented
+in R package \textbf{cheem}. Example datasets are provided to illustrate
+usage for classification and regression tasks.
 
-The remainder of this paper is organized as follows. The following Section, \ref{sec:explanations}, covers the background of the local explanation and the traditional visuals produced. Section \ref{sec:tour} explains the animations of continuous linear projections. Section \ref{sec:cheemviewer} discusses the visual layout in the graphical user interface, how it facilitates analysis, data preprocessing, and package infrastructure. Then Section \ref{sec:casestudies} illustrates the application to supervised learning with categorical and quantitative output. Section \ref{sec:cheemdiscussion} concludes with the insights gained and possible directions to explore in the future.
+Using a radial tour can be compared with counterfactual, what-if
+analysis, such as \emph{ceteris paribus} profiles (Biecek 2020). Ceteris
+paribus, is Latin for ``other things held constant'' or ``all else
+unchanged.'' These profiles show how an instance's prediction would
+change from a marginal change in one explanatory feature given that
+other features are held constant. It ignores correlations of the
+features and imagines a case that was not observed. In contrast, our
+approach is a geometric explanation of the factual; it varies
+contributions of the features by rotating the basis, a reorientation of
+the data object. A constraint in our approach is that the basis must
+remain orthonormal. When the contribution of one feature decreases, the
+contributions of others necessarily increase such that there is a
+complete component in that direction. This also ensures that what is
+seen is strictly a low-dimensional projection from high-dimensions and
+is thus an interpretable visualization.
+
+The remainder of this paper is organized as follows. The following
+Section, @ref(sec:explanations), covers the background of the local
+explanation and the traditional visuals produced. Section @ref(sec:tour)
+explains the animations of continuous linear projections. Section
+@ref(sec:cheemviewer) discusses the visual layout in the graphical user
+interface, how it facilitates analysis, data preprocessing, and package
+infrastructure. Then Section @ref(sec:casestudies) illustrates the
+application to supervised learning with categorical and quantitative
+output. Section @ref(sec:cheemdiscussion) concludes with the insights
+gained and possible directions to explore in the future.
 
 \hypertarget{sec:explanations}{%
 \section{Local explanations}\label{sec:explanations}}
 
-Consider a highly nonlinear model. It can be hard to determine whether small changes in a feature's value will make a class prediction change group or identify which features contribute to an extreme residual. Local explanations shed light on these situations by approximating linear feature importance in the vicinity of a single instance.
+Consider a highly nonlinear model. It can be hard to determine whether
+small changes in a feature's value will make a class prediction change
+group or identify which features contribute to an extreme residual.
+Local explanations shed light on these situations by approximating
+linear feature importance in the vicinity of a single instance.
 
-A comprehensive summary of the taxonomy and literature of explanation techniques is provided in Figure 6 of Arrieta et al. (2020). It includes a large number of model-specific explanations such as deepLIFT (Shrikumar et al. 2016; Shrikumar, Greenside, and Kundaje 2017), a popular recursive method for estimating importance in neural networks. There are fewer model-agnostic explanations, of which LIME, (Ribeiro, Singh, and Guestrin 2016) SHAP, (Lundberg and Lee 2017), and their variants are popular.
+A comprehensive summary of the taxonomy and literature of explanation
+techniques is provided in Figure 6 of Arrieta et al. (2020). It includes
+a large number of model-specific explanations such as deepLIFT
+(Shrikumar et al. 2016; Shrikumar, Greenside, and Kundaje 2017), a
+popular recursive method for estimating importance in neural networks.
+There are fewer model-agnostic explanations, of which LIME, (Ribeiro,
+Singh, and Guestrin 2016) SHAP, (Lundberg and Lee 2017), and their
+variants are popular.
 
-These instance-level explanations are used in various ways depending on the data. In image classification, where pixels correspond to predictors, saliency maps overlay or offset a heatmap indicating important pixels (Simonyan, Vedaldi, and Zisserman 2014). For instance, pixels corresponding to snow may be highlighted when distinguishing if a picture contains a wolf or husky. In text analysis, word-level contextual sentiment analysis can be used to highlight the sentiment and magnitude of influential words (Vanni et al. 2018). In the case of numeric regression, they are used to explain feature additive contributions from the model intercept to the instance's prediction (Ribeiro, Singh, and Guestrin 2016).
+These instance-level explanations are used in various ways depending on
+the data. In image classification, where pixels correspond to
+predictors, saliency maps overlay or offset a heatmap indicating
+important pixels (Simonyan, Vedaldi, and Zisserman 2014). For instance,
+pixels corresponding to snow may be highlighted when distinguishing if a
+picture contains a wolf or husky. In text analysis, word-level
+contextual sentiment analysis can be used to highlight the sentiment and
+magnitude of influential words (Vanni et al. 2018). In the case of
+numeric regression, they are used to explain feature additive
+contributions from the model intercept to the instance's prediction
+(Ribeiro, Singh, and Guestrin 2016).
 
-SHaply Additive exPlanations (SHAP) quantifies the feature contributions of one instance by examining the effect of other features on the predictions. The explanations of SHAP refer to Shapley (1953)'s method to evaluate an individual's contribution to cooperative games by assessing this player's performance in the presence or absence of other players. Strumbelj and Kononenko (2010) introduced SHAP for local explanations in ML models. The attribution of feature importance depends on the sequence of the included features. The SHAP values are the mean contributions over different feature sequences. The approach is related to partial dependence plots (Molnar 2020), used to explain the effect of a feature by predicting the response for a range of values on this feature after fixing the value of all other features to their mean. Though partial dependence plots are a global approximation of the feature importance, while SHAP is specific to one instance. It could also be considered similar to examining the coefficients from all subsets regression, as described in Wickham, Cook, and Hofmann (2015), helps to understand the relative importance of each feature in the context of all other candidate features.
+SHaply Additive exPlanations (SHAP) quantifies the feature contributions
+of one instance by examining the effect of other features on the
+predictions. The explanations of SHAP refer to Shapley (1953)'s method
+to evaluate an individual's contribution to cooperative games by
+assessing this player's performance in the presence or absence of other
+players. Strumbelj and Kononenko (2010) introduced SHAP for local
+explanations in ML models. The attribution of feature importance depends
+on the sequence of the included features. The SHAP values are the mean
+contributions over different feature sequences. The approach is related
+to partial dependence plots (Molnar 2020), used to explain the effect of
+a feature by predicting the response for a range of values on this
+feature after fixing the value of all other features to their mean.
+Though partial dependence plots are a global approximation of the
+feature importance, while SHAP is specific to one instance. It could
+also be considered similar to examining the coefficients from all
+subsets regression, as described in Wickham, Cook, and Hofmann (2015),
+helps to understand the relative importance of each feature in the
+context of all other candidate features.
 
 \begin{figure}
 
@@ -205,46 +330,169 @@ SHaply Additive exPlanations (SHAP) quantifies the feature contributions of one 
 \caption{Illustration of SHAP values for a random forest model FIFA 2020 player wages from nine skill predictors. A star offensive and defensive player are compared, L. Messi and V. van Dijk, respectively. Panel (a) shows breakdown plots of three sequences of the features. The sequence of the variables impacts the magnitude of their attribution. Panel (b) shows the distribution of attribution for each feature across 25 sequences of predictors, with the mean displayed as a dot for each player. Reaction skills are important for both players. Offense and movement are important for Messi but not van Dijk, and conversely, defense and power are important for van Dijk but not Messi.}\label{fig:shapdistrbd}
 \end{figure}
 
-Following the use case \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021), FIFA data is used to illustrate SHAP. Consider soccer data from the FIFA 2020 season (Leone 2020). There are 5000 instances of 9 skill measures (after aggregating highly correlated features). A random forest model is fit regressing player's wages {[}2020 Euros{]} from their skill measurements. The SHAP values are compared for a star offensive player (L. Messi) and defensive player (V. van Dijk). The results are displayed in Figure \ref{fig:shapdistrbd}. A difference in the attribution of the feature importance across the two positions of the players can be expected. This would be interpreted as how a player's salary depends on this combination of skill sets. Panel (a) is a modified breakdown plot (Gosiewska and Biecek 2019) where three sequences of features are presented, so the two instances can be more easily compared. The magnitude of the contributions depends on the sequence in which they appear. Panel (b) shows the differences of the player's median values of over 25 such sequences. In summary, these plots highlight how local explanations bring interpretability to a model, at least in the vicinity of their instances. In this instance, two players with different positions receive different profiles of feature importance to explain the prediction of their wages.
+Following the use case \emph{Explanatory Model Analysis} (Biecek and
+Burzykowski 2021), FIFA data is used to illustrate SHAP. Consider soccer
+data from the FIFA 2020 season (Leone 2020). There are 5000 instances of
+9 skill measures (after aggregating highly correlated features). A
+random forest model is fit regressing player's wages {[}2020 Euros{]}
+from their skill measurements. The SHAP values are compared for a star
+offensive player (L. Messi) and defensive player (V. van Dijk). The
+results are displayed in Figure @ref(fig:shapdistrbd). A difference in
+the attribution of the feature importance across the two positions of
+the players can be expected. This would be interpreted as how a player's
+salary depends on this combination of skill sets. Panel (a) is a
+modified breakdown plot (Gosiewska and Biecek 2019) where three
+sequences of features are presented, so the two instances can be more
+easily compared. The magnitude of the contributions depends on the
+sequence in which they appear. Panel (b) shows the differences of the
+player's median values of over 25 such sequences. In summary, these
+plots highlight how local explanations bring interpretability to a
+model, at least in the vicinity of their instances. In this instance,
+two players with different positions receive different profiles of
+feature importance to explain the prediction of their wages.
 
-For the application, we use \emph{tree SHAP}, a variant of SHAP that enjoys a lower computational complexity (Lundberg, Erion, and Lee 2018). Instead of aggregating over sequences of the features, tree SHAP calculates instance-level feature importance by exploring the structure of the decision trees. Tree SHAP is only compatible with tree-based models; random forests are used for illustration. The following section will use normalized SHAP values as a projection basis (call this the \emph{attribution projection}) that will be used to explore the sensitivity of the feature contributions.
+For the application, we use \emph{tree SHAP}, a variant of SHAP that
+enjoys a lower computational complexity (Lundberg, Erion, and Lee 2018).
+Instead of aggregating over sequences of the features, tree SHAP
+calculates instance-level feature importance by exploring the structure
+of the decision trees. Tree SHAP is only compatible with tree-based
+models; random forests are used for illustration. The following section
+will use normalized SHAP values as a projection basis (call this the
+\emph{attribution projection}) that will be used to explore the
+sensitivity of the feature contributions.
 
 \hypertarget{sec:tour}{%
 \section{Tours and the radial tour}\label{sec:tour}}
 
-A \emph{tour} enables viewing of high-dimensional data by animating many linear projections with small incremental changes. It is achieved by following a path of linear projections (bases) of high-dimensional space. One of the features of the tour is the object permanence of the data points; one can track the relative change of instances in time and gain information about the relationships between points across multiple features. There are various types of tours that are distinguished by how the paths are generated (S. Lee et al. 2021; Cook et al. 2008).
+A \emph{tour} enables viewing of high-dimensional data by animating many
+linear projections with small incremental changes. It is achieved by
+following a path of linear projections (bases) of high-dimensional
+space. One of the features of the tour is the object permanence of the
+data points; one can track the relative change of instances in time and
+gain information about the relationships between points across multiple
+features. There are various types of tours that are distinguished by how
+the paths are generated (S. Lee et al. 2021; Cook et al. 2008).
 
-The manual tour (Cook and Buja 1997) defines its path by changing a selected feature's contribution to a basis to allow the feature to contribute more or less to the projection. The requirement constrains the contribution of all other features that a basis needs to be orthonormal (column correspond to vectors, with unit length, and orthogonal to each other). The manual tour is primarily used to assess the importance of a feature to structure visible in a projection. It also lends itself to pre-computation queued in advance or computed on-the-fly for human-in-the-loop analysis (Karwowski 2006).
+The manual tour (Cook and Buja 1997) defines its path by changing a
+selected feature's contribution to a basis to allow the feature to
+contribute more or less to the projection. The requirement constrains
+the contribution of all other features that a basis needs to be
+orthonormal (column correspond to vectors, with unit length, and
+orthogonal to each other). The manual tour is primarily used to assess
+the importance of a feature to structure visible in a projection. It
+also lends itself to pre-computation queued in advance or computed
+on-the-fly for human-in-the-loop analysis (Karwowski 2006).
 
-A version of the manual tour called a \emph{radial tour} is implemented in Spyrison and Cook (2020) and forms the basis of the new work. In a radial tour, the selected feature can change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and interactive re-calculation to focus on a different feature.
+A version of the manual tour called a \emph{radial tour} is implemented
+in Spyrison and Cook (2020) and forms the basis of the new work. In a
+radial tour, the selected feature can change its magnitude of
+contribution but not its angle; it must move along the direction of its
+original contribution. The implementation allows for pre-computation and
+interactive re-calculation to focus on a different feature.
 
 \hypertarget{sec:cheemviewer}{%
 \section{The cheem viewer}\label{sec:cheemviewer}}
 
-To explore the local explanations, coordinated views (Roberts 2007) (also known as ensemble graphics, Unwin and Valero-Mora 2018) are provided in the \emph{cheem viewer} application. There are two primary plots: the \textbf{global view} to give the context of all of the SHAP values and the \textbf{radial tour view} to explore the local explanations with user-controlled rotation. There are numerous user inputs, including feature selection for the radial tour and instance selection for making comparisons. There are different plots used for the categorical and quantitative responses. Figures \ref{fig:classificationcase} and \ref{fig:regressioncase} are screenshots showing the cheem viewer for the two primary tasks: classification (categorical response) and regression (quantitative response).
+To explore the local explanations, coordinated views (Roberts 2007)
+(also known as ensemble graphics, Unwin and Valero-Mora 2018) are
+provided in the \emph{cheem viewer} application. There are two primary
+plots: the \textbf{global view} to give the context of all of the SHAP
+values and the \textbf{radial tour view} to explore the local
+explanations with user-controlled rotation. There are numerous user
+inputs, including feature selection for the radial tour and instance
+selection for making comparisons. There are different plots used for the
+categorical and quantitative responses. Figures
+@ref(fig:classificationcase) and @ref(fig:regressioncase) are
+screenshots showing the cheem viewer for the two primary tasks:
+classification (categorical response) and regression (quantitative
+response).
 
 \hypertarget{global-view}{%
 \subsection{Global view}\label{global-view}}
 
-The global view provides a context of all instances and facilitates the exploration of the separability of the data- and attribution-spaces. Both of these spaces are of dimension \(n\times p\), where \(n\) is the number of instances and \(p\) is the number of predictors. The attribution space corresponds to the local explanations for each instance, each a vector of \(p\) values.
+The global view provides a context of all instances and facilitates the
+exploration of the separability of the data- and attribution-spaces.
+Both of these spaces are of dimension \(n\times p\), where \(n\) is the
+number of instances and \(p\) is the number of predictors. The
+attribution space corresponds to the local explanations for each
+instance, each a vector of \(p\) values.
 
-Visualization is provided by the first two principal components of the data (left) and the attribution (middle) spaces. These single 2D projections will not reveal all of the structure of higher-dimensional space, but they are helpful visual summaries. In addition, a plot of the observed against predicted response values is also provided (Figures \ref{fig:classificationcase}b, \ref{fig:regressioncase}a) to help identify instances poorly predicted by the model. For classification tasks, misclassified instances are circled in red. Linked brushing between the plots is provided, and a tabular display of selected points helps to facilitate exploration of the spaces and the model (shown in Figures \ref{fig:regressioncase}d).
+Visualization is provided by the first two principal components of the
+data (left) and the attribution (middle) spaces. These single 2D
+projections will not reveal all of the structure of higher-dimensional
+space, but they are helpful visual summaries. In addition, a plot of the
+observed against predicted response values is also provided (Figures
+@ref(fig:classificationcase)b, @ref(fig:regressioncase)a) to help
+identify instances poorly predicted by the model. For classification
+tasks, misclassified instances are circled in red. Linked brushing
+between the plots is provided, and a tabular display of selected points
+helps to facilitate exploration of the spaces and the model (shown in
+Figures @ref(fig:regressioncase)d).
 
-While the comparison of these spaces is interesting, the primary purpose of the global view is to enable the selection of instances to explore the local explanations. The projection attribution of the primary instance (PI) is examined and typically viewed with an optional comparison instance (CI). These instances are highlighted as asterisk and \(\times\), respectively.
+While the comparison of these spaces is interesting, the primary purpose
+of the global view is to enable the selection of instances to explore
+the local explanations. The projection attribution of the primary
+instance (PI) is examined and typically viewed with an optional
+comparison instance (CI). These instances are highlighted as asterisk
+and \(\times\), respectively.
 
 \hypertarget{radial-tour}{%
 \subsection{Radial tour}\label{radial-tour}}
 
-The local explanations for all observations are normalized (squared sum of values adds to 1), and thus, the relative importance of features can be compared across all instances. These are depicted as vertical parallel coordinate plots (Ocagne 1885) on the basis biplot (Gabriel 1971). 1D biplot display depicts the values of the current basis as bars. The parallel coordinate overlays lines connecting one instance's feature attribution (Figures \ref{fig:classificationcase}e and \ref{fig:regressioncase}e). The attribution projections of the PI and CI are shown as dashed and dotted lines. From this plot, the range and density of the importance across all instances can be interpreted. For classification, one would look at differences between groups on any feature. For example, Figure \ref{fig:classificationcase}e suggests that \texttt{bl} is important for distinguishing the green class from the other two. For regression, one might generally observe which features have low values for all instances (not important), for example, \texttt{BMI} and \texttt{pwr} in Figure \ref{fig:regressioncase}e, and which have a range of high and low values (e.g.~\texttt{off}, \texttt{def}) suggesting they are important for some instances and not important for other instances.
+The local explanations for all observations are normalized (squared sum
+of values adds to 1), and thus, the relative importance of features can
+be compared across all instances. These are depicted as vertical
+parallel coordinate plots (Ocagne 1885) on the basis biplot (Gabriel
+1971). 1D biplot display depicts the values of the current basis as
+bars. The parallel coordinate overlays lines connecting one instance's
+feature attribution (Figures @ref(fig:classificationcase)e and
+@ref(fig:regressioncase)e). The attribution projections of the PI and CI
+are shown as dashed and dotted lines. From this plot, the range and
+density of the importance across all instances can be interpreted. For
+classification, one would look at differences between groups on any
+feature. For example, Figure @ref(fig:classificationcase)e suggests that
+\texttt{bl} is important for distinguishing the green class from the
+other two. For regression, one might generally observe which features
+have low values for all instances (not important), for example,
+\texttt{BMI} and \texttt{pwr} in Figure @ref(fig:regressioncase)e, and
+which have a range of high and low values (e.g.~\texttt{off},
+\texttt{def}) suggesting they are important for some instances and not
+important for other instances.
 
-The overlaid bars on the parallel coordinate plot represent the attribution projection of the PI. (Remember that the PI is interactively selected from the global view). The attribution projection is approximates the feature importance for predicting this instance. This combination of features best explains the difference between the mean response and an instance's predicted value. It is not an indication of the local shape of the model surface. That is, it is not some indication of the tangent to the curve at this point.
+The overlaid bars on the parallel coordinate plot represent the
+attribution projection of the PI. (Remember that the PI is interactively
+selected from the global view). The attribution projection is
+approximates the feature importance for predicting this instance. This
+combination of features best explains the difference between the mean
+response and an instance's predicted value. It is not an indication of
+the local shape of the model surface. That is, it is not some indication
+of the tangent to the curve at this point.
 
-The attribution projection of the PI is the initial 1D basis in a radial tour, displayed as a density plot for a categorical response (Figure \ref{fig:classificationcase}f) and as scatterplots for a quantitative response (Figure \ref{fig:regressioncase}f). The PI and CI are indicated by vertical dashed and dotted lines, respectively. The radial tour varies the contribution of the selected feature between 0-1. This is viewed as an animation of the projections from many intermediate bases. Doing so tests the sensitivity of structure (class separation or strength of relationship) to the feature's contribution. For classification, if the separation between classes diminishes when the feature contribution is reduced, this suggests that the feature is important for class separation. For regression, if the relationship scatterplot weakens when the feature contribution is reduced, indicating that the feature is important for accurately predicting the response.
+The attribution projection of the PI is the initial 1D basis in a radial
+tour, displayed as a density plot for a categorical response (Figure
+@ref(fig:classificationcase)f) and as scatterplots for a quantitative
+response (Figure @ref(fig:regressioncase)f). The PI and CI are indicated
+by vertical dashed and dotted lines, respectively. The radial tour
+varies the contribution of the selected feature between 0-1. This is
+viewed as an animation of the projections from many intermediate bases.
+Doing so tests the sensitivity of structure (class separation or
+strength of relationship) to the feature's contribution. For
+classification, if the separation between classes diminishes when the
+feature contribution is reduced, this suggests that the feature is
+important for class separation. For regression, if the relationship
+scatterplot weakens when the feature contribution is reduced, indicating
+that the feature is important for accurately predicting the response.
 
 \hypertarget{classification-task}{%
 \subsection{Classification task}\label{classification-task}}
 
-Selecting a misclassified instance as PI and a correctly classified point nearby in data space as CI makes it easier to examine the features most responsible for the error. The global view (Figure \ref{fig:classificationcase}c) displays the model confusion matrix. The radial tour is 1D and displays as density where color indicates class. An animation slider enables the user to vary the contribution of each feature to explore the sensitivity of the separation to that feature.
+Selecting a misclassified instance as PI and a correctly classified
+point nearby in data space as CI makes it easier to examine the features
+most responsible for the error. The global view (Figure
+@ref(fig:classificationcase)c) displays the model confusion matrix. The
+radial tour is 1D and displays as density where color indicates class.
+An animation slider enables the user to vary the contribution of each
+feature to explore the sensitivity of the separation to that feature.
 
 \begin{figure}
 
@@ -258,9 +506,27 @@ Selecting a misclassified instance as PI and a correctly classified point nearby
 \hypertarget{regression-task}{%
 \subsection{Regression task}\label{regression-task}}
 
-Selecting an inaccurately predicted instance as PI and an accurately predicted instance with similar feature values as CI is a helpful way to understand how the model is failing or not. The global view (Figure \ref{fig:regressioncase}a) shows a scatterplot of the observed vs predicted values, which should exhibit a strong relationship if the model is a good fit. The points can be colored by a statistic, residual, a measure of outlyingness (log Mahalanobis distance), or correlation aid in understanding the structure identified in these spaces.
+Selecting an inaccurately predicted instance as PI and an accurately
+predicted instance with similar feature values as CI is a helpful way to
+understand how the model is failing or not. The global view (Figure
+@ref(fig:regressioncase)a) shows a scatterplot of the observed vs
+predicted values, which should exhibit a strong relationship if the
+model is a good fit. The points can be colored by a statistic, residual,
+a measure of outlyingness (log Mahalanobis distance), or correlation aid
+in understanding the structure identified in these spaces.
 
-In the radial tour view, the observed response and the residuals (vertical) are plotted against the attribution projection of the PI (horizontal). The attribution projection can be interpreted similarly to the predicted value from the global view plot. It represents a linear combination of the features, and a good fit would be indicated when there is a strong relationship with the observed values. This can be viewed as a local linear approximation if the fitted model is nonlinear. As the contribution of a feature is varied, if the value of the PI does not change much, it would indicate that the prediction for this instance is NOT sensitive to that feature. Conversely, if the predicted value varies substantially, the prediction is very sensitive to that feature, suggesting that the feature is very important for the PI's prediction.
+In the radial tour view, the observed response and the residuals
+(vertical) are plotted against the attribution projection of the PI
+(horizontal). The attribution projection can be interpreted similarly to
+the predicted value from the global view plot. It represents a linear
+combination of the features, and a good fit would be indicated when
+there is a strong relationship with the observed values. This can be
+viewed as a local linear approximation if the fitted model is nonlinear.
+As the contribution of a feature is varied, if the value of the PI does
+not change much, it would indicate that the prediction for this instance
+is NOT sensitive to that feature. Conversely, if the predicted value
+varies substantially, the prediction is very sensitive to that feature,
+suggesting that the feature is very important for the PI's prediction.
 
 \begin{figure}
 
@@ -274,38 +540,96 @@ In the radial tour view, the observed response and the residuals (vertical) are 
 \hypertarget{interactive-features}{%
 \subsection{Interactive features}\label{interactive-features}}
 
-The application has several reactive inputs that affect the data used, aesthetic display, and tour manipulation. These reactive inputs make the software flexible and extensible (Figure \ref{fig:classificationcase}a \& d). The application also has more exploratory interactions to help link points across displays, reveal structures found in different spaces, and access the original data.
+The application has several reactive inputs that affect the data used,
+aesthetic display, and tour manipulation. These reactive inputs make the
+software flexible and extensible (Figure @ref(fig:classificationcase)a
+\& d). The application also has more exploratory interactions to help
+link points across displays, reveal structures found in different
+spaces, and access the original data.
 
-A tooltip displays instance number/name and classification information while the cursor hovers over a point. Linked brushing allows the selection of points (left click and drag) where those points will be highlighted across plots (Figure \ref{fig:classificationcase}a \& b). The information corresponding to the selected points is populated on a dynamic table (Figure \ref{fig:classificationcase}d). These interactions aid exploration of the spaces and, finally, the identification of primary and comparison instances.
+A tooltip displays instance number/name and classification information
+while the cursor hovers over a point. Linked brushing allows the
+selection of points (left click and drag) where those points will be
+highlighted across plots (Figure @ref(fig:classificationcase)a \& b).
+The information corresponding to the selected points is populated on a
+dynamic table (Figure @ref(fig:classificationcase)d). These interactions
+aid exploration of the spaces and, finally, the identification of
+primary and comparison instances.
 
 \hypertarget{preprocessing}{%
 \subsection{Preprocessing}\label{preprocessing}}
 
-It is vital to mitigate the render time of visuals, especially when users may want to iterate many explorations. All computational operations should be prepared before runtime. The work remaining when an application is run solely reacts to inputs and rendering visuals and tables. Below discusses the steps and details of the reprocessing.
+It is vital to mitigate the render time of visuals, especially when
+users may want to iterate many explorations. All computational
+operations should be prepared before runtime. The work remaining when an
+application is run solely reacts to inputs and rendering visuals and
+tables. Below discusses the steps and details of the reprocessing.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Data:} predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant.
+  \textbf{Data:} predictors and response are unscaled complete numerical
+  matrix. Most models and local explanations are scale-invariant.
 \item
-  \textbf{Model:} any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package \textbf{randomForest} (Liaw and Wiener 2002), compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, number variables randomly sampled at each split, mtry = \(\sqrt{p}\) or \(p/3\) for classification and regression, and minimum size of terminal nodes \(max(1, n/500)\) or \(max(5, n/500)\) for classification and regression.
+  \textbf{Model:} any model and compatible explanation could be explored
+  with this method. Currently, random forest models are applied via the
+  package \textbf{randomForest} (Liaw and Wiener 2002), compatibility
+  tree SHAP. Modest hyperparameters are used, namely: 125 trees, number
+  variables randomly sampled at each split, mtry = \(\sqrt{p}\) or
+  \(p/3\) for classification and regression, and minimum size of
+  terminal nodes \(max(1, n/500)\) or \(max(5, n/500)\) for
+  classification and regression.
 \item
-  \textbf{Local explanation:} Tree SHAP is calculated for \emph{each} observation using the package \textbf{treeshap} (Kominsarczyk et al. 2021). This implementation aggregates exhaustively over all trees' attribution and does not fit interactions of variables.
+  \textbf{Local explanation:} Tree SHAP is calculated for \emph{each}
+  observation using the package \textbf{treeshap} (Kominsarczyk et al.
+  2021). This implementation aggregates exhaustively over all trees'
+  attribution and does not fit interactions of variables.
 \item
-  \textbf{Cheem viewer:} after the model and full explanation space are calculated, each variable is scaled by standard deviations away from the mean to achieve common support for visuals. Statistics for mapping to color are computed on the scaled spaces.
+  \textbf{Cheem viewer:} after the model and full explanation space are
+  calculated, each variable is scaled by standard deviations away from
+  the mean to achieve common support for visuals. Statistics for mapping
+  to color are computed on the scaled spaces.
 \end{itemize}
 
-The time to preprocess the data will vary significantly with the complexity of the model and local explanation. For reference, the FIFA data contained 5000 instances of nine explanatory features took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each instance took 270 seconds total. PCA and statistics of the features and attributions took 2.8 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. (Alternatively, the package \textbf{fastshap} (Greenwell 2020) claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.)
+The time to preprocess the data will vary significantly with the
+complexity of the model and local explanation. For reference, the FIFA
+data contained 5000 instances of nine explanatory features took 2.5
+seconds to fit a random forest model of modest hyperparameters.
+Extracting the tree SHAP values of each instance took 270 seconds total.
+PCA and statistics of the features and attributions took 2.8 seconds.
+These runtimes were from a non-parallelized R session on a modern
+laptop, but suffice to say that most of the time will be spent on the
+local attribution. An increase in model complexity or data
+dimensionality will quickly become an obstacle. Its reduced
+computational complexity makes tree SHAP an excellent candidate to
+start. (Alternatively, the package \textbf{fastshap} (Greenwell 2020)
+claims extremely low runtimes, attributed to fewer calls to the
+prediction function, partial implementation in C++, and efficient use of
+logical subsetting.)
 
 \hypertarget{sec:infrastructure}{%
 \subsection{Package infrastructure}\label{sec:infrastructure}}
 
-The above-described method and application are implemented as an open-source \textbf{R} package, \textbf{cheem} available on \href{https://CRAN.R-project.org/package=cheem}{CRAN}. Preprocessing was facilitated with models created via \textbf{randomForest} (Liaw and Wiener 2002) and explanations calculated with \textbf{treeshap} (Kominsarczyk et al. 2021). The application was made with \textbf{shiny} (Chang et al. 2021). The tour visual is built with \textbf{spinifex} (Spyrison and Cook 2020). Both views are created first with \textbf{ggplot2} (Wickham 2016) and then rendered as interactive \texttt{html} widgets with \textbf{plotly} (Sievert 2020). \textbf{DALEX} (Biecek 2018) and the free ebook, \emph{Explanatory Model Analysis} (Biecek and Burzykowski 2021) were a boon to understanding local explanations and how to apply them.
+The above-described method and application are implemented as an
+open-source \textbf{R} package, \textbf{cheem} available on
+\href{https://CRAN.R-project.org/package=cheem}{CRAN}. Preprocessing was
+facilitated with models created via \textbf{randomForest} (Liaw and
+Wiener 2002) and explanations calculated with \textbf{treeshap}
+(Kominsarczyk et al. 2021). The application was made with \textbf{shiny}
+(Chang et al. 2021). The tour visual is built with \textbf{spinifex}
+(Spyrison and Cook 2020). Both views are created first with
+\textbf{ggplot2} (Wickham 2016) and then rendered as interactive
+\texttt{html} widgets with \textbf{plotly} (Sievert 2020).
+\textbf{DALEX} (Biecek 2018) and the free ebook, \emph{Explanatory Model
+Analysis} (Biecek and Burzykowski 2021) were a boon to understanding
+local explanations and how to apply them.
 
 \hypertarget{installation-and-getting-started}{%
-\subsection{Installation and getting started}\label{installation-and-getting-started}}
+\subsection{Installation and getting
+started}\label{installation-and-getting-started}}
 
-The package can be installed from CRAN, and the shiny app can be run, using the following \textbf{R} code:
+The package can be installed from CRAN, and the shiny app can be run,
+using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -320,26 +644,50 @@ Alternatively,
 \begin{itemize}
 \tightlist
 \item
-  a version of the cheem viewer shiny app can be directly accessed at \href{https://ebsmonash.shinyapps.io/cheem_initial/}{ebsmonash.shinyapps.io/cheem\_initial/}.
+  a version of the cheem viewer shiny app can be directly accessed at
+  \href{https://ebsmonash.shinyapps.io/cheem_initial/}{ebsmonash.shinyapps.io/cheem\_initial/}.
 \item
-  the development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
+  the development version of the package is available at
+  \url{https://github.com/nspyrison/cheem}, and
 \item
-  documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
+  documentation of the package can be found at
+  \url{https://nspyrison.github.io/cheem/}.
 \end{itemize}
 
-Follow the examples provided with the package to compute the local explainers (using \texttt{?cheem\_ls}). The application expects the output returned by \texttt{cheem\_ls()}, saved to an .rds file with \texttt{saveRDS()}, to be uploaded.
+Follow the examples provided with the package to compute the local
+explainers (using \texttt{?cheem\_ls}). The application expects the
+output returned by \texttt{cheem\_ls()}, saved to an .rds file with
+\texttt{saveRDS()}, to be uploaded.
 
 \hypertarget{sec:casestudies}{%
 \section{Case studies}\label{sec:casestudies}}
 
-To illustrate the cheem method, it is applied to modern datasets, two classification examples and then two of regression.
+To illustrate the cheem method, it is applied to modern datasets, two
+classification examples and then two of regression.
 
 \hypertarget{palmer-penguin-species-classification}{%
-\subsection{Palmer penguin, species classification}\label{palmer-penguin-species-classification}}
+\subsection{Palmer penguin, species
+classification}\label{palmer-penguin-species-classification}}
 
-The Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst, Hill, and Gorman 2020) was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (\texttt{bl}), bill depth (\texttt{bd}), flipper length (\texttt{fl}), body mass (\texttt{bm}), for this illustration. A random forest model was fit with species as the response feature.
+The Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst,
+Hill, and Gorman 2020) was collected on three species of penguins
+foraging near Palmer Station, Antarctica. The data was publicly
+available to substitute for the overly-used iris data and is quite
+similar in form. After removing incomplete instances, there are 333
+instances of four physical measurements, bill length (\texttt{bl}), bill
+depth (\texttt{bd}), flipper length (\texttt{fl}), body mass
+(\texttt{bm}), for this illustration. A random forest model was fit with
+species as the response feature.
 
-
+(ref:casepenguins-cap) Examining the SHAP values for a random forest
+model classifying Palmer penguin species. The PI is a Gentoo (purple)
+penguin that is misclassified as a Chinstrap (orange), marked as an
+asterisk in (a), and the dashed vertical line in (b). The radial view
+shows varying the contribution of \texttt{fl} from the initial
+attribution projection (b, left), which produces a linear combination
+where the PI is more probably (higher density value) a Chinstrap than a
+Gentoo (b, right). (The animation of the radial tour is at
+\href{https://vimeo.com/666431172}{vimeo.com/666431172}.)
 
 \begin{figure}
 
@@ -347,12 +695,20 @@ The Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst, Hill, and Go
 
 }
 
-\caption{Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is a Gentoo (purple) penguin that is misclassified as a Chinstrap (orange), marked as an asterisk in (a), and the dashed vertical line in (b). The radial view shows varying the contribution of \texttt{fl} from the initial attribution projection (b, left), which produces a linear combination where the PI is more probably (higher density value) a Chinstrap than a Gentoo (b, right). (The animation of the radial tour is at \href{https://vimeo.com/666431172}{vimeo.com/666431172}.)}\label{fig:casepenguins}
+\caption{(ref:casepenguins-cap)}\label{fig:casepenguins}
 \end{figure}
 
-Figure \ref{fig:casepenguins} shows plots from the cheem viewer for exploring the random forest model on the penguins data. Panel (a) shows the global view, and panel (b) shows several 1D projections generated with the radial tour. Penguin 243, a Gentoo (purple), is the PI because it has been misclassified as a Chinstrap (orange).
+Figure @ref(fig:casepenguins) shows plots from the cheem viewer for
+exploring the random forest model on the penguins data. Panel (a) shows
+the global view, and panel (b) shows several 1D projections generated
+with the radial tour. Penguin 243, a Gentoo (purple), is the PI because
+it has been misclassified as a Chinstrap (orange).
 
-
+(ref:casepenguinsblfl-cap) Checking what is learned from the cheem
+viewer. This is a plot of flipper length (\texttt{fl}) and bill length
+(\texttt{bl}), where an asterisk highlights the PI. A Gentoo (purple)
+misclassified as a Chinstrap (orange). The PI has an unusually small
+\texttt{fl} length which is why it is confused with a Chinstrap.
 
 \begin{figure}
 
@@ -360,23 +716,76 @@ Figure \ref{fig:casepenguins} shows plots from the cheem viewer for exploring th
 
 }
 
-\caption{Checking what is learned from the cheem viewer. This is a plot of flipper length (\texttt{fl}) and bill length (\texttt{bl}), where an asterisk highlights the PI. A Gentoo (purple) misclassified as a Chinstrap (orange). The PI has an unusually small \texttt{fl} length which is why it is confused with a Chinstrap.}\label{fig:casepenguinsblfl}
+\caption{(ref:casepenguinsblfl-cap)}\label{fig:casepenguinsblfl}
 \end{figure}
 
-There is more separation visible in the attribution space than the data space, as would be expected. The predicted vs observed plot reveals a handful of misclassified instances. A Gentoo that has been wrongly labeled as a Chinstrap is selected for illustration. The PI is a misclassified point (represented by the asterisk in the global view and a dashed vertical line in the tour view). The CI is a correctly classified point (represented by an \(\times\) and a vertical dotted line).
+There is more separation visible in the attribution space than the data
+space, as would be expected. The predicted vs observed plot reveals a
+handful of misclassified instances. A Gentoo that has been wrongly
+labeled as a Chinstrap is selected for illustration. The PI is a
+misclassified point (represented by the asterisk in the global view and
+a dashed vertical line in the tour view). The CI is a correctly
+classified point (represented by an \(\times\) and a vertical dotted
+line).
 
-The radial tour starts from the attribution projection of the misclassified instance (b, left). The important features identified by SHAP in the (wrong) prediction for this instance are mostly \texttt{bl} and \texttt{bd} with small contributions of \texttt{fl} and \texttt{bm}. This projection is a view where the Gentoo (purple) looks much more likely for this instance than Chinstrap. That is, this combination of features is not particularly useful because the PI looks very much like other Gentoo penguins. To explore this, the radial tour is used to vary the contribution of flipper length (\texttt{fl}). (In our exploration, this was the third feature explored. It is typically helpful to explore the features with more significant contributions, here \texttt{bl} and \texttt{bd}. Still, when doing this, nothing was revealed about how the PI differed from other Gentoos). On varying \texttt{fl} as it contributes increasingly to the projection (b, right), more and more, this penguin looks like a Chinstrap. This suggests that \texttt{fl} should be considered an important feature for explaining the (wrong) prediction.
+The radial tour starts from the attribution projection of the
+misclassified instance (b, left). The important features identified by
+SHAP in the (wrong) prediction for this instance are mostly \texttt{bl}
+and \texttt{bd} with small contributions of \texttt{fl} and \texttt{bm}.
+This projection is a view where the Gentoo (purple) looks much more
+likely for this instance than Chinstrap. That is, this combination of
+features is not particularly useful because the PI looks very much like
+other Gentoo penguins. To explore this, the radial tour is used to vary
+the contribution of flipper length (\texttt{fl}). (In our exploration,
+this was the third feature explored. It is typically helpful to explore
+the features with more significant contributions, here \texttt{bl} and
+\texttt{bd}. Still, when doing this, nothing was revealed about how the
+PI differed from other Gentoos). On varying \texttt{fl} as it
+contributes increasingly to the projection (b, right), more and more,
+this penguin looks like a Chinstrap. This suggests that \texttt{fl}
+should be considered an important feature for explaining the (wrong)
+prediction.
 
-Figure \ref{fig:casepenguinsblfl} confirms that flipper length (\texttt{fl}) is vital for the confusion of the PI as a Chinstrap. Here, flipper length and body length are plotted, and the PI can be seen to be closer to the Chinstrap group in these two features, mainly because it has an unusually low value of flipper length relative to other Gentoos. From this view, it makes sense that it is a hard instance to account for as decision trees can only partition only vertical and horizontal lines.
+Figure @ref(fig:casepenguinsblfl) confirms that flipper length
+(\texttt{fl}) is vital for the confusion of the PI as a Chinstrap. Here,
+flipper length and body length are plotted, and the PI can be seen to be
+closer to the Chinstrap group in these two features, mainly because it
+has an unusually low value of flipper length relative to other Gentoos.
+From this view, it makes sense that it is a hard instance to account for
+as decision trees can only partition only vertical and horizontal lines.
 
 \hypertarget{chocolates-milkdark-chocolate-classification}{%
-\subsection{Chocolates, milk/dark chocolate classification}\label{chocolates-milkdark-chocolate-classification}}
+\subsection{Chocolates, milk/dark chocolate
+classification}\label{chocolates-milkdark-chocolate-classification}}
 
-The chocolates dataset consists of 88 instances of ten nutritional measurements determined from their labels and labeled as either milk or dark. Dark chocolate is considered healthier than milk. The data were collected by students during the Iowa State University class STAT503 from nutritional information from the manufacturer's website and normalized to 100g equivalents. The data is available in the \textbf{cheem} package. A random forest model is used for the classification of chocolate types.
+The chocolates dataset consists of 88 instances of ten nutritional
+measurements determined from their labels and labeled as either milk or
+dark. Dark chocolate is considered healthier than milk. The data were
+collected by students during the Iowa State University class STAT503
+from nutritional information from the manufacturer's website and
+normalized to 100g equivalents. The data is available in the
+\textbf{cheem} package. A random forest model is used for the
+classification of chocolate types.
 
-It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk. A reason to do this is that a dark chocolate, nutritionally more like milk, should not be considered a healthy alternative. It is interesting to explore which nutritional features contribute most to misclassification.
+It could be interesting to examine the nutritional properties of any
+dark chocolates that have been misclassified as milk. A reason to do
+this is that a dark chocolate, nutritionally more like milk, should not
+be considered a healthy alternative. It is interesting to explore which
+nutritional features contribute most to misclassification.
 
-
+(ref:casechocolates-cap) Examining the local explanation for a PI which
+is dark (orange) chocolate incorrectly predicted to be milk (green).
+From the attribution projection, this chocolate correctly looks more
+like dark than milk, which suggests that the local explanation does not
+help understand the prediction for this instance. So, the contribution
+of Sugar is varied --- reducing it corresponds primarily with increasing
+Fiber. When Sugar is zero, Fiber contributes strongly towards the left.
+In this particular view, the PI is closer to the bulk of the milk
+chocolates, suggesting that the prediction put a lot of importance on
+Fiber. This chocolate is a rare dark chocolate without any Fiber leading
+to it being mistaken for a milk chocolate. (A video of the tour
+animation can be found at
+\href{https://vimeo.com/666431143}{vimeo.com/666431143}.)
 
 \begin{figure}
 
@@ -384,20 +793,64 @@ It could be interesting to examine the nutritional properties of any dark chocol
 
 }
 
-\caption{Examining the local explanation for a PI which is dark (orange) chocolate incorrectly predicted to be milk (green). From the attribution projection, this chocolate correctly looks more like dark than milk, which suggests that the local explanation does not help understand the prediction for this instance. So, the contribution of Sugar is varied --- reducing it corresponds primarily with increasing Fiber. When Sugar is zero, Fiber contributes strongly towards the left. In this particular view, the PI is closer to the bulk of the milk chocolates, suggesting that the prediction put a lot of importance on Fiber. This chocolate is a rare dark chocolate without any Fiber leading to it being mistaken for a milk chocolate. (A video of the tour animation can be found at \href{https://vimeo.com/666431143}{vimeo.com/666431143}.)}\label{fig:casechocolates}
+\caption{(ref:casechocolates-cap)}\label{fig:casechocolates}
 \end{figure}
 
-This type of exploration is shown in Figure \ref{fig:casechocolates}, where a chocolate labeled dark but predicted to be milk is chosen as the PI (instance 22). It is compared with a CI that is a correctly classified dark chocolate (instance 7). The PCA plot and the tree SHAP PCA plots (a) show a big difference between the two chocolate types but with confusion for a handful of instances. The misclassifications are more apparent in the observed vs predicted plot and can be seen to be mistaken in both ways: milk to dark and dark to milk.
+This type of exploration is shown in Figure @ref(fig:casechocolates),
+where a chocolate labeled dark but predicted to be milk is chosen as the
+PI (instance 22). It is compared with a CI that is a correctly
+classified dark chocolate (instance 7). The PCA plot and the tree SHAP
+PCA plots (a) show a big difference between the two chocolate types but
+with confusion for a handful of instances. The misclassifications are
+more apparent in the observed vs predicted plot and can be seen to be
+mistaken in both ways: milk to dark and dark to milk.
 
-The attribution projection for chocolate 22 suggests that Fiber, Sugars, and Calories are most responsible for its incorrect prediction. The way to read this plot is to see that Fiber has a large negative value while Sugars and Calories have reasonably large positive values. In the density plot, instances on the very left of the display would have high values of Fiber (matching the negative projection coefficient) and low values of Sugars and Calories. The opposite would be interpreting a point with high values in this plot. The dark chocolates (orange) are primarily on the left, and this is a reason why they are considered to be healthier: high fiber and low sugar. The density of milk chocolates is further to the right, indicating that they generally have low fiber and high sugar.
+The attribution projection for chocolate 22 suggests that Fiber, Sugars,
+and Calories are most responsible for its incorrect prediction. The way
+to read this plot is to see that Fiber has a large negative value while
+Sugars and Calories have reasonably large positive values. In the
+density plot, instances on the very left of the display would have high
+values of Fiber (matching the negative projection coefficient) and low
+values of Sugars and Calories. The opposite would be interpreting a
+point with high values in this plot. The dark chocolates (orange) are
+primarily on the left, and this is a reason why they are considered to
+be healthier: high fiber and low sugar. The density of milk chocolates
+is further to the right, indicating that they generally have low fiber
+and high sugar.
 
-The PI (dashed line) can be viewed against the CI (dotted line). Now, one needs to pay attention to the parallel plot of the SHAP values, which are local to a particular instance, and the density plot, which is the same projection of all instances as specified by the SHAP values of the PI. The feature contributions to the two different predictions can be quickly compared in the parallel coordinate plot. The PI differs with the comparison primarily on the Fiber feature, which suggests that this is the reason for the incorrect prediction.
+The PI (dashed line) can be viewed against the CI (dotted line). Now,
+one needs to pay attention to the parallel plot of the SHAP values,
+which are local to a particular instance, and the density plot, which is
+the same projection of all instances as specified by the SHAP values of
+the PI. The feature contributions to the two different predictions can
+be quickly compared in the parallel coordinate plot. The PI differs with
+the comparison primarily on the Fiber feature, which suggests that this
+is the reason for the incorrect prediction.
 
-From the density plot, which is the attribution projection corresponding to the PI, both instances are more like dark chocolates. Varying the contribution of Sugars and altogether removing it from the projection is where the difference becomes apparent. When primarily Fiber is examined, instance 22 looks more like a milk chocolate.
+From the density plot, which is the attribution projection corresponding
+to the PI, both instances are more like dark chocolates. Varying the
+contribution of Sugars and altogether removing it from the projection is
+where the difference becomes apparent. When primarily Fiber is examined,
+instance 22 looks more like a milk chocolate.
 
-It would also be interesting to explore an inverse misclassification. In this case, a milk chocolate is selected while it was misclassified as a dark chocolate. Chocolate 84 is just this case and is compared with a correctly predicted milk chocolate (instance 71). The corresponding global view and radial tour frames are shown in Figure \ref{fig:casechocolatesinverse}.
+It would also be interesting to explore an inverse misclassification. In
+this case, a milk chocolate is selected while it was misclassified as a
+dark chocolate. Chocolate 84 is just this case and is compared with a
+correctly predicted milk chocolate (instance 71). The corresponding
+global view and radial tour frames are shown in Figure
+@ref(fig:casechocolatesinverse).
 
-
+(ref:casechocolatesinverse-cap) Examining the local interpretation for a
+PI which is milk (green) chocolate incorrectly predicted to be dark
+(orange). In the attribution projection, the PI could be either milk or
+dark. Sodium and Fiber have the largest differences in attributed
+feature importance, with low values relative to other milk chocolates.
+The lack of importance attributed to these variables is suspected of
+contributing to the mistake, so the contribution of Sodium is varied. If
+Sodium had a larger contribution to the prediction (like in this view).
+the PI would look more like other milk chocolates. (A video of the tour
+animation can be found at
+\href{https://vimeo.com/666431148}{vimeo.com/666431148}.)
 
 \begin{figure}
 
@@ -405,19 +858,56 @@ It would also be interesting to explore an inverse misclassification. In this ca
 
 }
 
-\caption{Examining the local interpretation for a PI which is milk (green) chocolate incorrectly predicted to be dark (orange). In the attribution projection, the PI could be either milk or dark. Sodium and Fiber have the largest differences in attributed feature importance, with low values relative to other milk chocolates. The lack of importance attributed to these variables is suspected of contributing to the mistake, so the contribution of Sodium is varied. If Sodium had a larger contribution to the prediction (like in this view). the PI would look more like other milk chocolates. (A video of the tour animation can be found at \href{https://vimeo.com/666431148}{vimeo.com/666431148}.)}\label{fig:casechocolatesinverse}
+\caption{(ref:casechocolatesinverse-cap)}\label{fig:casechocolatesinverse}
 \end{figure}
 
-The difference of position in the tree SHAP PCA with the previous case is quite significant; this gives a higher-level sense that the attributions should be quite different. Looking at the attribution projection, this is found to be the case. Previously, Fiber was essential while it is absent from the attribution in this case. Conversely, Calories from Fat and Total Fat have high attributions here, while they were unimportant in the preceding case.
+The difference of position in the tree SHAP PCA with the previous case
+is quite significant; this gives a higher-level sense that the
+attributions should be quite different. Looking at the attribution
+projection, this is found to be the case. Previously, Fiber was
+essential while it is absent from the attribution in this case.
+Conversely, Calories from Fat and Total Fat have high attributions here,
+while they were unimportant in the preceding case.
 
-Comparing the attribution with the CI (dotted line), large discrepancies in Sodium and Fiber are identified. The contribution of Sodium is selected to be varied. Even in the initial projection, the instance looks slightly more like its observed milk than predicted dark chocolate. The misclassification appears least supported when the basis reaches sodium attribution of typical dark chocolate.
+Comparing the attribution with the CI (dotted line), large discrepancies
+in Sodium and Fiber are identified. The contribution of Sodium is
+selected to be varied. Even in the initial projection, the instance
+looks slightly more like its observed milk than predicted dark
+chocolate. The misclassification appears least supported when the basis
+reaches sodium attribution of typical dark chocolate.
 
 \hypertarget{fifa-wage-regression}{%
 \subsection{FIFA, wage regression}\label{fifa-wage-regression}}
 
-The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurements of soccer/football players and wage information. Nine higher-level skill groupings were identified and aggregated from highly correlated features. A random forest model is fit from these predictors, regressing player wages {[}2020 euros{]}. The model was fit from 5000 instances before being thinned to 500 players to mitigate occlusion and render time. Continuing from the exploration in section \ref{sec:explanations}, we are interested to see the difference in attribution based on the exogenous player position. That is, the model should be able to use multiple linear profiles to better predict the wages from different field positions of players despite not having this information. A leading offensive fielder (L. Messi) is compared with a top defensive fielder (V. van Dijk). The same instances were used in figure \ref{fig:shapdistrbd}.
+The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill
+measurements of soccer/football players and wage information. Nine
+higher-level skill groupings were identified and aggregated from highly
+correlated features. A random forest model is fit from these predictors,
+regressing player wages {[}2020 euros{]}. The model was fit from 5000
+instances before being thinned to 500 players to mitigate occlusion and
+render time. Continuing from the exploration in section
+@ref(sec:explanations), we are interested to see the difference in
+attribution based on the exogenous player position. That is, the model
+should be able to use multiple linear profiles to better predict the
+wages from different field positions of players despite not having this
+information. A leading offensive fielder (L. Messi) is compared with a
+top defensive fielder (V. van Dijk). The same instances were used in
+figure @ref(fig:shapdistrbd).
 
-
+(ref:casefifa-cap) Exploring the wages {[}euros{]} relative to skill
+measurements in the FIFA 2020 data. Star offensive player (L. Messi) is
+the PI and he is compared with a top defensive player (V. van Dijk). The
+attribution projection is shown at left, and it can be seen that this
+combination of features produces a view where Messi has very high
+predicted (and observed) wages. Defense (\texttt{def}) is the chosen
+feature to vary. It starts off very low, and as its contribution is
+increased (right plot) it can be seen that Messi's predicted wages
+decrease dramatically. The increased contribution in defense comes at
+the expense of offensive and reaction skills. The interpretation is that
+indeed, Messi's high wages are most attributable to his offensive and
+reaction skills, as initially provided by the local explanation. (A
+video of the animated radial tour can be found at
+\href{https://vimeo.com/666431163}{vimeo.com/666431163}.)
 
 \begin{figure}
 
@@ -425,19 +915,50 @@ The 2020 season FIFA data (Leone 2020; Biecek 2018) contains many skill measurem
 
 }
 
-\caption{Exploring the wages {[}euros{]} relative to skill measurements in the FIFA 2020 data. Star offensive player (L. Messi) is the PI and he is compared with a top defensive player (V. van Dijk). The attribution projection is shown at left, and it can be seen that this combination of features produces a view where Messi has very high predicted (and observed) wages. Defense (\texttt{def}) is the chosen feature to vary. It starts off very low, and as its contribution is increased (right plot) it can be seen that Messi's predicted wages decrease dramatically. The increased contribution in defense comes at the expense of offensive and reaction skills. The interpretation is that indeed, Messi's high wages are most attributable to his offensive and reaction skills, as initially provided by the local explanation. (A video of the animated radial tour can be found at \href{https://vimeo.com/666431163}{vimeo.com/666431163}.)}\label{fig:casefifa}
+\caption{(ref:casefifa-cap)}\label{fig:casefifa}
 \end{figure}
 
-Figure \ref{fig:casefifa}, tests the support of the local explanation. Offensive and reaction skills (\texttt{off} and \texttt{rct}) are both crucial to explaining a star offensive player. If either of them were rotated out, the other would be rotated into the frame, maintaining a far-right position. However, Increasing the contribution of a variable with low importance would rotate both features out of the frame.
+Figure @ref(fig:casefifa), tests the support of the local explanation.
+Offensive and reaction skills (\texttt{off} and \texttt{rct}) are both
+crucial to explaining a star offensive player. If either of them were
+rotated out, the other would be rotated into the frame, maintaining a
+far-right position. However, Increasing the contribution of a variable
+with low importance would rotate both features out of the frame.
 
-The contribution from \texttt{def} will be varied to contrast with offensive skills. As the contribution of defensive skills increases, Messi's is no longer separated from the group. Players with high values in defensive skills are now the rightmost points. In terms of what-if analysis, the difference between the data mean and his predicted wages would be halved if Messi's tree SHAP attributions at these levels.
+The contribution from \texttt{def} will be varied to contrast with
+offensive skills. As the contribution of defensive skills increases,
+Messi's is no longer separated from the group. Players with high values
+in defensive skills are now the rightmost points. In terms of what-if
+analysis, the difference between the data mean and his predicted wages
+would be halved if Messi's tree SHAP attributions at these levels.
 
 \hypertarget{ames-housing-2018-sales-price-regression}{%
-\subsection{Ames housing 2018, sales price regression}\label{ames-housing-2018-sales-price-regression}}
+\subsection{Ames housing 2018, sales price
+regression}\label{ames-housing-2018-sales-price-regression}}
 
-Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model has fitted this price {[}USD{]} with the property features: Lot Area (\texttt{LtA}), Overall Quality (\texttt{Qlt}), Year the house was Built (\texttt{YrB}), Living Area (\texttt{LvA}), number of Bathrooms (\texttt{Bth}), number of Bedrooms (\texttt{Bdr}), the total number of Rooms (\texttt{Rms}), Year the Garage was Built (\texttt{GYB}), and Garage Area (\texttt{GrA}). Using interaction from the global view, a house with an extreme negative residual and an accurate instance with a similar prediction are selected.
+Ames 2018, housing data was subset to North Ames (the neighborhood with
+the most house sales). The remaining are 338 house sales. A random
+forest model has fitted this price {[}USD{]} with the property features:
+Lot Area (\texttt{LtA}), Overall Quality (\texttt{Qlt}), Year the house
+was Built (\texttt{YrB}), Living Area (\texttt{LvA}), number of
+Bathrooms (\texttt{Bth}), number of Bedrooms (\texttt{Bdr}), the total
+number of Rooms (\texttt{Rms}), Year the Garage was Built
+(\texttt{GYB}), and Garage Area (\texttt{GrA}). Using interaction from
+the global view, a house with an extreme negative residual and an
+accurate instance with a similar prediction are selected.
 
-
+(ref:caseames-cap) Exploring an instance with a large residual as the PI
+from fitting sales price {[}USD{]} to other variables in the Ames
+housing 2018. The sale price of the PI was under-predicted. The local
+explanation indicates a sizable attribution to Lot Area (\texttt{LtA}).
+The CI has a similar predicted sales price and smaller residual and has
+minimal attribution to Lot Area. In the attribution projection, the PI
+has a higher sales price than the CI. Reducing the contribution of Lot
+Area brings these two prices in line. This suggests if the model did not
+consider Lot Area, then the two houses would be quite similar. That is,
+the large residual is due to a lack of factoring in the Lot Area for the
+prediction of PI's sales price. (A video showing the animation is at
+\href{https://vimeo.com/666431134}{vimeo.com/666431134}.)
 
 \begin{figure}
 
@@ -445,28 +966,88 @@ Ames 2018, housing data was subset to North Ames (the neighborhood with the most
 
 }
 
-\caption{Exploring an instance with a large residual as the PI from fitting sales price {[}USD{]} to other variables in the Ames housing 2018. The sale price of the PI was under-predicted. The local explanation indicates a sizable attribution to Lot Area (\texttt{LtA}). The CI has a similar predicted sales price and smaller residual and has minimal attribution to Lot Area. In the attribution projection, the PI has a higher sales price than the CI. Reducing the contribution of Lot Area brings these two prices in line. This suggests if the model did not consider Lot Area, then the two houses would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at \href{https://vimeo.com/666431134}{vimeo.com/666431134}.)}\label{fig:caseames}
+\caption{(ref:caseames-cap)}\label{fig:caseames}
 \end{figure}
 
-Figure \ref{fig:caseames} selects the house sale 74, a sizable under prediction with an enormous Lot Area contribution. The CI has a similar predicted price though the prediction was accurate and gives almost no attribution to lot size. The attribution projection places instances with high Living Areas to the right. The contribution of Living Area contrasts the contribution of this feature. As the contribution of Lot Area decreases, the predictive power decreases for the PI, while the CI remains stationary. This large of importance in the Living Area is relatively uncommon. Boosting tree models may be more resilient to such an under-prediction as they would up-weighting this residual and force its inclusion in the final model.
+Figure @ref(fig:caseames) selects the house sale 74, a sizable under
+prediction with an enormous Lot Area contribution. The CI has a similar
+predicted price though the prediction was accurate and gives almost no
+attribution to lot size. The attribution projection places instances
+with high Living Areas to the right. The contribution of Living Area
+contrasts the contribution of this feature. As the contribution of Lot
+Area decreases, the predictive power decreases for the PI, while the CI
+remains stationary. This large of importance in the Living Area is
+relatively uncommon. Boosting tree models may be more resilient to such
+an under-prediction as they would up-weighting this residual and force
+its inclusion in the final model.
 
 \hypertarget{sec:cheemdiscussion}{%
 \section{Discussion}\label{sec:cheemdiscussion}}
 
-There is a clear need to extend the interpretability of black-box models. This chapter provides a technique that builds on local interpretations to explore the feature importance local to an instance. The local interpretations form an attribution projection from which feature contributions are varied using a radial tour. Several diagnostic plots are provided to assist with understanding the sensitivity of the prediction to particular features. A global view shows the data space, explanation space, residual plot. The user can interactively select instances to compare, contrast, and study further. Then the radial tour is used to explore the feature sensitivity identified by the attribution projection.
+There is a clear need to extend the interpretability of black-box
+models. This chapter provides a technique that builds on local
+interpretations to explore the feature importance local to an instance.
+The local interpretations form an attribution projection from which
+feature contributions are varied using a radial tour. Several diagnostic
+plots are provided to assist with understanding the sensitivity of the
+prediction to particular features. A global view shows the data space,
+explanation space, residual plot. The user can interactively select
+instances to compare, contrast, and study further. Then the radial tour
+is used to explore the feature sensitivity identified by the attribution
+projection.
 
-This approach has been illustrated using four data examples of random forest models with the tree SHAP local explanation. In the penguins example, we showed how the misclassification of a penguin arose due to it having an unusually small flipper size compared to others of its species. This was verified by making a follow-up plot of the data. The chocolates example shows how a dark chocolate was misclassified primarily due to its attribution to Fiber, and a milk chocolate was misclassified as dark due to its lowish Sodium value. In the FIFA example, we show how low Messi's salary would be if it depended on defensive skills. In the Ames housing data, an inaccurate prediction for a house was likely due to the Lot Area not being effectively used by the random forest model.
+This approach has been illustrated using four data examples of random
+forest models with the tree SHAP local explanation. In the penguins
+example, we showed how the misclassification of a penguin arose due to
+it having an unusually small flipper size compared to others of its
+species. This was verified by making a follow-up plot of the data. The
+chocolates example shows how a dark chocolate was misclassified
+primarily due to its attribution to Fiber, and a milk chocolate was
+misclassified as dark due to its lowish Sodium value. In the FIFA
+example, we show how low Messi's salary would be if it depended on
+defensive skills. In the Ames housing data, an inaccurate prediction for
+a house was likely due to the Lot Area not being effectively used by the
+random forest model.
 
-This analysis is manually intensive and thus only feasible for investigating a few instances. The approach selects instances that the model has not done well to predict and compare it with an instance where it did fit well. The radial tour launches from the attribution projection to enable exploration of the sensitivity of the prediction to any feature. It can be helpful to make additional plots of the features and responses to cross-check interpretations made from the cheem viewer. This methodology provides an additional tool in the box for studying model fitting.
+This analysis is manually intensive and thus only feasible for
+investigating a few instances. The approach selects instances that the
+model has not done well to predict and compare it with an instance where
+it did fit well. The radial tour launches from the attribution
+projection to enable exploration of the sensitivity of the prediction to
+any feature. It can be helpful to make additional plots of the features
+and responses to cross-check interpretations made from the cheem viewer.
+This methodology provides an additional tool in the box for studying
+model fitting.
 
-An implementation is provided in the open-source \textbf{R} package \textbf{cheem}, available on \href{https://CRAN.R-project.org/package=cheem}{CRAN}. Example data sets are provided, and you can upload your data after model fitting and computing the local explanations. In theory, this approach would work with any black-box model, but the implementation currently only calculates tree SHAP for tree-based models supported by \textbf{treeshap} (tree based models from \textbf{gbm}, \textbf{lightgbm}, \textbf{randomForest}, \textbf{ranger}, or \textbf{xgboost} Greenwell et al. 2020; Shi et al. 2022; Liaw and Wiener 2002; Wright and Ziegler 2017; Chen et al. 2021, respectively). Tree SHAP was selected because of its computational efficiency. The SHAP and oscillation explanations could be added with the use of the \texttt{DALEX::explain()} and would be an excellent direction to extend the work (Biecek 2018; Biecek and Burzykowski 2021).
+An implementation is provided in the open-source \textbf{R} package
+\textbf{cheem}, available on
+\href{https://CRAN.R-project.org/package=cheem}{CRAN}. Example data sets
+are provided, and you can upload your data after model fitting and
+computing the local explanations. In theory, this approach would work
+with any black-box model, but the implementation currently only
+calculates tree SHAP for tree-based models supported by
+\textbf{treeshap} (tree based models from \textbf{gbm},
+\textbf{lightgbm}, \textbf{randomForest}, \textbf{ranger}, or
+\textbf{xgboost} Greenwell et al. 2020; Shi et al. 2022; Liaw and Wiener
+2002; Wright and Ziegler 2017; Chen et al. 2021, respectively). Tree
+SHAP was selected because of its computational efficiency. The SHAP and
+oscillation explanations could be added with the use of the
+\texttt{DALEX::explain()} and would be an excellent direction to extend
+the work (Biecek 2018; Biecek and Burzykowski 2021).
 
 \hypertarget{acknowledgments}{%
 \section{Acknowledgments}\label{acknowledgments}}
 
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader \(\text{MI}^\text2\) lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Python} packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article.
+We would like to thank Professor Przemyslaw Biecek for his input early
+in the project and to the broader \(\text{MI}^\text2\) lab group for the
+\textbf{DALEX} ecosystem of \textbf{R} and \textbf{Python} packages.
+This research was supported by Australian Government Research Training
+Program (RTP) scholarships. Thanks to Jieyang Chong for helping
+proofread this article.
 
-The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. \textbf{DALEX} pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
+The namesake, Cheem, refers to a fictional race of humanoid trees from
+Doctor Who lore. \textbf{DALEX} pulls on from that universe, and we
+initially apply tree SHAP explanations specific to tree-based models.
 
 \hypertarget{references}{%
 \section*{References}\label{references}}
@@ -474,155 +1055,304 @@ The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Wh
 
 \hypertarget{refs}{}
 \begin{CSLReferences}{1}{0}
+\leavevmode\hypertarget{ref-adadi_peeking_2018}{}%
+Adadi, Amina, and Mohammed Berrada. 2018. {``Peeking Inside the
+Black-Box: A Survey on Explainable Artificial Intelligence ({XAI}).''}
+\emph{IEEE Access} 6: 52138--60.
+
+\leavevmode\hypertarget{ref-anderson_introduction_1995}{}%
+Anderson, James A. 1995. \emph{An Introduction to Neural Networks}. MIT
+press.
+
 \leavevmode\hypertarget{ref-arrieta_explainable_2020}{}%
-Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser, Adrien Bennetot, Siham Tabik, Alberto Barbado, Salvador García, Sergio Gil-López, Daniel Molina, and Richard Benjamins. 2020. {``Explainable {Artificial} {Intelligence} ({XAI}): {Concepts}, Taxonomies, Opportunities and Challenges Toward Responsible {AI}.''} \emph{Information Fusion} 58: 82--115.
+Arrieta, Alejandro Barredo, Natalia Díaz-Rodríguez, Javier Del Ser,
+Adrien Bennetot, Siham Tabik, Alberto Barbado, Salvador García, Sergio
+Gil-López, Daniel Molina, and Richard Benjamins. 2020. {``Explainable
+{Artificial} {Intelligence} ({XAI}): {Concepts}, Taxonomies,
+Opportunities and Challenges Toward Responsible {AI}.''}
+\emph{Information Fusion} 58: 82--115.
 
 \leavevmode\hypertarget{ref-asimov_grand_1985}{}%
-Asimov, Daniel. 1985. {``The {Grand} {Tour}: A {Tool} for {Viewing} {Multidimensional} {Data}.''} \emph{SIAM Journal on Scientific and Statistical Computing} 6 (1): 128--43. https://doi.org/\url{https://doi.org/10.1137/0906011}.
+Asimov, Daniel. 1985. {``The {Grand} {Tour}: A {Tool} for {Viewing}
+{Multidimensional} {Data}.''} \emph{SIAM Journal on Scientific and
+Statistical Computing} 6 (1): 128--43.
+https://doi.org/\url{https://doi.org/10.1137/0906011}.
 
 \leavevmode\hypertarget{ref-biecek_dalex_2018}{}%
-Biecek, Przemyslaw. 2018. {``{DALEX}: Explainers for Complex Predictive Models in {R}.''} \emph{The Journal of Machine Learning Research} 19 (1): 3245--49.
+Biecek, Przemyslaw. 2018. {``{DALEX}: Explainers for Complex Predictive
+Models in {R}.''} \emph{The Journal of Machine Learning Research} 19
+(1): 3245--49.
 
 \leavevmode\hypertarget{ref-biecek_ceterisparibus_2020}{}%
----------. 2020. \emph{{ceterisParibus}: {Ceteris} {Paribus} {Profiles}}. \url{https://CRAN.R-project.org/package=ceterisParibus}.
+---------. 2020. \emph{{ceterisParibus}: {Ceteris} {Paribus}
+{Profiles}}. \url{https://CRAN.R-project.org/package=ceterisParibus}.
 
 \leavevmode\hypertarget{ref-biecek_explanatory_2021}{}%
-Biecek, Przemyslaw, and Tomasz Burzykowski. 2021. \emph{Explanatory {Model} {Analysis}: {Explore}, {Explain}, and {Examine} {Predictive} {Models}}. CRC Press.
+Biecek, Przemyslaw, and Tomasz Burzykowski. 2021. \emph{Explanatory
+{Model} {Analysis}: {Explore}, {Explain}, and {Examine} {Predictive}
+{Models}}. CRC Press.
+
+\leavevmode\hypertarget{ref-boser_training_1992}{}%
+Boser, Bernhard E., Isabelle M. Guyon, and Vladimir N. Vapnik. 1992.
+{``A Training Algorithm for Optimal Margin Classifiers.''} In
+\emph{Proceedings of the Fifth Annual Workshop on {Computational}
+Learning Theory}, 144--52.
+
+\leavevmode\hypertarget{ref-breiman_random_2001}{}%
+Breiman, Leo. 2001a. {``Random Forests.''} \emph{Machine Learning} 45
+(1): 5--32.
 
 \leavevmode\hypertarget{ref-breiman_statistical_2001}{}%
-Breiman, Leo. 2001. {``Statistical Modeling: {The} Two Cultures (with Comments and a Rejoinder by the Author).''} \emph{Statistical Science} 16 (3): 199--231.
+---------. 2001b. {``Statistical Modeling: {The} Two Cultures (with
+Comments and a Rejoinder by the Author).''} \emph{Statistical Science}
+16 (3): 199--231.
 
 \leavevmode\hypertarget{ref-buja_grand_1986}{}%
-Buja, Andreas, and Daniel Asimov. 1986. {``Grand {Tour} {Methods}: {An} {Outline}.''} In \emph{Proceedings of the {Seventeenth} {Symposium} on the {Interface} of {Computer} {Sciences} and {Statistics} on {Computer} {Science} and {Statistics}}, 63--67. New York, NY, USA: Elsevier North-Holland, Inc. \url{http://dl.acm.org/citation.cfm?id=26036.26046}.
+Buja, Andreas, and Daniel Asimov. 1986. {``Grand {Tour} {Methods}: {An}
+{Outline}.''} In \emph{Proceedings of the {Seventeenth} {Symposium} on
+the {Interface} of {Computer} {Sciences} and {Statistics} on {Computer}
+{Science} and {Statistics}}, 63--67. New York, NY, USA: Elsevier
+North-Holland, Inc. \url{http://dl.acm.org/citation.cfm?id=26036.26046}.
 
 \leavevmode\hypertarget{ref-chang_shiny_2021}{}%
-Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke, Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara Borges. 2021. \emph{Shiny: Web Application Framework for r}. \url{https://CRAN.R-project.org/package=shiny}.
+Chang, Winston, Joe Cheng, JJ Allaire, Carson Sievert, Barret Schloerke,
+Yihui Xie, Jeff Allen, Jonathan McPherson, Alan Dipert, and Barbara
+Borges. 2021. \emph{Shiny: Web Application Framework for r}.
+\url{https://CRAN.R-project.org/package=shiny}.
 
 \leavevmode\hypertarget{ref-chen_xgboost_2021}{}%
-Chen, Tianqi, Tong He, Michael Benesty, Vadim Khotilovich, Yuan Tang, Hyunsu Cho, Kailong Chen, et al. 2021. {``Xgboost: {Extreme} {Gradient} {Boosting}.''} \url{https://CRAN.R-project.org/package=xgboost}.
+Chen, Tianqi, Tong He, Michael Benesty, Vadim Khotilovich, Yuan Tang,
+Hyunsu Cho, Kailong Chen, et al. 2021. {``Xgboost: {Extreme} {Gradient}
+{Boosting}.''} \url{https://CRAN.R-project.org/package=xgboost}.
 
 \leavevmode\hypertarget{ref-cook_manual_1997}{}%
-Cook, Dianne, and Andreas Buja. 1997. {``Manual {Controls} for {High}-{Dimensional} {Data} {Projections}.''} \emph{Journal of Computational and Graphical Statistics} 6 (4): 464--80. \url{https://doi.org/10.2307/1390747}.
+Cook, Dianne, and Andreas Buja. 1997. {``Manual {Controls} for
+{High}-{Dimensional} {Data} {Projections}.''} \emph{Journal of
+Computational and Graphical Statistics} 6 (4): 464--80.
+\url{https://doi.org/10.2307/1390747}.
 
 \leavevmode\hypertarget{ref-cook_grand_2008}{}%
-Cook, Dianne, Andreas Buja, Eun-Kyung Lee, and Hadley Wickham. 2008. {``Grand {Tours}, {Projection} {Pursuit} {Guided} {Tours}, and {Manual} {Controls}.''} In \emph{Handbook of {Data} {Visualization}}, 295--314. Berlin, Heidelberg: Springer Berlin Heidelberg. \url{https://doi.org/10.1007/978-3-540-33037-0_13}.
+Cook, Dianne, Andreas Buja, Eun-Kyung Lee, and Hadley Wickham. 2008.
+{``Grand {Tours}, {Projection} {Pursuit} {Guided} {Tours}, and {Manual}
+{Controls}.''} In \emph{Handbook of {Data} {Visualization}}, 295--314.
+Berlin, Heidelberg: Springer Berlin Heidelberg.
+\url{https://doi.org/10.1007/978-3-540-33037-0_13}.
 
 \leavevmode\hypertarget{ref-da_silva_projection_2021}{}%
-da Silva, Natalia, Dianne Cook, and Eun-Kyung Lee. 2021. {``A {Projection} {Pursuit} {Forest} {Algorithm} for {Supervised} {Classification}.''} \emph{Journal of Computational and Graphical Statistics}, 1--21.
+da Silva, Natalia, Dianne Cook, and Eun-Kyung Lee. 2021. {``A
+{Projection} {Pursuit} {Forest} {Algorithm} for {Supervised}
+{Classification}.''} \emph{Journal of Computational and Graphical
+Statistics}, 1--21.
 
 \leavevmode\hypertarget{ref-dastin_amazon_2018}{}%
-Dastin, Jeffrey. 2018. {``Amazon Scraps Secret {AI} Recruiting Tool That Showed Bias Against Women.''} \emph{Reuters}, October. \url{https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G}.
+Dastin, Jeffrey. 2018. {``Amazon Scraps Secret {AI} Recruiting Tool That
+Showed Bias Against Women.''} \emph{Reuters}, October.
+\url{https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G}.
 
 \leavevmode\hypertarget{ref-diaz_addressing_2018}{}%
-Díaz, Mark, Isaac Johnson, Amanda Lazar, Anne Marie Piper, and Darren Gergle. 2018. {``Addressing Age-Related Bias in Sentiment Analysis.''} In \emph{Proceedings of the 2018 Chi Conference on Human Factors in Computing Systems}, 1--14.
+Díaz, Mark, Isaac Johnson, Amanda Lazar, Anne Marie Piper, and Darren
+Gergle. 2018. {``Addressing Age-Related Bias in Sentiment Analysis.''}
+In \emph{Proceedings of the 2018 Chi Conference on Human Factors in
+Computing Systems}, 1--14.
 
 \leavevmode\hypertarget{ref-duffy_apple_2019}{}%
-Duffy, Claire. 2019. {``Apple Co-Founder {Steve} {Wozniak} Says {Apple} {Card} Discriminated Against His Wife.''} \emph{CNN}, November. \url{https://www.cnn.com/2019/11/10/business/goldman-sachs-apple-card-discrimination/index.html}.
+Duffy, Claire. 2019. {``Apple Co-Founder {Steve} {Wozniak} Says {Apple}
+{Card} Discriminated Against His Wife.''} \emph{CNN}, November.
+\url{https://www.cnn.com/2019/11/10/business/goldman-sachs-apple-card-discrimination/index.html}.
+
+\leavevmode\hypertarget{ref-espadoto_toward_2021}{}%
+Espadoto, Mateus, Rafael M. Martins, Andreas Kerren, Nina S. T. Hirata,
+and Alexandru C. Telea. 2021. {``Toward a {Quantitative} {Survey} of
+{Dimension} {Reduction} {Techniques}.''} \emph{IEEE Transactions on
+Visualization and Computer Graphics} 27 (3): 2153--73.
+\url{https://doi.org/10.1109/TVCG.2019.2944182}.
 
 \leavevmode\hypertarget{ref-gabriel_biplot_1971}{}%
-Gabriel, Karl Ruben. 1971. {``The Biplot Graphic Display of Matrices with Application to Principal Component Analysis.''} \emph{Biometrika} 58 (3): 453--67.
+Gabriel, Karl Ruben. 1971. {``The Biplot Graphic Display of Matrices
+with Application to Principal Component Analysis.''} \emph{Biometrika}
+58 (3): 453--67.
 
 \leavevmode\hypertarget{ref-gorman_ecological_2014}{}%
-Gorman, Kristen B., Tony D. Williams, and William R. Fraser. 2014. {``Ecological Sexual Dimorphism and Environmental Variability Within a Community of {Antarctic} Penguins (Genus {Pygoscelis}).''} \emph{PloS One} 9 (3): e90081.
+Gorman, Kristen B., Tony D. Williams, and William R. Fraser. 2014.
+{``Ecological Sexual Dimorphism and Environmental Variability Within a
+Community of {Antarctic} Penguins (Genus {Pygoscelis}).''} \emph{PloS
+One} 9 (3): e90081.
 
 \leavevmode\hypertarget{ref-gosiewska_ibreakdown_2019}{}%
-Gosiewska, Alicja, and Przemyslaw Biecek. 2019. {``{IBreakDown}: {Uncertainty} of Model Explanations for Non-Additive Predictive Models.''} \emph{arXiv Preprint arXiv:1903.11420}.
+Gosiewska, Alicja, and Przemyslaw Biecek. 2019. {``{IBreakDown}:
+{Uncertainty} of Model Explanations for Non-Additive Predictive
+Models.''} \emph{arXiv Preprint arXiv:1903.11420}.
 
 \leavevmode\hypertarget{ref-greenwell_fastshap_2020}{}%
-Greenwell, Brandon. 2020. \emph{Fastshap: {Fast} {Approximate} {Shapley} {Values}}. \url{https://CRAN.R-project.org/package=fastshap}.
+Greenwell, Brandon. 2020. \emph{Fastshap: {Fast} {Approximate} {Shapley}
+{Values}}. \url{https://CRAN.R-project.org/package=fastshap}.
 
 \leavevmode\hypertarget{ref-greenwell_gbm_2020}{}%
-Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and G. B. M. Developers. 2020. {``Gbm: {Generalized} {Boosted} {Regression} {Models}.''} \url{https://CRAN.R-project.org/package=gbm}.
+Greenwell, Brandon, Bradley Boehmke, Jay Cunningham, and G. B. M.
+Developers. 2020. {``Gbm: {Generalized} {Boosted} {Regression}
+{Models}.''} \url{https://CRAN.R-project.org/package=gbm}.
 
 \leavevmode\hypertarget{ref-horst_palmerpenguins_2020}{}%
-Horst, Allison Marie, Alison Presmanes Hill, and Kristen B. Gorman. 2020. {``Palmerpenguins: {Palmer} {Archipelago} ({Antarctica}) Penguin Data.''} \url{https://allisonhorst.github.io/palmerpenguins/}.
+Horst, Allison Marie, Alison Presmanes Hill, and Kristen B. Gorman.
+2020. {``Palmerpenguins: {Palmer} {Archipelago} ({Antarctica}) Penguin
+Data.''} \url{https://allisonhorst.github.io/palmerpenguins/}.
 
 \leavevmode\hypertarget{ref-karwowski_international_2006}{}%
-Karwowski, Waldemar. 2006. \emph{International {Encyclopedia} of {Ergonomics} and {Human} {Factors}, -3 {Volume} {Set}}. CRC Press.
+Karwowski, Waldemar. 2006. \emph{International {Encyclopedia} of
+{Ergonomics} and {Human} {Factors}, -3 {Volume} {Set}}. CRC Press.
 
 \leavevmode\hypertarget{ref-kodiyan_overview_2019}{}%
-Kodiyan, Akhil Alfons. 2019. {``An Overview of Ethical Issues in Using {AI} Systems in Hiring with a Case Study of {Amazon}'s {AI} Based Hiring Tool.''} \emph{Researchgate Preprint}.
+Kodiyan, Akhil Alfons. 2019. {``An Overview of Ethical Issues in Using
+{AI} Systems in Hiring with a Case Study of {Amazon}'s {AI} Based Hiring
+Tool.''} \emph{Researchgate Preprint}.
 
 \leavevmode\hypertarget{ref-kominsarczyk_treeshap_2021}{}%
-Kominsarczyk, Konrad, Pawel Kozminski, Szymon Maksymiuk, and Przemyslaw Biecek. 2021. {``Treeshap.''} Model Oriented. \url{https://github.com/ModelOriented/treeshap}.
+Kominsarczyk, Konrad, Pawel Kozminski, Szymon Maksymiuk, and Przemyslaw
+Biecek. 2021. {``Treeshap.''} Model Oriented.
+\url{https://github.com/ModelOriented/treeshap}.
 
 \leavevmode\hypertarget{ref-larson_how_2016}{}%
-Larson, Jeff, Surya Mattu, Lauren Kirchner, and Julia Angwin. 2016. {``How {We} {Analyzed} the {COMPAS} {Recidivism} {Algorithm}.''} \emph{ProPublica}, May. \url{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm?token=RPR1E2qtzJltfJ0tS-gB_41kmfoWZAu4}.
+Larson, Jeff, Surya Mattu, Lauren Kirchner, and Julia Angwin. 2016.
+{``How {We} {Analyzed} the {COMPAS} {Recidivism} {Algorithm}.''}
+\emph{ProPublica}, May.
+\url{https://www.propublica.org/article/how-we-analyzed-the-compas-recidivism-algorithm?token=RPR1E2qtzJltfJ0tS-gB_41kmfoWZAu4}.
 
 \leavevmode\hypertarget{ref-lee_state_2021}{}%
-Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Nicholas Spyrison, Earo Wang, and H. Sherry Zhang. 2021. {``The State-of-the-Art on Tours for Dynamic Visualization of High-Dimensional Data.''} \emph{WIREs Computational Statistics} n/a (n/a): e1573. \url{https://doi.org/10.1002/wics.1573}.
+Lee, Stuart, Dianne Cook, Natalia da Silva, Ursula Laa, Nicholas
+Spyrison, Earo Wang, and H. Sherry Zhang. 2021. {``The State-of-the-Art
+on Tours for Dynamic Visualization of High-Dimensional Data.''}
+\emph{WIREs Computational Statistics} n/a (n/a): e1573.
+\url{https://doi.org/10.1002/wics.1573}.
 
 \leavevmode\hypertarget{ref-lee_pptree_2013}{}%
-Lee, Yoon Dong, Dianne Cook, Ji-won Park, and Eun-Kyung Lee. 2013. {``{PPtree}: {Projection} Pursuit Classification Tree.''} \emph{Electronic Journal of Statistics} 7: 1369--86.
+Lee, Yoon Dong, Dianne Cook, Ji-won Park, and Eun-Kyung Lee. 2013.
+{``{PPtree}: {Projection} Pursuit Classification Tree.''}
+\emph{Electronic Journal of Statistics} 7: 1369--86.
 
 \leavevmode\hypertarget{ref-leone_fifa_2020}{}%
-Leone, Stefano. 2020. {``{FIFA} 20 Complete Player Dataset.''} \url{https://kaggle.com/stefanoleone992/fifa-20-complete-player-dataset}.
+Leone, Stefano. 2020. {``{FIFA} 20 Complete Player Dataset.''}
+\url{https://kaggle.com/stefanoleone992/fifa-20-complete-player-dataset}.
 
 \leavevmode\hypertarget{ref-liaw_classification_2002}{}%
-Liaw, Andy, and Matthew Wiener. 2002. {``Classification and Regression by {randomForest}.''} \emph{R News} 2 (3): 18--22.
+Liaw, Andy, and Matthew Wiener. 2002. {``Classification and Regression
+by {randomForest}.''} \emph{R News} 2 (3): 18--22.
 
 \leavevmode\hypertarget{ref-lundberg_consistent_2018}{}%
-Lundberg, Scott M., Gabriel G. Erion, and Su-In Lee. 2018. {``Consistent Individualized Feature Attribution for Tree Ensembles.''} \emph{arXiv Preprint arXiv:1802.03888}.
+Lundberg, Scott M., Gabriel G. Erion, and Su-In Lee. 2018. {``Consistent
+Individualized Feature Attribution for Tree Ensembles.''} \emph{arXiv
+Preprint arXiv:1802.03888}.
 
 \leavevmode\hypertarget{ref-lundberg_unified_2017}{}%
-Lundberg, Scott M., and Su-In Lee. 2017. {``A Unified Approach to Interpreting Model Predictions.''} In \emph{Proceedings of the 31st International Conference on Neural Information Processing Systems}, 4768--77.
+Lundberg, Scott M., and Su-In Lee. 2017. {``A Unified Approach to
+Interpreting Model Predictions.''} In \emph{Proceedings of the 31st
+International Conference on Neural Information Processing Systems},
+4768--77.
 
 \leavevmode\hypertarget{ref-molnar_interpretable_2020}{}%
-Molnar, Christoph. 2020. \emph{Interpretable Machine Learning}. Lulu. com. \href{https://christophm.github.io/interpretable-ml-book/}{christophm.github.io/interpretable-ml-book/}.
+Molnar, Christoph. 2020. \emph{Interpretable Machine Learning}. Lulu.
+com.
+\href{https://christophm.github.io/interpretable-ml-book/}{christophm.github.io/interpretable-ml-book/}.
 
 \leavevmode\hypertarget{ref-oneil_weapons_2016}{}%
-O'Neil, Cathy. 2016. \emph{Weapons of Math Destruction: {How} Big Data Increases Inequality and Threatens Democracy}. Crown.
+O'Neil, Cathy. 2016. \emph{Weapons of Math Destruction: {How} Big Data
+Increases Inequality and Threatens Democracy}. Crown.
 
 \leavevmode\hypertarget{ref-ocagne_coordonnees_1885}{}%
-Ocagne, Maurice d'. 1885. \emph{Coordonnées Parallèles Et Axiales. {Méthode} de Transformation géométrique Et Procédé Nouveau de Calcul Graphique déduits de La Considération Des Coordonnées Parallèles, Par {Maurice} d'{Ocagne}, ...} Paris: Gauthier-Villars.
+Ocagne, Maurice d'. 1885. \emph{Coordonnées Parallèles Et Axiales.
+{Méthode} de Transformation géométrique Et Procédé Nouveau de Calcul
+Graphique déduits de La Considération Des Coordonnées Parallèles, Par
+{Maurice} d'{Ocagne}, ...} Paris: Gauthier-Villars.
 
 \leavevmode\hypertarget{ref-ribeiro_why_2016}{}%
-Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. {``"{Why} {Should} {I} {Trust} {You}?": {Explaining} the {Predictions} of {Any} {Classifier}.''} In \emph{Proceedings of the 22nd {ACM} {SIGKDD} {International} {Conference} on {Knowledge} {Discovery} and {Data} {Mining}}, 1135--44. {KDD} '16. New York, NY, USA: Association for Computing Machinery. \url{https://doi.org/10.1145/2939672.2939778}.
+Ribeiro, Marco Tulio, Sameer Singh, and Carlos Guestrin. 2016. {``"{Why}
+{Should} {I} {Trust} {You}?": {Explaining} the {Predictions} of {Any}
+{Classifier}.''} In \emph{Proceedings of the 22nd {ACM} {SIGKDD}
+{International} {Conference} on {Knowledge} {Discovery} and {Data}
+{Mining}}, 1135--44. {KDD} '16. New York, NY, USA: Association for
+Computing Machinery. \url{https://doi.org/10.1145/2939672.2939778}.
 
 \leavevmode\hypertarget{ref-roberts_state_2007}{}%
-Roberts, Jonathan C. 2007. {``State of the Art: {Coordinated} \& Multiple Views in Exploratory Visualization.''} In \emph{Fifth International Conference on Coordinated and Multiple Views in Exploratory Visualization ({CMV} 2007)}, 61--71. IEEE.
+Roberts, Jonathan C. 2007. {``State of the Art: {Coordinated} \&
+Multiple Views in Exploratory Visualization.''} In \emph{Fifth
+International Conference on Coordinated and Multiple Views in
+Exploratory Visualization ({CMV} 2007)}, 61--71. IEEE.
 
 \leavevmode\hypertarget{ref-shapley_value_1953}{}%
-Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton University Press.
+Shapley, Lloyd S. 1953. \emph{A Value for n-Person Games}. Princeton
+University Press.
 
 \leavevmode\hypertarget{ref-shi_lightgbm_2022}{}%
-Shi, Yu, Guolin Ke, Damien Soukhavong, James Lamb, Qi Meng, Thomas Finley, Taifeng Wang, et al. 2022. {``Lightgbm: {Light} {Gradient} {Boosting} {Machine}.''} \url{https://CRAN.R-project.org/package=lightgbm}.
+Shi, Yu, Guolin Ke, Damien Soukhavong, James Lamb, Qi Meng, Thomas
+Finley, Taifeng Wang, et al. 2022. {``Lightgbm: {Light} {Gradient}
+{Boosting} {Machine}.''}
+\url{https://CRAN.R-project.org/package=lightgbm}.
 
 \leavevmode\hypertarget{ref-shmueli_explain_2010}{}%
-Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical Science} 25 (3): 289--310.
+Shmueli, Galit. 2010. {``To Explain or to Predict?''} \emph{Statistical
+Science} 25 (3): 289--310.
 
 \leavevmode\hypertarget{ref-shrikumar_learning_2017}{}%
-Shrikumar, Avanti, Peyton Greenside, and Anshul Kundaje. 2017. {``Learning Important Features Through Propagating Activation Differences.''} In \emph{International {Conference} on {Machine} {Learning}}, 3145--53. PMLR.
+Shrikumar, Avanti, Peyton Greenside, and Anshul Kundaje. 2017.
+{``Learning Important Features Through Propagating Activation
+Differences.''} In \emph{International {Conference} on {Machine}
+{Learning}}, 3145--53. PMLR.
 
 \leavevmode\hypertarget{ref-shrikumar_not_2016}{}%
-Shrikumar, Avanti, Peyton Greenside, Anna Shcherbina, and Anshul Kundaje. 2016. {``Not Just a Black Box: {Learning} Important Features Through Propagating Activation Differences.''} \emph{arXiv Preprint arXiv:1605.01713}.
+Shrikumar, Avanti, Peyton Greenside, Anna Shcherbina, and Anshul
+Kundaje. 2016. {``Not Just a Black Box: {Learning} Important Features
+Through Propagating Activation Differences.''} \emph{arXiv Preprint
+arXiv:1605.01713}.
 
 \leavevmode\hypertarget{ref-sievert_interactive_2020}{}%
-Sievert, Carson. 2020. \emph{Interactive {Web}-{Based} {Data} {Visualization} with {R}, Plotly, and Shiny}. Chapman; Hall/CRC. \url{https://plotly-r.com}.
+Sievert, Carson. 2020. \emph{Interactive {Web}-{Based} {Data}
+{Visualization} with {R}, Plotly, and Shiny}. Chapman; Hall/CRC.
+\url{https://plotly-r.com}.
 
 \leavevmode\hypertarget{ref-simonyan_deep_2014}{}%
-Simonyan, Karen, Andrea Vedaldi, and Andrew Zisserman. 2014. {``Deep Inside Convolutional Networks: {Visualising} Image Classification Models and Saliency Maps.''} In \emph{In {Workshop} at {International} {Conference} on {Learning} {Representations}}. Citeseer.
+Simonyan, Karen, Andrea Vedaldi, and Andrew Zisserman. 2014. {``Deep
+Inside Convolutional Networks: {Visualising} Image Classification Models
+and Saliency Maps.''} In \emph{In {Workshop} at {International}
+{Conference} on {Learning} {Representations}}. Citeseer.
 
 \leavevmode\hypertarget{ref-spyrison_spinifex_2020}{}%
-Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package} for {Creating} a {Manual} {Tour} of {Low}-Dimensional {Projections} of {Multivariate} {Data}.''} \emph{The R Journal} 12 (1): 243. \url{https://doi.org/10.32614/RJ-2020-027}.
+Spyrison, Nicholas, and Dianne Cook. 2020. {``Spinifex: An {R} {Package}
+for {Creating} a {Manual} {Tour} of {Low}-Dimensional {Projections} of
+{Multivariate} {Data}.''} \emph{The R Journal} 12 (1): 243.
+\url{https://doi.org/10.32614/RJ-2020-027}.
 
 \leavevmode\hypertarget{ref-strumbelj_efficient_2010}{}%
-Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation of Individual Classifications Using Game Theory.''} \emph{The Journal of Machine Learning Research} 11: 1--18.
+Strumbelj, Erik, and Igor Kononenko. 2010. {``An Efficient Explanation
+of Individual Classifications Using Game Theory.''} \emph{The Journal of
+Machine Learning Research} 11: 1--18.
 
 \leavevmode\hypertarget{ref-unwin_ensemble_2018}{}%
-Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble {Graphics}.''} \emph{Journal of Computational and Graphical Statistics} 27 (1): 157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
+Unwin, Antony, and Pedro Valero-Mora. 2018. {``Ensemble {Graphics}.''}
+\emph{Journal of Computational and Graphical Statistics} 27 (1):
+157--65. \url{https://doi.org/10.1080/10618600.2017.1383264}.
 
 \leavevmode\hypertarget{ref-vanni_textual_2018}{}%
-Vanni, Laurent, Mélanie Ducoffe, Carlos Aguilar, Frédéric Precioso, and Damon Mayaffre. 2018. {``Textual {Deconvolution} {Saliency} ({TDS}): A Deep Tool Box for Linguistic Analysis.''} In \emph{Proceedings of the 56th {Annual} {Meeting} of the {Association} for {Computational} {Linguistics} ({Volume} 1: {Long} {Papers})}, 548--57.
+Vanni, Laurent, Mélanie Ducoffe, Carlos Aguilar, Frédéric Precioso, and
+Damon Mayaffre. 2018. {``Textual {Deconvolution} {Saliency} ({TDS}): A
+Deep Tool Box for Linguistic Analysis.''} In \emph{Proceedings of the
+56th {Annual} {Meeting} of the {Association} for {Computational}
+{Linguistics} ({Volume} 1: {Long} {Papers})}, 548--57.
 
 \leavevmode\hypertarget{ref-wickham_ggplot2_2016}{}%
-Wickham, Hadley. 2016. \emph{Ggplot2: {Elegant} {Graphics} for {Data} {Analysis}}. Springer-Verlag New York. \url{https://ggplot2.tidyverse.org}.
+Wickham, Hadley. 2016. \emph{Ggplot2: {Elegant} {Graphics} for {Data}
+{Analysis}}. Springer-Verlag New York.
+\url{https://ggplot2.tidyverse.org}.
 
 \leavevmode\hypertarget{ref-wickham_visualizing_2015}{}%
-Wickham, Hadley, Dianne Cook, and Heike Hofmann. 2015. {``Visualizing Statistical Models: {Removing} the Blindfold.''} \emph{Statistical Analysis and Data Mining: The ASA Data Science Journal} 8 (4): 203--25. \url{https://doi.org/10.1002/sam.11271}.
+Wickham, Hadley, Dianne Cook, and Heike Hofmann. 2015. {``Visualizing
+Statistical Models: {Removing} the Blindfold.''} \emph{Statistical
+Analysis and Data Mining: The ASA Data Science Journal} 8 (4): 203--25.
+\url{https://doi.org/10.1002/sam.11271}.
 
 \leavevmode\hypertarget{ref-wright_ranger_2017}{}%
-Wright, Marvin N., and Andreas Ziegler. 2017. {``Ranger: {A} {Fast} {Implementation} of {Random} {Forests} for {High} {Dimensional} {Data} in {C}++ and {R}.''} \emph{Journal of Statistical Software} 77 (1): 1--17. \url{https://doi.org/10.18637/jss.v077.i01}.
+Wright, Marvin N., and Andreas Ziegler. 2017. {``Ranger: {A} {Fast}
+{Implementation} of {Random} {Forests} for {High} {Dimensional} {Data}
+in {C}++ and {R}.''} \emph{Journal of Statistical Software} 77 (1):
+1--17. \url{https://doi.org/10.18637/jss.v077.i01}.
 
 \end{CSLReferences}
 

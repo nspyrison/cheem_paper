@@ -2,16 +2,22 @@
 title: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
 shorttitle: Cheem
 keywords:
-- R
-- XAI
-- explanable artificial intelligence
-- black-box models
-- local explanations
-- grand tour
-- manual tour
-- radial tour
+  - R
+  - XAI
+  - explanable artificial intelligence
+  - black-box models
+  - local explanations
+  - grand tour
+  - manual tour
+  - radial tour
 author:
+- Nicholas Spyrison 
+#^[Monash University, nicholas.spyrison@monash.edu, ORCiD: 0000-0002-8417-0212]
+- Dianne Cook
+- Kimbal Marriott
+#^[ORCiD: 0000-0002-9813-0377]
   #- name: "Nicholas Spyrison"
+  #   affiliation: Monash University
   #   address: |
   #     | ORCiD: 0000-0002-8417-0212
   #   email: \email{nicholas.spyrison@monash.edu}
@@ -28,19 +34,19 @@ author:
   #   orcid: 0000-0002-9813-0377
 abstract: |
  The increased predictive power of nonlinear models comes at the cost of interpretability of its terms.  This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction with _local explanations_, a point estimate of the linear feature importance in the vicinity of one instance. These can be considered linear projections and can be further explored to understand better the interactions between features used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any instance and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) output. The methods are implemented in the __R__ package __cheem__, available on CRAN.
-#documentclass: jmlr
+#documentclass: jmlr2e
 #classoption: article
 output:
   ## pdf_document: requires \ref{} 
-  #pdf_document:
-  ## bookdown::pdf_document2: allows \@ref()
-  bookdown::pdf_document2:
+  pdf_document:
+  ## bookdown::pdf_document2: allows \@ref(), but doesn't add authors....
+  #bookdown::pdf_document2:
+    #includes:
+    #  in_header: template/jmlr2e.sty
     keep_tex: true
     toc: false
     number_sections: yes
     fig_caption: yes
-    #includes:
-    #  in_header: template/jmlr2e.sty
 bibliography: cheem_paper.bib
 editor_options:
   chunk_output_type: console
@@ -66,7 +72,7 @@ knitr::opts_chunk$set(
   message    = FALSE,
   warning    = FALSE,
   error      = FALSE,
-  cache      = TRUE,
+  cache      = FALSE,
   cache.lazy = FALSE)
 ```
 <!-- bookdown::pdf_document2: allows \@ref(), pdf_document: requires \ref{} -->
@@ -85,16 +91,19 @@ knitr::opts_chunk$set(
 # Introduction {#sec:intro}
 
 <!-- Introduce explanatory vs predictive modeling -->
-There are different reasons and emphases to fit a model. @breiman_statistical_2001, reiterated by @shmueli_explain_2010, taxonomize modeling based on its purpose; _explanatory_ modeling is done for some inferential purpose, while _predictive_ modeling focuses more on the predictions of out-of-sample instances. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. While predictive modeling may opt for more accurate nonlinear models. The use of black-box models is becoming increasingly common, but not without their share of controversy [@oneil_weapons_2016; @kodiyan_overview_2019]. However, the loss of interpretation presents a challenge.
+There are different reasons and emphases when considering to fit a model. @breiman_statistical_2001, reiterated by @shmueli_explain_2010, taxonomize models based on their purpose. _Explanatory_ modeling is done for some inferential purpose, while _predictive_ modeling focuses more narrowly on the performance of some objective function. The intended use has important implications for model selection and development. In explanatory modeling, interpretability is vital for drawing inferential conclusions. Nonlinear models range from additive models with at least one polynomial term to more complex machine learning models such as random forest, support-vector machine, or neural network to name a few [@breiman_random_2001; @boser_training_1992; @anderson_introduction_1995, receptively].
+
+<!-- nonlinear leading to interpretability issues -->
+Nonlinear models have many or complex interactive terms, which cause an opaqueness to the interpretation of the variables. This difficulty in interpreting the terms in complex nonlinear models sometimes leads to them being referred to as black box models. Despite the potentially better performance of nonlinear models, their use is not without controversy [@oneil_weapons_2016; @kodiyan_overview_2019]. And the loss of interpretation presents a challenge.
 
 <!-- Interpretability & baises -->
-Interpretability is vital for exploring and protecting against potential biases (e.g., sex [@dastin_amazon_2018; @duffy_apple_2019], race [@larson_how_2016], and age [@diaz_addressing_2018]) in any model. For instance, models regularly pick up on biases in the training data that have observed influence on the response (output) feature, which is then built into the model. Feature-level (variable-level) interpretability of models is essential in evaluating such biases. It is also generally important for many problems, where it is not enough to predict accurately. Still, one must be able to explain which predictors are most responsible for generating a response value.
+Interpretability is vital for exploring and protecting against potential biases in any model (e.g. sex -- @dastin_amazon_2018; @duffy_apple_2019, race -- @larson_how_2016, and age -- @diaz_addressing_2018). For instance, models regularly pick up on biases in the training data where such classes correlate with changes in the response variable. This bias is then built into the model. Variable-level (feature-level) interpretability of models is essential in evaluating and addressing such biases.
 
 <!-- Interpretability & data drift -->
-Another concern is data drift, a shift in support or domain of the explanatory features (variable or predictors). Nonlinear models are typically more sensitive and do not extrapolate well outside the training data domain. Better interpretability of the model means more transparency where models' predictions may be plausible or completely unreliable.
+Another concern is data drift, where a shift in the range of the explanatory variables (features or predictors). Some nonlinear models are sensitive to this and do not extrapolate well outside the support of the training data [@espadoto_toward_2021]. Maintaining variable interpretability is also essential to address issues arising from data drift.
 
 <!-- Local explanations -->
-Explainable Artificial Intelligence (XAI) is an emerging field of research that tries to increase the interpretability of black-box models. A common approach is to use _local explanations_, which attempt to approximate linear feature importance at the location of each instance (observation) or the predictions at a specific point in the data domain. Because these are point-specific, it is challenging to visualize them to comprehensively understand a model.
+Explainable Artificial Intelligence (XAI) is an emerging field of research that tries to increase the interpretability of black-box models [@adadi_peeking_2018; @arrieta_explainable_2020]. A common approach is to use _local explanations_, which attempt to approximate linear feature importance at the location of each instance (observation) or the predictions at a specific point in the data domain. Because these are point-specific, it is challenging to visualize them to comprehensively understand a model.
 
 <!-- Data visualization tours -->
 In multivariate data visualization, a _tour_ [@asimov_grand_1985; @buja_grand_1986; @lee_state_2021] is a sequence of linear projections of data onto a lower-dimensional space. Tours are viewed as an animation over minor changes to the projection basis. Structure in a projection can then be explored visually to see which features contribute to the formation of that structure. The intuition is similar to watching the shadow of a hidden 3D object change as the object is rotated; watching the shape of the shadow change conveys information about the structure and features of the object.
@@ -143,7 +152,7 @@ For the application, we use _tree SHAP_, a variant of SHAP that enjoys a lower c
 A _tour_ enables viewing of high-dimensional data by animating many linear projections with small incremental changes. It is achieved by following a path of linear projections (bases) of high-dimensional space. One of the features of the tour is the object permanence of the data points; one can track the relative change of instances in time and gain information about the relationships between points across multiple features. There are various types of tours that are distinguished by how the paths are generated [@lee_state_2021; @cook_grand_2008].
 
 <!-- Manual tour -->
-The manual tour [@cook_manual_1997] defines its path by changing a selected feature's contribution to a basis to allow the feature to contribute more or less to the projection. The requirement constrains the contribution of all other features that a basis needs to be orthonormal (column correspond to vectors, with unit length, and orthogonal to each other). The manual tour is primarily used to assess the importance of a feature to structure visible in a projection. It also lends itself to pre-computation queued in advance or computed on-the-fly for human-in-the-loop analysis [@karwowski_international_2006]. <!-- However, this navigation is relatively time-consuming due to the vast volume of the display space. It is advisable to use this method to explore the sensitivity of the feature contribution to a previously identified feature of interest. In this case, the projection of the normalized explanations is the feature of interest.-->
+The manual tour [@cook_manual_1997] defines its path by changing a selected feature's contribution to a basis to allow the feature to contribute more or less to the projection. The requirement constrains the contribution of all other features that a basis needs to be orthonormal (column correspond to vectors, with unit length, and orthogonal to each other). The manual tour is primarily used to assess the importance of a feature to structure visible in a projection. It also lends itself to pre-computation queued in advance or computed on-the-fly for human-in-the-loop analysis [@karwowski_international_2006]. 
 
 <!-- Radial tour -->
 A version of the manual tour called a _radial tour_ is implemented in @spyrison_spinifex_2020 and forms the basis of the new work. In a radial tour, the selected feature can change its magnitude of contribution but not its angle; it must move along the direction of its original contribution. The implementation allows for pre-computation and interactive re-calculation to focus on a different feature.

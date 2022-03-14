@@ -9,9 +9,8 @@ output:
     keep_tex: true
     includes:
       in_header:
-        #- ../template/jmlr2e.sty ## Doesn't work
-        #- tmp_jmlr.tex ## Doesn't work
-        - mystyles.sty ## Works
+        - jmlr2e.sty ## Doesn't work
+        #- mystyles.sty ## Works (trivial \usepackage{})
 ---
 
 A minimal reprex following https://stackoverflow.com/questions/56174593/how-to-add-sty-file-to-rmarkdown-pdf-output.
@@ -19,3 +18,15 @@ A minimal reprex following https://stackoverflow.com/questions/56174593/how-to-a
 # Section 1
 
 Hello world
+
+# Attempts and notes 
+
+- Trivial sty files work (mystyles.sty)
+- Trivial tex file didn't work.
+- jmlr2e.sty doesn't work wholesale, hence:
+- Changing to *.tex didn't work.
+- Trying to pare back and to isolate the issue:
+    - adding \makeatletter and \makeatother to change the order of operations handling @ in marco assignment. _partial success!!_
+    - uncommenting .sty file, keeping an eye out for @ in macronames. 
+    - \makeatletter and \makeatother at top and bottom is back to original error... (! LaTeX Error: Missing \begin{document}.); try changing back and forth
+    

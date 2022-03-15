@@ -1,6 +1,6 @@
 ---
 title: "title"
-author: 
+author:
   - author
   - author2
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -9,17 +9,27 @@ output:
     keep_tex: true
     includes:
       in_header:
-        - jmlr2e.sty ## Doesn't work
-        #- mystyles.sty ## Works (trivial \usepackage{})
+        - jmlr2e.sty          ## Applying comments and changes here
+        #- jmlr2eoriginal.sty ## Not working; full original .sty
+        #- mystyles.sty       ## Works (with trivial \usepackage{})
 ---
 
 A minimal reprex following https://stackoverflow.com/questions/56174593/how-to-add-sty-file-to-rmarkdown-pdf-output.
 
-# Section 1
+# Section title
 
 Hello world
 
-# Attempts and notes 
+
+
+# Attempts and notes
+
+Primary errors:
+
+- original error: `! LaTeX Error: Missing \begin{document}.`
+- alternative error: `! You can't use \spacefactor in vertical mode.`
+
+Attempt notes:
 
 - Trivial sty files work (mystyles.sty)
 - Trivial tex file didn't work.
@@ -27,6 +37,5 @@ Hello world
 - Changing to *.tex didn't work.
 - Trying to pare back and to isolate the issue:
     - adding \makeatletter and \makeatother to change the order of operations handling @ in marco assignment. _partial success!!_
-    - uncommenting .sty file, keeping an eye out for @ in macronames. 
-    - \makeatletter and \makeatother at top and bottom is back to original error... (! LaTeX Error: Missing \begin{document}.); try changing back and forth
-    
+    - uncommenting .sty file, keeping an eye out for @ in macronames.
+    - \makeatletter and \makeatother at top and bottom is back to original error... (); try changing back and forth

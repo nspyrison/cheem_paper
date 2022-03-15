@@ -93,7 +93,7 @@
 %%%%%============================================================
 %% NS: treat @ as letter in order of operations to resolve error:
 %% ! You can't use `\spacefactor' in vertical mode.
-\makeatletter %% Using \makeatletter and \makeatother isn't 
+\makeatletter %% Using \makeatletter and \makeatother isn't
 %% working for whole file; trying to remove problematic @'s (non escaped)
 %% Trying to remove leading @ from: abbrvbib, usehyper, preprint
 %%%%%============================================================
@@ -464,7 +464,7 @@
 
 \title{title}
 \author{author \and author2}
-\date{14 March, 2022}
+\date{15 March, 2022}
 
 \begin{document}
 \maketitle
@@ -472,13 +472,27 @@
 A minimal reprex following
 \url{https://stackoverflow.com/questions/56174593/how-to-add-sty-file-to-rmarkdown-pdf-output}.
 
-\hypertarget{section-1}{%
-\section{Section 1}\label{section-1}}
+\hypertarget{section-title}{%
+\section{Section title}\label{section-title}}
 
 Hello world
 
 \hypertarget{attempts-and-notes}{%
 \section{Attempts and notes}\label{attempts-and-notes}}
+
+Primary errors:
+
+\begin{itemize}
+\tightlist
+\item
+  original error:
+  \texttt{!\ LaTeX\ Error:\ Missing\ \textbackslash{}begin\{document\}.}
+\item
+  alternative error:
+  \texttt{!\ You\ can\textquotesingle{}t\ use\ \textbackslash{}spacefactor\ in\ vertical\ mode.}
+\end{itemize}
+
+Attempt notes:
 
 \begin{itemize}
 \tightlist
@@ -502,8 +516,7 @@ Hello world
     uncommenting .sty file, keeping an eye out for @ in macronames.
   \item
     \makeatletter and \makeatother at top and bottom is back to original
-    error\ldots{} (! LaTeX Error: Missing
-    \textbackslash begin\{document\}.); try changing back and forth
+    error\ldots{} (); try changing back and forth
   \end{itemize}
 \end{itemize}
 

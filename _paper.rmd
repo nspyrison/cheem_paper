@@ -1,61 +1,42 @@
 ---
 title: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
-shorttitle: Cheem
-keywords:
-  - R
-  - XAI
-  - explanable artificial intelligence
-  - black-box models
-  - local explanations
-  - grand tour
-  - manual tour
-  - radial tour
+shorttitle: "Cheem, Exploring Local Explanations"
 author:
-- Nicholas Spyrison 
-#^[Monash University, nicholas.spyrison@monash.edu, ORCiD: 0000-0002-8417-0212]
-- Dianne Cook
-#^[ORCiD: 000-0002-3813-7155]
-- Kimbal Marriott
-#^[ORCiD: 0000-0002-9813-0377]
-  #- name: "Nicholas Spyrison"
-  #   affiliation: Monash University
-  #   address: |
-  #     | ORCiD: 0000-0002-8417-0212
-  #   email: \email{nicholas.spyrison@monash.edu}
-  #   orcid: 0000-0002-8417-0212
-  #- name: "Dianne Cook"
-  #   affiliation: Monash University
-  #   address: |
-  #     | ORCiD: 000-0002-3813-7155
-  #   orcid: 000-0002-3813-7155
-  #- name: "Kimbal Marriott"
-  #   affiliation: Monash University
-  #   address: |
-  #     | ORCiD: 0000-0002-9813-0377
-  #   orcid: 0000-0002-9813-0377
-abstract: |
- The increased predictive power of nonlinear models comes at the cost of interpretability of its terms.  This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction with _local explanations_, a point estimate of the linear feature importance in the vicinity of one instance. These can be considered linear projections and can be further explored to understand better the interactions between features used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any instance and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) output. The methods are implemented in the __R__ package __cheem__, available on CRAN.
-#documentclass: jmlr2e
-#classoption: article
-output:
-  ## pdf_document: requires \ref{} 
-  pdf_document:
-  ## bookdown::pdf_document2: allows \@ref(), but doesn't add authors....
-  #bookdown::pdf_document2:
-    #includes:
-    #  in_header: template/jmlr2e.sty
-    keep_tex: true
-    toc: false
-    number_sections: yes
-    fig_caption: yes
+- familyname: Spyrison
+  othernames: Nicholas
+  address: Monash University\newline Australia\newline ORCiD 0000-0002-8417-0212
+  email: Nicholas.Spyrison@monash.edu
+  correspondingauthor: true
+- familyname: Cook
+  othernames: Dianne
+  address: Monash University\newline ORCiD 0000-0002-3813-7155
+  email: DiCook@monash.edu
+- familyname: Marriott
+  othernames: Kimbal
+  address: Monash University\newline ORCiD 0000-0002-9813-0377
+  email: Kim.Marriott@monash.edu
+# Nick ORCiD 0000-0002-8417-0212
+# Di   ORCiD 0000-0002-3813-7155
+# Kim  ORCiD 0000-0002-9813-0377
+year: 2022
+date_submitted: "MM/DD"
+abstract: "The increased predictive power of nonlinear models comes at the cost of interpretability of its terms.  This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction with _local explanations_, a point estimate of the linear feature importance in the vicinity of one instance. These can be considered linear projections and can be further explored to understand better the interactions between features used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any instance and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) output. The methods are implemented in the __R__ package __cheem__, available on CRAN."
+keywords: "explainable artificial intelligence, nonlinear model interpretability, local explanations, grand tour, radial tour"
+acknowledgment: "We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models."
 bibliography: cheem_paper.bib
-editor_options:
-  chunk_output_type: console
-urlcolor: blue
-linkcolor: red
-header-includes:
-  - \usepackage{setspace} ## for title page spacing
-  - \usepackage{hyperref} ## for all sorts of linking
+classoption: 11pt,twoside
+output:
+  bookdown::pdf_document2:
+    template: template_rjh/jmlr_template.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    # includes:
+    #   in_header: template_rjh/preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    #citation_package: natbib
+    latex_engine: pdflatex
 ---
 
 ```{r loadlibraries, include=FALSE, cache=FALSE}
@@ -136,7 +117,7 @@ These instance-level explanations are used in various ways depending on the data
 <!-- SHAP -->
 SHaply Additive exPlanations (SHAP) quantifies the feature contributions of one instance by examining the effect of other features on the predictions. The explanations of SHAP refer to @shapley_value_1953's method to evaluate an individual's contribution to cooperative games by assessing this player's performance in the presence or absence of other players. @strumbelj_efficient_2010 introduced SHAP for local explanations in ML models. The attribution of feature importance depends on the sequence of the included features. The SHAP values are the mean contributions over different feature sequences. The approach is related to partial dependence plots [@molnar_interpretable_2020], used to explain the effect of a feature by predicting the response for a range of values on this feature after fixing the value of all other features to their mean. Though partial dependence plots are a global approximation of the feature importance, while SHAP is specific to one instance. It could also be considered similar to examining the coefficients from all subsets regression, as described in @wickham_visualizing_2015, helps to understand the relative importance of each feature in the context of all other candidate features.
 
-```{r shapdistrbd, echo=F, fig.align='center', out.width="100%", fig.cap = "Illustration of SHAP values for a random forest model FIFA 2020 player wages from nine skill predictors. A star offensive and defensive player are compared, L. Messi and V. van Dijk, respectively. Panel (a) shows breakdown plots of three sequences of the features. The sequence of the variables impacts the magnitude of their attribution. Panel (b) shows the distribution of attribution for each feature across 25 sequences of predictors, with the mean displayed as a dot for each player. Reaction skills are important for both players. Offense and movement are important for Messi but not van Dijk, and conversely, defense and power are important for van Dijk but not Messi."}
+```{r shapdistrbd, echo=F, fig.align='center', out.width="85%", fig.cap = "Illustration of SHAP values for a random forest model FIFA 2020 player wages from nine skill predictors. A star offensive and defensive player are compared, L. Messi and V. van Dijk, respectively. Panel (a) shows breakdown plots of three sequences of the features. The sequence of the variables impacts the magnitude of their attribution. Panel (b) shows the distribution of attribution for each feature across 25 sequences of predictors, with the mean displayed as a dot for each player. Reaction skills are important for both players. Offense and movement are important for Messi but not van Dijk, and conversely, defense and power are important for van Dijk but not Messi."}
 knitr::include_graphics("./figures/shap_distr_bd.png")
 ```
 
@@ -247,7 +228,7 @@ run_app()
 
 Alternatively, 
 
-- a version of the cheem viewer shiny app can be directly accessed at [ebsmonash.shinyapps.io/cheem_initial/](https://ebsmonash.shinyapps.io/cheem_initial/). 
+- a version of the cheem viewer shiny app can be directly accessed at https://ebsmonash.shinyapps.io/cheem_initial/. 
 - the development version of the package is available at https://github.com/nspyrison/cheem, and 
 - documentation of the package can be found at https://nspyrison.github.io/cheem/. 
 
@@ -264,7 +245,7 @@ To illustrate the cheem method, it is applied to modern datasets, two classifica
 
 The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (`bl`), bill depth (`bd`), flipper length (`fl`), body mass (`bm`), for this illustration. A random forest model was fit with species as the response feature.
 
-(ref:casepenguins-cap) Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is a Gentoo (purple) penguin that is misclassified as a Chinstrap (orange), marked as an asterisk in (a), and the dashed vertical line in (b). The radial view shows varying the contribution of `fl` from the initial attribution projection (b, left), which produces a linear combination where the PI is more probably (higher density value) a Chinstrap than a Gentoo (b, right). (The animation of the radial tour is at [vimeo.com/666431172](https://vimeo.com/666431172).)
+(ref:casepenguins-cap) Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is a Gentoo (purple) penguin that is misclassified as a Chinstrap (orange), marked as an asterisk in (a), and the dashed vertical line in (b). The radial view shows varying the contribution of `fl` from the initial attribution projection (b, left), which produces a linear combination where the PI is more probably (higher density value) a Chinstrap than a Gentoo (b, right). (The animation of the radial tour is at https://vimeo.com/666431172.)
 ```{r casepenguins, echo=F, out.width="100%", fig.cap = "(ref:casepenguins-cap)"}
 knitr::include_graphics("./figures/case_penguins.png")
 ```
@@ -291,7 +272,7 @@ The chocolates dataset consists of 88 instances of ten nutritional measurements 
 <!-- Dark misclassified as milk, rational -->
 It could be interesting to examine the nutritional properties of any dark chocolates that have been misclassified as milk. A reason to do this is that a dark chocolate, nutritionally more like milk, should not be considered a healthy alternative. It is interesting to explore which nutritional features contribute most to misclassification.
 
-(ref:casechocolates-cap) Examining the local explanation for a PI which is dark (orange) chocolate incorrectly predicted to be milk (green). From the attribution projection, this chocolate correctly looks more like dark than milk, which suggests that the local explanation does not help understand the prediction for this instance. So, the contribution of Sugar is varied --- reducing it corresponds primarily with increasing Fiber. When Sugar is zero, Fiber contributes strongly towards the left. In this particular view, the PI is closer to the bulk of the milk chocolates, suggesting that the prediction put a lot of importance on Fiber. This chocolate is a rare dark chocolate without any Fiber leading to it being mistaken for a milk chocolate. (A video of the tour animation can be found at [vimeo.com/666431143](https://vimeo.com/666431143).)
+(ref:casechocolates-cap) Examining the local explanation for a PI which is dark (orange) chocolate incorrectly predicted to be milk (green). From the attribution projection, this chocolate correctly looks more like dark than milk, which suggests that the local explanation does not help understand the prediction for this instance. So, the contribution of Sugar is varied --- reducing it corresponds primarily with increasing Fiber. When Sugar is zero, Fiber contributes strongly towards the left. In this particular view, the PI is closer to the bulk of the milk chocolates, suggesting that the prediction put a lot of importance on Fiber. This chocolate is a rare dark chocolate without any Fiber leading to it being mistaken for a milk chocolate. (A video of the tour animation can be found at https://vimeo.com/666431143.)
 ```{r casechocolates, echo=F, out.width="100%", fig.cap = "(ref:casechocolates-cap)"}
 knitr::include_graphics("./figures/case_chocolates.png")
 ```
@@ -311,7 +292,7 @@ From the density plot, which is the attribution projection corresponding to the 
 <!-- segue and selection for chocolates inverse case -->
 It would also be interesting to explore an inverse misclassification. In this case, a milk chocolate is selected while it was misclassified as a dark chocolate. Chocolate 84 is just this case and is compared with a correctly predicted milk chocolate (instance 71). The corresponding global view and radial tour frames are shown in Figure \@ref(fig:casechocolatesinverse).
 
-(ref:casechocolatesinverse-cap) Examining the local interpretation for a PI which is milk (green) chocolate incorrectly predicted to be dark (orange). In the attribution projection, the PI could be either milk or dark. Sodium and Fiber have the largest differences in attributed feature importance, with low values relative to other milk chocolates. The lack of importance attributed to these variables is suspected of contributing to the mistake, so the contribution of Sodium is varied. If Sodium had a larger contribution to the prediction (like in this view). the PI would look more like other milk chocolates. (A video of the tour animation can be found at [vimeo.com/666431148](https://vimeo.com/666431148).)
+(ref:casechocolatesinverse-cap) Examining the local interpretation for a PI which is milk (green) chocolate incorrectly predicted to be dark (orange). In the attribution projection, the PI could be either milk or dark. Sodium and Fiber have the largest differences in attributed feature importance, with low values relative to other milk chocolates. The lack of importance attributed to these variables is suspected of contributing to the mistake, so the contribution of Sodium is varied. If Sodium had a larger contribution to the prediction (like in this view). the PI would look more like other milk chocolates. (A video of the tour animation can be found at https://vimeo.com/666431148.)
 ```{r casechocolatesinverse, echo=F, out.width="100%", fig.cap = "(ref:casechocolatesinverse-cap)"}
 knitr::include_graphics("./figures/case_chocolates_inverse.png")
 ```
@@ -329,8 +310,8 @@ Comparing the attribution with the CI (dotted line), large discrepancies in Sodi
 <!-- Data description -->
 The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many skill measurements of soccer/football players and wage information. Nine higher-level skill groupings were identified and aggregated from highly correlated features. A random forest model is fit from these predictors, regressing player wages [2020 euros]. The model was fit from 5000 instances before being thinned to 500 players to mitigate occlusion and render time. Continuing from the exploration in section \@ref(sec:explanations), we are interested to see the difference in attribution based on the exogenous player position. That is, the model should be able to use multiple linear profiles to better predict the wages from different field positions of players despite not having this information. A leading offensive fielder (L. Messi) is compared with a top defensive fielder (V. van Dijk). The same instances were used in figure \@ref(fig:shapdistrbd).
 
-(ref:casefifa-cap) Exploring the wages [euros] relative to skill measurements in the FIFA 2020 data. Star offensive player (L. Messi) is the PI and he is compared with a top defensive player (V. van Dijk). The attribution projection is shown at left, and it can be seen that this combination of features produces a view where Messi has very high predicted (and observed) wages. Defense (`def`) is the chosen feature to vary. It starts off very low, and as its contribution is increased (right plot) it can be seen that Messi's predicted wages decrease dramatically. The increased contribution in defense comes at the expense of offensive and reaction skills. The interpretation is that indeed, Messi's high wages are most attributable to his offensive and reaction skills, as initially provided by the local explanation. (A video of the animated radial tour can be found at [vimeo.com/666431163](https://vimeo.com/666431163).)
-```{r casefifa, echo=F, out.width = "100%", fig.cap = "(ref:casefifa-cap)"}
+(ref:casefifa-cap) Exploring the wages [euros] relative to skill measurements in the FIFA 2020 data. Star offensive player (L. Messi) is the PI and he is compared with a top defensive player (V. van Dijk). The attribution projection is shown at left, and it can be seen that this combination of features produces a view where Messi has very high predicted (and observed) wages. Defense (`def`) is the chosen feature to vary. It starts off very low, and as its contribution is increased (right plot) it can be seen that Messi's predicted wages decrease dramatically. The increased contribution in defense comes at the expense of offensive and reaction skills. The interpretation is that indeed, Messi's high wages are most attributable to his offensive and reaction skills, as initially provided by the local explanation. (A video of the animated radial tour can be found at https://vimeo.com/666431163.)
+```{r casefifa, echo=F, out.width = "90%", fig.cap = "(ref:casefifa-cap)"}
 knitr::include_graphics("./figures/case_fifa.png")
 ```
 
@@ -343,7 +324,7 @@ The contribution from `def` will be varied to contrast with offensive skills. As
 
 Ames 2018, housing data was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model has fitted this price [USD] with the property features: Lot Area (`LtA`), Overall Quality (`Qlt`), Year the house was Built (`YrB`), Living Area (`LvA`), number of Bathrooms (`Bth`), number of Bedrooms (`Bdr`), the total number of Rooms (`Rms`), Year the Garage was Built (`GYB`), and Garage Area (`GrA`). Using interaction from the global view, a house with an extreme negative residual and an accurate instance with a similar prediction are selected.
 
-(ref:caseames-cap) Exploring an instance with a large residual as the PI from fitting sales price [USD] to other variables in the Ames housing 2018. The sale price of the PI was under-predicted. The local explanation indicates a sizable attribution to Lot Area (`LtA`). The CI has a similar predicted sales price and smaller residual and has minimal attribution to Lot Area. In the attribution projection, the PI has a higher sales price than the CI. Reducing the contribution of Lot Area brings these two prices in line. This suggests if the model did not consider Lot Area, then the two houses would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at [vimeo.com/666431134](https://vimeo.com/666431134).)
+(ref:caseames-cap) Exploring an instance with a large residual as the PI from fitting sales price [USD] to other variables in the Ames housing 2018. The sale price of the PI was under-predicted. The local explanation indicates a sizable attribution to Lot Area (`LtA`). The CI has a similar predicted sales price and smaller residual and has minimal attribution to Lot Area. In the attribution projection, the PI has a higher sales price than the CI. Reducing the contribution of Lot Area brings these two prices in line. This suggests if the model did not consider Lot Area, then the two houses would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at https://vimeo.com/666431134.)
 ```{r caseames, echo=F, out.width="100%", fig.cap = "(ref:caseames-cap)"}
 knitr::include_graphics("./figures/case_ames2018.png")
 ```
@@ -364,7 +345,7 @@ An implementation is provided in the open-source __R__ package __cheem__, availa
 
 # Acknowledgments
 
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader $\text{MI}^\text2$ lab group for the __DALEX__ ecosystem of __R__ and __Python__ packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI$^2$ lab group for the __DALEX__ ecosystem of __R__ and __Python__ packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article.
 
 The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 

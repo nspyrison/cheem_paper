@@ -1,0 +1,117 @@
+\documentclass[11pt,twoside]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+% Available options for package jmlr2e are:
+%
+%   - abbrvbib : use abbrvnat for the bibliography style
+%   - nohyperref : do not load the hyperref package
+%   - preprint : remove JMLR specific information from the template,
+%         useful for example for posting to preprint servers.
+%
+% Example of using the package with custom options:
+%
+% \usepackage[abbrvbib, preprint]{jmlr2e}
+
+\usepackage[]{jmlr2e}
+
+
+
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+
+
+
+% Definitions of handy macros can go here
+
+%% Any special functions or other packages can be loaded here.
+
+% Heading arguments are {volume}{year}{pages}{date submitted}{date published}{paper id}{author-full-names}
+
+\jmlrheading{}{2022}{}{03/22}{--}{}{%
+Fan Cheng, Anastasios Panagiotelis and Rob J Hyndman}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{Shorter title}{Cheng, Panagiotelis and Hyndman}
+\firstpageno{1}
+
+\begin{document}
+% Add back JMLR proof environment which is over-written by amsthm
+\def\proof{\par\noindent{\bf Proof\ }}
+\def\endproof{\hfill\BlackBox\\[2mm]}
+
+\title{Title}
+
+\author{%
+\name Fan Cheng \email \href{mailto:Fan.Cheng@monash.edu}{\nolinkurl{Fan.Cheng@monash.edu}} \\\addr Monash University\newline Australia \AND
+%
+\name Anastasios Panagiotelis \email \href{mailto:Anastasios.Panagiotelis@sydney.edu.au}{\nolinkurl{Anastasios.Panagiotelis@sydney.edu.au}} \\\addr University of Sydney\newline Australia \AND
+%
+\name Rob J Hyndman \email \href{mailto:Rob.Hyndman@monash.edu}{\nolinkurl{Rob.Hyndman@monash.edu}} \\\addr Monash University\newline Australia \AND
+}
+
+\editor{}
+
+\maketitle
+
+
+
+\begin{abstract}
+% Put your abstract here. Abstracts are limited to 200 words for
+% regular articles and 100 words for Letters to the Editor. Please no
+% personal pronouns, also please do not use the words ``new'' and/or
+% ``novel'' in the abstract. An article usually includes an abstract, a
+% concise summary of the work covered at length in the main body of the
+% article.
+Blah blah blah
+\end{abstract}
+
+\begin{keywords}
+dimension reduction, divergence estimation, Hellinger distance, anomaly detection, k-d trees
+\end{keywords}
+
+
+%  Body of the article
+\newpage
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+Blah blah. You can refer to papers \citep{Witten2011} or cite them directly as in \citet{AriasCastro2020}.
+
+Add the following to the yaml header if you want to remove the JMLR details.
+
+\begin{verbatim}
+jmlroption: preprint
+\end{verbatim}
+
+% Acknowledgements should go at the end, before appendices and references
+
+\acks{This research was supported in part by the\ldots{}}
+
+% Appendices to go in include-after
+
+\vskip 0.2in
+\bibliography{references.bib}
+
+\end{document}

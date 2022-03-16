@@ -1,0 +1,63 @@
+---
+title: "Title"
+shorttitle: "Shorter title"
+author:
+- familyname: Cheng
+  othernames: Fan
+  address: Monash University\newline Australia
+  email: Fan.Cheng@monash.edu
+  correspondingauthor: true
+- familyname: Panagiotelis
+  othernames: Anastasios
+  address: University of Sydney\newline Australia
+  email: Anastasios.Panagiotelis@sydney.edu.au
+- familyname: Hyndman
+  othernames: Rob J
+  address: Monash University\newline Australia
+  email: Rob.Hyndman@monash.edu
+year: 2022
+date_submitted: "03/22"
+abstract: "Blah blah blah"
+keywords: "dimension reduction, divergence estimation, Hellinger distance, anomaly detection, k-d trees"
+acknowledgment: "This research was supported in part by the..."
+bibliography: references.bib
+classoption: 11pt,twoside
+output:
+  bookdown::pdf_document2:
+    template: jmlr_template.tex
+    fig_caption: yes
+    fig_height: 5
+    fig_width: 8
+    includes:
+      in_header: preamble.tex
+    keep_tex: yes
+    number_sections: yes
+    citation_package: natbib
+    latex_engine: pdflatex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  cache = TRUE,
+  messages = FALSE,
+  warning = FALSE,
+  eval = TRUE
+  # include = FALSE
+)
+library(tidyverse)
+```
+
+\newpage
+
+# Introduction
+
+Blah blah. You can refer to papers [@Witten2011] or cite them directly as in @AriasCastro2020.
+
+
+Add the following to the yaml header if you want to remove the JMLR details.
+
+```
+jmlroption: preprint
+```
+

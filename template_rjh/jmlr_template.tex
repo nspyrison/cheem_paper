@@ -1,0 +1,171 @@
+\documentclass[$for(classoption)$$classoption$$sep$,$endfor$]{article}
+
+% Any additional packages needed should be included after jmlr2e.
+% Note that jmlr2e.sty includes epsfig, amssymb, natbib and graphicx,
+% and defines many common macros, such as 'proof' and 'example'.
+%
+% It also sets the bibliographystyle to plainnat; for more information on
+% natbib citation styles, see the natbib documentation, a copy of which
+% is archived at http://www.jmlr.org/format/natbib.pdf
+
+% Available options for package jmlr2e are:
+%
+%   - abbrvbib : use abbrvnat for the bibliography style
+%   - nohyperref : do not load the hyperref package
+%   - preprint : remove JMLR specific information from the template,
+%         useful for example for posting to preprint servers.
+%
+% Example of using the package with custom options:
+%
+% \usepackage[abbrvbib, preprint]{jmlr2e}
+
+\usepackage[$for(jmlroption)$$jmlroption$$sep$,$endfor$]{jmlr2e}
+
+$if(listings)$
+\usepackage{listings}
+$endif$
+$if(lhs)$
+\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\small\ttfamily}}{}
+$endif$
+
+$if(highlighting-macros)$
+% Pandoc syntax highlighting
+$highlighting-macros$
+$endif$
+
+% tightlist command for lists without linebreak
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+$if(tables)$
+% From pandoc table feature
+\usepackage{longtable,booktabs,array}
+$if(multirow)$
+\usepackage{multirow}
+$endif$
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+$endif$
+
+$if(csl-refs)$
+% Pandoc citation processing
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+% for Pandoc 2.8 to 2.10.1
+\newenvironment{cslreferences}%
+  {$if(csl-hanging-indent)$\setlength{\parindent}{0pt}%
+  \everypar{\setlength{\hangindent}{\cslhangindent}}\ignorespaces$endif$}%
+  {\par}
+% For Pandoc 2.11+
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+$endif$
+
+$if(verbatim-in-note)$
+\usepackage{fancyvrb}
+\VerbatimFootnotes % allows verbatim text in footnotes
+$endif$
+
+% Definitions of handy macros can go here
+
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+% Heading arguments are {volume}{year}{pages}{date submitted}{date published}{paper id}{author-full-names}
+
+\jmlrheading{$volume$}{$year$}{$pages$}{$date_submitted$}{$if(date_published)$$date_published$$else$--$endif$}{$paper_id$}{%
+$if(author/allbutlast)$$for(author/allbutlast)$$it.othernames$ $it.familyname$$sep$, $endfor$ and $for(author/last)$$it.othernames$ $it.familyname$$endfor$$else$${author/last}$endif$}
+
+% Short headings should be running head and authors last names
+
+\ShortHeadings{$shorttitle$}{$if(author/allbutlast)$$for(author/allbutlast)$$it.familyname$$sep$, $endfor$ and $for(author/last)$$it.familyname$$endfor$$else$${author/last}$endif$}
+\firstpageno{1}
+
+\begin{document}
+% Add back JMLR proof environment which is over-written by amsthm
+\def\proof{\par\noindent{\bf Proof\ }}
+\def\endproof{\hfill\BlackBox\\[2mm]}
+
+\title{$title$}
+
+\author{$for(author)$%
+\name $author.othernames$ $author.familyname$ $if(author.email)$\email $author.email$$endif$ \\\addr $author.address$ \AND
+$endfor$}
+
+\editor{$for(editor)$$editor$ and$endfor$}
+
+\maketitle
+
+$for(include-before)$
+$include-before$
+$endfor$
+
+
+$if(abstract)$
+\begin{abstract}
+% Put your abstract here. Abstracts are limited to 200 words for
+% regular articles and 100 words for Letters to the Editor. Please no
+% personal pronouns, also please do not use the words ``new'' and/or
+% ``novel'' in the abstract. An article usually includes an abstract, a
+% concise summary of the work covered at length in the main body of the
+% article.
+$abstract$
+\end{abstract}
+$endif$
+
+\begin{keywords}
+$keywords$
+\end{keywords}
+
+
+%  Body of the article
+$body$
+
+% Acknowledgements should go at the end, before appendices and references
+
+$if(acknowledgment)$
+\acks{$acknowledgment$}
+$endif$
+
+% Appendices to go in include-after
+$for(include-after)$
+$include-after$
+
+$endfor$
+
+$if(bibliography)$
+$if(biblio-title)$
+\renewcommand\refname{$biblio-title$}
+$endif$
+\vskip 0.2in
+\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+$endif$
+
+\end{document}

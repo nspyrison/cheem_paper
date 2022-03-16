@@ -361,17 +361,20 @@ are provided at \url{http://jmlr.org/papers/v#1/#6.html}.\hfill}}%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \newcommand{\BlackBox}{\rule{1.5ex}{1.5ex}}  % end of proof
-\ifdefined\proof
-    \renewenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
-\else
-    \newenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
-\fi
-\newtheorem{example}{Example} 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}[theorem]{Lemma} 
-\newtheorem{proposition}[theorem]{Proposition} 
-\newtheorem{remark}[theorem]{Remark}
-\newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{definition}[theorem]{Definition}
-\newtheorem{conjecture}[theorem]{Conjecture}
-\newtheorem{axiom}[theorem]{Axiom}
+% Remaining lines commented out for use in the Rmarkdown template
+% as they cause an error with the amsthm package which is always added by pandoc.
+% No other changes have been made to this file.
+% \ifdefined\proof
+%    \renewenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+% \else
+%    \newenvironment{proof}{\par\noindent{\bf Proof\ }}{\hfill\BlackBox\\[2mm]}
+% \fi
+% \newtheorem{example}{Example} 
+% \newtheorem{theorem}{Theorem}
+% \newtheorem{lemma}[theorem]{Lemma} 
+% \newtheorem{proposition}[theorem]{Proposition} 
+% \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{conjecture}[theorem]{Conjecture}
+% \newtheorem{axiom}[theorem]{Axiom}

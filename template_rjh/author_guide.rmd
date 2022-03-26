@@ -1,3 +1,10 @@
+---
+title: "Author guide notes"
+author: "Nick Spyrison"
+date: "8/1/2022"
+output: html_document
+---
+
 Following: https://www.jmlr.org/format/authors-guide.html
 
 # Authors' Guide: Instructions for Final Preparation

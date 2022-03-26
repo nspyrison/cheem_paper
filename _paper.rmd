@@ -15,14 +15,11 @@ author:
   othernames: Kimbal
   address: Monash University\newline ORCiD 0000-0002-9813-0377
   email: Kim.Marriott@monash.edu
-# Nick ORCiD 0000-0002-8417-0212
-# Di   ORCiD 0000-0002-3813-7155
-# Kim  ORCiD 0000-0002-9813-0377
 year: 2022
 date_submitted: "MM/DD"
 abstract: "The increased predictive power of nonlinear models comes at the cost of interpretability of its terms.  This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction with _local explanations_, a point estimate of the linear feature importance in the vicinity of one instance. These can be considered linear projections and can be further explored to understand better the interactions between features used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any instance and illustrate with examples with categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) output. The methods are implemented in the __R__ package __cheem__, available on CRAN."
 keywords: "explainable artificial intelligence, nonlinear model interpretability, local explanations, grand tour, radial tour"
-acknowledgment: "We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models."
+acknowledgment: "We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.\\newline The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models."
 bibliography: cheem_paper.bib
 classoption: 11pt,twoside
 output:
@@ -31,21 +28,18 @@ output:
     fig_caption: yes
     fig_height: 5
     fig_width: 8
-    # includes:
-    #   in_header: template_rjh/preamble.tex
     keep_tex: yes
     number_sections: yes
     #citation_package: natbib
     latex_engine: pdflatex
 ---
 
-```{r loadlibraries, include=FALSE, cache=FALSE}
+```{r include=FALSE, cache=FALSE}
+## Paper compilation dependancies
 library("knitr")
 library("kableExtra")
 library("magrittr")
-## Work packages
-library("cheem")
-library("spinifex")
+
 ## chunk options
 knitr::opts_chunk$set(
   fig.align  = "center",
@@ -341,13 +335,6 @@ This approach has been illustrated using four data examples of random forest mod
 This analysis is manually intensive and thus only feasible for investigating a few instances. The approach selects instances that the model has not done well to predict and compare it with an instance where it did fit well. The radial tour launches from the attribution projection to enable exploration of the sensitivity of the prediction to any feature. It can be helpful to make additional plots of the features and responses to cross-check interpretations made from the cheem viewer. This methodology provides an additional tool in the box for studying model fitting.
 
 An implementation is provided in the open-source __R__ package __cheem__, available on [CRAN](https://CRAN.R-project.org/package=cheem). Example data sets are provided, and you can upload your data after model fitting and computing the local explanations. In theory, this approach would work with any black-box model, but the implementation currently only calculates tree SHAP for tree-based models supported by __treeshap__ [tree based models from __gbm__, __lightgbm__, __randomForest__, __ranger__, or __xgboost__  @greenwell_gbm_2020; @shi_lightgbm_2022; @liaw_classification_2002; @wright_ranger_2017; @chen_xgboost_2021, respectively]. Tree SHAP was selected because of its computational efficiency. The SHAP and oscillation explanations could be added with the use of the `DALEX::explain()` and would be an excellent direction to extend the work [@biecek_dalex_2018; @biecek_explanatory_2021].
-
-
-# Acknowledgments
-
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI$^2$ lab group for the __DALEX__ ecosystem of __R__ and __Python__ packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article.
-
-The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 
 
 # References

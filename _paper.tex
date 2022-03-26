@@ -474,13 +474,6 @@ This analysis is manually intensive and thus only feasible for investigating a f
 
 An implementation is provided in the open-source \textbf{R} package \textbf{cheem}, available on \href{https://CRAN.R-project.org/package=cheem}{CRAN}. Example data sets are provided, and you can upload your data after model fitting and computing the local explanations. In theory, this approach would work with any black-box model, but the implementation currently only calculates tree SHAP for tree-based models supported by \textbf{treeshap} (tree based models from \textbf{gbm}, \textbf{lightgbm}, \textbf{randomForest}, \textbf{ranger}, or \textbf{xgboost} Greenwell et al. 2020; Shi et al. 2022; Liaw and Wiener 2002; Wright and Ziegler 2017; Chen et al. 2021, respectively). Tree SHAP was selected because of its computational efficiency. The SHAP and oscillation explanations could be added with the use of the \texttt{DALEX::explain()} and would be an excellent direction to extend the work (Biecek 2018; Biecek and Burzykowski 2021).
 
-\hypertarget{acknowledgments}{%
-\section{Acknowledgments}\label{acknowledgments}}
-
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI\(^2\) lab group for the \textbf{DALEX} ecosystem of \textbf{R} and \textbf{Python} packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article.
-
-The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. \textbf{DALEX} pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
-
 \hypertarget{references}{%
 \section*{References}\label{references}}
 \addcontentsline{toc}{section}{References}
@@ -656,7 +649,7 @@ Wright, Marvin N., and Andreas Ziegler. 2017. {``Ranger: {A} {Fast} {Implementat
 
 % Acknowledgements should go at the end, before appendices and references
 
-\acks{We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.}
+\acks{We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.\newline The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. \textbf{DALEX} pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.}
 
 % Appendices to go in include-after
 

@@ -31,7 +31,7 @@ If you wish, create an online appendix. Online appendices can contain source cod
 
 If there are online appendices containing source code, please sign the software release form (available in PDF format) and send it along with the Copyright form. The release form is intended to reduce the liability of JMLR.
 
-Create a file archive (zip or tar.gz is file) with your paper. This archive should contain the latex source, the .bib file, figures, and everything needed to compile your document. The archive should contain only one .tex file (please do not use \include or \input.) We process your paper via an automatic system, so please follow these rules:
+Create a file archive (zip or tar.gz is file) with your paper. This archive should contain the latex source, the .bib file, figures, and everything needed to compile your document. The archive should contain only one .tex file (please do not use \\include or \\input.) We process your paper via an automatic system, so please follow these rules:
 
 Your submission must be an archive that contains all of the tex files necessary to compile the paper. It must be compilable using pdflatex. We will not run any custom Makefiles.
 
@@ -39,23 +39,22 @@ Your main tex file should be named after the paper id you were assigned during t
 
 The system will fail if it sees file types it does not recognize. The most common causes of this are .synctex.gz files.
 
-Your page numbers should start at 1, both in the \jmlrheading command and in your actual paper.
+Your page numbers should start at 1, both in the \\jmlrheading command and in your actual paper.
 
-You file should include an \editor{...} command that lists the action editor who has corresponded with you.
+You file should include an \\editor{...} command that lists the action editor who has corresponded with you.
 
-Your \jmlrheading command should contain the correct year, volume number, publication dates, etc. You must fill in all of the information. The format for this is:
+Your \\jmlrheading command should contain the correct year, volume number, publication dates, etc. You must fill in all of the information. The format for this is:
 
-   \jmlrheading{volume}{year}{pages}{dates when your paper submitted}{date published}{your paper id}{all authors full names}
+   \\jmlrheading{volume}{year}{pages}{dates when your paper submitted}{date published}{your paper id}{all authors full names}
 For example, suppose that you submitted your paper to the production system in April 2017. The current volume at that time was 18 (you can find the current volume on the front page of jmlr.org)
 
-       \jmlrheading{18}{2017}{1-36}{8/14; Revised 12/15}{4/17}{15-449}{John
-Smith, Jane Doe, and Frank Jones}
+       \\jmlrheading{18}{2017}{1-36}{8/14; Revised 12/15}{4/17}{15-449}{JohnSmith, Jane Doe, and Frank Jones}
 Please use the current month and year as the publication date.
 
 If you never needed to submit a revision (i.e. you submitted one version that was accepted with no changes), then you should leave off the "Revised" date. These dates will be verified against the paper database, so it is important that they be correct.
 
 Our automated system does not run bibtex (this is similar to what arxiv.org does). Therefore if your paper uses bibtex, you should include the bbl file that is necessary to compile your final paper.
-The scripts specifically check whether the paper headings are correct (e.g., page numbers, \jmlrheading, \ShortHeadings, \editor, and so on). To speed processing of your paper, please give special attention to make sure that these are correct and follow the lines of the example file.
+The scripts specifically check whether the paper headings are correct (e.g., page numbers, \\jmlrheading, \\ShortHeadings, \\editor, and so on). To speed processing of your paper, please give special attention to make sure that these are correct and follow the lines of the example file.
 
 In the past, we have spell checked all papers before publication, but we will no longer be doing this as part of the automated system. Fortunately, we are able to make available an aspell word list that we have been using for the past several years: https://github.com/JournalMLR/jmlr-aspell. This dictionary contains many technical terms that should make spell checking easier. Contributions are welcome; just create a pull request.
 

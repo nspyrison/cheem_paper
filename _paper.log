@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  26 MAR 2022 15:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  26 MAR 2022 17:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -550,9 +550,9 @@ l.449 ...mes-housing-2018-sales-price-regression}}
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
 Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 457.
-(pdftex.def)             Requested size: 433.62pt x 505.9119pt.
+(pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
 
-LaTeX Warning: Float too large for page by 54.35445pt on input line 462.
+LaTeX Warning: Float too large for page by 3.76248pt on input line 462.
 
 [19] [20pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
@@ -606,13 +606,13 @@ Package rerunfilecheck Info: File `_paper.out' has not changed.
 Here is how much of TeX's memory you used:
  12270 strings out of 480216
  195990 string characters out of 5893255
- 493480 words of memory out of 5000000
+ 493457 words of memory out of 5000000
  29896 multiletter control sequences out of 15000+600000
  479715 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,7n,90p,1405b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2416350 bytes).
+Output written on _paper.pdf (24 pages, 2416218 bytes).
 PDF statistics:
  479 PDF objects out of 1000 (max. 8388607)
  402 compressed objects within 5 object streams

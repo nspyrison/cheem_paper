@@ -18,41 +18,41 @@ Following: https://www.jmlr.org/format/formatting-errors.html
 
 - One LaTeX file: The latex for the paper should be in one file. Otherwise it takes too much additional time for the production staff to perform all of the checks before publication.
 - Make sure your abstract reads well. It will be used to advertise your paper.
-- We recommend you use small caps for system names. (In LaTex that's \sc)
+- We recommend you use small caps for system names. (In LaTex that's \\sc)
 - Move file to have correct name, according to the JMLR naming conventions. See the authors' guide.
 - Signed copyright form: Do not forget to provide this.
 - Text should be in Computer Modern
 - Order of paper: At the end of your paper, the order of sections should be: Acknowledgments, Appendices, then References.
-- Acknowledgments should be a unnumbered section. You can use the \acks{} command for this.
-- Appendix section number should be a letter (Should look like Appendix A. Title). You can use \appendix followed by regular \section command to format appendices
+- Acknowledgments should be a unnumbered section. You can use the \\acks{} command for this.
+- Appendix section number should be a letter (Should look like Appendix A. Title). You can use \\appendix followed by regular \\section command to format appendices
 
 ## Title Area
 
 - Capitalization of paper title: In the title area, the paper title should be in title case. (First letter of each word capitalized except for little words like "and" and "or".)
 - Author contact addresses: These should be complete enough that mail sent to that address will reach them
-- Editor listed: Please include the name of the Action Editor who handled your submission in the \editor{} tag
-- Keyword: Please add keywords to your article using \begin{keywords} ... \end{keywords} after your abstract. They should not be capitalised, they should be separated by commas, and they should not have a period at the end.
-- Abstract: Do not delete the % at the end of \begin{abstract}% as it introduces an extra indent
+- Editor listed: Please include the name of the Action Editor who handled your submission in the \\editor{} tag
+- Keyword: Please add keywords to your article using \\begin{keywords} ... \\end{keywords} after your abstract. They should not be capitalised, they should be separated by commas, and they should not have a period at the end.
+- Abstract: Do not delete the % at the end of \\begin{abstract}% as it introduces an extra indent
 - Title should be split across two lines, only when it is too long for one line.
 
 ## Headers and Footers
-- Front page header: Use the \jmlrheading command to get a correct header and footer on the title page
-- Copyright notice, bottom of front page uses authors full names: In the \jmlrheading command, please use the full names of all authors
-- Running headers: Add running headers to your paper using the \ShortHeadings command. Please see the example paper on the web site for how to do this.
-- Running headers: In the \ShortHeadings command, please capitalise the words in your paper title.
-- Running headers: In the author list in the \ShortHeadings command, please use "and" before the last author
+- Front page header: Use the \\jmlrheading command to get a correct header and footer on the title page
+- Copyright notice, bottom of front page uses authors full names: In the \\jmlrheading command, please use the full names of all authors
+- Running headers: Add running headers to your paper using the \\ShortHeadings command. Please see the example paper on the web site for how to do this.
+- Running headers: In the \\ShortHeadings command, please capitalise the words in your paper title.
+- Running headers: In the author list in the \\ShortHeadings command, please use "and" before the last author
 - Running headers: The ShortHeadings author list should have last names only, and should list all authors if possible. If you have many authors, "et al" is acceptable.
 
 ## Section Headers
 
-- No unnumbered sections: We do not use \paragraph or \section*. We do not allow bold, unindented text to begin a paragraph that could be mistaken for a section header. If it looks like a section header it needs to be numbered like a section header, otherwise it needs to be formatted in some other way (e.g., by indentation, or by using italics instead of boldface).
-- Section numbering: All sections, subsections, subsubsubsections must be numbered. Please use \subsubsection instead of \subsubsection*, etc
+- No unnumbered sections: We do not use \\paragraph or \\section*. We do not allow bold, unindented text to begin a paragraph that could be mistaken for a section header. If it looks like a section header it needs to be numbered like a section header, otherwise it needs to be formatted in some other way (e.g., by indentation, or by using italics instead of boldface).
+- Section numbering: All sections, subsections, subsubsubsections must be numbered. Please use \\subsubsection instead of \\subsubsection*, etc
 Capitalization of Section headings: All section headings should be title case. (First letter of each word capitalized except for little words like "and" and "or".) This includes subsections, sub subsections, etc.
 - Section headers: There must be some text separating all section headers
 
 ## Tables and Figures
 
-- Float placement: In general, floats should be at the top or bottom of the page (avoid using [h] option to \begin{figure}). Check for pages that contain several floats and only 2-3 lines of text. These will be confusing for a reader, who is likely to miss the text. When this happens, please put the floats on a floats page ([p] specifier) instead.
+- Float placement: In general, floats should be at the top or bottom of the page (avoid using [h] option to \\begin{figure}). Check for pages that contain several floats and only 2-3 lines of text. These will be confusing for a reader, who is likely to miss the text. When this happens, please put the floats on a floats page ([p] specifier) instead.
 - Floats should also be placed as close as possible to the page at which they are first referenced. You should not, e.g., place all of the figures at the end of the paper.
 Figures, tables should be centered
 - Captions should be underneath figures and tables
@@ -79,8 +79,8 @@ Multiline captions should have a hanging indent, that is, subsequent lines of th
 
 ## Object References
 
-- use \url commands to reference urls in papers. This causes hyperref to make the hyperlinks work nicely.
-- Parenthesis: \eqref can sometimes result in parentheses within parentheses. When referencing an equation within a parenthetical statement, use Equation 1 rather than (1) or Equation (1).
+- use \\url commands to reference urls in papers. This causes hyperref to make the hyperlinks work nicely.
+- Parenthesis: \\eqref can sometimes result in parentheses within parentheses. When referencing an equation within a parenthetical statement, use Equation 1 rather than (1) or Equation (1).
 - When referencing figures, sections, etc. ("Figure 1", "Section 2.1"), please make sure the words "Figure", "Section", etc., are uppercase
 
 ## Math

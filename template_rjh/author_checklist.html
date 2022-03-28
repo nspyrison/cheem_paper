@@ -180,66 +180,66 @@ pre code {
 <li>One LaTeX file: The latex for the paper should be in one file. Otherwise it takes too much additional time for the production staff to perform all of the checks before publication.</li>
 <li>Make sure your abstract reads well. It will be used to advertise your paper.</li>
 <li>We recommend you use small caps for system names. (In LaTex that’s \sc)</li>
-<li>Move file to have correct name, according to the JMLR naming conventions. See the authors’ guide.</li>
-<li>Signed copyright form: Do not forget to provide this.</li>
-<li>Text should be in Computer Modern</li>
-<li>Order of paper: At the end of your paper, the order of sections should be: Acknowledgments, Appendices, then References.</li>
-<li>Acknowledgments should be a unnumbered section. You can use the \acks{} command for this.</li>
-<li>Appendix section number should be a letter (Should look like Appendix A. Title). You can use \appendix followed by regular \section command to format appendices</li>
+<li>Move file to have correct name, according to the JMLR naming conventions. See the authors’ guide. <em>NEEDED</em></li>
+<li>Signed copyright form: Do not forget to provide this. <em>NEEDED</em></li>
+<li>Text should be in Computer Modern.</li>
+<li>Order of paper: At the end of your paper, the order of sections should be: Acknowledgments, Appendices, then References. <em>Not the order of the template, may need an eye on this.</em></li>
+<li>Acknowledgments should be a unnumbered section. You can use the \acks{} command for this. NS</li>
+<li>Appendix section number should be a letter (Should look like Appendix A. Title). You can use \appendix followed by regular \section command to format appendices. NS</li>
 </ul>
 </div>
 <div id="title-area" class="section level2">
 <h2>Title Area</h2>
 <ul>
-<li>Capitalization of paper title: In the title area, the paper title should be in title case. (First letter of each word capitalized except for little words like “and” and “or”.)</li>
-<li>Author contact addresses: These should be complete enough that mail sent to that address will reach them</li>
-<li>Editor listed: Please include the name of the Action Editor who handled your submission in the \editor{} tag</li>
-<li>Keyword: Please add keywords to your article using \begin{keywords} … \end{keywords} after your abstract. They should not be capitalised, they should be separated by commas, and they should not have a period at the end.</li>
-<li>Abstract: Do not delete the % at the end of \begin{abstract}% as it introduces an extra indent</li>
-<li>Title should be split across two lines, only when it is too long for one line.</li>
+<li>Capitalization of paper title: In the title area, the paper title should be in title case. (First letter of each word capitalized except for little words like “and” and “or”.). NS</li>
+<li>Author contact addresses: These should be complete enough that mail sent to that address will reach them. NS</li>
+<li>Editor listed: Please include the name of the Action Editor who handled your submission in the \editor{} tag <em>NS— todo</em></li>
+<li>Keyword: Please add keywords to your article using \begin{keywords} … \end{keywords} after your abstract. They should not be capitalised, they should be separated by commas, and they should not have a period at the end. NS</li>
+<li>Abstract: Do not delete the % at the end of \begin{abstract}% as it introduces an extra indent. <em>NS—doesn’t get added in .rmd, may need to watch submission</em></li>
+<li>Title should be split across two lines, only when it is too long for one line. NS</li>
 </ul>
 </div>
 <div id="headers-and-footers" class="section level2">
 <h2>Headers and Footers</h2>
 <ul>
-<li>Front page header: Use the \jmlrheading command to get a correct header and footer on the title page</li>
-<li>Copyright notice, bottom of front page uses authors full names: In the \jmlrheading command, please use the full names of all authors</li>
-<li>Running headers: Add running headers to your paper using the \ShortHeadings command. Please see the example paper on the web site for how to do this.</li>
-<li>Running headers: In the \ShortHeadings command, please capitalise the words in your paper title.</li>
-<li>Running headers: In the author list in the \ShortHeadings command, please use “and” before the last author</li>
-<li>Running headers: The ShortHeadings author list should have last names only, and should list all authors if possible. If you have many authors, “et al” is acceptable.</li>
+<li>Front page header: Use the \jmlrheading command to get a correct header and footer on the title page. NA</li>
+<li>Copyright notice, bottom of front page uses authors full names: In the \jmlrheading command, please use the full names of all authors. NS</li>
+<li>Running headers: Add running headers to your paper using the \ShortHeadings command. Please see the example paper on the web site for how to do this. NS</li>
+<li>Running headers: In the \ShortHeadings command, please capitalise the words in your paper title. NS</li>
+<li>Running headers: In the author list in the \ShortHeadings command, please use “and” before the last author. NS</li>
+<li>Running headers: The ShortHeadings author list should have last names only, and should list all authors if possible. If you have many authors, “et al” is acceptable. NS</li>
 </ul>
 </div>
 <div id="section-headers" class="section level2">
 <h2>Section Headers</h2>
 <ul>
-<li>No unnumbered sections: We do not use \paragraph or \section*. We do not allow bold, unindented text to begin a paragraph that could be mistaken for a section header. If it looks like a section header it needs to be numbered like a section header, otherwise it needs to be formatted in some other way (e.g., by indentation, or by using italics instead of boldface).</li>
-<li>Section numbering: All sections, subsections, subsubsubsections must be numbered. Please use \subsubsection instead of \subsubsection*, etc Capitalization of Section headings: All section headings should be title case. (First letter of each word capitalized except for little words like “and” and “or”.) This includes subsections, sub subsections, etc.</li>
-<li>Section headers: There must be some text separating all section headers</li>
+<li>No unnumbered sections: We do not use \paragraph or \section*. We do not allow bold, unindented text to begin a paragraph that could be mistaken for a section header. If it looks like a section header it needs to be numbered like a section header, otherwise it needs to be formatted in some other way (e.g., by indentation, or by using italics instead of boldface). NS</li>
+<li>Section numbering: All sections, subsections, subsubsubsections must be numbered. Please use \subsubsection instead of \subsubsection*, etc. NS Capitalization of Section headings: All section headings should be title case. (First letter of each word capitalized except for little words like “and” and “or”.) This includes subsections, sub subsections, etc. NS, done</li>
+<li>Section headers: There must be some text separating all section headers. NS</li>
 </ul>
 </div>
 <div id="tables-and-figures" class="section level2">
 <h2>Tables and Figures</h2>
 <ul>
-<li>Float placement: In general, floats should be at the top or bottom of the page (avoid using [h] option to \begin{figure}). Check for pages that contain several floats and only 2-3 lines of text. These will be confusing for a reader, who is likely to miss the text. When this happens, please put the floats on a floats page ([p] specifier) instead.</li>
-<li>Floats should also be placed as close as possible to the page at which they are first referenced. You should not, e.g., place all of the figures at the end of the paper. Figures, tables should be centered</li>
-<li>Captions should be underneath figures and tables</li>
-<li>Captions NOT in italics, bold</li>
-<li>Tables and figures should not overfill margins Multiline captions should have a hanging indent, that is, subsequent lines of the caption should be indented, aligning with the first word of the caption rather than the word “Figure”. Usually this problem is caused by one of the other packages that you have included. Sometimes changing the order of includes will fix this (try moving the jmlr2e include farther down).</li>
+<li>Float placement: In general, floats should be at the top or bottom of the page (avoid using [h] option to \begin{figure}). Check for pages that contain several floats and only 2-3 lines of text. These will be confusing for a reader, who is likely to miss the text. When this happens, please put the floats on a floats page ([p] specifier) instead. NA</li>
+<li>Floats should also be placed as close as possible to the page at which they are first referenced. You should not, e.g., place all of the figures at the end of the paper. Figures, tables should be centered. NS</li>
+<li>Captions should be underneath figures and tables. NS</li>
+<li>Captions NOT in italics, bold. NS <code>codeface</code> and \url{}, but not egregious.</li>
+<li>Tables and figures should not overfill margins. NA (manual check, reference urls run over) Multiline captions should have a hanging indent, that is, subsequent lines of the caption should be indented, aligning with the first word of the caption rather than the word “Figure”. Usually this problem is caused by one of the other packages that you have included. Sometimes changing the order of includes will fix this (try moving the jmlr2e include farther down). NS</li>
 </ul>
 </div>
 <div id="footnotes" class="section level2">
 <h2>Footnotes</h2>
 <ul>
-<li>Footnote markers should follow punctuation</li>
-<li>Footnotes should be complete sentences</li>
+<li>Footnote markers should follow punctuation. NA</li>
+<li>Footnotes should be complete sentences. NA</li>
 </ul>
 </div>
 <div id="misc" class="section level2">
 <h2>Misc</h2>
 <ul>
-<li>Dashes: When using dashes in text, please use — instead of –, with no space before or after—like this.</li>
-<li>Data set: We use “data set” rather than “dataset”.</li>
+<li>Dashes: When using dashes in text, please use — instead of –, with no space before or after—like this. NS</li>
+<li>Data set: We use “data set” rather than “dataset”. NS</li>
 </ul>
 </div>
 <div id="citations" class="section level2">
@@ -247,9 +247,9 @@ pre code {
 <ul>
 <li>Carefully read the section on citations in Instructions for Formatting JMLR Articles. A quick guideline is that the paper should still read correctly if all parenthesized text were omitted. Here are examples of BAD citations:
 <ul>
-<li>“See (Ginsberg, 1994) for an analysis…” [Uses citation as a noun]</li>
-<li>“Drummond (Drummond, 1994) showed that…” [Should be “Drummond (1994)”]</li>
-<li>“…the best method (see the ERT test (Davis, 1995))…” [double parens, should be “…best method (see the ERT test, Davis, 1995)…”]</li>
+<li>“See (Ginsberg, 1994) for an analysis…” [Uses citation as a noun]. NS, looks good</li>
+<li>“Drummond (Drummond, 1994) showed that…” [Should be “Drummond (1994)”]. NS, looks good</li>
+<li>“…the best method (see the ERT test (Davis, 1995))…” [double parens, should be “…best method (see the ERT test, Davis, 1995)…”] NA</li>
 </ul></li>
 <li>Citations not nested in parenthesis. Parentheses should not occur within parentheses, even for citations. Within parentheses use \citealt or \citealp instead. Or you can use .</li>
 </ul>
@@ -257,29 +257,38 @@ pre code {
 <div id="object-references" class="section level2">
 <h2>Object References</h2>
 <ul>
-<li>use \url commands to reference urls in papers. This causes hyperref to make the hyperlinks work nicely.</li>
-<li>Parenthesis: \eqref can sometimes result in parentheses within parentheses. When referencing an equation within a parenthetical statement, use Equation 1 rather than (1) or Equation (1).</li>
-<li>When referencing figures, sections, etc. (“Figure 1”, “Section 2.1”), please make sure the words “Figure”, “Section”, etc., are uppercase</li>
+<li>use \url commands to reference urls in papers. This causes hyperref to make the hyperlinks work nicely.
+<ul>
+<li>NS– makes no difference in text, if fully qualified with <a href="https://" class="uri">https://</a> at the start.</li>
+</ul></li>
+<li>Parenthesis: \eqref can sometimes result in parentheses within parentheses. When referencing an equation within a parenthetical statement, use Equation 1 rather than (1) or Equation (1). NA</li>
+<li>When referencing figures, sections, etc. (“Figure 1”, “Section 2.1”), please make sure the words “Figure”, “Section”, etc., are uppercase. NS</li>
 </ul>
 </div>
 <div id="math" class="section level2">
 <h2>Math</h2>
 <ul>
-<li>Punctuation: Math in formal writing should be punctuated as if the extra space is not there, for example, displayed equations should usually be followed by a comma or a period, depending on the surrounding text.</li>
-<li>Punctuation: Before displayed equations, punctuation (e.g., “:”) is not necessary unless you would use the same punctuation if the equation were not there.</li>
-<li>In general, only equations that are referenced should be numbered. We are willing to relax this for equations that are particularly important, as others may wish to discuss these in later correspondence.</li>
-<li>Proofs should end with a filled box.</li>
-<li>Equations should not run over the right hand margin. Appendices are especially prone to this.</li>
-<li>Theorems, Lemmas, etc., should be labeled like Theorem 1, Theorem 2, Theorem 3, not as Theorem 2.1, Theorem 2.2, Theorem 2.3</li>
+<li>Punctuation: Math in formal writing should be punctuated as if the extra space is not there, for example, displayed equations should usually be followed by a comma or a period, depending on the surrounding text. NA</li>
+<li>Punctuation: Before displayed equations, punctuation (e.g., “:”) is not necessary unless you would use the same punctuation if the equation were not there. NA</li>
+<li>In general, only equations that are referenced should be numbered. We are willing to relax this for equations that are particularly important, as others may wish to discuss these in later correspondence. NA</li>
+<li>Proofs should end with a filled box. NA</li>
+<li>Equations should not run over the right hand margin. Appendices are especially prone to this. NA</li>
+<li>Theorems, Lemmas, etc., should be labeled like Theorem 1, Theorem 2, Theorem 3, not as Theorem 2.1, Theorem 2.2, Theorem 2.3 NA</li>
 </ul>
 </div>
 <div id="references" class="section level2">
 <h2>References</h2>
 <ul>
-<li>It is preferable to cite published papers, rather than tech reports.</li>
-<li>Author names: Make citations consistent. Either give the full first name of all cited authors, or give the first initials only for all cited authors.</li>
-<li>Capitalization in paper titles: Titles of conference papers should have the first word only titles. However, watch out for words like Bayes and Markov. These should still be capitalized, but BibTeX often leaves uncapitalised incorrectly.</li>
-<li>Capitalization of book titles, etc: The parts in italics (book names, journal names, conf names) should be title case. (First letter of each word capitalized except for little words like “and” and “or”.)</li>
+<li>It is preferable to cite published papers, rather than tech reports. NS</li>
+<li>Author names: Make citations consistent. Either give the full first name of all cited authors, or give the first initials only for all cited authors.
+<ul>
+<li>NS: I think rmd defaults to three names before et al. see thesis for .cls (.csl? from rjournal changing this)</li>
+</ul></li>
+<li>Capitalization in paper titles: Titles of conference papers should have the first word only titles. However, watch out for words like Bayes and Markov. These should still be capitalized, but BibTeX often leaves uncapitalised incorrectly.
+<ul>
+<li>NS: I think this is a bit unrealistic. They may push back about this one.</li>
+</ul></li>
+<li>Capitalization of book titles, etc: The parts in italics (book names, journal names, conf names) should be title case. (First letter of each word capitalized except for little words like “and” and “or”.) NS See above subitem comment/.</li>
 <li>Please cite conference titles consistently. We do not have a enforced style for conference names, but whichever style you choose, be consistent. Don’t refer to the same conference as “AAAI 2004” in one reference and the “The Nineteenth National Conference on Artificial Intelligence” in another one. Personally, I prefer the style “International Conference on Machine Learning (ICML)”, leaving off the “Proceedings of the Twentieth…”</li>
 </ul>
 </div>

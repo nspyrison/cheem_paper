@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  26 MAR 2022 17:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  28 MAR 2022 19:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -442,7 +442,7 @@ Underfull \vbox (badness 4108) has occurred while \output is active []
 [4] [5pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.235 ...The cheem viewer}\label{sec:cheemviewer}}
+l.235 ...The Cheem Viewer}\label{sec:cheemviewer}}
                                                    <./figures/shap_distr_bd.png>] [6]
 <./figures/app_classification.png, id=152, 592.614pt x 549.85425pt>
 File: ./figures/app_classification.png Graphic file (type png)
@@ -478,43 +478,43 @@ Package xcolor Warning: Incompatible color definition on input line 329.
 Package xcolor Warning: Incompatible color definition on input line 329.
 
 
-Overfull \hbox (7.81638pt too wide) in paragraph at lines 336--338
-[]\OT1/cmr/m/n/10.95 a ver-sion of the cheem viewer shiny app can be di-rectly ac-cessed at []$\OT1/cmtt/m/n/10.95 https : / / ebsmonash .
+Overfull \hbox (10.55267pt too wide) in paragraph at lines 336--339
+[]\OT1/cmr/m/n/10.95 A ver-sion of the cheem viewer shiny app can be di-rectly ac-cessed at []$\OT1/cmtt/m/n/10.95 https : / / ebsmonash .
  []
 
 
-Overfull \hbox (10.64438pt too wide) in paragraph at lines 338--340
-[]\OT1/cmr/m/n/10.95 the de-vel-op-ment ver-sion of the pack-age is avail-able at []$\OT1/cmtt/m/n/10.95 https : / / github . com / nspyrison /
+Overfull \hbox (14.29437pt too wide) in paragraph at lines 339--341
+[]\OT1/cmr/m/n/10.95 The de-vel-op-ment ver-sion of the pack-age is avail-able at []$\OT1/cmtt/m/n/10.95 https : / / github . com / nspyrison /
  []
 
 
-Overfull \hbox (8.5149pt too wide) in paragraph at lines 340--341
+Overfull \hbox (8.5149pt too wide) in paragraph at lines 341--342
 []\OT1/cmr/m/n/10.95 documentation of the pack-age can be found at []$\OT1/cmtt/m/n/10.95 https : / / nspyrison . github . io / cheem/$[]\OT1/cmr/m/n/10.95 . 
  []
 
 <./figures/case_penguins.png, id=188, 433.62pt x 433.62pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 359.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 360.
 (pdftex.def)             Requested size: 433.62pt x 433.63878pt.
 <./figures/case_penguins_BlFl.png, id=192, 330.2739pt x 289.08pt>
 File: ./figures/case_penguins_BlFl.png Graphic file (type png)
 <use ./figures/case_penguins_BlFl.png>
-Package pdftex.def Info: ./figures/case_penguins_BlFl.png  used on input line 372.
+Package pdftex.def Info: ./figures/case_penguins_BlFl.png  used on input line 373.
 (pdftex.def)             Requested size: 433.62pt x 379.56212pt.
 [11] [12pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.377 \end{figure}
+l.378 \end{figure}
                    <./figures/case_penguins.png>] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.382 
+l.383 
        <./figures/case_penguins_BlFl.png>]
 <./figures/case_chocolates.png, id=215, 433.62pt x 433.62pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 396.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 397.
 (pdftex.def)             Requested size: 433.62pt x 433.63878pt.
 
 Underfull \vbox (badness 7631) has occurred while \output is active []
@@ -522,57 +522,52 @@ Underfull \vbox (badness 7631) has occurred while \output is active []
 [14] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.408 
+l.409 
        <./figures/case_chocolates.png>]
 <./figures/case_chocolates_inverse.png, id=231, 433.62pt x 433.62pt>
 File: ./figures/case_chocolates_inverse.png Graphic file (type png)
 <use ./figures/case_chocolates_inverse.png>
-Package pdftex.def Info: ./figures/case_chocolates_inverse.png  used on input line 417.
+Package pdftex.def Info: ./figures/case_chocolates_inverse.png  used on input line 418.
 (pdftex.def)             Requested size: 433.62pt x 433.63878pt.
 <./figures/case_fifa.png, id=236, 433.62pt x 505.89pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 437.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 438.
 (pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
 
-LaTeX Warning: Float too large for page by 17.36249pt on input line 442.
+LaTeX Warning: Float too large for page by 17.36249pt on input line 443.
 
 [16] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.449 ...mes-housing-2018-sales-price-regression}}
+l.450 ...mes-housing-2018-sales-price-regression}}
                                                    <./figures/case_chocolates_inverse.png>] [18pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.449 ...mes-housing-2018-sales-price-regression}}
+l.450 ...mes-housing-2018-sales-price-regression}}
                                                    <./figures/case_fifa.png>]
 <./figures/case_ames2018.png, id=257, 433.62pt x 505.89pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 457.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 458.
 (pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
 
-LaTeX Warning: Float too large for page by 3.76248pt on input line 462.
+LaTeX Warning: Float too large for page by 3.76248pt on input line 463.
 
 [19] [20pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.475 A
+l.476 A
        n implementation is provided in the open-source \textbf{R} package \t... <./figures/case_ames2018.png>]
-Overfull \hbox (20.62909pt too wide) in paragraph at lines 492--494
-\OT1/cmr/m/it/10.95 SIAM Jour-nal on Sci-en-tific and Sta-tis-ti-cal Com-put-ing \OT1/cmr/m/n/10.95 6 (1): 128--43. https://doi.org/[]$\OT1/cmtt/m/n/10.95 https :
- []
-
-
-Underfull \vbox (badness 4505) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [21]
-Overfull \hbox (202.84843pt too wide) in paragraph at lines 531--533
+Overfull \hbox (202.84843pt too wide) in paragraph at lines 532--534
 \OT1/cmr/m/n/10.95 Women.'' \OT1/cmr/m/it/10.95 Reuters\OT1/cmr/m/n/10.95 , Oc-to-ber. []$\OT1/cmtt/m/n/10.95 https : / / www . reuters . com / article / us-[]amazon-[]com-[]jobs-[]automation-[]insight-[]idUSKCN1MK08G$[]\OT1/cmr/m/n/10.95 . 
  []
 
 
-Overfull \hbox (20.8976pt too wide) in paragraph at lines 555--557
+Overfull \hbox (20.8976pt too wide) in paragraph at lines 556--558
 \OT1/cmr/m/n/10.95 ``Gbm: Gen-er-al-ized Boosted Re-gres-sion Mod-els.'' []$\OT1/cmtt/m/n/10.95 https : / / CRAN . R-[]project . org / package =
  []
 
@@ -580,17 +575,17 @@ Overfull \hbox (20.8976pt too wide) in paragraph at lines 555--557
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [22]
-Overfull \hbox (86.44087pt too wide) in paragraph at lines 570--572
+Overfull \hbox (86.44087pt too wide) in paragraph at lines 571--573
 \OT1/cmtt/m/n/10.95 org / article / how-[]we-[]analyzed-[]the-[]compas-[]recidivism-[]algorithm ? token = RPR1E2qtzJltfJ0tS-[]gB _
  []
 
 
-Overfull \hbox (51.24901pt too wide) in paragraph at lines 579--581
+Overfull \hbox (51.24901pt too wide) in paragraph at lines 580--582
 [][]\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
  []
 
 
-Overfull \hbox (72.30984pt too wide) in paragraph at lines 591--593
+Overfull \hbox (72.30984pt too wide) in paragraph at lines 592--594
 [][]\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []christophm.github.io/interpretable-
  []
 
@@ -599,20 +594,23 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [23]
 No file _paper.bbl.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 [24] (./_paper.aux)
 Package rerunfilecheck Info: File `_paper.out' has not changed.
-(rerunfilecheck)             Checksum: 1AEF25D4AB68277F02EAF4F123BC8B80;3046.
+(rerunfilecheck)             Checksum: 7BA0C95032F3D8B56A229C810BD3FA3F;3046.
  ) 
 Here is how much of TeX's memory you used:
  12270 strings out of 480216
  195990 string characters out of 5893255
- 493457 words of memory out of 5000000
+ 492455 words of memory out of 5000000
  29896 multiletter control sequences out of 15000+600000
  479715 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,7n,90p,1405b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2416218 bytes).
+Output written on _paper.pdf (24 pages, 2417359 bytes).
 PDF statistics:
  479 PDF objects out of 1000 (max. 8388607)
  402 compressed objects within 5 object streams

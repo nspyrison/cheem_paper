@@ -23,8 +23,8 @@ Transactions JMLR - TMLR submissions: https://openreview.net/group?id=TMLR, subm
 - We recommend you use small caps for system names. (In LaTex that's \\sc). NA?
 - Move file to have correct name, according to the JMLR naming conventions. See the authors' guide. _NEEDED_
 - Signed copyright form: Do not forget to provide this. _NEEDED_
-- Text should be in Computer Modern. _Don't see where to set_
-- Order of paper: At the end of your paper, the order of sections should be: Acknowledgments, Appendices, then References. _Not the order of the template, may need an eye on this._
+- Text should be in Computer Modern. _Don't see option in .sty, .tex_
+- Order of paper: At the end of your paper, the order of sections should be: Acknowledgments, Appendices, then References. _Not the order of the template; manually unnumbered section_
 - Acknowledgments should be a unnumbered section. You can use the \\acks{} command for this. NS
 - Appendix section number should be a letter (Should look like Appendix A. Title). You can use \\appendix followed by regular \\section command to format appendices. NS
 
@@ -34,7 +34,7 @@ Transactions JMLR - TMLR submissions: https://openreview.net/group?id=TMLR, subm
 - Author contact addresses: These should be complete enough that mail sent to that address will reach them. NS
 - Editor listed: Please include the name of the Action Editor who handled your submission in the \\editor{} tag _todo after inital submission_
 - Keyword: Please add keywords to your article using \\begin{keywords} ... \\end{keywords} after your abstract. They should not be capitalised, they should be separated by commas, and they should not have a period at the end. NS
-- Abstract: Do not delete the % at the end of \\begin{abstract}% as it introduces an extra indent. _NS---doesn't get added in .rmd, may need to watch submission_
+- Abstract: Do not delete the % at the end of \\begin{abstract}% as it introduces an extra indent. _NS---handled in .sty I think. don't worry what .tex shows_
 - Title should be split across two lines, only when it is too long for one line. NS
 
 ## Headers and Footers
@@ -74,10 +74,10 @@ Figures, tables should be centered. NS
 
 ## Citations
 - Carefully read the section on citations in Instructions for Formatting JMLR Articles. A quick guideline is that the paper should still read correctly if all parenthesized text were omitted. Here are examples of BAD citations:
-    - "See (Ginsberg, 1994) for an analysis..." [Uses citation as a noun]. NS, looks good
+    - "See (Ginsberg, 1994) for an analysis..." [Uses citation as a noun]. NS, looks good, _use citation as people rather than noun (the work)_
     - "Drummond (Drummond, 1994) showed that..." [Should be "Drummond (1994)"]. NS, looks good
     - "...the best method (see the ERT test (Davis, 1995))..." [double parens, should be "...best method (see the ERT test, Davis, 1995)..."] NA
-- Citations not nested in parenthesis. Parentheses should not occur within parentheses, even for citations. Within parentheses use \citealt or \citealp instead. Or you can use \citep[e.g.,][]{smith00}.
+- Citations not nested in parenthesis. Parentheses should not occur within parentheses, even for citations. Within parentheses use \citealt or \citealp instead. Or you can use \citep[e.g.,][]{smith00}. NS, no `))` will, keep an eye out.
 
 ## Object References
 

@@ -58,7 +58,7 @@ knitr::opts_chunk$set(
 <!-- knitr::include_graphics("./figures/crest.jpg") -->
 <!-- ``` -->
 <!-- A figure \@ref(fig:crest) reference (with @; \\@ref(fig:crest). -->
-<!-- (ref:baseplotcap) Separate caption created above the R chunk -->
+<!-- (ref:baseplotcap) Separate caption created above the __R__ chunk -->
 <!-- ```{r baseplot, echo=F, fig.cap = "(ref:baseplotcap)"} -->
 <!-- plot(1,2) -->
 <!-- ``` -->
@@ -87,7 +87,7 @@ In multivariate data visualization, a _tour_ [@asimov_grand_1985; @buja_grand_19
 There are various types of tours distinguished by the generation of projection bases. In a _manual_ tour [@cook_manual_1997; @spyrison_spinifex_2020], the path is defined by changing the contribution of a selected feature. <!--tours and models --> Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries [@wickham_visualizing_2015] and using tree-based approaches as a projection pursuit index to generate a tour basis paths [@lee_pptree_2013; @da_silva_projection_2021].
 
 <!-- Purposed approach -->
-We use the radial manual tour to scrutinize a local explanation in our proposed approach. Additional interactivity allows the user to identify an instance of interest and then explore its local explanation by changing feature contribution with the radial tour. The methods are implemented in the R package __cheem__. Example data sets are provided to illustrate usage for classification and regression tasks.
+We use the radial manual tour to scrutinize a local explanation in our proposed approach. Additional interactivity allows the user to identify an instance of interest and then explore its local explanation by changing feature contribution with the radial tour. The methods are implemented in the __R__ package __cheem__. Example data sets are provided to illustrate usage for classification and regression tasks.
 
 <!-- What-if & counterfactual analysis -->
 Using a radial tour can be compared with counterfactual, what-if analysis, such as _ceteris paribus_ profiles [@biecek_ceterisparibus_2020]. Ceteris paribus, is Latin for "other things held constant" or "all else unchanged". These profiles show how an instance's prediction would change from a marginal change in one explanatory feature, given that other features are held constant. It ignores correlations of the features and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the features by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. When the contribution of one feature decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensional space and is thus an interpretable visualization.
@@ -143,12 +143,12 @@ To explore the local explanations, coordinated views [@roberts_state_2007] [also
 >> CONTINUE HERE.
 
 <!-- Purpose -->
-The global view provides context for all instances and facilitates the exploration of the separability of the data- and attribution-spaces. These spaces both have dimensionality $n \times p$, where $n$ is the number of instances and $p$ is the number of predictors. The attribution space corresponds to the local explanations for each instance, each a vector of $p$ predictor importance in the vicinity of the observation.
+The global view provides context for all instances and facilitates the exploration of the separability of the data- and attribution-spaces. These spaces both have dimensionality $n \times p$, where $n$ is the number of instances and $p$ is the number of featuress. The attribution space corresponds to the local explanations for each instance; feature importance in the vicinity of the instance.
 
 <!-- Approximations of the spaces, PC1:2 -->
 The visualization is composed of the first two principal components of the data (left) and the attribution (middle) spaces. These single 2D projections will not reveal all of the structure of higher-dimensional space, but they are helpful visual summaries. In addition, a plot of the observed against predicted response values is also provided (Figures \@ref(fig:classificationcase)b, \@ref(fig:regressioncase)a) to help identify instances poorly predicted by the model. <!-- Interactions --> For classification tasks, misclassified instances are circled in red. Linked brushing between the plots is provided, and a tabular display of selected points helps to facilitate exploration of the spaces and the model (shown in Figures \@ref(fig:regressioncase)d).
 
-While the comparison of these spaces is interesting, the primary purpose of the global view is to enable the selection of instances to explore the local explanations. The projection attribution of the primary instance (PI) is examined and typically viewed with an optional comparison instance (CI). These instances are highlighted as asterisk and $\times$, respectively.
+While the comparison of these spaces is interesting, the primary purpose of the global view is to enable the selection of particular instances to explore in detail. The projection attribution of the primary instance (PI) is examined and typically viewed with an optional comparison instance (CI). These instances are highlighted as asterisk and $\times$, respectively.
 
 
 ## Radial Tour
@@ -157,7 +157,7 @@ While the comparison of these spaces is interesting, the primary purpose of the 
 The local explanations for all observations are normalized (sum of squares equals 1), and thus, the relative importance of features can be compared across all instances. These are depicted as vertical parallel coordinate plots [@ocagne_coordonnees_1885] on the basis biplot [@gabriel_biplot_1971]. 1D biplot displays the values of the current basis as bars. The parallel coordinate overlays lines connecting one instance's feature attribution (Figures \@ref(fig:classificationcase)e and \@ref(fig:regressioncase)e). The attribution projections of the PI and CI are shown as dashed and dotted lines. From this plot, the range and density of the importance across all instances can be interpreted. For classification, one would look at differences between groups on any feature. For example, Figure \@ref(fig:classificationcase)e suggests that `bl` is important for distinguishing the green class from the other two. For regression, one might generally observe which features have low values for all instances (not important). For example, `BMI` and `pwr` in Figure \@ref(fig:regressioncase)e, have a range of high and low values (e.g., `off`, `def`), suggesting they are important for some instances and not important for others.
 
 <!-- Segue of PI to attribution projection -->
-The overlaid bars on the parallel coordinate plot represent the attribution projection of the PI. (Remember that the PI is interactively selected from the global view). The attribution projection approximates the feature importance for predicting this instance. This combination of features best explains the difference between the mean response and an instance’s predicted value. It is not an indication of the local shape of the model surface. That is, it is not some indication of the tangent to the curve at this point.
+The overlaid bars on the parallel coordinate plot represent the attribution projection of the PI. (Remember that the PI is interactively selected from the global view). The attribution projection approximates the feature importance for predicting this instance. The combination of features best explains the difference between the mean response and an instance’s predicted value. It is not an indication of the local shape of the model surface. That is, it is not some indication of the tangent to the curve at this point.
 
 <!-- Tour animation -->
 The attribution projection of the PI is the initial 1D basis in a radial tour, displayed as a density plot for a categorical response (Figure \@ref(fig:classificationcase)f) and as scatterplots for a quantitative response (Figure \@ref(fig:regressioncase)f). The PI and CI are indicated by vertical dashed and dotted lines. The radial tour varies the contribution of the selected feature between 0 and 1. This is viewed as an animation of the projections from many intermediate bases. Doing so tests the sensitivity of structure (class separation or strength of relationship) to the feature's contribution. For classification, if the separation between classes diminishes when the feature contribution is reduced, this suggests that the feature is important for class separation. For regression, if the relationship scatterplot weakens when the feature contribution is reduced, indicating that the feature is important for accurately predicting the response.
@@ -167,7 +167,7 @@ The attribution projection of the PI is the initial 1D basis in a radial tour, d
 
 Selecting a misclassified instance as PI and a correctly classified point nearby in data space as CI makes it easier to examine the features most responsible for the error. The global view (Figure \@ref(fig:classificationcase)c) displays the model confusion matrix. The radial tour is 1D and displays as density where color indicates class. An animation slider enables users to vary the contribution of features to explore the sensitivity of the separation to that feature.
 
-```{r classificationcase, echo=F, out.width = "100%", fig.align="center", fig.cap = "Overview of the cheem viewer for classification tasks. Global view inputs, (a), set the PI, CI, and color statistic. Global view, (b) PC1 by PC2 approximations of the data- and attribution-space. (c) prediction by observed y (visual of the confusion matrix for classification tasks). Points are colored by predicted class, and red circles indicate misclassified instances. Radial tour inputs (d) select features to include and which feature is changed in the tour. (e) shows a parallel coordinate display of the distribution of the feature attributions while bars depict contribution for the current basis. The black bar is the variable being changed in the radial tour. Panel (f) is the resulting data projection indicated as density in the classification case."}
+```{r classificationcase, echo=F, out.width = "100%", fig.align="center", fig.cap = "Overview of the cheem viewer for classification tasks. Global view inputs, (a), set the PI, CI, and color statistic. Global view, (b) PC1 by PC2 approximations of the data- and attribution-space. (c) prediction by observed $y$ (visual of the confusion matrix for classification tasks). Points are colored by predicted class, and red circles indicate misclassified instances. Radial tour inputs (d) select features to include and which feature is changed in the tour. (e) shows a parallel coordinate display of the distribution of the feature attributions while bars depict contribution for the current basis. The black bar is the variable being changed in the radial tour. Panel (f) is the resulting data projection indicated as density in the classification case."}
 knitr::include_graphics("./figures/app_classification.PNG")
 ```
 
@@ -178,7 +178,7 @@ Selecting an inaccurately predicted instance as PI and an accurately predicted i
 
 In the radial tour view, the observed response and the residuals (vertical) are plotted against the attribution projection of the PI (horizontal). The attribution projection can be interpreted similarly to the predicted value from the global view plot. It represents a linear combination of the features, and a good fit would be indicated when there is a strong relationship with the observed values. This can be viewed as a local linear approximation if the fitted model is nonlinear. As the contribution of a feature is varied, if the value of the PI does not change much, it would indicate that the prediction for this instance is NOT sensitive to that feature. Conversely, if the predicted value varies substantially, the prediction is very sensitive to that feature, suggesting that the feature is very important for the PI's prediction.
 
-```{r regressioncase, echo=F, out.width="100%", fig.cap="Overview of the cheem viewer for regression  and illustration of interactive features. Panel (a) PCA of the data and attributions spaces, (b) residual plot, predictions by observed values. Four selected points are highlighted in the PC spaces and tabularly displayed. Coloring on a statistic (c) highlights structure organized in the attribution space. Interactive tabular display (d) populates when instances are selected. Contribution of the 1D basis affecting the horizontal position (e) parallel coordinate display of the feature attribution from all observations, and horizontal bars show the contribution to the current basis. Regression projection (f) uses the same horizontal projection and fixes the vertical positions to the observed y and residuals (middle and right)."}
+```{r regressioncase, echo=F, out.width="100%", fig.cap="Overview of the cheem viewer for regression  and illustration of interactive features. Panel (a) PCA of the data- and attributions- spaces and the (b) residual plot, predictions by observed values. Four selected points are highlighted in the PC spaces and tabularly displayed. Coloring on a statistic (c) highlights structure organized in the attribution space. Interactive tabular display (d) populates when instances are selected. Contribution of the 1D basis affecting the horizontal position (e) parallel coordinate display of the feature attribution from all observations, and horizontal bars show the contribution to the current basis. Regression projection (f) uses the same horizontal projection and fixes the vertical positions to the observed $y$ and residuals (middle and right)."}
 knitr::include_graphics("./figures/app_regression_interactions.PNG")
 ```
 
@@ -197,13 +197,13 @@ A tooltip displays instance number/name and classification information while the
 It is vital to mitigate the render time of visuals, especially when users may want to iterate many explorations. All computational operations should be prepared before runtime. The work remaining when an application is run solely reacts to inputs and rendering visuals and tables. Below discusses the steps and details of the reprocessing. 
 
 <!-- Switch to rmd bullets, consistent with thesis -->
-- __Data:__ predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant.
-- __Model:__ any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package __randomForest__ [@liaw_classification_2002], compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, number variables randomly sampled at each split, mtry = $\sqrt{p}$ or $p/3$ for classification and regression, and minimum size of terminal nodes $max(1, n/500)$ or $max(5, n/500)$ for classification and regression. 
-- __Local explanation:__ Tree SHAP is calculated for _each_ observation using the package __treeshap__ [@kominsarczyk_treeshap_2021]. This implementation aggregates exhaustively over all trees' attribution and does not fit interactions of variables.
+- __Data:__ predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant. Keep normality assumptions of the model in mind. 
+- __Model:__ any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package __randomForest__ [@liaw_classification_2002], compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, the number of variables at each split, mtry = $\sqrt{p}$ or $p/3$ for classification and regression, and minimum size of terminal nodes $max(1, n/500)$ or $max(5, n/500)$ for classification and regression.
+- __Local explanation:__ Tree SHAP is calculated for _each_ observation using the package __treeshap__ [@kominsarczyk_treeshap_2021]. We opt to find the attribution of each instance in the training data and not fit to fit feature interactions.
 - __Cheem viewer:__ after the model and full explanation space are calculated, each variable is scaled by standard deviations away from the mean to achieve common support for visuals. Statistics for mapping to color are computed on the scaled spaces.
 
 <!-- Note on time of execution -->
-The time to preprocess the data will vary significantly with the complexity of the model and local explanation. For reference, the FIFA data contained 5000 instances of nine explanatory features took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each instance took 270 seconds total. PCA and statistics of the features and attributions took 2.8 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. (Alternatively, the package __fastshap__ [@greenwell_fastshap_2020] claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting.)
+The time to preprocess the data will vary significantly with the complexity of the model and local explanation. For reference, the FIFA data contained 5000 instances of nine explanatory features took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each instance took 270 seconds total. PCA and statistics of the features and attributions took 2.8 seconds. These runtimes were from a non-parallelized session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. [Alternatively, the package __fastshap__ claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting, @greenwell_fastshap_2020.]
 
 
 ## Package Infrastructure {#sec:infrastructure}
@@ -213,7 +213,7 @@ The above-described method and application are implemented as an open-source __R
 
 ## Installation and Getting Started
 
-The package can be installed from CRAN, and the shiny app can be run using the following __R__ code:
+The package can be installed from CRAN, and the application can be run using the following __R__ code:
 
 ```{r eval=FALSE, echo=TRUE}
 install.packages("cheem", dependencies = TRUE)
@@ -221,12 +221,12 @@ library("cheem")
 run_app()
 ```
 
-Alternatively, 
+Alternatively,
 
 - A version of the cheem viewer shiny app can be directly accessed at
-\url{https://ebsmonash.shinyapps.io/cheem_initial/}. 
-- The development version of the package is available at \url{https://github.com/nspyrison/cheem}, and 
-- documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}. 
+\url{https://ebsmonash.shinyapps.io/cheem_initial/}.
+- The development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
+- documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
 
 Follow the examples provided with the package to compute the local explainers (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an `rds` file with `saveRDS()`, to be uploaded.
 
@@ -237,7 +237,6 @@ To illustrate the cheem method it is applied to modern data sets, two classifica
 
 
 ## Palmer Penguin, Species Classification
-
 
 The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (`bl`), bill depth (`bd`), flipper length (`fl`), and body mass (`bm`) for this illustration. A random forest model was fit with species as the response feature.
 
@@ -343,7 +342,7 @@ An implementation is provided in the open-source __R__ package __cheem__, availa
 <!--checklist asks for: Acknowledgments, Appendices, then References-->
 ## Acknowledgments {-}
 
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by the Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of __R__ and Python packages. This research was supported by the Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 
 The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 

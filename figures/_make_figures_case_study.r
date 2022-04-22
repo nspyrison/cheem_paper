@@ -75,24 +75,25 @@ ggplot2::ggsave(
 
 
 ## Penguins orthogonal BlFl ----
-(.g <- ggplot(penguins_na.rm, aes(x = bill_length_mm,
-                                  y = flipper_length_mm,
-                                  colour = species)) +
-   geom_point(size=1) +
-   ## Prim obs
-   geom_point(data=penguins_na.rm[243,], shape=8, size=5, alpha=0.8) +
-   ## Comparison obs
-   #geom_point(data=penguins_na.rm[169,], shape=4, size=3, alpha=0.6) +
-   theme_bw() +
-   theme(aspect.ratio = 1) +
-   
-   scale_color_brewer(palette = "Dark2") +
-   labs(y = "Flipper length [mm]", x = "Bill length [mm]", color = "Observed species"))
+(
+  .g <- ggplot(penguins_na.rm, aes(x = bill_length_mm,
+                                   y = flipper_length_mm),
+               alpha = logistic_tform(nrow(penguins_na.rm))) +
+    geom_point(aes(colour = species), size = 1) +
+    ## Prim obs
+    geom_point(data=penguins_na.rm[243,], shape=8, size=5, alpha=0.8) +
+    ## Comparison obs
+    geom_point(data=penguins_na.rm[169,], shape=4, size=3, alpha=0.6) +
+    theme_bw() +
+    theme(aspect.ratio = 1) +
+    
+    scale_color_brewer(palette = "Dark2") +
+    labs(y = "Flipper length [mm]", x = "Bill length [mm]", color = "Observed species"))
 ## Save
 ggplot2::ggsave(
   "./figures/case_penguins_BlFl.png",
-  plot = .g, device = "png",
-  height = 4, units = "in")
+  plot = .g, device = "pdf",
+  height = 2.1, units = "in")
 
 ### Save .mp4, add GitHub urls to paper
 message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")

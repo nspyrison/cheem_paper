@@ -192,7 +192,7 @@ In multivariate data visualization, a \emph{tour} (Asimov 1985; Buja and Asimov 
 
 There are various types of tours distinguished by the generation of projection bases. In a \emph{manual} tour (Cook and Buja 1997; Spyrison and Cook 2020), the path is defined by changing the contribution of a selected feature. Applying tours to models has been done in a couple of contexts. Specifically for exploring various statistical model fits and classification boundaries (Wickham, Cook, and Hofmann 2015) and using tree-based approaches as a projection pursuit index to generate a tour basis paths (Y. D. Lee et al. 2013; da Silva, Cook, and Lee 2021).
 
-We use the radial manual tour to scrutinize a local explanation in our proposed approach. Additional interactivity allows the user to identify an instance of interest and then explore its local explanation by changing feature contribution with the radial tour. The methods are implemented in the R package \textbf{cheem}. Example data sets are provided to illustrate usage for classification and regression tasks.
+We use the radial manual tour to scrutinize a local explanation in our proposed approach. Additional interactivity allows the user to identify an instance of interest and then explore its local explanation by changing feature contribution with the radial tour. The methods are implemented in the \textbf{R} package \textbf{cheem}. Example data sets are provided to illustrate usage for classification and regression tasks.
 
 Using a radial tour can be compared with counterfactual, what-if analysis, such as \emph{ceteris paribus} profiles (Biecek 2020). Ceteris paribus, is Latin for ``other things held constant'' or ``all else unchanged.'' These profiles show how an instance's prediction would change from a marginal change in one explanatory feature, given that other features are held constant. It ignores correlations of the features and imagines a case that was not observed. In contrast, our approach is a geometric explanation of the factual; it varies contributions of the features by rotating the basis, a reorientation of the data object. A constraint in our approach is that the basis must remain orthonormal. When the contribution of one feature decreases, the contributions of others necessarily increase such that there is a complete component in that direction. This also ensures that what is seen is strictly a low-dimensional projection from high-dimensional space and is thus an interpretable visualization.
 
@@ -305,16 +305,16 @@ It is vital to mitigate the render time of visuals, especially when users may wa
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Data:} predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant.
+  \textbf{Data:} predictors and response are unscaled complete numerical matrix. Most models and local explanations are scale-invariant. Keep normality assumptions of the model in mind.
 \item
-  \textbf{Model:} any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package \textbf{randomForest} (Liaw and Wiener 2002), compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, number variables randomly sampled at each split, mtry = \(\sqrt{p}\) or \(p/3\) for classification and regression, and minimum size of terminal nodes \(max(1, n/500)\) or \(max(5, n/500)\) for classification and regression.
+  \textbf{Model:} any model and compatible explanation could be explored with this method. Currently, random forest models are applied via the package \textbf{randomForest} (Liaw and Wiener 2002), compatibility tree SHAP. Modest hyperparameters are used, namely: 125 trees, the number of variables at each split, mtry = \(\sqrt{p}\) or \(p/3\) for classification and regression, and minimum size of terminal nodes \(max(1, n/500)\) or \(max(5, n/500)\) for classification and regression.
 \item
-  \textbf{Local explanation:} Tree SHAP is calculated for \emph{each} observation using the package \textbf{treeshap} (Kominsarczyk et al. 2021). This implementation aggregates exhaustively over all trees' attribution and does not fit interactions of variables.
+  \textbf{Local explanation:} Tree SHAP is calculated for \emph{each} observation using the package \textbf{treeshap} (Kominsarczyk et al. 2021). We opt to find the attribution of each instance in the training data and not fit to fit feature interactions.
 \item
   \textbf{Cheem viewer:} after the model and full explanation space are calculated, each variable is scaled by standard deviations away from the mean to achieve common support for visuals. Statistics for mapping to color are computed on the scaled spaces.
 \end{itemize}
 
-The time to preprocess the data will vary significantly with the complexity of the model and local explanation. For reference, the FIFA data contained 5000 instances of nine explanatory features took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each instance took 270 seconds total. PCA and statistics of the features and attributions took 2.8 seconds. These runtimes were from a non-parallelized R session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. (Alternatively, the package \textbf{fastshap} claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting, Greenwell 2020.)
+The time to preprocess the data will vary significantly with the complexity of the model and local explanation. For reference, the FIFA data contained 5000 instances of nine explanatory features took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each instance took 270 seconds total. PCA and statistics of the features and attributions took 2.8 seconds. These runtimes were from a non-parallelized session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. (Alternatively, the package \textbf{fastshap} claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting, Greenwell 2020.)
 
 \hypertarget{sec:infrastructure}{%
 \subsection{Package Infrastructure}\label{sec:infrastructure}}
@@ -324,7 +324,7 @@ The above-described method and application are implemented as an open-source \te
 \hypertarget{installation-and-getting-started}{%
 \subsection{Installation and Getting Started}\label{installation-and-getting-started}}
 
-The package can be installed from CRAN, and the shiny app can be run using the following \textbf{R} code:
+The package can be installed from CRAN, and the application can be run using the following \textbf{R} code:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -344,10 +344,10 @@ Alternatively,
 \item
   The development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
 \item
-  documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
+  Documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
 \end{itemize}
 
-Follow the examples provided with the package to compute the local explainers (using \texttt{?cheem\_ls}). The application expects the output returned by \texttt{cheem\_ls()}, saved to an \texttt{rds} file with \texttt{saveRDS()}, to be uploaded.
+Follow the examples provided with the package to compute the local explaination (using \texttt{?cheem\_ls}). The application expects the output returned by \texttt{cheem\_ls()}, saved to an \texttt{rds} file with \texttt{saveRDS()} to be uploaded.
 
 \hypertarget{sec:casestudies}{%
 \section{Case Studies}\label{sec:casestudies}}
@@ -357,7 +357,7 @@ To illustrate the cheem method it is applied to modern data sets, two classifica
 \hypertarget{palmer-penguin-species-classification}{%
 \subsection{Palmer Penguin, Species Classification}\label{palmer-penguin-species-classification}}
 
-The Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst, Hill, and Gorman 2020) was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (\texttt{bl}), bill depth (\texttt{bd}), flipper length (\texttt{fl}), and body mass (\texttt{bm}) for this illustration. A random forest model was fit with species as the response feature.
+The Palmer penguins data (Gorman, Williams, and Fraser 2014; Horst, Hill, and Gorman 2020) was collected on three species of penguins foraging near Palmer Station, Antarctica. The data is publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (\texttt{bl}), bill depth (\texttt{bd}), flipper length (\texttt{fl}), and body mass (\texttt{bm}) for this illustration. A random forest model was fit with species as the response feature.
 
 
 
@@ -487,7 +487,7 @@ An implementation is provided in the open-source \textbf{R} package \textbf{chee
 \subsection*{Acknowledgments}\label{acknowledgments}}
 \addcontentsline{toc}{subsection}{Acknowledgments}
 
-We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of R and Python packages. This research was supported by the Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
+We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of \textbf{R} and Python packages. This research was supported by the Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. DALEX pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 
 The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. \textbf{DALEX} pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 

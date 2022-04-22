@@ -226,9 +226,9 @@ Alternatively,
 - A version of the cheem viewer shiny app can be directly accessed at
 \url{https://ebsmonash.shinyapps.io/cheem_initial/}.
 - The development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
-- documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
+- Documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
 
-Follow the examples provided with the package to compute the local explainers (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an `rds` file with `saveRDS()`, to be uploaded.
+Follow the examples provided with the package to compute the local explaination (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an `rds` file with `saveRDS()` to be uploaded.
 
 
 # Case Studies {#sec:casestudies}
@@ -238,7 +238,7 @@ To illustrate the cheem method it is applied to modern data sets, two classifica
 
 ## Palmer Penguin, Species Classification
 
-The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data was publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (`bl`), bill depth (`bd`), flipper length (`fl`), and body mass (`bm`) for this illustration. A random forest model was fit with species as the response feature.
+The Palmer penguins data [@gorman_ecological_2014; @horst_palmerpenguins_2020] was collected on three species of penguins foraging near Palmer Station, Antarctica. The data is publicly available to substitute for the overly-used iris data and is quite similar in form. After removing incomplete instances, there are 333 instances of four physical measurements, bill length (`bl`), bill depth (`bd`), flipper length (`fl`), and body mass (`bm`) for this illustration. A random forest model was fit with species as the response feature.
 
 (ref:casepenguins-cap) Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is a Gentoo (purple) penguin that is misclassified as a Chinstrap (orange), marked as an asterisk in (a) and the dashed vertical line in (b). The radial view shows varying the contribution of `fl` from the initial attribution projection (b, left), which produces a linear combination where the PI is more probably (higher density value) a Chinstrap than a Gentoo (b, right). (The animation of the radial tour is at \url{https://vimeo.com/666431172}.)
 ```{r casepenguins, echo=F, out.width="100%", fig.cap = "(ref:casepenguins-cap)"}

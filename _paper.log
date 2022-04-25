@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  22 APR 2022 17:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  25 APR 2022 11:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -550,22 +550,25 @@ l.459
 <./figures/case_ames2018.png, id=272, 433.62pt x 505.89pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 465.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 464.
 (pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
 
-LaTeX Warning: Float too large for page by 3.76248pt on input line 471.
+LaTeX Warning: Float too large for page by 17.36249pt on input line 469.
 
 [19] [20pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.485 
-       <./figures/case_ames2018.png>] [21]
-Overfull \hbox (202.84843pt too wide) in paragraph at lines 548--550
+l.483 
+       <./figures/case_ames2018.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[21]
+Overfull \hbox (202.84843pt too wide) in paragraph at lines 544--546
 \OT1/cmr/m/n/10.95 Women.'' \OT1/cmr/m/it/10.95 Reuters\OT1/cmr/m/n/10.95 , Oc-to-ber. []$\OT1/cmtt/m/n/10.95 https : / / www . reuters . com / article / us-[]amazon-[]com-[]jobs-[]automation-[]insight-[]idUSKCN1MK08G$[]\OT1/cmr/m/n/10.95 . 
  []
 
 
-Overfull \hbox (20.8976pt too wide) in paragraph at lines 572--574
+Overfull \hbox (20.8976pt too wide) in paragraph at lines 568--570
 \OT1/cmr/m/n/10.95 ``Gbm: Gen-er-al-ized Boosted Re-gres-sion Mod-els.'' []$\OT1/cmtt/m/n/10.95 https : / / CRAN . R-[]project . org / package =
  []
 
@@ -573,17 +576,17 @@ Overfull \hbox (20.8976pt too wide) in paragraph at lines 572--574
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [22]
-Overfull \hbox (86.44087pt too wide) in paragraph at lines 587--589
+Overfull \hbox (86.44087pt too wide) in paragraph at lines 583--585
 \OT1/cmtt/m/n/10.95 org / article / how-[]we-[]analyzed-[]the-[]compas-[]recidivism-[]algorithm ? token = RPR1E2qtzJltfJ0tS-[]gB _
  []
 
 
-Overfull \hbox (51.24901pt too wide) in paragraph at lines 596--598
+Overfull \hbox (51.24901pt too wide) in paragraph at lines 592--594
 [][]\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
  []
 
 
-Overfull \hbox (12.57013pt too wide) in paragraph at lines 608--610
+Overfull \hbox (12.57013pt too wide) in paragraph at lines 604--606
 [][]\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []$\OT1/cmtt/m/n/10.95 https : / / christophm .
  []
 
@@ -599,13 +602,13 @@ Package rerunfilecheck Info: File `_paper.out' has not changed.
 Here is how much of TeX's memory you used:
  12274 strings out of 480216
  196044 string characters out of 5893255
- 493507 words of memory out of 5000000
+ 493558 words of memory out of 5000000
  29898 multiletter control sequences out of 15000+600000
  479715 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,7n,90p,1401b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2338931 bytes).
+Output written on _paper.pdf (24 pages, 2338818 bytes).
 PDF statistics:
  494 PDF objects out of 1000 (max. 8388607)
  416 compressed objects within 5 object streams

@@ -34,7 +34,7 @@ output:
 ---
 
 ```{r include=FALSE, cache=FALSE}
-## Paper compilation dependancies
+## Compilation dependencies
 library("knitr")
 library("kableExtra")
 library("magrittr")
@@ -48,7 +48,8 @@ knitr::opts_chunk$set(
   warning    = FALSE,
   error      = FALSE,
   cache      = FALSE,
-  cache.lazy = FALSE)
+  cache.lazy = FALSE
+)
 ```
 <!-- bookdown::pdf_document2: allows \@ref(), pdf_document: requires \ref{} -->
 <!-- # cheat sheet {#sec:cheatsheet} -->
@@ -139,8 +140,6 @@ To explore the local explanations, coordinated views [@roberts_state_2007] [also
 
 
 ## Global View
-
->> CONTINUE HERE.
 
 <!-- Purpose -->
 The global view provides context for all instances and facilitates the exploration of the separability of the data- and attribution-spaces. These spaces both have dimensionality $n \times p$, where $n$ is the number of instances and $p$ is the number of features. The attribution space corresponds to the local explanations for each instance; feature importance in the vicinity of the instance.

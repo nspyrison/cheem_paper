@@ -258,7 +258,7 @@ The radial tour starts from the attribution projection of the misclassified inst
 Figure \@ref(fig:casepenguinsblfl) confirms that flipper length (`fl`) is vital for the confusion of the PI as a Chinstrap. Here, flipper length and body length are plotted, and the PI can be seen to be closer to the Chinstrap group in these two features, mainly because it has an unusually low value of flipper length relative to other Gentoos. From this view, it makes sense that it is a hard instance to account for, as decision trees can only partition only vertical and horizontal lines.
 
 
-## Chocolates, Milk/Dark Chocolate Classification
+## Chocolates, Milk/Dark Classification
 
 <!-- Data description -->
 The chocolates data set consists of 88 instances of ten nutritional measurements determined from their labels and labeled as either milk or dark. Dark chocolate is considered healthier than milk. Students collected the data during the Iowa State University class STAT503 from nutritional information on the manufacturer's websites and were normalized to 100g equivalents. The data is available in the __cheem__ package. A random forest model is used for the classification of chocolate types.

@@ -308,7 +308,7 @@ The 2020 season FIFA data [@leone_fifa_2020; @biecek_dalex_2018] contains many s
 knitr::include_graphics("./figures/case_fifa.png")
 ```
 
-Figure \@ref(fig:casefifa), tests the support of the local explanation. Offensive and reaction skills (`off` and `rct`) are both crucial to explaining a star offensive player. If either of them were rotated out, the other would be rotated into the frame, maintaining a far-right position. However, increasing the contribution of a variable with low importance would rotate both features out of the frame.
+Figure \@ref(fig:casefifa) tests the support of the local explanation. Offensive and reaction skills (`off` and `rct`) are both crucial to explaining a star offensive player. If either of them were rotated out, the other would be rotated into the frame, maintaining a far-right position. However, increasing the contribution of a variable with low importance would rotate both features out of the frame.
 
 The contribution from `def` will be varied to contrast with offensive skills. As the contribution of defensive skills increases, Messi's is no longer separated from the group. Players with high values in defensive skills are now the rightmost points. In terms of what-if analysis, the difference between the data mean and his predicted wages would be halved if Messi's tree SHAP attributions were at these levels.
 

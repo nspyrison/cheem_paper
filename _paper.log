@@ -1,13 +1,13 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.10)  11 MAY 2022 14:19
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  11 MAY 2022 14:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **_paper.tex
 (./_paper.tex
 LaTeX2e <2021-11-15> patch level 1
-L3 programming layer <2022-05-04> (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/article.cls
+L3 programming layer <2022-02-24> (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/article.cls
 Document Class: article 2021/10/04 v1.4n Standard LaTeX document class
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/size11.clo
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/size11.clo
 File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 )
 \c@part=\count185
@@ -23,22 +23,22 @@ File: size11.clo 2021/10/04 v1.4n Standard LaTeX file (size option)
 \bibindent=\dimen138
 ) (./jmlr2e.sty
 Document Style `jmlr'.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/epsfig.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/epsfig.sty
 Package: epsfig 2017/06/25 v1.7b (e)psfig emulation (SPQR)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks16
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2021/08/11 v1.11 sin cos tan (DPC)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen139
@@ -46,9 +46,9 @@ File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
 )
 \epsfxsize=\dimen141
 \epsfysize=\dimen142
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
 Package: amssymb 2013/01/14 v3.01 AMS font symbols
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks17
 \symAMSa=\mathgroup4
@@ -56,55 +56,55 @@ Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
-)) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
+)) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
 \bibhang=\skip49
 \bibsep=\skip50
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count193
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
 Package: hyperref 2022-02-21 v7.00n Hypertext links for LaTeX
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
 Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
 Package: iftex 2022/02/03 v1.0f TeX engine tests
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
 Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
 Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
 )
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvsetkeys/kvsetkeys.sty
 Package: kvsetkeys 2019/12/15 v1.18 Key value parser (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
 Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
 Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
 Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/letltxmacro/letltxmacro.sty
 Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/auxhook/auxhook.sty
 Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
 Package: kvoptions 2020-10-07 v3.14 Key value format for package options (HO)
 )
 \@linkdim=\dimen143
 \Hy@linkcounter=\count194
 \Hy@pagecounter=\count195
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2022-02-21 v7.00n Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/etexcmds/etexcmds.sty
 Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
 )
 \Hy@SavedSpaceFactor=\count196
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
 File: puenc.def 2022-02-21 v7.00n Hyperref: PDF Unicode definition (HO)
 Now handling font encoding PU ...
 ... no UTF-8 mapping file for font encoding PU
@@ -118,15 +118,15 @@ Package hyperref Info: Backreferencing OFF on input line 4157.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4390.
 \c@Hy@tempcnt=\count197
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/url/url.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip16
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4749.
 \XeTeXLinkMargin=\dimen144
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO)
 ))
 \Fld@menulength=\count198
@@ -141,7 +141,7 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6052.
 Package hyperref Info: PDF/A mode OFF on input line 6057.
 LaTeX Info: Redefining \ref on input line 6097.
 LaTeX Info: Redefining \pageref on input line 6101.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atbegshi-ltx.sty
 Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
 package with kernel methods
 )
@@ -150,17 +150,17 @@ package with kernel methods
 \c@Hfootnote=\count267
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2022-02-21 v7.00n Hyperref driver for pdfTeX
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/base/atveryend-ltx.sty
 Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atveryend package
 with kernel methods
 )
 \Fld@listcount=\count268
 \c@bookmark@seq@number=\count269
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
 Package: rerunfilecheck 2019/12/05 v1.9 Rerun checks for auxiliary files (HO)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
 Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 )
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 286.
@@ -171,28 +171,28 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 28
 \beforetitskip=\skip53
 \interauthorskip=\skip54
 \aftermaketitskip=\skip55
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2021/12/07 v1.3c Standard LaTeX Color (DPC)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package color Info: Driver file: pdftex.def on input line 149.
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2022/04/12 4.2 verbatim text (tvz,hv)
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2021/12/21 4.1b verbatim text (tvz,hv)
 \FV@CodeLineNo=\count270
 \FV@InFile=\read2
 \FV@TabBox=\box50
 \c@FancyVerbLine=\count271
 \FV@StepNumber=\count272
 \FV@OutFile=\write3
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/framed/framed.sty
 Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \OuterFrameSep=\skip56
 \fb@frw=\dimen147
 \fb@frh=\dimen148
 \FrameRule=\dimen149
 \FrameSep=\dimen150
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \LTleft=\skip57
 \LTright=\skip58
@@ -210,7 +210,7 @@ Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
 \c@LT@tables=\count276
 \c@LT@chunks=\count277
 \LT@p@ftn=\toks18
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \heavyrulewidth=\dimen152
 \lightrulewidth=\dimen153
@@ -229,7 +229,7 @@ Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
 \@thisruleclass=\count280
 \@lastruleclass=\count281
 \@thisrulewidth=\dimen164
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/array.sty
 Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
 \col@sep=\dimen165
 \ar@mcellbox=\box56
@@ -238,7 +238,7 @@ Package: array 2021/10/04 v2.5f Tabular extension package (FMi)
 \extratabsurround=\skip61
 \backup@length=\skip62
 \ar@cellbox=\box57
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
 \calc@Acount=\count282
 \calc@Bcount=\count283
@@ -250,10 +250,10 @@ LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
 \calc@Ccount=\count284
 \calc@Cskip=\skip65
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
 Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count285
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/mdwtools/footnote.sty
 Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \fn@notes=\box58
 \fn@width=\dimen169
@@ -261,39 +261,39 @@ Package: footnote 1997/01/28 1.13 Save footnotes around boxes
 \cslhangindent=\skip66
 \csllabelwidth=\skip67
 \cslentryspacingunit=\skip68
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
 \multirow@colwidth=\skip69
 \multirow@cntb=\count286
 \multirow@dima=\skip70
 \bigstrutjot=\dimen170
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen171
 \WF@size=\dimen172
 \c@WF@wrappedlines=\count287
 \WF@box=\box59
 \WF@everypar=\toks20
 Package: wrapfig 2003/01/31  v 3.6
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/float/float.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/float/float.sty
 Package: float 2001/11/08 v1.3d Float enhancements (AL)
 \c@float@type=\count288
 \float@exts=\toks21
 \float@box=\box60
 \@float@everytoks=\toks22
 \@floatcapt=\box61
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2020/01/04 v1.0e Color table columns (DPC)
 \everycr=\toks23
 \minrowclearance=\skip71
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2019/12/05 v0.12 Display of landscape pages in PDF (HO)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
 Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/tabu/tabu.sty
 Package: tabu 2019/01/11 v2.9 - flexible LaTeX tabulars (FC+tabu-fixed)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/varwidth/varwidth.sty
 Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \@vwid@box=\box62
 \sift@deathcycles=\count289
@@ -322,20 +322,20 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@hleads=\box65
 \tabu@vleads=\box66
 \tabu@cellskip=\skip72
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box67
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/threeparttablex/threeparttablex.sty
 Package: threeparttablex 2013/07/23 v0.3 by daleif
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/environ/environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )
 \@envbody=\toks26
 )
 \TPTL@width=\skip73
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box68
 \UL@hyphenbox=\box69
 \UL@skip=\skip74
@@ -346,14 +346,14 @@ Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 \ULC@box=\box70
 Package: ulem 2019/11/18
 \ULdepth=\dimen186
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/makecell/makecell.sty
 Package: makecell 2009/08/03 V0.1e Managing of Tab Column Heads and Cells
 \rotheadsize=\dimen187
 \c@nlinenum=\count297
 \TeXr@lab=\toks28
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2021/10/31 v2.13 LaTeX color extensions (UK)
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
 File: color.cfg 2016/01/02 v1.6 sample color configuration
 )
 Package xcolor Info: Driver file: pdftex.def on input line 227.
@@ -367,8 +367,8 @@ Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1372.
 Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1373.
 Package xcolor Info: Model `Gray' substituted by `gray' on input line 1374.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
-File: l3backend-pdftex.def 2022-04-20 L3 backend support: PDF output (pdfTeX)
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
+File: l3backend-pdftex.def 2022-02-07 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count298
 \l__pdf_internal_box=\box71
 ) (./_paper.aux)
@@ -392,18 +392,18 @@ LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 141.
 LaTeX Font Info:    ... okay on input line 141.
 LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 141.
 LaTeX Font Info:    ... okay on input line 141.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
 Package hyperref Info: Link coloring OFF on input line 141.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
 Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
-) (/Users/cookd/Library/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+) (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count299
@@ -416,16 +416,16 @@ LaTeX Info: Redefining \nameref on input line 141.
 \openout4 = `_paper.out'.
 
 LaTeX Font Info:    Trying to load font information for U+msa on input line 156.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Trying to load font information for U+msb on input line 156.
-(/Users/cookd/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+(c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 Underfull \vbox (badness 1210) has occurred while \output is active []
 
-[1{/Users/cookd/Library/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+[1{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
 ] [2]
 <./figures/shap_distr_bd.png, id=112, 440.847pt x 578.16pt>
@@ -442,8 +442,7 @@ Underfull \vbox (badness 4108) has occurred while \output is active []
 [3]
 Underfull \vbox (badness 4108) has occurred while \output is active []
 
-[4] [5
-pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
+[4] [5pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.233 ...The Cheem Viewer}\label{sec:cheemviewer}}
@@ -461,22 +460,20 @@ Package pdftex.def Info: ./figures/app_regression_interactions.png  used on inpu
 
 Underfull \vbox (badness 1939) has occurred while \output is active []
 
-[7] [8
-pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
+[7] [8pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.283 \end{figure}
-                   <./figures/app_classification.png>]
+                   <./figures/app_classification.PNG>]
 Overfull \hbox (5.38435pt too wide) in paragraph at lines 302--304
 \OT1/cmr/m/n/10.95 and Wiener 2002), com-pat-i-bil-ity tree SHAP. Mod-est hy-per-pa-ram-e-ters are used, namely:
  []
 
-[9] [10
-pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
+[9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.312 ...nfrastructure}\label{sec:infrastructure}}
-                                                   <./figures/app_regression_interactions.png>]
+                                                   <./figures/app_regression_interactions.PNG>]
 
 Package xcolor Warning: Incompatible color definition on input line 321.
 
@@ -515,21 +512,18 @@ Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 395.
 
 Underfull \vbox (badness 4805) has occurred while \output is active []
 
-[12] [13
-pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
+[12] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.403 
        <./figures/case_penguins.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[14
-pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
+[14pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.409 
-       <./figures/case_penguins_BlFl.png>] [15
-pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
+       <./figures/case_penguins_BlFl.png>] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.409 
@@ -558,25 +552,19 @@ LaTeX Warning: Float too large for page by 3.76248pt on input line 456.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
-[16] [17
-pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
+[16] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.462 
-       <./figures/case_chocolates_inverse.png>] [18
-pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
+       <./figures/case_chocolates_inverse.png>] [18pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.462 
-       <./figures/case_fifa.png>] [19
-pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
+       <./figures/case_fifa.png>] [19pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.462 
-       <./figures/case_ames2018.png>] [20]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[21]
+       <./figures/case_ames2018.png>] [20] [21]
 Overfull \hbox (202.84843pt too wide) in paragraph at lines 538--540
 \OT1/cmr/m/n/10.95 Women.'' \OT1/cmr/m/it/10.95 Reuters\OT1/cmr/m/n/10.95 , Oc-to-ber. []$\OT1/cmtt/m/n/10.95 https : / / www . reuters . com / article / us-[]amazon-[]com-[]jobs-[]automation-[]insight-[]idUSKCN1MK08G$[]\OT1/cmr/m/n/10.95 . 
  []
@@ -585,23 +573,23 @@ Overfull \hbox (202.84843pt too wide) in paragraph at lines 538--540
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [22]
-Overfull \hbox (20.8976pt too wide) in paragraph at lines 562--564
+Overfull \hbox (20.8976pt too wide) in paragraph at lines 565--567
 \OT1/cmr/m/n/10.95 ``Gbm: Gen-er-al-ized Boosted Re-gres-sion Mod-els.'' []$\OT1/cmtt/m/n/10.95 https : / / CRAN . R-[]project . org / package =
  []
 
 
-Overfull \hbox (86.44087pt too wide) in paragraph at lines 577--579
+Overfull \hbox (86.44087pt too wide) in paragraph at lines 580--582
 \OT1/cmtt/m/n/10.95 org / article / how-[]we-[]analyzed-[]the-[]compas-[]recidivism-[]algorithm ? token = RPR1E2qtzJltfJ0tS-[]gB _
  []
 
 
-Overfull \hbox (51.24901pt too wide) in paragraph at lines 586--588
-[]\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
+Overfull \hbox (51.24901pt too wide) in paragraph at lines 589--591
+[][]\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
  []
 
 
-Overfull \hbox (12.57013pt too wide) in paragraph at lines 598--600
-[]\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []$\OT1/cmtt/m/n/10.95 https : / / christophm .
+Overfull \hbox (12.57013pt too wide) in paragraph at lines 601--603
+[][]\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []$\OT1/cmtt/m/n/10.95 https : / / christophm .
  []
 
 
@@ -614,18 +602,18 @@ Package rerunfilecheck Info: File `_paper.out' has not changed.
 (rerunfilecheck)             Checksum: 478833D47E52CE3DF7836FCB7316F28C;3122.
  ) 
 Here is how much of TeX's memory you used:
- 12295 strings out of 480260
- 194799 string characters out of 5893668
- 495197 words of memory out of 5000000
- 29880 multiletter control sequences out of 15000+600000
+ 12276 strings out of 480216
+ 196067 string characters out of 5893255
+ 494480 words of memory out of 5000000
+ 29898 multiletter control sequences out of 15000+600000
  479715 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 85i,7n,90p,1401b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
- </Users/cookd/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </Users/cookd/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2338164 bytes).
+ 85i,7n,90p,1401b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
+ <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on _paper.pdf (24 pages, 2338648 bytes).
 PDF statistics:
- 493 PDF objects out of 1000 (max. 8388607)
- 415 compressed objects within 5 object streams
- 130 named destinations out of 1000 (max. 500000)
+ 497 PDF objects out of 1000 (max. 8388607)
+ 419 compressed objects within 5 object streams
+ 132 named destinations out of 1000 (max. 500000)
  206 words of extra memory for PDF output out of 10000 (max. 10000000)
 

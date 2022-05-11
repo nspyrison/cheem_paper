@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.10)  11 MAY 2022 13:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.10)  11 MAY 2022 14:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -547,6 +547,14 @@ Package pdftex.def Info: ./figures/case_fifa.png  used on input line 436.
 
 LaTeX Warning: Float too large for page by 17.36249pt on input line 441.
 
+<./figures/case_ames2018.png, id=253, 433.62pt x 505.89pt>
+File: ./figures/case_ames2018.png Graphic file (type png)
+<use ./figures/case_ames2018.png>
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 451.
+(pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
+
+LaTeX Warning: Float too large for page by 3.76248pt on input line 456.
+
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -554,27 +562,18 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.451 
+l.462 
        <./figures/case_chocolates_inverse.png>] [18
 pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.451 
-       <./figures/case_fifa.png>]
-<./figures/case_ames2018.png, id=271, 433.62pt x 505.89pt>
-File: ./figures/case_ames2018.png Graphic file (type png)
-<use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 456.
-(pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
-
-LaTeX Warning: Float too large for page by 17.36249pt on input line 461.
-
-[19] [20
+l.462 
+       <./figures/case_fifa.png>] [19
 pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.475 
-       <./figures/case_ames2018.png>]
+l.462 
+       <./figures/case_ames2018.png>] [20]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [21]
@@ -617,13 +616,13 @@ Package rerunfilecheck Info: File `_paper.out' has not changed.
 Here is how much of TeX's memory you used:
  12295 strings out of 480260
  194819 string characters out of 5893668
- 494273 words of memory out of 5000000
+ 495219 words of memory out of 5000000
  29880 multiletter control sequences out of 15000+600000
  479715 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,7n,90p,1401b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/cookd/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </Users/cookd/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2338087 bytes).
+Output written on _paper.pdf (24 pages, 2338040 bytes).
 PDF statistics:
  493 PDF objects out of 1000 (max. 8388607)
  415 compressed objects within 5 object streams

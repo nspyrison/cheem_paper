@@ -444,11 +444,6 @@ Figure \ref{fig:casefifa}, tests the support of the local explanation. Offensive
 
 The contribution from \texttt{def} will be varied to contrast with offensive skills. As the contribution of defensive skills increases, Messi's is no longer separated from the group. Players with high values in defensive skills are now the rightmost points. In terms of what-if analysis, the difference between the data mean and his predicted wages would be halved if Messi's tree SHAP attributions were at these levels.
 
-\hypertarget{ames-housing-2018-sales-price-regression}{%
-\subsection{Ames Housing 2018, Sales Price Regression}\label{ames-housing-2018-sales-price-regression}}
-
-Ames housing data 2018 was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model was fit, predicting the sale price {[}USD{]} from the property features: Lot Area (\texttt{LtA}), Overall Quality (\texttt{Qlt}), Year the house was Built (\texttt{YrB}), Living Area (\texttt{LvA}), number of Bathrooms (\texttt{Bth}), number of Bedrooms (\texttt{Bdr}), the total number of Rooms (\texttt{Rms}), Year the Garage was Built (\texttt{GYB}), and Garage Area (\texttt{GrA}). Using interactions with the global view, a house with an extreme negative residual and an accurate instance with a similar prediction is selected.
-
 
 
 \begin{figure}
@@ -457,8 +452,13 @@ Ames housing data 2018 was subset to North Ames (the neighborhood with the most 
 
 }
 
-\caption{The largest neighborhood of Ames house price data is fit with a random forest predicting the sales price {[}USD{]}. Exploring an instance with an extreme residual as the PI and an accurate prediction for a similar price is used for comparison. The local explanation indicates a sizable attribution to Lot Area (\texttt{LtA}), while the CI has minimal attribution to this feature. The PI has a higher predicted value than the CI in the attribution projection. Reducing the contribution of Lot Area brings these two prices in line. This suggests that if the model did not value Lot Area so highly for this observation, then the observed sales price would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at \url{https://vimeo.com/666431134}.)}\label{fig:caseames}
+\caption{Exploring an instance with an extreme residual as the PI in relation to an instance with an accurate prediction for a similarly priced house in a random forest fit to the Ames housing data. The local explanation indicates a sizable attribution to Lot Area (\texttt{LtA}), while the CI has minimal attribution to this feature. The PI has a higher predicted value than the CI in the attribution projection. Reducing the contribution of Lot Area brings these two prices in line. This suggests that if the model did not value Lot Area so highly for this observation, then the observed sales price would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at \url{https://vimeo.com/666431134}.)}\label{fig:caseames}
 \end{figure}
+
+\hypertarget{ames-housing-2018-sales-price-regression}{%
+\subsection{Ames Housing 2018, Sales Price Regression}\label{ames-housing-2018-sales-price-regression}}
+
+Ames housing data 2018 was subset to North Ames (the neighborhood with the most house sales). The remaining are 338 house sales. A random forest model was fit, predicting the sale price {[}USD{]} from the property features: Lot Area (\texttt{LtA}), Overall Quality (\texttt{Qlt}), Year the house was Built (\texttt{YrB}), Living Area (\texttt{LvA}), number of Bathrooms (\texttt{Bth}), number of Bedrooms (\texttt{Bdr}), the total number of Rooms (\texttt{Rms}), Year the Garage was Built (\texttt{GYB}), and Garage Area (\texttt{GrA}). Using interactions with the global view, a house with an extreme negative residual and an accurate instance with a similar prediction is selected.
 
 Figure \ref{fig:caseames} selects the house sale 74, a sizable under prediction with an enormous Lot Area contribution. The CI has a similar predicted price though the prediction was accurate and gives almost no attribution to lot size. The attribution projection places instances with high Living Areas to the right. The contribution of Living Area contrasts the contribution of this feature. As the contribution of Lot Area decreases, the predictive power decreases for the PI, while the CI remains stationary. This large importance in the Living Area is relatively uncommon. Boosting tree models may be more resilient to such an under-prediction as they would up-weighting this residual and force its inclusion in the final model.
 

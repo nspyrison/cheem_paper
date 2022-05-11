@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.10)  11 MAY 2022 14:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (TeX Live 2022) (preloaded format=pdflatex 2022.5.10)  11 MAY 2022 14:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -573,16 +573,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
 l.462 
-       <./figures/case_ames2018.png>] [20]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[21]
-Overfull \hbox (202.84843pt too wide) in paragraph at lines 536--538
+       <./figures/case_ames2018.png>] [20] [21]
+Overfull \hbox (202.84843pt too wide) in paragraph at lines 538--540
 \OT1/cmr/m/n/10.95 Women.'' \OT1/cmr/m/it/10.95 Reuters\OT1/cmr/m/n/10.95 , Oc-to-ber. []$\OT1/cmtt/m/n/10.95 https : / / www . reuters . com / article / us-[]amazon-[]com-[]jobs-[]automation-[]insight-[]idUSKCN1MK08G$[]\OT1/cmr/m/n/10.95 . 
  []
 
 
-Overfull \hbox (20.8976pt too wide) in paragraph at lines 560--562
+Overfull \hbox (20.8976pt too wide) in paragraph at lines 562--564
 \OT1/cmr/m/n/10.95 ``Gbm: Gen-er-al-ized Boosted Re-gres-sion Mod-els.'' []$\OT1/cmtt/m/n/10.95 https : / / CRAN . R-[]project . org / package =
  []
 
@@ -590,17 +587,17 @@ Overfull \hbox (20.8976pt too wide) in paragraph at lines 560--562
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [22]
-Overfull \hbox (86.44087pt too wide) in paragraph at lines 575--577
+Overfull \hbox (86.44087pt too wide) in paragraph at lines 577--579
 \OT1/cmtt/m/n/10.95 org / article / how-[]we-[]analyzed-[]the-[]compas-[]recidivism-[]algorithm ? token = RPR1E2qtzJltfJ0tS-[]gB _
  []
 
 
-Overfull \hbox (51.24901pt too wide) in paragraph at lines 584--586
+Overfull \hbox (51.24901pt too wide) in paragraph at lines 586--588
 []\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
  []
 
 
-Overfull \hbox (12.57013pt too wide) in paragraph at lines 596--598
+Overfull \hbox (12.57013pt too wide) in paragraph at lines 598--600
 []\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []$\OT1/cmtt/m/n/10.95 https : / / christophm .
  []
 
@@ -622,7 +619,7 @@ Here is how much of TeX's memory you used:
  14 hyphenation exceptions out of 8191
  85i,7n,90p,1401b,461s stack positions out of 10000i,1000n,20000p,200000b,200000s
  </Users/cookd/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </Users/cookd/Library/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></Users/cookd/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2338040 bytes).
+Output written on _paper.pdf (24 pages, 2338181 bytes).
 PDF statistics:
  493 PDF objects out of 1000 (max. 8388607)
  415 compressed objects within 5 object streams

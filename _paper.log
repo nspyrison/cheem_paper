@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  11 MAY 2022 19:07
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (TeX Live 2021/W32TeX) (preloaded format=pdflatex 2022.3.21)  14 MAR 2023 15:41
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -415,99 +415,87 @@ LaTeX Info: Redefining \nameref on input line 141.
 \@outlinefile=\write4
 \openout4 = `_paper.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 156.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 158.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 156.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 158.
 (c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \vbox (badness 1210) has occurred while \output is active []
+) [1{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-[1{c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
-
-] [2]
-<./figures/shap_distr_bd.png, id=112, 440.847pt x 578.16pt>
+] [2] [3]
+<./figures/shap_distr_bd.png, id=118, 440.847pt x 578.16pt>
 File: ./figures/shap_distr_bd.png Graphic file (type png)
 <use ./figures/shap_distr_bd.png>
-Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 212.
+Package pdftex.def Info: ./figures/shap_distr_bd.png  used on input line 214.
 (pdftex.def)             Requested size: 368.57964pt x 483.38383pt.
 
-LaTeX Warning: Float too large for page by 17.61806pt on input line 217.
-
-
-Underfull \vbox (badness 4108) has occurred while \output is active []
-
-[3]
-Underfull \vbox (badness 4108) has occurred while \output is active []
+LaTeX Warning: Float too large for page by 17.61806pt on input line 219.
 
 [4] [5pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.233 ...The Cheem Viewer}\label{sec:cheemviewer}}
-                                                   <./figures/shap_distr_bd.png>] [6]
+l.233 
+       <./figures/shap_distr_bd.png>] [6]
 <./figures/app_classification.png, id=155, 592.614pt x 549.85425pt>
 File: ./figures/app_classification.png Graphic file (type png)
 <use ./figures/app_classification.png>
-Package pdftex.def Info: ./figures/app_classification.png  used on input line 262.
+Package pdftex.def Info: ./figures/app_classification.png  used on input line 264.
 (pdftex.def)             Requested size: 433.62pt x 402.33833pt.
 <./figures/app_regression_interactions.png, id=157, 596.82974pt x 605.26125pt>
 File: ./figures/app_regression_interactions.png Graphic file (type png)
 <use ./figures/app_regression_interactions.png>
-Package pdftex.def Info: ./figures/app_regression_interactions.png  used on input line 278.
+Package pdftex.def Info: ./figures/app_regression_interactions.png  used on input line 280.
 (pdftex.def)             Requested size: 433.62pt x 439.7498pt.
-
-Underfull \vbox (badness 1939) has occurred while \output is active []
-
 [7] [8pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.283 \end{figure}
+l.285 \end{figure}
                    <./figures/app_classification.PNG>]
-Overfull \hbox (5.38435pt too wide) in paragraph at lines 302--304
+Overfull \hbox (5.38435pt too wide) in paragraph at lines 304--306
 \OT1/cmr/m/n/10.95 and Wiener 2002), com-pat-i-bil-ity tree SHAP. Mod-est hy-per-pa-ram-e-ters are used, namely:
  []
 
 [9] [10pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.312 ...nfrastructure}\label{sec:infrastructure}}
+l.314 ...nfrastructure}\label{sec:infrastructure}}
                                                    <./figures/app_regression_interactions.PNG>]
 
-Package xcolor Warning: Incompatible color definition on input line 321.
+Package xcolor Warning: Incompatible color definition on input line 323.
 
 
-Package xcolor Warning: Incompatible color definition on input line 327.
+Package xcolor Warning: Incompatible color definition on input line 329.
 
 
-Package xcolor Warning: Incompatible color definition on input line 327.
+Package xcolor Warning: Incompatible color definition on input line 329.
 
 
-Overfull \hbox (10.55267pt too wide) in paragraph at lines 334--337
+Overfull \hbox (10.55267pt too wide) in paragraph at lines 336--339
 []\OT1/cmr/m/n/10.95 A ver-sion of the cheem viewer shiny app can be di-rectly ac-cessed at []$\OT1/cmtt/m/n/10.95 https : / / ebsmonash .
  []
 
 
-Overfull \hbox (14.29437pt too wide) in paragraph at lines 337--339
+Overfull \hbox (14.29437pt too wide) in paragraph at lines 339--341
 []\OT1/cmr/m/n/10.95 The de-vel-op-ment ver-sion of the pack-age is avail-able at []$\OT1/cmtt/m/n/10.95 https : / / github . com / nspyrison /
  []
 
-<./figures/case_penguins.png, id=190, 433.62pt x 433.62pt>
+<./figures/case_penguins.png, id=191, 433.62pt x 433.62pt>
 File: ./figures/case_penguins.png Graphic file (type png)
 <use ./figures/case_penguins.png>
-Package pdftex.def Info: ./figures/case_penguins.png  used on input line 358.
+Package pdftex.def Info: ./figures/case_penguins.png  used on input line 360.
 (pdftex.def)             Requested size: 433.62pt x 433.63878pt.
 [11]
-<./figures/case_penguins_BlFl.png, id=205, 309.155pt x 151.56625pt>
+<./figures/case_penguins_BlFl.png, id=206, 309.155pt x 151.56625pt>
 File: ./figures/case_penguins_BlFl.png Graphic file (type png)
 <use ./figures/case_penguins_BlFl.png>
-Package pdftex.def Info: ./figures/case_penguins_BlFl.png  used on input line 371.
+Package pdftex.def Info: ./figures/case_penguins_BlFl.png  used on input line 373.
 (pdftex.def)             Requested size: 433.62pt x 212.60527pt.
-<./figures/case_chocolates.png, id=207, 433.62pt x 433.62pt>
+<./figures/case_chocolates.png, id=208, 433.62pt x 433.62pt>
 File: ./figures/case_chocolates.png Graphic file (type png)
 <use ./figures/case_chocolates.png>
-Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 395.
+Package pdftex.def Info: ./figures/case_chocolates.png  used on input line 397.
 (pdftex.def)             Requested size: 433.62pt x 433.63878pt.
 
 Underfull \vbox (badness 4805) has occurred while \output is active []
@@ -515,39 +503,39 @@ Underfull \vbox (badness 4805) has occurred while \output is active []
 [12] [13pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.403 
+l.405 
        <./figures/case_penguins.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [14pdfTeX warning (ext4): destination with the same identifier (name{figure.5}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.409 
+l.411 
        <./figures/case_penguins_BlFl.png>] [15pdfTeX warning (ext4): destination with the same identifier (name{figure.6}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.409 
+l.411 
        <./figures/case_chocolates.png>]
-<./figures/case_chocolates_inverse.png, id=244, 433.62pt x 433.62pt>
+<./figures/case_chocolates_inverse.png, id=245, 433.62pt x 433.62pt>
 File: ./figures/case_chocolates_inverse.png Graphic file (type png)
 <use ./figures/case_chocolates_inverse.png>
-Package pdftex.def Info: ./figures/case_chocolates_inverse.png  used on input line 416.
+Package pdftex.def Info: ./figures/case_chocolates_inverse.png  used on input line 418.
 (pdftex.def)             Requested size: 433.62pt x 433.63878pt.
-<./figures/case_fifa.png, id=249, 433.62pt x 505.89pt>
+<./figures/case_fifa.png, id=250, 433.62pt x 505.89pt>
 File: ./figures/case_fifa.png Graphic file (type png)
 <use ./figures/case_fifa.png>
-Package pdftex.def Info: ./figures/case_fifa.png  used on input line 436.
+Package pdftex.def Info: ./figures/case_fifa.png  used on input line 438.
 (pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
 
-LaTeX Warning: Float too large for page by 17.36249pt on input line 441.
+LaTeX Warning: Float too large for page by 17.36249pt on input line 443.
 
-<./figures/case_ames2018.png, id=253, 433.62pt x 505.89pt>
+<./figures/case_ames2018.png, id=254, 433.62pt x 505.89pt>
 File: ./figures/case_ames2018.png Graphic file (type png)
 <use ./figures/case_ames2018.png>
-Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 451.
+Package pdftex.def Info: ./figures/case_ames2018.png  used on input line 453.
 (pdftex.def)             Requested size: 390.25534pt x 455.31993pt.
 
-LaTeX Warning: Float too large for page by 3.76248pt on input line 456.
+LaTeX Warning: Float too large for page by 3.76248pt on input line 458.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -555,17 +543,17 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 [16] [17pdfTeX warning (ext4): destination with the same identifier (name{figure.7}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.462 
+l.464 
        <./figures/case_chocolates_inverse.png>] [18pdfTeX warning (ext4): destination with the same identifier (name{figure.8}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.462 
+l.464 
        <./figures/case_fifa.png>] [19pdfTeX warning (ext4): destination with the same identifier (name{figure.9}) has been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.462 
+l.464 
        <./figures/case_ames2018.png>] [20] [21]
-Overfull \hbox (202.84843pt too wide) in paragraph at lines 538--540
+Overfull \hbox (202.84843pt too wide) in paragraph at lines 540--542
 \OT1/cmr/m/n/10.95 Women.'' \OT1/cmr/m/it/10.95 Reuters\OT1/cmr/m/n/10.95 , Oc-to-ber. []$\OT1/cmtt/m/n/10.95 https : / / www . reuters . com / article / us-[]amazon-[]com-[]jobs-[]automation-[]insight-[]idUSKCN1MK08G$[]\OT1/cmr/m/n/10.95 . 
  []
 
@@ -573,23 +561,23 @@ Overfull \hbox (202.84843pt too wide) in paragraph at lines 538--540
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [22]
-Overfull \hbox (20.8976pt too wide) in paragraph at lines 565--567
+Overfull \hbox (20.8976pt too wide) in paragraph at lines 567--569
 \OT1/cmr/m/n/10.95 ``Gbm: Gen-er-al-ized Boosted Re-gres-sion Mod-els.'' []$\OT1/cmtt/m/n/10.95 https : / / CRAN . R-[]project . org / package =
  []
 
 
-Overfull \hbox (86.44087pt too wide) in paragraph at lines 580--582
+Overfull \hbox (86.44087pt too wide) in paragraph at lines 582--584
 \OT1/cmtt/m/n/10.95 org / article / how-[]we-[]analyzed-[]the-[]compas-[]recidivism-[]algorithm ? token = RPR1E2qtzJltfJ0tS-[]gB _
  []
 
 
-Overfull \hbox (51.24901pt too wide) in paragraph at lines 589--591
-[][]\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
+Overfull \hbox (51.24901pt too wide) in paragraph at lines 591--593
+[]\OT1/cmr/m/n/10.95 Leone, Ste-fano. 2020. ``FIFA 20 Com-plete Player Dataset.'' []$\OT1/cmtt/m/n/10.95 https : / / kaggle . com / stefanoleone992 /
  []
 
 
-Overfull \hbox (12.57013pt too wide) in paragraph at lines 601--603
-[][]\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []$\OT1/cmtt/m/n/10.95 https : / / christophm .
+Overfull \hbox (12.57013pt too wide) in paragraph at lines 603--605
+[]\OT1/cmr/m/n/10.95 Molnar, Christoph. 2020. \OT1/cmr/m/it/10.95 In-ter-pretable Ma-chine Learn-ing\OT1/cmr/m/n/10.95 . Lulu. com. []$\OT1/cmtt/m/n/10.95 https : / / christophm .
  []
 
 
@@ -604,16 +592,16 @@ Package rerunfilecheck Info: File `_paper.out' has not changed.
 Here is how much of TeX's memory you used:
  12276 strings out of 480216
  196067 string characters out of 5893255
- 494480 words of memory out of 5000000
+ 494534 words of memory out of 5000000
  29898 multiletter control sequences out of 15000+600000
  479715 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  85i,7n,90p,1401b,461s stack positions out of 5000i,500n,10000p,200000b,80000s
  <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> <c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm0800.600pk><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtcsc10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Users/spyri/AppData/Roaming/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on _paper.pdf (24 pages, 2339023 bytes).
+Output written on _paper.pdf (24 pages, 2340858 bytes).
 PDF statistics:
- 497 PDF objects out of 1000 (max. 8388607)
- 419 compressed objects within 5 object streams
+ 498 PDF objects out of 1000 (max. 8388607)
+ 420 compressed objects within 5 object streams
  132 named destinations out of 1000 (max. 500000)
  206 words of extra memory for PDF output out of 10000 (max. 10000000)
 

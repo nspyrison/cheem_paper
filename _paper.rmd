@@ -5,12 +5,16 @@ author:
 - familyname: Spyrison
   othernames: Nicholas
   address: Monash University\newline Australia\newline ORCiD 0000-0002-8417-0212
-  email: nicholas.spyrison@monash.edu
+  email: spyrison@gmail.com
   correspondingauthor: true
 - familyname: Cook
   othernames: Dianne
   address: Monash University\newline ORCiD 0000-0002-3813-7155
   email: dicook@monash.edu
+- familyname: Biecek
+  othernames: Przemyslaw
+  address:  Warsaw University of Technology and University of Warsaw\newline ORCiD 0000-0001-8423-1823
+  email: przemyslaw.biecek@gmail.com
 # - familyname: Marriott
 #   othernames: Kim
 #   address: Monash University\newline ORCiD 0000-0002-9813-0377

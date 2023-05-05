@@ -168,24 +168,28 @@ To explore the local explanations, coordinated views [@roberts_state_2007] [also
 ## Global View
 
 <!-- Purpose -->
-The global view provides context for all observations and facilitates the exploration of the separability of the data- and attribution-spaces. These spaces both have dimensionality $n \times p$, where $n$ is the number of observations and $p$ is the number of variables. The attribution space corresponds to the local explanations for each observation; variable importance in the vicinity of the observation.
+The global view provides context for all observations and facilitates the exploration of the separability of the data and attribution spaces. The attribution space refers to the SHAP values for each observation. These spaces both have dimensionality $n \times p$, where $n$ is the number of observations and $p$ is the number of variables. 
 
 <!-- Approximations of the spaces, PC1:2 -->
-The visualization is composed of the first two principal components of the data (left) and the attribution (middle) spaces. These single 2D projections will not reveal all of the structure of higher-dimensional space, but they are helpful visual summaries. In addition, a plot of the observed against predicted response values is also provided (Figures \ref{fig:classificationcase}b, \ref{fig:regressioncase}a) to help identify observations poorly predicted by the model. <!-- Interactions --> For classification tasks, misclassified observations are circled in red. Linked brushing between the plots is provided, and a tabular display of selected points helps to facilitate exploration of the spaces and the model (shown in Figures \ref{fig:regressioncase}d).
+The visualization is composed of the first two principal components of the data (left) and the attribution (middle) spaces. These single 2D projections will not reveal all of the structure of higher-dimensional space, but they are helpful visual summaries. In addition, a plot of the observed against predicted response values is also provided (Figures \ref{fig:classificationcase}b, \ref{fig:regressioncase}a) to help identify observations poorly predicted by the model. <!-- Interactions --> For classification tasks, color indicates the predicted class, and misclassified observations are circled in red. Linked brushing between the plots is provided, and a tabular display of selected points helps to facilitate exploration of the spaces and the model (shown in Figures \ref{fig:regressioncase}d).
 
-While the comparison of these spaces is interesting, the primary purpose of the global view is to enable the selection of particular observations to explore in detail. The projection attribution of the primary observation (PI) is examined and typically viewed with an optional comparison observation (CI). These observations are highlighted as asterisk and $\times$, respectively.
+While the comparison of these spaces is interesting, the primary purpose of the global view is to enable the selection of particular observations to explore in detail. We have designed it to enable a comparison between an observation that is interesting is some way, perhaps misclassified, or poorly predicted, relative to an observation with similar predictor values but more expected prediction. For brevity, we call the interesting observation the primary investigation (PI) and the other is the comparison investigation (CI). These observations are highlighted as asterisk and $\times$, respectively.
 
 
 ## Radial Tour
 
+There are two plots in this part of the interface. The first (Figures \ref{fig:classificationcase}e and \ref{fig:regressioncase}e) is a display of the SHAP values for all observations. This will generally give the global view of variables important for the fit as a whole, but it will also highlight observations which have different patterns. The second plot is the radial tour, which for classification is a density plot of a 1D projection (Figure \ref{fig:classificationcase}f), and for regression are scatterplots of the observed response values, and residuals, against a 1D projection (Figure \ref{fig:regressioncase}f).
+
 <!-- Local explanations as par coords -->
-The local explanations for all observations are normalized (sum of squares equals 1), and thus, the relative importance of variables can be compared across all observations. These are depicted as vertical parallel coordinate plots [@ocagne_coordonnees_1885] on the basis biplot [@gabriel_biplot_1971]. 1D biplot displays the values of the current basis as bars. The parallel coordinate overlays lines connecting one observation's variable attribution (Figures \ref{fig:classificationcase}e and \ref{fig:regressioncase}e). The attribution projections of the PI and CI are shown as dashed and dotted lines. From this plot, the range and density of the importance across all observations can be interpreted. For classification, one would look at differences between groups on any variable. For example, Figure \ref{fig:classificationcase}e suggests that `bl` is important for distinguishing the green class from the other two. For regression, one might generally observe which variables have low values for all observations (not important). For example, `BMI` and `pwr` in Figure \ref{fig:regressioncase}e, have a range of high and low values (e.g., `off`, `def`), suggesting they are important for some observations and not important for others.
+The local explanations for all observations are normalized (sum of squares equals 1), and thus, the relative importance of variables can be compared across all observations. These are depicted as a vertical parallel coordinate plot [@ocagne_coordonnees_1885]. (The SHAP values of the PI and CI are shown as dashed and dotted lines, respectively.) One should obtain a sense of the overall importance of variables from this plot. The more important variables will have larger values, and in the case of classification tasks variables which have different magnitude for different classes are more globally important.  For example, Figure \ref{fig:classificationcase}e suggests that `bl` is important for distinguishing the green class from the other two. For regression, one might generally observe which variables have low values for all observations (not important). For example, `BMI` and `pwr` in Figure \ref{fig:regressioncase}e, have a range of high and low values (e.g., `off`, `def`), suggesting they are important for some observations and not important for others.
+
+
 
 <!-- Segue of PI to attribution projection -->
-The overlaid bars on the parallel coordinate plot represent the attribution projection of the PI. (Remember that the PI is interactively selected from the global view). The attribution projection approximates the variable importance for predicting this observation. The combination of variables best explains the difference between the mean response and an observation’s predicted value. It is not an indication of the local shape of the model surface. That is, it is not some indication of the tangent to the curve at this point.
+A barchart is overlaid to represent the projection shown in the radial tour at right. It starts from the SHAP values of the PI, but if the user changes the projection the length of these bars will reflect this change. (The PI is interactively selected by clicking on a point in the global view). By scaling the SHAP value it becomes an (attribution) projection. <!-- approximates the variable importance for predicting this observation. The combination of variables best explains the difference between the mean response and an observation’s predicted value. It is not an indication of the local shape of the model surface. That is, it is not some indication of the tangent to the curve at this point.-->
 
 <!-- Tour animation -->
-The attribution projection of the PI is the initial 1D basis in a radial tour, displayed as a density plot for a categorical response (Figure \ref{fig:classificationcase}f) and as scatterplots for a quantitative response (Figure \ref{fig:regressioncase}f). The PI and CI are indicated by vertical dashed and dotted lines. The radial tour varies the contribution of the selected variable between 0 and 1. This is viewed as an animation of the projections from many intermediate bases. Doing so tests the sensitivity of structure (class separation or strength of relationship) to the variable's contribution. For classification, if the separation between classes diminishes when the variable contribution is reduced, this suggests that the variable is important for class separation. For regression, if the relationship scatterplot weakens when the variable contribution is reduced, indicating that the variable is important for accurately predicting the response.
+The attribution projection of the PI is the initial 1D basis in a radial tour, displayed as a density plot for a categorical response (Figure \ref{fig:classificationcase}f) and as scatterplots for a quantitative response (Figure \ref{fig:regressioncase}f). The PI and CI are indicated by vertical dashed and dotted lines, respectively. The radial tour varies the contribution of the selected variable. This is viewed as an animation of the projections from many intermediate bases. Doing so tests the sensitivity of structure (class separation or strength of relationship) to the variable's contribution. For classification, if the separation between classes diminishes when the variable contribution is reduced, this suggests that the variable is important for class separation. For regression, if the relationship scatterplot weakens when the variable contribution is reduced, indicating that the variable is important for accurately predicting the response.
 
 
 ## Classification Task
@@ -230,30 +234,6 @@ It is vital to mitigate the render time of visuals, especially when users may wa
 <!-- Note on time of execution -->
 The time to preprocess the data will vary significantly with the complexity of the model and local explanation. For reference, the FIFA data contained 5000 observations of nine explanatory variables took 2.5 seconds to fit a random forest model of modest hyperparameters. Extracting the tree SHAP values of each observation took 270 seconds total. PCA and statistics of the variables and attributions took 2.8 seconds. These runtimes were from a non-parallelized session on a modern laptop, but suffice to say that most of the time will be spent on the local attribution. An increase in model complexity or data dimensionality will quickly become an obstacle. Its reduced computational complexity makes tree SHAP an excellent candidate to start. [Alternatively, the package __fastshap__ claims extremely low runtimes, attributed to fewer calls to the prediction function, partial implementation in C++, and efficient use of logical subsetting, @greenwell_fastshap_2020.]
 
-
-## Package Infrastructure {#sec:infrastructure}
-
-The above-described method and application are implemented as an open-source __R__ package, __cheem__ available on CRAN at \url{https://CRAN.R-project.org/package=cheem}. Preprocessing was facilitated with models created via __randomForest__ [@liaw_classification_2002] and explanations calculated with __treeshap__ [@kominsarczyk_treeshap_2021]. The application was made with __shiny__ [@chang_shiny_2021]. The tour visual is built with __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive `html` widgets with __plotly__ [@sievert_interactive_2020]. __DALEX__ [@biecek_dalex_2018] and the free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] were a boon to understanding local explanations and how to apply them.
-
-
-## Installation and Getting Started
-
-The package can be installed from CRAN, and the application can be run using the following __R__ code:
-
-```{r eval=FALSE, echo=TRUE}
-install.packages("cheem", dependencies = TRUE)
-library("cheem")
-run_app()
-```
-
-Alternatively,
-
-- A version of the cheem viewer shiny app can be directly accessed at
-\url{https://ebsmonash.shinyapps.io/cheem_initial/}.
-- The development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
-- Documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
-
-Follow the examples provided with the package to compute the local explanation (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an `rds` file with `saveRDS()` to be uploaded.
 
 
 # Case Studies {#sec:casestudies}
@@ -364,9 +344,33 @@ An implementation is provided in the open-source __R__ package __cheem__, availa
 
 
 <!--checklist asks for: Acknowledgments, Appendices, then References-->
+## Package Infrastructure {#sec:infrastructure}
+
+The above-described method and application are implemented as an open-source __R__ package, __cheem__ available on CRAN at \url{https://CRAN.R-project.org/package=cheem}. Preprocessing was facilitated with models created via __randomForest__ [@liaw_classification_2002] and explanations calculated with __treeshap__ [@kominsarczyk_treeshap_2021]. The application was made with __shiny__ [@chang_shiny_2021]. The tour visual is built with __spinifex__ [@spyrison_spinifex_2020]. Both views are created first with __ggplot2__ [@wickham_ggplot2_2016] and then rendered as interactive `html` widgets with __plotly__ [@sievert_interactive_2020]. __DALEX__ [@biecek_dalex_2018] and the free ebook, _Explanatory Model Analysis_ [@biecek_explanatory_2021] were a boon to understanding local explanations and how to apply them.
+
+
+## Installation and Getting Started
+
+The package can be installed from CRAN, and the application can be run using the following __R__ code:
+
+```{r eval=FALSE, echo=TRUE}
+install.packages("cheem", dependencies = TRUE)
+library("cheem")
+run_app()
+```
+
+Alternatively,
+
+- A version of the cheem viewer shiny app can be directly accessed at
+\url{https://ebsmonash.shinyapps.io/cheem_initial/}.
+- The development version of the package is available at \url{https://github.com/nspyrison/cheem}, and
+- Documentation of the package can be found at \url{https://nspyrison.github.io/cheem/}.
+
+Follow the examples provided with the package to compute the local explanation (using `?cheem_ls`). The application expects the output returned by `cheem_ls()`, saved to an `rds` file with `saveRDS()` to be uploaded.
+
 ## Acknowledgments {-}
 
-Kim Marriott provided advice on many aspects of this work, especially on the explanations in the applications section. We would like to thank Professor Przemyslaw Biecek for his input early in the project and to the broader MI 2 lab group for the DALEX ecosystem of __R__ and Python packages. This research was supported by the Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
+Kim Marriott provided advice on many aspects of this work, especially on the explanations in the applications section. This research was supported by the Australian Government Research Training Program (RTP) scholarships. Thanks to Jieyang Chong for helping proofread this article. The namesake, Cheem, refers to a fictional race of humanoid trees from Doctor Who lore. __DALEX__ pulls on from that universe, and we initially apply tree SHAP explanations specific to tree-based models.
 
 
 # References

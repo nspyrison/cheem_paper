@@ -8,18 +8,11 @@
   require("cowplot")
   require("patchwork")
   
-  wd <- getwd()
-  if(substr(wd, nchar(wd) - 10, nchar(wd)) != "cheem_paper")
-    warning("Expected work directory to be cheem_paper.")
-  fp <- "../cheem/inst/shiny_apps/cheem_initial/data/"
-  if(F)
-    dir("../cheem/inst/shiny_apps/cheem_initial/data/")
-  
   ## Load data:
-  penguins_ls   <- readRDS(paste0(fp, "preprocess_penguins.rds"))
-  fifa_ls       <- readRDS(paste0(fp, "preprocess_fifa.rds"))
-  ames2018_ls   <- readRDS(paste0(fp, "preprocess_ames2018.rds"))
-  chocolates_ls <- readRDS(paste0(fp, "preprocess_chocolates.rds"))
+  penguins_ls   <- readRDS("data/preprocess_penguins.rds")
+  fifa_ls       <- readRDS("data/preprocess_fifa.rds")
+  ames2018_ls   <- readRDS("data/preprocess_ames2018.rds")
+  chocolates_ls <- readRDS("data/preprocess_chocolates.rds")
   
   .t <- theme(plot.margin = unit(c(0, 0, 0, 0), "cm"),
               axis.text   = element_blank(),

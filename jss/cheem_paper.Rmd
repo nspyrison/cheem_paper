@@ -1,43 +1,46 @@
 ---
 documentclass: jss
-title: 
-  formatted: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
-  plain: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
-  short: "Exploring Local Explanations"
 author:
   - name: Nicholas Spyrison
+    orcid: 0000-0002-8417-0212
     affiliation: Monash University
-    address: >
-      Department of Econometrics and Business Statistics
-      Monash University
+    # use this syntax to add text on several lines
+    address: |
+      | Dept of Human Centred Computing
+      | Faculty of Information Technology
     email: \email{spyrison@gmail.com}
+    url: https://nspyrison.netlify.app
   - name: Dianne Cook
+    orcid: 0000-0002-3813-7155
+    address: |
+      | Dept of Econometrics and Business Statistics
     affiliation: Monash University
   - name: Przemyslaw Biecek
-    affiliation: Warsaw University of Technology and University
+    orcid: 0000-0001-8423-1823
+    affiliation: |
+      | Warsaw University of 
+      | Technology and University
+title:
+  formatted: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
+  plain:     "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
+  # For running headers, if needed
+  short:     "Exploring Local Explanations"
 abstract: >
-  The increased predictive power of nonlinear models comes at the cost of interpretability of its terms. This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction.  "Local explanations", which provide a point estimate of the linear variable importance in the vicinity of one observation, are one XAI method. These can be considered to be linear projections and can be further explored to understand the interactions between variables used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any observation and illustrate with examples from categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) response models. The methods are implemented in the __R__ package __cheem__, available on CRAN.
-keywords:  
+    The increased predictive power of nonlinear models comes at the cost of interpretability of its terms. This trade-off has led to the emergence of eXplainable AI (XAI). XAI attempts to shed light on how models use predictors to arrive at a prediction.  "Local explanations", which provide a point estimate of the linear variable importance in the vicinity of one observation, are one XAI method. These can be considered to be linear projections and can be further explored to understand the interactions between variables used to make predictions across the predictive model surface. Here we describe interactive linear interpolation used for exploration at any observation and illustrate with examples from categorical (penguin species, chocolate types) and quantitative (soccer/football salaries, house prices) response models. The methods are implemented in the R package cheem, available on CRAN.
+keywords:
+  # at least one keyword must be supplied
   formatted: [explainable artificial intelligence, nonlinear model interpretability, visual analytics, local explanations, grand tour, radial tour]
-  plain: [explainable artificial intelligence, nonlinear model interpretability, visual analytics, local explanations, grand tour, radial tour]
-bibliography: paper.bib
+  plain:     [explainable artificial intelligence, nonlinear model interpretability, visual analytics, local explanations, grand tour, radial tour]
 preamble: >
   \usepackage{amsmath}
-  \usepackage[english]{babel}
-  \usepackage{float}
-  \usepackage{booktabs}
-output:
-  bookdown::pdf_book:
-    base_format: rticles::jss_article
-    keep_tex: yes
-    citation_package: 'natbib'
-cls: jss.cls
+output: rticles::jss_article
+bibliography: paper.bib
 ---
 
-```{r include=FALSE, cache=FALSE}
+```{r, setup, include=FALSE}
 ## Compilation dependencies
 library("knitr")
-library("kableExtra")
+#library("kableExtra")
 library("magrittr")
 
 ## chunk options
@@ -54,9 +57,8 @@ knitr::opts_chunk$set(
   fig.width = 8,
   out.width = "100%"
 )
-options(tinytex.clean = FALSE)
-options(tinytex.verbose = TRUE)
 ```
+
 <!-- bookdown::pdf_document2: allows \@ref(), pdf_document: requires \ref{} -->
 <!-- # cheat sheet {#sec:cheatsheet} -->
 <!-- A bib reference [@wickham_visualizing_2015]. -->

@@ -34,7 +34,7 @@
     labs(color = "Predicted class", shape = "Predicted class", x = element_blank()) +
     ggtitle("Global view") + theme(legend.position  = "bottom",
                                    legend.direction = "horizontal")
-  .bas <- basis_attr_df(penguins_ls$attr_df, prim_obs)
+  .bas <- sug_basis(penguins_ls$attr_df, prim_obs)
   .mv  <- which(colnames(penguins_ls$attr_df) == "fl")
   ## Cheem tour for stills
   mt_interp <- manual_tour(basis = .bas, manip_var = .mv) %>%
@@ -112,7 +112,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
       legend.direction = "horizontal")
   .inc_var_nms <- c("Calories", "SatFat", "Chol", "Na", "Fiber", "Sugars")
   ## Removed 4 with lowest contribution for the prim_obs.
-  .bas <- basis_attr_df(chocolates_ls$attr_df[, .inc_var_nms], prim_obs)
+  .bas <- sug_basis(chocolates_ls$attr_df[, .inc_var_nms], prim_obs)
   .mv  <- which(.inc_var_nms == "Sugars")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.
@@ -353,7 +353,7 @@ THIS_REG_radial_cheem_tour  <- function(
       legend.direction = "horizontal")
   .inc_var_nms <- c("BMI", "react", "off", "def", "mvm", "pwr")
   ## Removed 4 with lowest contribution for the prim_obs.
-  .bas <- basis_attr_df(fifa_ls$attr_df[, .inc_var_nms], prim_obs)
+  .bas <- sug_basis(fifa_ls$attr_df[, .inc_var_nms], prim_obs)
   .mv  <- which(.inc_var_nms == "def")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.
@@ -407,7 +407,7 @@ message("NOTE: Manually capturing view from app with Screen to GIF (.mp4)")
       legend.direction = "horizontal")
   .inc_var_nms <- c("LtA", "Qlt", "YrB", "LvA", "Rms", "GYB", "GrA")
   ## Removed 4 with lowest contribution for the prim_obs.
-  .bas <- basis_attr_df(ames2018_ls$attr_df[, .inc_var_nms], prim_obs)
+  .bas <- sug_basis(ames2018_ls$attr_df[, .inc_var_nms], prim_obs)
   .mv  <- which(.inc_var_nms == "LtA")
   mt_interp <- manual_tour(.bas, .mv) %>%
     spinifex:::interpolate_manual_tour(.15) ## App angle.

@@ -895,9 +895,18 @@ its inclusion in the final model.
 \section{Discussion}\label{sec:cheemdiscussion}}
 
 There is a clear need to extend the interpretability of black box
-models. This paper provides a technique that builds on local
-explanations to explore the variable importance local to an observation.
-The local explanations of an attribution projection from which variable
+models. With techniques such as SHAP, LIME, Break-down, one can
+calculate local explanations, i.e.~for every observation how strongly
+variables affect the model's predictions. Surprisingly few techniques
+allow us to understand the global distribution of these local
+explanations. Unsupervised data exploration techniques applied to data
+show how useful they are for identifying outliers, identifying segments
+of observations or discovering correlations between variables. All of
+these tasks can be performed for a set of explanations.
+
+This paper provides a technique that builds on local explanations to
+explore the variable importance local to an observation. The local
+explanations of an attribution projection from which variable
 contributions are varied using a radial tour. Several diagnostic plots
 are provided to assist with understanding the sensitivity of the
 prediction to particular variables. A global view shows the data space,

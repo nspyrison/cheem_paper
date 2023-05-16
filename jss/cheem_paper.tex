@@ -579,16 +579,6 @@ bill length (\texttt{bl}), bill depth (\texttt{bd}), flipper length
 (\texttt{fl}), and body mass (\texttt{bm}) for this illustration. A
 random forest model was fit with species as the response variable.
 
-(ref:casepenguins-cap) Examining the SHAP values for a random forest
-model classifying Palmer penguin species. The PI is a Gentoo (purple)
-penguin that is misclassified as a Chinstrap (orange), marked as an
-asterisk in (a) and the dashed vertical line in (b). The radial view
-shows varying the contribution of \texttt{fl} from the initial
-attribution projection (b, left), which produces a linear combination
-where the PI is more probably (higher density value) a Chinstrap than a
-Gentoo (b, right). (The animation of the radial tour is at
-\url{https://vimeo.com/666431172}.)
-
 \begin{CodeChunk}
 \begin{figure}
 
@@ -596,7 +586,7 @@ Gentoo (b, right). (The animation of the radial tour is at
 
 }
 
-\caption[(ref:casepenguins-cap)]{(ref:casepenguins-cap)}\label{fig:casepenguins}
+\caption[Examining the SHAP values for a random forest model classifying Palmer penguin species]{Examining the SHAP values for a random forest model classifying Palmer penguin species. The PI is a Gentoo (purple) penguin that is misclassified as a Chinstrap (orange), marked as an asterisk in (a) and the dashed vertical line in (b). The radial view shows varying the contribution of `fl` from the initial attribution projection (b, left), which produces a linear combination where the PI is more probably (higher density value) a Chinstrap than a Gentoo (b, right). (The animation of the radial tour is at https://vimeo.com/666431172.)}\label{fig:casepenguins}
 \end{figure}
 \end{CodeChunk}
 
@@ -606,12 +596,6 @@ the global view, and panel (b) shows several 1D projections generated
 with the radial tour. Penguin 243, a Gentoo (purple), is the PI because
 it has been misclassified as a Chinstrap (orange).
 
-(ref:casepenguinsblfl-cap) Checking what is learned from the cheem
-viewer. This is a plot of flipper length (\texttt{fl}) and bill length
-(\texttt{bl}), where an asterisk highlights the PI. A Gentoo (purple)
-misclassified as a Chinstrap (orange). The PI has an unusually small
-\texttt{fl} length which is why it is confused with a Chinstrap.
-
 \begin{CodeChunk}
 \begin{figure}
 
@@ -619,7 +603,7 @@ misclassified as a Chinstrap (orange). The PI has an unusually small
 
 }
 
-\caption[(ref:casepenguinsblfl-cap)]{(ref:casepenguinsblfl-cap)}\label{fig:casepenguinsblfl}
+\caption[Checking what is learned from the cheem viewer]{Checking what is learned from the cheem viewer. This is a plot of flipper length (`fl`) and bill length (`bl`), where an asterisk highlights the PI. A Gentoo (purple) misclassified as a Chinstrap (orange). The PI has an unusually small `fl` length which is why it is confused with a Chinstrap.}\label{fig:casepenguinsblfl}
 \end{figure}
 \end{CodeChunk}
 
@@ -678,19 +662,6 @@ this is that a dark chocolate, nutritionally more like milk should not
 be considered a healthy alternative. It is interesting to explore which
 nutritional variables contribute most to misclassification.
 
-(ref:casechocolates-cap) Examining the local explanation for a PI which
-is dark (orange) chocolate incorrectly predicted to be milk (green).
-From the attribution projection, this chocolate correctly looks more
-like dark than milk, which suggests that the local explanation does not
-help understand the prediction for this observation. So, the
-contribution of Sugar is varied---reducing it corresponds primarily with
-an increased magnitude from Fiber. When Sugar is zero, Fiber contributes
-strongly towards the left. In this view, the PI is closer to the bulk of
-the milk chocolates, suggesting that the prediction put a lot of
-importance on Fiber. This chocolate is a rare dark chocolate without any
-Fiber leading to it being mistaken for a milk chocolate. (A video of the
-tour animation can be found at \url{https://vimeo.com/666431143}.)
-
 \begin{CodeChunk}
 \begin{figure}
 
@@ -698,7 +669,7 @@ tour animation can be found at \url{https://vimeo.com/666431143}.)
 
 }
 
-\caption[(ref:casechocolates-cap)]{(ref:casechocolates-cap)}\label{fig:casechocolates}
+\caption[Examining the local explanation for a PI which is dark (orange) chocolate incorrectly predicted to be milk (green)]{Examining the local explanation for a PI which is dark (orange) chocolate incorrectly predicted to be milk (green). From the attribution projection, this chocolate correctly looks more like dark than milk, which suggests that the local explanation does not help understand the prediction for this observation. So, the contribution of Sugar is varied---reducing it corresponds primarily with an increased magnitude from Fiber. When Sugar is zero, Fiber contributes strongly towards the left. In this view, the PI is closer to the bulk of the milk chocolates, suggesting that the prediction put a lot of importance on Fiber. This chocolate is a rare dark chocolate without any Fiber leading to it being mistaken for a milk chocolate. (A video of the tour animation can be found at https://vimeo.com/666431143.)}\label{fig:casechocolates}
 \end{figure}
 \end{CodeChunk}
 
@@ -747,17 +718,6 @@ correctly predicted milk chocolate (observation 71). The corresponding
 global view and radial tour frames are shown in Figure
 \ref{fig:casechocolatesinverse}.
 
-(ref:casechocolatesinverse-cap) Examining the local explanation for a PI
-which is milk (green) chocolate incorrectly predicted to be dark
-(orange). In the attribution projection, the PI could be either milk or
-dark. Sodium and Fiber have the largest differences in attributed
-variable importance, with low values relative to other milk chocolates.
-The lack of importance attributed to these variables is suspected of
-contributing to the mistake, so the contribution of Sodium is varied. If
-Sodium had a larger contribution to the prediction (like in this view).
-the PI would look more like other milk chocolates. (A video of the tour
-animation can be found at \url{https://vimeo.com/666431148}.)
-
 \begin{CodeChunk}
 \begin{figure}
 
@@ -765,7 +725,7 @@ animation can be found at \url{https://vimeo.com/666431148}.)
 
 }
 
-\caption[(ref:casechocolatesinverse-cap)]{(ref:casechocolatesinverse-cap)}\label{fig:casechocolatesinverse}
+\caption[Examining the local explanation for a PI which is milk (green) chocolate incorrectly predicted to be dark (orange)]{Examining the local explanation for a PI which is milk (green) chocolate incorrectly predicted to be dark (orange). In the attribution projection, the PI could be either milk or dark. Sodium and Fiber have the largest differences in attributed variable importance, with low values relative to other milk chocolates. The lack of importance attributed to these variables is suspected of contributing to the mistake, so the contribution of Sodium is varied. If Sodium had a larger contribution to the prediction (like in this view). the PI would look more like other milk chocolates. (A video of the tour animation can be found at https://vimeo.com/666431148.)}\label{fig:casechocolatesinverse}
 \end{figure}
 \end{CodeChunk}
 
@@ -802,20 +762,6 @@ players despite not having this information. A leading offensive fielder
 (L. Messi) is compared with a top defensive fielder (V. van Dijk). The
 same observations were used in Figure \ref{fig:shapdistrbd}.
 
-(ref:casefifa-cap) Exploring the wages relative to skill measurements in
-the FIFA 2020 data. Star offensive player (L. Messi) is the PI, and he
-is compared with a top defensive player (V. van Dijk). The attribution
-projection is shown on the left, and it can be seen that this
-combination of variables produces a view where Messi has very high
-predicted (and observed) wages. Defense (\texttt{def}) is the chosen
-variable to vary. It starts very low, and Messi's predicted wages
-decrease dramatically as its contribution increases (right plot). The
-increased contribution in defense comes at the expense of offensive and
-reaction skills. The interpretation is that Messi's high wages are most
-attributable to his offensive and reaction skills, as initially provided
-by the local explanation. (A video of the animated radial tour can be
-found at \url{https://vimeo.com/666431163}.)
-
 \begin{CodeChunk}
 \begin{figure}
 
@@ -823,7 +769,7 @@ found at \url{https://vimeo.com/666431163}.)
 
 }
 
-\caption[(ref:casefifa-cap)]{(ref:casefifa-cap)}\label{fig:casefifa}
+\caption[Exploring the wages relative to skill measurements in the FIFA 2020 data]{Exploring the wages relative to skill measurements in the FIFA 2020 data. Star offensive player (L. Messi) is the PI, and he is compared with a top defensive player (V. van Dijk). The attribution projection is shown on the left, and it can be seen that this combination of variables produces a view where Messi has very high predicted (and observed) wages. Defense (`def`) is the chosen variable to vary. It starts very low, and Messi's predicted wages decrease dramatically as its contribution increases (right plot). The increased contribution in defense comes at the expense of offensive and reaction skills. The interpretation is that Messi's high wages are most attributable to his offensive and reaction skills, as initially provided by the local explanation. (A video of the animated radial tour can be found at https://vimeo.com/666431163.)}\label{fig:casefifa}
 \end{figure}
 \end{CodeChunk}
 
@@ -841,19 +787,6 @@ in defensive skills are now the rightmost points. In terms of what-if
 analysis, the difference between the data mean and his predicted wages
 would be halved if Messi's tree SHAP attributions were at these levels.
 
-(ref:caseames-cap) Exploring an observation with an extreme residual as
-the PI in relation to an observation with an accurate prediction for a
-similarly priced house in a random forest fit to the Ames housing data.
-The local explanation indicates a sizable attribution to Lot Area
-(\texttt{LtA}), while the CI has minimal attribution to this variable.
-The PI has a higher predicted value than the CI in the attribution
-projection. Reducing the contribution of Lot Area brings these two
-prices in line. This suggests that if the model did not value Lot Area
-so highly for this observation, then the observed sales price would be
-quite similar. That is, the large residual is due to a lack of factoring
-in the Lot Area for the prediction of PI's sales price. (A video showing
-the animation is at \url{https://vimeo.com/666431134}.)
-
 \begin{CodeChunk}
 \begin{figure}
 
@@ -861,7 +794,7 @@ the animation is at \url{https://vimeo.com/666431134}.)
 
 }
 
-\caption[(ref:caseames-cap)]{(ref:caseames-cap)}\label{fig:caseames}
+\caption[Exploring an observation with an extreme residual as the PI in relation to an observation with an accurate prediction for a similarly priced house in a random forest fit to the Ames housing data]{Exploring an observation with an extreme residual as the PI in relation to an observation with an accurate prediction for a similarly priced house in a random forest fit to the Ames housing data. The local explanation indicates a sizable attribution to Lot Area (`LtA`), while the CI has minimal attribution to this variable. The PI has a higher predicted value than the CI in the attribution projection. Reducing the contribution of Lot Area brings these two prices in line. This suggests that if the model did not value Lot Area so highly for this observation, then the observed sales price would be quite similar. That is, the large residual is due to a lack of factoring in the Lot Area for the prediction of PI's sales price. (A video showing the animation is at https://vimeo.com/666431134.)}\label{fig:caseames}
 \end{figure}
 \end{CodeChunk}
 

@@ -18,8 +18,8 @@ author:
   - name: Przemyslaw Biecek
     orcid: 0000-0001-8423-1823
     affiliation: |
-      | Warsaw University of 
-      | Technology and University
+      | University of Warsaw
+      | Warsaw University of Technology
 title:
   formatted: "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
   plain:     "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections"
@@ -135,7 +135,7 @@ This can also be considered similar to examining the coefficients from all subse
 <!-- tree SHAP -->
 For the application, we use _tree SHAP_, a variant of SHAP that enjoys a lower computational complexity [@lundberg_consistent_2018]. Instead of aggregating over sequences of the variables, tree SHAP calculates observation-level variable importance by exploring the structure of the decision trees. Tree SHAP is only compatible with tree-based models. so random forests are used for illustration. <!--The following section will use normalized SHAP values as a projection basis (call this the _attribution projection_) that will be used to explore the sensitivity of the variable contributions.-->
 
-There are numerous R packages currently available which provide functions for computing SHAP values, including `fastshap` [@fastshap], `kernelshap` [@kernelshap], `shapr` [@shapr], `shapviz` [@shapviz], `PPtreeregViz` [@PPtreeregViz], and the package `DALEX` has many resources [@biecek_dalex_2018]. There are many more packages only available through Github, like `treeshap` [kominsarczyk_treeshap_2021] that is used for this work. @molnar2022 provides good explanations of the different methods and how to apply them to different models. 
+There are numerous R packages currently available which provide functions for computing SHAP values, including `fastshap` [@fastshap], `kernelshap` [@kernelshap], `shapr` [@shapr], `shapviz` [@shapviz], `PPtreeregViz` [@PPtreeregViz], `ExplainPrediction` [@ExplainPrediction], `flashlight` [@flashlight] and the package `DALEX` has many resources [@biecek_dalex_2018]. There are many more packages only available through Github, like `treeshap` [@kominsarczyk_treeshap_2021] that is used for this work. @molnar2022 provides good explanations of the different methods and how to apply them to different models. 
 
 # Tours and the Radial Tour {#sec:tour}
 

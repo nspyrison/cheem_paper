@@ -1,7 +1,7 @@
 ---
 title: ''
 output: pdf_document
-date: "2023-03-16"
+date: "2023-05-23"
 ---
 
 ```{r setup, include=FALSE}
@@ -15,17 +15,17 @@ Journal of Statistical Software,
 Dear Editors,
 \bigskip
 
-Please consider our paper titled "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections" for publication in the Journal of Statistical Software. 
+Please consider our paper titled "Exploring Local Explanations of Nonlinear Models Using Animated Linear Projections" for publication in the Journal of Statistical Software.
 
-We feel that JSS is a good fit for this work because it describes new software for visualizing local explanations diagnostics for understanding model fits. This work can also be used to assess the reliability of the information reported by these diagnostics. 
+We feel that JSS is a good fit for this work because it describes new software for visualizing local explanations diagnostics for understanding model fits. This work can also be used to assess the reliability of the information reported by these diagnostics.
 
-We'd like to acknowledge that it was previously submitted to the Journal of Machine Learning Research. The primary reason was that the editor felt it had too much visualization to be a good fit for the journal. However, some useful feedback was provided, and below we have described how we have improved the paper based on their reviews. Here is an explanation of how the paper was improved based on the review from JMLR is available at https://github.com/nspyrison/cheem_paper/issues/2. We have also modified it to fit the style of JSS. 
+We would like to acknowledge that it was previously submitted to the Journal of Machine Learning Research. The primary reason was that the editor felt it had too much visualization to be a good fit for the journal. However, some useful feedback was provided, and below we have described how we have improved the paper based on their reviews. Here is an explanation of how the paper was improved based on the review from JMLR is available at https://github.com/nspyrison/cheem_paper/issues/2. We have also modified it to fit the style of JSS.
 \bigskip
 \bigskip
 
 Regards,
 
-Nick Spyrison, PhD
+Nicholas Spyrison, PhD
 
 \url{https://github.com/nspyrison/}\
 spyrison@gmail.com

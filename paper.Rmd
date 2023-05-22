@@ -26,6 +26,7 @@ preamble: >
   \usepackage[english]{babel}
   \usepackage{float}
   \usepackage{booktabs}
+  \usepackage{datetime}
 output:
   bookdown::pdf_book:
     base_format: rticles::jss_article

@@ -1,5 +1,9 @@
 ---
-documentclass: jss
+output:
+  #bookdown::html_document2: default
+  bookdown::pdf_document2:
+    keep_tex: true
+#documentclass: sn-jnl
 author:
   - name: Nicholas Spyrison
     orcid: 0000-0002-8417-0212
@@ -34,7 +38,8 @@ keywords:
 preamble: >
   \usepackage{amsmath}
   \usepackage{datetime}
-output: rticles::jss_article
+  \usepackage{subfig}
+#output: rticles::arxiv_article
 bibliography: paper.bib
 ---
 

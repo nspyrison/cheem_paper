@@ -1,0 +1,60 @@
+COMMENTS FOR THE AUTHOR:
+
+The authors should update their references using the Computational Statistics citation style.
+
+
+Reviewer #1: This paper proposes an interactive visualization tool and its implementation as an R package to intuitively understand LVA in non-linear models.
+
+--------
+General Comments
+
+You have not clearly stated the usefulness of the radial tour; please explain the advantage of using the SHAP values of PI and CI as the contribution of 1D projection compared to drawing a static density plot or scatterplot. Is it possible to correctly evaluate the sensitivity of variables by 1d projection for nonlinear models? Also, in the Case Studies in Section 5, please provide an explanation in relation to the Radial tour operation.
+
+The results are very different between the examples provided in the shiny application in the R cheem package and the examples presented in the paper. Please make sure to use random number seeds to achieve similar results. In particular, in the Case Studies of classification, there is no misclassification in the examples in the cheem package, and the misclassification is not indicated by the red circle as shown in the paper.
+
+The panel that is treeshap in the global view in the paper is attribution in the cheem package. Please unify either one.
+
+In the global view in the paper, the model panel has jitter processing, but the cheem package does not.
+
+Discussion is just a Conclusion. For example, please supplement any discussion on the following.
+- Abstract and Introduction are described in the context of XAI, but the tools proposed in this paper are not likely to be able to handle large data sets.
+- Concerning the convenience of the package: the application by the cheem package outputs little information (e.g., axis information), which makes it difficult to use intuitively.
+
+--------
+Individual Comments
+
+(p.7 l.18) Figures 3b, 4a -> 3c, 4b?
+
+(p.8 l.7) Is the SHAP value of the CI taken into account in the radial tour?
+
+(p.8 l.8) "The PI is ... global view" : The shiny app in the cheem package does not support interactive selection by clicking in the global view. (cheem version 0.3.0 on Windows 11 / Google Chrome)
+
+(p.10 Fig4) Residual plot is not displayed in cheem version 0.3.0 on Windows 11 / Google Chrome.
+
+(p.11 l.5) Figure 3a & b -> 4a & b?
+
+(p.11 l.7) Figure 3d -> 4d?
+
+(p.21 l.10) https://nspyrison.github.io/cheem/ is not available.
+
+(references) There are some characters like "???".
+
+
+
+Reviewer #2: This is a very interesting paper.
+I was able to run your software using publicly available packages.
+Unfortunately, I could not play videos shown at the following URLs.
+https://vimeo.com/666431172
+https://vimeo.com/666431143
+https://vimeo.com/666431148
+https://vimeo.com/666431163
+https://vimeo.com/666431134
+It would be even easier to understand if videos could be played back, so I hope this will be possible.
+
+I think the visualization you propose is very clear.
+However, I have the impression that it is difficult to understand, so I expect detailed explanations.
+For example, detailed explanations of Figure 3 e and Figure 4 e would be helpful.
+I also think that explanations of the data in Figure 3 and Figure 4 would make it even easier to understand.
+
+For small details, I think it is necessary to check page 5, line 38 and page 11, line 29.
+

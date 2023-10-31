@@ -1,10 +1,11 @@
 ---
 title: "Response to review"
+output: pdf_document
 ---
 
 **Overview**
 
-Thank you to the editor and reviews for your helpful feedback on our paper. We have made the changes requested, and explain them below, in *italicised* text.
+Thank you to the editor and reviewers for your helpful feedback on our paper. We have made the changes requested, and explain them below, in *italicised* text.
 
 
 **Reviewer #1**

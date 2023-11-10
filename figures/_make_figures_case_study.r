@@ -9,7 +9,14 @@
   require("patchwork")
   
   ## Load data:
-  penguins_ls   <- readRDS("data/preprocess_penguins.rds")
+  # ## ORIGINAL SUBMISSION:
+  # penguins_ls   <- readRDS("data/preprocess_penguins.rds")
+  # fifa_ls       <- readRDS("data/preprocess_fifa.rds")
+  # ames2018_ls   <- readRDS("data/preprocess_ames2018.rds")
+  # chocolates_ls <- readRDS("data/preprocess_chocolates.rds")
+  
+  ## R&R SUBMISSION:
+  penguins_ls   <- cheem::
   fifa_ls       <- readRDS("data/preprocess_fifa.rds")
   ames2018_ls   <- readRDS("data/preprocess_ames2018.rds")
   chocolates_ls <- readRDS("data/preprocess_chocolates.rds")
